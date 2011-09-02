@@ -804,10 +804,14 @@ public abstract class BaseUi implements UI {
         }
     }
 
-    protected void showTitleBarForDuration() {
+    protected final void showTitleBarForDuration() {
+        showTitleBarForDuration(HIDE_TITLEBAR_DELAY);
+    }
+
+    protected final void showTitleBarForDuration(long duration) {
         showTitleBar();
         Message msg = Message.obtain(mHandler, MSG_HIDE_TITLEBAR);
-        mHandler.sendMessageDelayed(msg, HIDE_TITLEBAR_DELAY);
+        mHandler.sendMessageDelayed(msg, duration);
     }
 
     private Handler mHandler = new Handler() {
