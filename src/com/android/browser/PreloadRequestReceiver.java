@@ -18,9 +18,9 @@ package com.android.browser;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.provider.Browser;
 import android.util.Log;
 
@@ -42,12 +42,54 @@ public class PreloadRequestReceiver extends BroadcastReceiver {
     static final String EXTRA_SEARCHBOX_CANCEL = "searchbox_cancel";
     static final String EXTRA_SEARCHBOX_SETQUERY = "searchbox_query";
 
+    private ConnectivityManager mConnectivityManager;
+
     @Override
     public void onReceive(Context context, Intent intent) {
         if (LOGD_ENABLED) Log.d(LOGTAG, "received intent " + intent);
-        if (BrowserSettings.getInstance().isPreloadEnabled()
-                && intent.getAction().equals(ACTION_PRELOAD)) {
+        if (isPreloadEnabledOnCurrentNetwork(context) &&
+                intent.getAction().equals(ACTION_PRELOAD)) {
             handlePreload(context, intent);
+        }
+    }
+
+    private boolean isPreloadEnabledOnCurrentNetwork(Context context) {
+        String preload = BrowserSettings.getInstance().getPreloadEnabled();
+        if (LOGD_ENABLED) Log.d(LOGTAG, "Preload setting: " + preload);
+        if (BrowserSettings.getPreloadAlwaysPreferenceString(context).equals(preload)) {
+            return true;
+        } else if (BrowserSettings.getPreloadOnWifiOnlyPreferenceString(context).equals(preload)) {
+            boolean onWifi = isOnWifi(context);
+            if (LOGD_ENABLED) Log.d(LOGTAG, "on wifi:" + onWifi);
+            return onWifi;
+        } else {
+            return false;
+        }
+    }
+
+    private boolean isOnWifi(Context context) {
+        if (mConnectivityManager == null) {
+            mConnectivityManager = (ConnectivityManager)
+                    context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        }
+        NetworkInfo ni = mConnectivityManager.getActiveNetworkInfo();
+        if (ni == null) {
+            return false;
+        }
+        switch (ni.getType()) {
+            case ConnectivityManager.TYPE_MOBILE:
+            case ConnectivityManager.TYPE_MOBILE_DUN:
+            case ConnectivityManager.TYPE_MOBILE_MMS:
+            case ConnectivityManager.TYPE_MOBILE_SUPL:
+            case ConnectivityManager.TYPE_MOBILE_HIPRI:
+            case ConnectivityManager.TYPE_WIMAX: // separate case for this?
+                return false;
+            case ConnectivityManager.TYPE_WIFI:
+            case ConnectivityManager.TYPE_ETHERNET:
+            case ConnectivityManager.TYPE_BLUETOOTH:
+                return true;
+            default:
+                return false;
         }
     }
 

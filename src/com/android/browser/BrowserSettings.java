@@ -780,7 +780,20 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     // getter/setters for bandwidth_preferences.xml
     // -----------------------------
 
-    public boolean isPreloadEnabled() {
-        return mPrefs.getBoolean(PREF_DATA_PRELOAD, false);
+    public static String getPreloadOnWifiOnlyPreferenceString(Context context) {
+        return context.getResources().getString(R.string.pref_data_preload_value_wifi_only);
     }
+
+    public static String getPreloadAlwaysPreferenceString(Context context) {
+        return context.getResources().getString(R.string.pref_data_preload_value_always);
+    }
+
+    private String getDefaultPreloadSetting() {
+        return getPreloadOnWifiOnlyPreferenceString(mContext);
+    }
+
+    public String getPreloadEnabled() {
+        return mPrefs.getString(PREF_DATA_PRELOAD, getDefaultPreloadSetting());
+    }
+
 }

@@ -100,7 +100,7 @@ public interface PreferenceKeys {
     // ----------------------
     // Keys for bandwidth_preferences.xml
     // ----------------------
-    static final String PREF_DATA_PRELOAD = "preload_enabled";
+    static final String PREF_DATA_PRELOAD = "preload_when";
     static final String PREF_LOAD_IMAGES = "load_images";
 
 }
