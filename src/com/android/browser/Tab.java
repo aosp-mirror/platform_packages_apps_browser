@@ -84,6 +84,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Vector;
+import java.util.regex.Pattern;
 import java.util.zip.GZIPOutputStream;
 
 /**
@@ -175,7 +176,7 @@ class Tab implements PictureListener {
     /**
      * See {@link #clearBackStackWhenItemAdded(String)}.
      */
-    private String mClearHistoryMatchUrl;
+    private Pattern mClearHistoryUrlPattern;
 
     private static synchronized Bitmap getDefaultFavicon(Context context) {
         if (sDefaultFavicon == null) {
@@ -1391,17 +1392,20 @@ class Tab implements PictureListener {
                 if (isInVoiceSearchMode()) {
                     item.setCustomData(mVoiceSearchData.mVoiceSearchIntent);
                 }
-                if (mClearHistoryMatchUrl != null) {
+                if (mClearHistoryUrlPattern != null) {
+                    boolean match =
+                        mClearHistoryUrlPattern.matcher(item.getOriginalUrl()).matches();
                     if (LOGD_ENABLED) {
-                        Log.d(LOGTAG, "onNewHistoryItem:\n\t" + item.getUrl() + "\n\t"
-                                + mClearHistoryMatchUrl);
+                        Log.d(LOGTAG, "onNewHistoryItem: match=" + match + "\n\t"
+                                + item.getUrl() + "\n\t"
+                                + mClearHistoryUrlPattern);
                     }
-                    if (TextUtils.equals(item.getOriginalUrl(), mClearHistoryMatchUrl)) {
+                    if (match) {
                         if (mMainView != null) {
                             mMainView.clearHistory();
                         }
                     }
-                    mClearHistoryMatchUrl = null;
+                    mClearHistoryUrlPattern = null;
                 }
             }
             @Override
@@ -2106,8 +2110,8 @@ class Tab implements PictureListener {
      * This is used to ensure that preloaded URLs that are not subsequently seen by the user do
      * not appear in the back stack.
      */
-    public void clearBackStackWhenItemAdded(String urlToMatch) {
-        mClearHistoryMatchUrl = urlToMatch;
+    public void clearBackStackWhenItemAdded(Pattern urlPattern) {
+        mClearHistoryUrlPattern = urlPattern;
     }
 
     protected void persistThumbnail() {

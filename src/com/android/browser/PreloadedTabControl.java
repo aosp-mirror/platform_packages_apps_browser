@@ -21,6 +21,7 @@ import android.util.Log;
 import android.webkit.SearchBox;
 
 import java.util.Map;
+import java.util.regex.Pattern;
 
 /**
  * Class to manage the controlling of preloaded tab.
@@ -74,6 +75,7 @@ public class PreloadedTabControl {
         }
         maybeSetQuery(query, sb);
         if (LOGD_ENABLED) Log.d(LOGTAG, "Submitting query " + query);
+        final String currentUrl = mTab.getUrl();
         sb.onsubmit(new SearchBox.SearchBoxListener() {
             @Override
             public void onSubmitComplete(boolean called) {
@@ -83,7 +85,21 @@ public class PreloadedTabControl {
                     if (LOGD_ENABLED) Log.d(LOGTAG, "Query not submitted; falling back");
                     loadUrl(fallbackUrl, fallbackHeaders);
                     // make sure that the failed, preloaded URL is cleared from the back stack
-                    mTab.clearBackStackWhenItemAdded(fallbackUrl);
+                    mTab.clearBackStackWhenItemAdded(Pattern.compile(
+                            "^" + Pattern.quote(fallbackUrl) + "$"));
+                } else {
+                    // ignore the next fragment change, to avoid leaving a blank page in the browser
+                    // after the query has been submitted.
+                    String currentWithoutFragment = Uri.parse(currentUrl)
+                            .buildUpon()
+                            .fragment(null)
+                            .toString();
+                    mTab.clearBackStackWhenItemAdded(
+                            Pattern.compile(
+                                    "^" +
+                                    Pattern.quote(currentWithoutFragment) +
+                                    "(\\#.*)?" +
+                                    "$"));
                 }
             }});
         return true;
