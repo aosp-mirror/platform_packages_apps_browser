@@ -103,7 +103,7 @@
     <string name="copy_page_url" msgid="7635062169011319208">"複製網頁網址"</string>
     <string name="share_page" msgid="593756995297268343">"分享網頁"</string>
     <string name="menu_save_snapshot" msgid="6935080344031126139">"儲存頁面以供離線閱讀"</string>
-    <!-- outdated translation 6176197364690207251 -->     <string name="snapshot_failed" msgid="4584580873565876033">"無法儲存頁面以供離線閱讀。"</string>
+    <string name="snapshot_failed" msgid="4584580873565876033">"無法儲存網頁以供離線閱讀。"</string>
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"<xliff:g id="BOOKMARK_COUNT">%d</xliff:g> 個書籤"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"空資料夾"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"開啟"</string>
@@ -154,13 +154,6 @@
     <string name="pref_general_title" msgid="1946872771219249323">"一般設定"</string>
     <string name="pref_general_sync_title" msgid="3138637035975860324">"同步處理"</string>
     <string name="pref_general_autofill_title" msgid="547881256865816858">"自動填入"</string>
-    <string name="pref_personal_sync_with_chrome" msgid="1695182180332194033">"與Google 瀏覽器保持同步"</string>
-    <string name="pref_personal_sync_with_chrome_summary" msgid="7414133931827321055">"共享「Android 瀏覽器」和「Google 瀏覽器」之間的書籤及其他資料"</string>
-    <string name="pref_personal_google_account" msgid="952360133341490071">"Google 帳戶"</string>
-    <string name="pref_personal_sync_bookmarks" msgid="59237515966184432">"同步處理書籤"</string>
-    <string name="pref_personal_sync_bookmarks_summary" msgid="4791767605662205482">"同步處理「Android 瀏覽器」和「Google 瀏覽器」之間的書籤"</string>
-    <string name="pref_personal_start_syncing" msgid="6046972042512655232">"開始同步"</string>
-    <string name="pref_personal_account_dialog_title" msgid="1390867119887955530">"請選取要與其共用的 Google 帳戶"</string>
     <string name="pref_autofill_enabled" msgid="1015751713312396713">"表單自動填入"</string>
     <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"輕按一下即可填妥網頁表單"</string>
     <string name="pref_autofill_profile_editor" msgid="3864116896052437796">"自動填入資料"</string>
@@ -168,9 +161,9 @@
     <string name="pref_autologin_title" msgid="2362827272595366379">"自動登入 Google"</string>
     <string name="pref_autologin_progress" msgid="8333244467048833461">"正使用 <xliff:g id="ID_1">%s</xliff:g> 登入 Google 網站"</string>
     <string name="autologin_bar_text" msgid="3684581827167173371">"登入身分"</string>
-    <!-- outdated translation 7052816600314556734 -->     <string name="autologin_bar_login_text" msgid="3336615320510851879">"登入"</string>
+    <string name="autologin_bar_login_text" msgid="3336615320510851879">"登入"</string>
     <string name="autologin_bar_hide_text" msgid="3629355974385859580">"隱藏"</string>
-    <!-- outdated translation 5132514366023044839 -->     <string name="autologin_bar_error" msgid="7470001207395920811">"登入失敗。"</string>
+    <string name="autologin_bar_error" msgid="7470001207395920811">"無法登入。"</string>
     <string name="autofill_profile_editor_heading" msgid="8392952553626722083">"輸入您輕觸網頁欄位時要自動填入的資料。"</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"全名："</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"電子郵件："</string>
@@ -394,7 +387,7 @@
     <string name="instant_search_label" msgid="8769284297650716935">"使用 Google 互動智慧搜尋 (研究室)"</string>
     <string name="preview" msgid="6450823514561689038">"預覽"</string>
     <string name="local_bookmarks" msgid="533816851415228520">"本機"</string>
-    <!-- outdated translation 2535200543238676638 -->     <string name="ua_switcher_desktop" msgid="220097077327558435">"電腦版"</string>
+    <string name="ua_switcher_desktop" msgid="220097077327558435">"要求電腦版網站"</string>
     <string name="permission_preload_label" msgid="4856971662337877316">"預先載入結果"</string>
     <string name="empty_snapshots_folder" msgid="5788256228290785444">"沒有儲存的頁面。"</string>
     <string name="remove_snapshot" msgid="1624447424544976849">"刪除儲存的頁面"</string>

@@ -154,13 +154,6 @@
     <string name="pref_general_title" msgid="1946872771219249323">"Chung"</string>
     <string name="pref_general_sync_title" msgid="3138637035975860324">"Đồng bộ hóa"</string>
     <string name="pref_general_autofill_title" msgid="547881256865816858">"Tự động điền"</string>
-    <string name="pref_personal_sync_with_chrome" msgid="1695182180332194033">"Đồng bộ hóa với Google Chrome"</string>
-    <string name="pref_personal_sync_with_chrome_summary" msgid="7414133931827321055">"Chia sẻ dấu trang &amp; các dữ liệu khác giữa Trình duyệt Android và Google Chrome"</string>
-    <string name="pref_personal_google_account" msgid="952360133341490071">"Tài khoản Google"</string>
-    <string name="pref_personal_sync_bookmarks" msgid="59237515966184432">"Đồng bộ hóa dấu trang"</string>
-    <string name="pref_personal_sync_bookmarks_summary" msgid="4791767605662205482">"Đồng bộ hóa dấu trang giữa Trình duyệt Android và Google Chrome"</string>
-    <string name="pref_personal_start_syncing" msgid="6046972042512655232">"Bắt đầu đồng bộ hóa"</string>
-    <string name="pref_personal_account_dialog_title" msgid="1390867119887955530">"Chọn tk Google để c.sẻ"</string>
     <string name="pref_autofill_enabled" msgid="1015751713312396713">"Tự động điền biểu mẫu"</string>
     <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"Điền biểu mẫu web chỉ với một cú nhấp"</string>
     <string name="pref_autofill_profile_editor" msgid="3864116896052437796">"Tự động điền dữ liệu"</string>

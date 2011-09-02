@@ -154,13 +154,6 @@
     <string name="pref_general_title" msgid="1946872771219249323">"Загальні"</string>
     <string name="pref_general_sync_title" msgid="3138637035975860324">"Синхронізація"</string>
     <string name="pref_general_autofill_title" msgid="547881256865816858">"Автозаповнення"</string>
-    <string name="pref_personal_sync_with_chrome" msgid="1695182180332194033">"Синхронізувати з Google Chrome"</string>
-    <string name="pref_personal_sync_with_chrome_summary" msgid="7414133931827321055">"Здійснювати обмін закладками й іншими даними між веб-переглядачем Android і Google Chrome"</string>
-    <string name="pref_personal_google_account" msgid="952360133341490071">"Облік. запис Google"</string>
-    <string name="pref_personal_sync_bookmarks" msgid="59237515966184432">"Синхронізувати закладки"</string>
-    <string name="pref_personal_sync_bookmarks_summary" msgid="4791767605662205482">"Синхронізуйте закладки у веб-переглядачі Android і Google Chrome"</string>
-    <string name="pref_personal_start_syncing" msgid="6046972042512655232">"Почати синхронізацію"</string>
-    <string name="pref_personal_account_dialog_title" msgid="1390867119887955530">"Вибрати обл.зап. Google для надсил."</string>
     <string name="pref_autofill_enabled" msgid="1015751713312396713">"Автозаповнення форм"</string>
     <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"Заповнюйте веб-форми за допомогою лише одного кліка"</string>
     <string name="pref_autofill_profile_editor" msgid="3864116896052437796">"Дані автозаповнення"</string>
@@ -394,7 +387,7 @@
     <string name="instant_search_label" msgid="8769284297650716935">"Google із Миттєвим пошуком (Лабораторії)"</string>
     <string name="preview" msgid="6450823514561689038">"Попередній перегляд"</string>
     <string name="local_bookmarks" msgid="533816851415228520">"Локальні"</string>
-    <string name="ua_switcher_desktop" msgid="220097077327558435">"Запитувати версію сайту для настільного комп’ютера"</string>
+    <string name="ua_switcher_desktop" msgid="220097077327558435">"Запитувати версію сайту для комп’ютера"</string>
     <string name="permission_preload_label" msgid="4856971662337877316">"Попередньо завантажувати результати"</string>
     <string name="empty_snapshots_folder" msgid="5788256228290785444">"Немає збережених сторінок."</string>
     <string name="remove_snapshot" msgid="1624447424544976849">"Видалити збережену сторінку"</string>

@@ -103,7 +103,7 @@
     <string name="copy_page_url" msgid="7635062169011319208">"Copiar URL de la página"</string>
     <string name="share_page" msgid="593756995297268343">"Compartir página"</string>
     <string name="menu_save_snapshot" msgid="6935080344031126139">"Guardar para leer sin conexión"</string>
-    <string name="snapshot_failed" msgid="4584580873565876033">"La página no se guardó para su lectura offline."</string>
+    <string name="snapshot_failed" msgid="4584580873565876033">"La página no se guardó para leer sin conexión."</string>
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"<xliff:g id="BOOKMARK_COUNT">%d</xliff:g> Marcadores"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Vaciar carpeta"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Abrir"</string>
@@ -154,13 +154,6 @@
     <string name="pref_general_title" msgid="1946872771219249323">"General"</string>
     <string name="pref_general_sync_title" msgid="3138637035975860324">"Sincronización"</string>
     <string name="pref_general_autofill_title" msgid="547881256865816858">"Autocompletar"</string>
-    <string name="pref_personal_sync_with_chrome" msgid="1695182180332194033">"Sincronización con Google Chrome"</string>
-    <string name="pref_personal_sync_with_chrome_summary" msgid="7414133931827321055">"Compartir favoritos y otros datos entre el navegador de Android y Google Chrome"</string>
-    <string name="pref_personal_google_account" msgid="952360133341490071">"Cuenta de Google"</string>
-    <string name="pref_personal_sync_bookmarks" msgid="59237515966184432">"Sincronizar favoritos"</string>
-    <string name="pref_personal_sync_bookmarks_summary" msgid="4791767605662205482">"Sincronizar favoritos entre el navegador Android y Google Chrome"</string>
-    <string name="pref_personal_start_syncing" msgid="6046972042512655232">"Iniciar la sincr."</string>
-    <string name="pref_personal_account_dialog_title" msgid="1390867119887955530">"Selec cta Google p/comp"</string>
     <string name="pref_autofill_enabled" msgid="1015751713312396713">"Completado automático de formulario"</string>
     <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"Completa formularios web con un clic"</string>
     <string name="pref_autofill_profile_editor" msgid="3864116896052437796">"Datos de completado automático"</string>

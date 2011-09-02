@@ -97,7 +97,7 @@
     <string name="select_dot" msgid="6299170761900561967">"Seleccionar texto"</string>
     <string name="bookmarks" msgid="1961279134885867815">"Marcadores"</string>
     <string name="shortcut_bookmark" msgid="3974876480401135895">"Marcador"</string>
-    <string name="shortcut_bookmark_title" msgid="3072725276532691472">"Seleccionar un marcador"</string>
+    <string name="shortcut_bookmark_title" msgid="3072725276532691472">"Selecciona un marcador"</string>
     <string name="history" msgid="2451240511251410032">"Historial"</string>
     <string name="menu_view_download" msgid="2124570321712995120">"Descargas"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"Copiar URL de página"</string>
@@ -154,13 +154,6 @@
     <string name="pref_general_title" msgid="1946872771219249323">"General"</string>
     <string name="pref_general_sync_title" msgid="3138637035975860324">"Sincronización"</string>
     <string name="pref_general_autofill_title" msgid="547881256865816858">"Autocompletar"</string>
-    <string name="pref_personal_sync_with_chrome" msgid="1695182180332194033">"Sincronizar con Google Chrome"</string>
-    <string name="pref_personal_sync_with_chrome_summary" msgid="7414133931827321055">"Compartir marcadores y otros datos entre el navegador de Android y Google Chrome"</string>
-    <string name="pref_personal_google_account" msgid="952360133341490071">"Cuenta de Google"</string>
-    <string name="pref_personal_sync_bookmarks" msgid="59237515966184432">"Sincronizar marcadores"</string>
-    <string name="pref_personal_sync_bookmarks_summary" msgid="4791767605662205482">"Sincronizar marcadores entre el navegador de Android y Google Chrome"</string>
-    <string name="pref_personal_start_syncing" msgid="6046972042512655232">"Iniciar sincronización"</string>
-    <string name="pref_personal_account_dialog_title" msgid="1390867119887955530">"Elegir cuenta para compartir"</string>
     <string name="pref_autofill_enabled" msgid="1015751713312396713">"Autocompletado de formulario"</string>
     <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"Rellenar formularios web con un solo clic"</string>
     <string name="pref_autofill_profile_editor" msgid="3864116896052437796">"Datos de Autocompletar"</string>
@@ -394,7 +387,7 @@
     <string name="instant_search_label" msgid="8769284297650716935">"Google con Instant (experimental)"</string>
     <string name="preview" msgid="6450823514561689038">"Vista previa"</string>
     <string name="local_bookmarks" msgid="533816851415228520">"Locales"</string>
-    <string name="ua_switcher_desktop" msgid="220097077327558435">"Solicitar sitio para escritorio"</string>
+    <string name="ua_switcher_desktop" msgid="220097077327558435">"Ver sitio como en un ordenador"</string>
     <string name="permission_preload_label" msgid="4856971662337877316">"Precargar resultados"</string>
     <string name="empty_snapshots_folder" msgid="5788256228290785444">"No hay páginas guardadas."</string>
     <string name="remove_snapshot" msgid="1624447424544976849">"Eliminar página guardada"</string>

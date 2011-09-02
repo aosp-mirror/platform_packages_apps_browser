@@ -154,13 +154,6 @@
     <string name="pref_general_title" msgid="1946872771219249323">"Generali"</string>
     <string name="pref_general_sync_title" msgid="3138637035975860324">"Sincronizzazione"</string>
     <string name="pref_general_autofill_title" msgid="547881256865816858">"Compilazione automatica"</string>
-    <string name="pref_personal_sync_with_chrome" msgid="1695182180332194033">"Sincronizza con Google Chrome"</string>
-    <string name="pref_personal_sync_with_chrome_summary" msgid="7414133931827321055">"Condividi Segnalibri e altri dati tra il Browser di Android e Google Chrome"</string>
-    <string name="pref_personal_google_account" msgid="952360133341490071">"Account Google"</string>
-    <string name="pref_personal_sync_bookmarks" msgid="59237515966184432">"Sincronizza Segnalibri"</string>
-    <string name="pref_personal_sync_bookmarks_summary" msgid="4791767605662205482">"Sincronizza Segnalibri tra il Browser di Android e Google Chrome"</string>
-    <string name="pref_personal_start_syncing" msgid="6046972042512655232">"Avvia sincronizzazione"</string>
-    <string name="pref_personal_account_dialog_title" msgid="1390867119887955530">"Seleziona account Google"</string>
     <string name="pref_autofill_enabled" msgid="1015751713312396713">"Compilazione automatica moduli"</string>
     <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"Compila i moduli web con un clic"</string>
     <string name="pref_autofill_profile_editor" msgid="3864116896052437796">"Dati per compilazione automatica"</string>
@@ -357,8 +350,8 @@
     <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"Condividi posizione"</string>
     <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"Rifiuta"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"Ricorda la preferenza"</string>
-    <!-- outdated translation 987286072035125498 -->     <string name="geolocation_permissions_prompt_toast_allowed" msgid="7833771073195530638">"Questo sito può accedere alla tua posizione. Modifica questa impostazione in: Impostazioni -&gt; Impostazioni siti web"</string>
-    <!-- outdated translation 7695100950212692515 -->     <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7418225389343746465">"Questo sito non può accedere alla tua posizione. Modifica questa impostazione in: Impostazioni -&gt; Impostazioni siti web"</string>
+    <string name="geolocation_permissions_prompt_toast_allowed" msgid="7833771073195530638">"Questo sito può accedere alla tua posizione. Modifica questa impostazione in: Impostazioni -&gt; Avanzate -&gt; Impostazioni siti web"</string>
+    <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7418225389343746465">"Questo sito non può accedere alla tua posizione. Modifica questa impostazione in: Impostazioni -&gt; Avanzate -&gt; Impostazioni siti web"</string>
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Cancella accesso a posiz."</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Al momento questo sito può accedere alla tua posizione"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"Al momento questo sito non può accedere alla tua posizione"</string>

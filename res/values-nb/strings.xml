@@ -154,13 +154,6 @@
     <string name="pref_general_title" msgid="1946872771219249323">"Generelt"</string>
     <string name="pref_general_sync_title" msgid="3138637035975860324">"Synkronisering"</string>
     <string name="pref_general_autofill_title" msgid="547881256865816858">"Automatisk utfylling"</string>
-    <string name="pref_personal_sync_with_chrome" msgid="1695182180332194033">"Synkroniser med Google Chrome"</string>
-    <string name="pref_personal_sync_with_chrome_summary" msgid="7414133931827321055">"Lagre bokmerker og andre data mellom Android-nettleseren og Google Chrome"</string>
-    <string name="pref_personal_google_account" msgid="952360133341490071">"Google-konto"</string>
-    <string name="pref_personal_sync_bookmarks" msgid="59237515966184432">"Synkroniser bokmerker"</string>
-    <string name="pref_personal_sync_bookmarks_summary" msgid="4791767605662205482">"Synkroniser bokmerker mellom Android-nettleseren og Google Chrome"</string>
-    <string name="pref_personal_start_syncing" msgid="6046972042512655232">"Start synkronisering"</string>
-    <string name="pref_personal_account_dialog_title" msgid="1390867119887955530">"Velg kto. å dele med"</string>
     <string name="pref_autofill_enabled" msgid="1015751713312396713">"Automatisk utfylling av skjema"</string>
     <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"Fyll ut nettskjemaer med ett enkelt klikk"</string>
     <string name="pref_autofill_profile_editor" msgid="3864116896052437796">"Fyll inn data automatisk"</string>
@@ -401,13 +394,13 @@
     <string name="snapshot_go_live" msgid="1209542802541168497">"Gå til aktiv side"</string>
     <string name="accessibility_button_back" msgid="6194680634245279407">"Gå tilbake"</string>
     <string name="accessibility_button_forward" msgid="1236827218480658168">"Gå til neste"</string>
-    <string name="accessibility_button_refresh" msgid="1023441396241841313">"Last inn siden på nytt"</string>
-    <string name="accessibility_button_stop" msgid="6793644120043222148">"Stopp innlasting av siden"</string>
-    <string name="accessibility_button_addbookmark" msgid="4787844912630006181">"Legg til bokmerke for siden"</string>
+    <string name="accessibility_button_refresh" msgid="1023441396241841313">"Last inn side på nytt"</string>
+    <string name="accessibility_button_stop" msgid="6793644120043222148">"Stopp innlasting av side"</string>
+    <string name="accessibility_button_addbookmark" msgid="4787844912630006181">"Legg til bokmerke for side"</string>
     <string name="accessibility_button_search" msgid="5357014102136055376">"Søk"</string>
     <string name="accessibility_button_voice" msgid="152016375096083337">"Start talesøk"</string>
     <string name="accessibility_button_bookmarks" msgid="7435055677299151649">"Bokmerker"</string>
-    <string name="accessibility_button_closetab" msgid="6954807842756927737">"Lukk fanen"</string>
+    <string name="accessibility_button_closetab" msgid="6954807842756927737">"Lukk fane"</string>
     <string name="accessibility_button_newtab" msgid="4116986240706315748">"Åpne ny fane"</string>
     <string name="accessibility_button_newincognitotab" msgid="5254901889040012964">"Åpne ny inkognitofane"</string>
     <string name="accessibility_button_clear" msgid="6943152307986161598">"Tøm inndata"</string>

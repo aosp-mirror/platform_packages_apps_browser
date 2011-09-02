@@ -154,13 +154,6 @@
     <string name="pref_general_title" msgid="1946872771219249323">"ทั่วไป"</string>
     <string name="pref_general_sync_title" msgid="3138637035975860324">"ซิงค์"</string>
     <string name="pref_general_autofill_title" msgid="547881256865816858">"ป้อนอัตโนมัติ"</string>
-    <string name="pref_personal_sync_with_chrome" msgid="1695182180332194033">"ซิงค์กับ Google Chrome"</string>
-    <string name="pref_personal_sync_with_chrome_summary" msgid="7414133931827321055">"แบ่งปันบุ๊กมาร์กและข้อมูลอื่นๆ ระหว่างเบราว์เซอร์ Android กับ Google Chrome"</string>
-    <string name="pref_personal_google_account" msgid="952360133341490071">"บัญชี Google"</string>
-    <string name="pref_personal_sync_bookmarks" msgid="59237515966184432">"ซิงค์บุ๊กมาร์ก"</string>
-    <string name="pref_personal_sync_bookmarks_summary" msgid="4791767605662205482">"ซิงค์บุ๊กมาร์กระหว่างเบราว์เซอร์ Android และ Google Chrome"</string>
-    <string name="pref_personal_start_syncing" msgid="6046972042512655232">"เริ่มการซิงค์"</string>
-    <string name="pref_personal_account_dialog_title" msgid="1390867119887955530">"เลือกบัญชี Google ที่จะแบ่งปัน"</string>
     <string name="pref_autofill_enabled" msgid="1015751713312396713">"การป้อนฟอร์มอัตโนมัติ"</string>
     <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"กรอกข้อมูลเว็บฟอร์มได้ในคลิกเดียว"</string>
     <string name="pref_autofill_profile_editor" msgid="3864116896052437796">"ป้อนข้อมูลอัตโนมัติ"</string>
