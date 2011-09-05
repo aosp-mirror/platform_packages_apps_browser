@@ -18,6 +18,8 @@
 package com.android.browser;
 
 import android.app.Activity;
+import android.app.PendingIntent;
+import android.app.PendingIntent.CanceledException;
 import android.app.SearchManager;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -30,6 +32,7 @@ import android.provider.Browser;
 import android.provider.MediaStore;
 import android.speech.RecognizerResultsIntent;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 
 import com.android.browser.search.SearchEngine;
@@ -49,6 +52,22 @@ public class IntentHandler {
     final static String GOOGLE_SEARCH_SOURCE_SUGGEST = "browser-suggest";
     // "source" parameter for Google search from unknown source
     final static String GOOGLE_SEARCH_SOURCE_UNKNOWN = "unknown";
+
+    // Pending intent extra attached to browser intents that is broadcast when the page load
+    // completes.
+    // TODO move to android.provider.Browser & make public?
+    private static final String EXTRA_LOAD_COMPLETE_PENDINGINTENT = "load_complete_intent";
+    // extra attached to intent received via EXTRA_LOAD_COMPLETE_PENDINGINTENT indicating the
+    // time at which the load completed.
+    public static final String EXTRA_LOAD_COMPLETION_TIME = "completets";
+    // extra attached to intent received via EXTRA_LOAD_COMPLETE_PENDINGINTENT indicating if
+    // preloading was attempted.
+    public static final String EXTRA_PREFETCH_ATTEMPTED = "prefattempt";
+    // extra attached to intent received via EXTRA_LOAD_COMPLETE_PENDINGINTENT indicating if
+    // preloading succeeded.
+    public static final String EXTRA_PREFETCH_SUCCESS = "prefsuccess";
+
+
 
     /* package */ static final UrlData EMPTY_URL_DATA = new UrlData(null);
 
@@ -224,11 +243,39 @@ public class IntentHandler {
         }
     }
 
+    /**
+     * Send a pending intent received in a page view intent. This should be called when the page
+     * has finished loading.
+     *
+     * @param prefetchAttempted Indicates if prefetching was attempted, {@code null} if prefetching
+     *      was not requested or is disabled.
+     * @param prefetchSucceeded Indicates if prefetching succeeded, {@code null} if prefetching
+     *      was not requested or is disabled.
+     */
+    public static void sendPageLoadCompletePendingIntent(Context context, PendingIntent pi,
+            Boolean prefetchAttempted, Boolean prefetchSucceeded) {
+        if (pi == null) return;
+        Intent fillIn = new Intent();
+        fillIn.putExtra(EXTRA_LOAD_COMPLETION_TIME, System.currentTimeMillis());
+        if (prefetchAttempted != null) {
+            fillIn.putExtra(EXTRA_PREFETCH_ATTEMPTED, prefetchAttempted.booleanValue());
+        }
+        if (prefetchSucceeded != null) {
+            fillIn.putExtra(EXTRA_PREFETCH_SUCCESS, prefetchSucceeded.booleanValue());
+        }
+        try {
+            pi.send(context, Activity.RESULT_OK, fillIn);
+        } catch (CanceledException e) {
+            // ignore
+        }
+    }
+
     protected static UrlData getUrlDataFromIntent(Intent intent) {
         String url = "";
         Map<String, String> headers = null;
         PreloadedTabControl preloaded = null;
         String preloadedSearchBoxQuery = null;
+        PendingIntent loadCompletePendingIntent = null;
         if (intent != null
                 && (intent.getFlags() & Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) == 0) {
             final String action = intent.getAction();
@@ -252,6 +299,10 @@ public class IntentHandler {
                     preloadedSearchBoxQuery = intent.getStringExtra(
                             PreloadRequestReceiver.EXTRA_SEARCHBOX_SETQUERY);
                     preloaded = Preloader.getInstance().getPreloadedTab(id);
+                }
+                if (intent.hasExtra(EXTRA_LOAD_COMPLETE_PENDINGINTENT)) {
+                    loadCompletePendingIntent =
+                        intent.getParcelableExtra(EXTRA_LOAD_COMPLETE_PENDINGINTENT);
                 }
             } else if (Intent.ACTION_SEARCH.equals(action)
                     || MediaStore.INTENT_ACTION_MEDIA_SEARCH.equals(action)
@@ -277,7 +328,8 @@ public class IntentHandler {
                 }
             }
         }
-        return new UrlData(url, headers, intent, preloaded, preloadedSearchBoxQuery);
+        return new UrlData(url, headers, intent, preloaded, preloadedSearchBoxQuery,
+                loadCompletePendingIntent);
     }
 
     /**
@@ -362,6 +414,7 @@ public class IntentHandler {
         final Intent mVoiceIntent;
         final PreloadedTabControl mPreloadedTab;
         final String mSearchBoxQueryToSubmit;
+        final PendingIntent mOnLoadCompletePendingIntent;
 
         UrlData(String url) {
             this.mUrl = url;
@@ -369,14 +422,16 @@ public class IntentHandler {
             this.mVoiceIntent = null;
             this.mPreloadedTab = null;
             this.mSearchBoxQueryToSubmit = null;
+            this.mOnLoadCompletePendingIntent = null;
         }
 
         UrlData(String url, Map<String, String> headers, Intent intent) {
-            this(url, headers, intent, null, null);
+            this(url, headers, intent, null, null, null);
         }
 
         UrlData(String url, Map<String, String> headers, Intent intent,
-                PreloadedTabControl preloaded, String searchBoxQueryToSubmit) {
+                PreloadedTabControl preloaded, String searchBoxQueryToSubmit,
+                PendingIntent onLoadCompletePendingIntent) {
             this.mUrl = url;
             this.mHeaders = headers;
             if (RecognizerResultsIntent.ACTION_VOICE_SEARCH_RESULTS
@@ -387,6 +442,7 @@ public class IntentHandler {
             }
             this.mPreloadedTab = preloaded;
             this.mSearchBoxQueryToSubmit = searchBoxQueryToSubmit;
+            this.mOnLoadCompletePendingIntent = onLoadCompletePendingIntent;
         }
 
         boolean isEmpty() {
@@ -403,6 +459,10 @@ public class IntentHandler {
 
         String getSearchBoxQueryToSubmit() {
             return mSearchBoxQueryToSubmit;
+        }
+
+        PendingIntent getOnLoadCompletePendingIntent() {
+            return mOnLoadCompletePendingIntent;
         }
     }
 

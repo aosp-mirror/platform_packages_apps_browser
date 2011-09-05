@@ -18,6 +18,7 @@ package com.android.browser;
 
 import android.app.Activity;
 import android.app.DownloadManager;
+import android.app.PendingIntent;
 import android.app.SearchManager;
 import android.content.ClipboardManager;
 import android.content.ContentProvider;
@@ -93,6 +94,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 /**
  * Controller for browser
@@ -761,6 +763,7 @@ public class Controller
     public void stopLoading() {
         mLoadStopped = true;
         Tab tab = mTabControl.getCurrentTab();
+        tab.clearPageLoadCompleteListener();
         WebView w = getCurrentTopWebView();
         w.stopLoading();
         mUi.onPageStopped(tab);
@@ -2154,7 +2157,8 @@ public class Controller
         final PreloadedTabControl tabControl = urlData.getPreloadedTab();
         final String sbQuery = urlData.getSearchBoxQueryToSubmit();
         if (sbQuery != null) {
-            if (!tabControl.searchBoxSubmit(sbQuery, urlData.mUrl, urlData.mHeaders)) {
+            if (!tabControl.searchBoxSubmit(sbQuery, urlData.mUrl, urlData.mHeaders,
+                    urlData.getOnLoadCompletePendingIntent())) {
                 // Could not submit query. Fallback to regular tab creation
                 tabControl.destroy();
                 return null;
@@ -2172,6 +2176,18 @@ public class Controller
         mTabControl.addPreloadedTab(t);
         addTab(t);
         setActiveTab(t);
+        if (sbQuery == null) {
+            // if the searchbox query is set, the load complete notification is handled within
+            // the preloaded tab controller.
+            if (t.inPageLoad()) {
+                requestLoadCompleteNotification(urlData.mOnLoadCompletePendingIntent, t,
+                        urlData.mUrl, true, true);
+            } else {
+                // the page is already fully loaded
+                IntentHandler.sendPageLoadCompletePendingIntent(mActivity,
+                        urlData.mOnLoadCompletePendingIntent, true, true);
+            }
+        }
         return t;
     }
 
@@ -2365,7 +2381,23 @@ public class Controller
                 // this isn't called for preloaded tabs
             } else {
                 loadUrl(t, data.mUrl, data.mHeaders);
+                requestLoadCompleteNotification(data.mOnLoadCompletePendingIntent, t, data.mUrl,
+                        null, null);
             }
+        }
+    }
+
+    private void requestLoadCompleteNotification(final PendingIntent loadCompletePendingIntent,
+            Tab t, String forUrl, final Boolean preloaded, final Boolean preloadSuccess) {
+        if (loadCompletePendingIntent != null) {
+            Pattern urlMatch = Pattern.compile(Pattern.quote(forUrl));
+            t.setOnPageLoadCompleteListener(urlMatch, new Tab.OnPageLoadCompleteListener() {
+                @Override
+                public void onPageLoadComplete() {
+                    IntentHandler.sendPageLoadCompletePendingIntent(mActivity,
+                            loadCompletePendingIntent, preloaded, preloadSuccess);
+                }
+            });
         }
     }
 
