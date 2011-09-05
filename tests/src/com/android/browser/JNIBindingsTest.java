@@ -213,8 +213,7 @@ public class JNIBindingsTest extends AndroidTestCase {
     public boolean testJSPrimitivesToStringsInJava(String intParam, String nullParam,
             String doubleParam, String booleanParam, String charParam,
             String undefinedParam) {
-        // Since JS numbers are treated as doubles.
-        String expectedIntParam = "123.0";
+        String expectedIntParam = "123";
         String expectedDoubleParam = "456.789";
         String expectedBooleanParam = "true";
         String expectedCharParam = "d";
