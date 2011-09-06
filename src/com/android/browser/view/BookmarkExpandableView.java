@@ -345,7 +345,7 @@ public class BookmarkExpandableView extends ExpandableListView
 
             @Override
             public void onInvalidated() {
-                notifyDataSetChanged();
+                notifyDataSetInvalidated();
             }
         };
 
