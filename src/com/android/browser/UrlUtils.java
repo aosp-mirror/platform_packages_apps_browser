@@ -40,22 +40,22 @@ public class UrlUtils {
     private final static String QUICKSEARCH_G = "http://www.google.com/m?q=%s";
     private final static String QUERY_PLACE_HOLDER = "%s";
 
-    // Regular expression to strip http://, optionally www., and optionally
+    // Regular expression to strip http:// and optionally
     // the trailing slash
     private static final Pattern STRIP_URL_PATTERN =
-            Pattern.compile("^http://(?:www\\.)?(.*?)/?$");
+            Pattern.compile("^http://(.*?)/?$");
 
     private UrlUtils() { /* cannot be instantiated */ }
 
     /**
-     * Strips the provided url of preceding "http://", "www.", and any trailing "/". Does not
+     * Strips the provided url of preceding "http://" and any trailing "/". Does not
      * strip "https://". If the provided string cannot be stripped, the original string
      * is returned.
      *
      * TODO: Put this in TextUtils to be used by other packages doing something similar.
      *
      * @param url a url to strip, like "http://www.google.com/"
-     * @return a stripped url like "google.com", or the original string if it could
+     * @return a stripped url like "www.google.com", or the original string if it could
      *         not be stripped
      */
     public static String stripUrl(String url) {
