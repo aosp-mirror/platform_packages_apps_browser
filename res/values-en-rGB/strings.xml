@@ -154,13 +154,6 @@
     <string name="pref_general_title" msgid="1946872771219249323">"General"</string>
     <string name="pref_general_sync_title" msgid="3138637035975860324">"Sync"</string>
     <string name="pref_general_autofill_title" msgid="547881256865816858">"Auto-fill"</string>
-    <string name="pref_personal_sync_with_chrome" msgid="1695182180332194033">"Sync with Google Chrome"</string>
-    <string name="pref_personal_sync_with_chrome_summary" msgid="7414133931827321055">"Share bookmarks &amp; other data between Android Browser and Google Chrome"</string>
-    <string name="pref_personal_google_account" msgid="952360133341490071">"Google account"</string>
-    <string name="pref_personal_sync_bookmarks" msgid="59237515966184432">"Sync bookmarks"</string>
-    <string name="pref_personal_sync_bookmarks_summary" msgid="4791767605662205482">"Sync bookmarks between Android Browser and Google Chrome"</string>
-    <string name="pref_personal_start_syncing" msgid="6046972042512655232">"Start syncing"</string>
-    <string name="pref_personal_account_dialog_title" msgid="1390867119887955530">"Select Google account to share with"</string>
     <string name="pref_autofill_enabled" msgid="1015751713312396713">"Form auto-fill"</string>
     <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"Fill in web forms with a single click"</string>
     <string name="pref_autofill_profile_editor" msgid="3864116896052437796">"Auto-fill data"</string>
@@ -357,8 +350,8 @@
     <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"Share location"</string>
     <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"Decline"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"Remember preference"</string>
-    <!-- outdated translation 987286072035125498 -->     <string name="geolocation_permissions_prompt_toast_allowed" msgid="7833771073195530638">"This site can access your location. Change this in Settings -&gt; Website settings"</string>
-    <!-- outdated translation 7695100950212692515 -->     <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7418225389343746465">"This site cannot access your location. Change this in Settings -&gt; Website settings"</string>
+    <string name="geolocation_permissions_prompt_toast_allowed" msgid="7833771073195530638">"This site can access your location. Change this in Settings -&gt; Advanced -&gt; Website settings"</string>
+    <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7418225389343746465">"This site cannot access your location. Change this in Settings -&gt; Advanced -&gt; Website settings"</string>
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Clear location access"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"This site can currently access your location"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"This site cannot currently access your location"</string>

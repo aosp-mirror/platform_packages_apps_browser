@@ -154,13 +154,6 @@
     <string name="pref_general_title" msgid="1946872771219249323">"Umum"</string>
     <string name="pref_general_sync_title" msgid="3138637035975860324">"Penyegerakan"</string>
     <string name="pref_general_autofill_title" msgid="547881256865816858">"Auto isi"</string>
-    <string name="pref_personal_sync_with_chrome" msgid="1695182180332194033">"Segerakkan dengan Google Chrome"</string>
-    <string name="pref_personal_sync_with_chrome_summary" msgid="7414133931827321055">"Berkongsi penanda halaman &amp; data lain antara Penyemak Imbas Android dan Google Chrome"</string>
-    <string name="pref_personal_google_account" msgid="952360133341490071">"Akaun Google"</string>
-    <string name="pref_personal_sync_bookmarks" msgid="59237515966184432">"Segerakkan penanda halaman"</string>
-    <string name="pref_personal_sync_bookmarks_summary" msgid="4791767605662205482">"Segerakkan penanda halaman antara Penyemak Imbas Android dan Google Chrome"</string>
-    <string name="pref_personal_start_syncing" msgid="6046972042512655232">"Mula menyegerakkan"</string>
-    <string name="pref_personal_account_dialog_title" msgid="1390867119887955530">"Plih akaun utk kngsi"</string>
     <string name="pref_autofill_enabled" msgid="1015751713312396713">"Auto isi borang"</string>
     <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"Isikan borang web dengan satu klik"</string>
     <string name="pref_autofill_profile_editor" msgid="3864116896052437796">"Auto isi data"</string>

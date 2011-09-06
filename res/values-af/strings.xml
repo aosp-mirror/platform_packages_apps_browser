@@ -241,13 +241,6 @@
     <string name="pref_general_title" msgid="1946872771219249323">"Algemeen"</string>
     <string name="pref_general_sync_title" msgid="3138637035975860324">"Sinkroniseer"</string>
     <!-- outdated translation 64638897890112873 -->     <string name="pref_general_autofill_title" msgid="547881256865816858">"Outo-invul"</string>
-    <string name="pref_personal_sync_with_chrome" msgid="1695182180332194033">"Sinkroniseer met Google Chrome"</string>
-    <string name="pref_personal_sync_with_chrome_summary" msgid="7414133931827321055">"Deel boekmerke en ander data tussen Android-blaaier en Google Chrome"</string>
-    <string name="pref_personal_google_account" msgid="952360133341490071">"Google-rekening"</string>
-    <string name="pref_personal_sync_bookmarks" msgid="59237515966184432">"Sinkroniseer boekmerke"</string>
-    <string name="pref_personal_sync_bookmarks_summary" msgid="4791767605662205482">"Sinkroniseer boekmerke tussen Android-blaaier en Google Chrome"</string>
-    <string name="pref_personal_start_syncing" msgid="6046972042512655232">"Begin sinkroniseer"</string>
-    <string name="pref_personal_account_dialog_title" msgid="1390867119887955530">"Kies Google-rekening om mee te deel"</string>
     <!-- outdated translation 1174197447388234595 -->     <string name="pref_autofill_enabled" msgid="1015751713312396713">"Outovul vorm"</string>
     <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"Vul webvorms met \'n enkele klik in"</string>
     <!-- outdated translation 1350709161524642663 -->     <string name="pref_autofill_profile_editor" msgid="3864116896052437796">"Outovul-instellings"</string>

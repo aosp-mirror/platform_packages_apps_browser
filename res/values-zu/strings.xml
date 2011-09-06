@@ -215,13 +215,6 @@
     <string name="pref_general_title" msgid="1946872771219249323">"Okuvamile"</string>
     <string name="pref_general_sync_title" msgid="3138637035975860324">"Vumelanisa"</string>
     <!-- outdated translation 64638897890112873 -->     <string name="pref_general_autofill_title" msgid="547881256865816858">"Ukugcwalisa Ngokuzenzakalelayo"</string>
-    <string name="pref_personal_sync_with_chrome" msgid="1695182180332194033">"Vumelanisa ne-Google Chrome"</string>
-    <string name="pref_personal_sync_with_chrome_summary" msgid="7414133931827321055">"Abelana namabhukimakhi &amp; enye idatha phakathi kweSiphequluli se-Android ne-Google Chrome"</string>
-    <string name="pref_personal_google_account" msgid="952360133341490071">"I-akhawunti ye-Google"</string>
-    <string name="pref_personal_sync_bookmarks" msgid="59237515966184432">"Vumelanisa amabhukimakhi"</string>
-    <string name="pref_personal_sync_bookmarks_summary" msgid="4791767605662205482">"Vumelanisa amabhukimakhi phakathi Nesiphequluli se-Android kanye ne-Google Chrome"</string>
-    <string name="pref_personal_start_syncing" msgid="6046972042512655232">"Qalisa ukuvumelanisa"</string>
-    <string name="pref_personal_account_dialog_title" msgid="1390867119887955530">"Khetha i-akhawunti ye-Google ozokwabelana nayo"</string>
     <!-- outdated translation 1174197447388234595 -->     <string name="pref_autofill_enabled" msgid="1015751713312396713">"Ifomu Yokugcwalisa Okuzenzakalelayo"</string>
     <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"Gcwalisa amafomu ewebhu ngokuchofoza okukodwa"</string>
     <!-- outdated translation 1350709161524642663 -->     <string name="pref_autofill_profile_editor" msgid="3864116896052437796">"Izilungiselelo Zokugcwalisa Okuzenzakalelayo"</string>

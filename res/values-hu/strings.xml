@@ -154,13 +154,6 @@
     <string name="pref_general_title" msgid="1946872771219249323">"Általános"</string>
     <string name="pref_general_sync_title" msgid="3138637035975860324">"Szinkronizálás"</string>
     <string name="pref_general_autofill_title" msgid="547881256865816858">"Automatikus kitöltés"</string>
-    <string name="pref_personal_sync_with_chrome" msgid="1695182180332194033">"Szinkronizálás a Google Chrome-mal"</string>
-    <string name="pref_personal_sync_with_chrome_summary" msgid="7414133931827321055">"Könyvjelzők és egyéb adatok megosztása az Android böngészője és a Google Chrome között"</string>
-    <string name="pref_personal_google_account" msgid="952360133341490071">"Google Fiók"</string>
-    <string name="pref_personal_sync_bookmarks" msgid="59237515966184432">"Könyvjelzők szinkronizálása"</string>
-    <string name="pref_personal_sync_bookmarks_summary" msgid="4791767605662205482">"Az Android böngésző és a Google Chrome könyvjelzőinek szinkronizálása"</string>
-    <string name="pref_personal_start_syncing" msgid="6046972042512655232">"Szinkronizálás most"</string>
-    <string name="pref_personal_account_dialog_title" msgid="1390867119887955530">"Fiók kiválasztása"</string>
     <string name="pref_autofill_enabled" msgid="1015751713312396713">"Űrlap automatikus kitöltése"</string>
     <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"Internetes űrlapok kitöltése egyetlen kattintással"</string>
     <string name="pref_autofill_profile_editor" msgid="3864116896052437796">"Adatok automatikus kitöltése"</string>
@@ -168,7 +161,7 @@
     <string name="pref_autologin_title" msgid="2362827272595366379">"Automatikus Google-bejelentkezés"</string>
     <string name="pref_autologin_progress" msgid="8333244467048833461">"Bejelentkezés Google-webhelyekre a következők használatával: <xliff:g id="ID_1">%s</xliff:g>"</string>
     <string name="autologin_bar_text" msgid="3684581827167173371">"Bejelentkezés mint"</string>
-    <string name="autologin_bar_login_text" msgid="3336615320510851879">"Bejelen."</string>
+    <string name="autologin_bar_login_text" msgid="3336615320510851879">"Belépés"</string>
     <string name="autologin_bar_hide_text" msgid="3629355974385859580">"Elrejtés"</string>
     <string name="autologin_bar_error" msgid="7470001207395920811">"Sikertelen bejelentkezés"</string>
     <string name="autofill_profile_editor_heading" msgid="8392952553626722083">"Adja meg azokat az adatokat, amelyekkel ki szeretné tölteni az internetes mezőket, amikor megérinti azokat."</string>

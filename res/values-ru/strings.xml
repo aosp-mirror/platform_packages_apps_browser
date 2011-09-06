@@ -154,13 +154,6 @@
     <string name="pref_general_title" msgid="1946872771219249323">"Общие"</string>
     <string name="pref_general_sync_title" msgid="3138637035975860324">"Синхронизация"</string>
     <string name="pref_general_autofill_title" msgid="547881256865816858">"Автозаполнение"</string>
-    <string name="pref_personal_sync_with_chrome" msgid="1695182180332194033">"Синхронизировать с Google Chrome"</string>
-    <string name="pref_personal_sync_with_chrome_summary" msgid="7414133931827321055">"Совместно использовать закладки и другие данные в браузере Android и Google Chrome"</string>
-    <string name="pref_personal_google_account" msgid="952360133341490071">"Аккаунт Google"</string>
-    <string name="pref_personal_sync_bookmarks" msgid="59237515966184432">"Синхронизировать закладки"</string>
-    <string name="pref_personal_sync_bookmarks_summary" msgid="4791767605662205482">"Синхронизировать закладки браузера Android и Google Chrome"</string>
-    <string name="pref_personal_start_syncing" msgid="6046972042512655232">"Синхронизировать"</string>
-    <string name="pref_personal_account_dialog_title" msgid="1390867119887955530">"Выберите аккаунт Google"</string>
     <string name="pref_autofill_enabled" msgid="1015751713312396713">"Автозаполнение форм"</string>
     <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"Заполнение веб-форм одним кликом"</string>
     <string name="pref_autofill_profile_editor" msgid="3864116896052437796">"Автозаполнение"</string>
@@ -238,10 +231,10 @@
     <string name="pref_text_zoom" msgid="8387229123479610157">"Масштаб текста"</string>
     <string name="pref_force_userscalable" msgid="5641500562399892621">"Менять масштаб принудительно"</string>
     <string name="pref_force_userscalable_summary" msgid="4431962409438162448">"Учитывать ли запросы сайтов при управлении масштабом"</string>
-    <string name="pref_inverted_category" msgid="3115731672066279347">"Рендеринг инвертированного экрана"</string>
-    <string name="pref_inverted" msgid="4813962104859359420">"Инвертирование цветов"</string>
-    <string name="pref_inverted_summary" msgid="8570087335228699813">"Включить инвертирование цветов. Черное станет белым, и наоборот."</string>
-    <string name="pref_inverted_contrast" msgid="8527441236225288169">"Контрастность"</string>
+    <string name="pref_inverted_category" msgid="3115731672066279347">"Режим инверсии"</string>
+    <string name="pref_inverted" msgid="4813962104859359420">"Инверсия"</string>
+    <string name="pref_inverted_summary" msgid="8570087335228699813">"Включить режим инверсии. Черное станет белым и наоборот."</string>
+    <string name="pref_inverted_contrast" msgid="8527441236225288169">"Контраст"</string>
     <string name="pref_default_zoom" msgid="8076142259097187395">"Масштаб по умолчанию"</string>
   <string-array name="pref_default_zoom_choices">
     <item msgid="549583171195154919">"Мелкий"</item>
