@@ -20,6 +20,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -161,7 +162,10 @@ public class NavigationBarTablet extends NavigationBarBase {
         } else if (mForwardButton == v) {
             mUiController.getCurrentTab().goForward();
         } else if (mStar == v) {
-            getContext().startActivity(mUiController.createBookmarkCurrentPageIntent(true));
+            Intent intent = mUiController.createBookmarkCurrentPageIntent(true);
+            if (intent != null) {
+                getContext().startActivity(intent);
+            }
         } else if (mAllButton == v) {
             mUiController.bookmarksOrHistoryPicker(false);
         } else if (mSearchButton == v) {
