@@ -1535,7 +1535,10 @@ public class Controller
                 break;
 
             case R.id.add_bookmark_menu_id:
-                mActivity.startActivity(createBookmarkCurrentPageIntent(false));
+                Intent bookmarkIntent = createBookmarkCurrentPageIntent(false);
+                if (bookmarkIntent != null) {
+                    mActivity.startActivity(bookmarkIntent);
+                }
                 break;
 
             case R.id.stop_reload_menu_id:
@@ -1856,9 +1859,12 @@ public class Controller
      */
     @Override
     public Intent createBookmarkCurrentPageIntent(boolean editExisting) {
+        WebView w = getCurrentTopWebView();
+        if (w == null) {
+            return null;
+        }
         Intent i = new Intent(mActivity,
                 AddBookmarkPage.class);
-        WebView w = getCurrentTopWebView();
         i.putExtra(BrowserContract.Bookmarks.URL, w.getUrl());
         i.putExtra(BrowserContract.Bookmarks.TITLE, w.getTitle());
         String touchIconUrl = w.getTouchIconUrl();
