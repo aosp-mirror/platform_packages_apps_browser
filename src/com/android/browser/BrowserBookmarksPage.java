@@ -393,6 +393,7 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
     public void onDestroyView() {
         super.onDestroyView();
         mGrid.setBreadcrumbController(null);
+        mGrid.clearAccounts();
         LoaderManager lm = getLoaderManager();
         lm.destroyLoader(LOADER_ACCOUNTS);
         for (int id : mBookmarkAdapters.keySet()) {
