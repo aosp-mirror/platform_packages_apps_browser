@@ -18,8 +18,10 @@ package com.android.browser;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.content.res.TypedArray;
 import android.database.DataSetObserver;
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Patterns;
@@ -41,6 +43,7 @@ import com.android.browser.autocomplete.SuggestiveAutoCompleteTextView;
 import com.android.browser.search.SearchEngine;
 import com.android.browser.search.SearchEngineInfo;
 import com.android.browser.search.SearchEngines;
+import com.android.internal.R;
 
 import java.util.List;
 
@@ -77,20 +80,27 @@ public class UrlInputView extends SuggestiveAutoCompleteTextView
 
     private int mState;
     private StateListener mStateListener;
+    private Rect mPopupPadding;
 
     public UrlInputView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        TypedArray a = context.obtainStyledAttributes(
+                attrs, com.android.internal.R.styleable.PopupWindow,
+                R.attr.autoCompleteTextViewStyle, 0);
+
+        Drawable popupbg = a.getDrawable(R.styleable.PopupWindow_popupBackground);
+        a.recycle();
+        mPopupPadding = new Rect();
+        popupbg.getPadding(mPopupPadding);
         init(context);
     }
 
     public UrlInputView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        init(context);
+        this(context, attrs, R.attr.autoCompleteTextViewStyle);
     }
 
     public UrlInputView(Context context) {
-        super(context);
-        init(context);
+        this(context, null);
     }
 
     private void init(Context ctx) {
@@ -233,11 +243,14 @@ public class UrlInputView extends SuggestiveAutoCompleteTextView
 
     private void setupDropDown() {
         int width = mContainer != null ? mContainer.getWidth() : getWidth();
+        width += mPopupPadding.left + mPopupPadding.right;
         if (width != getDropDownWidth()) {
             setDropDownWidth(width);
         }
-        if (getLeft() != -getDropDownHorizontalOffset()) {
-            setDropDownHorizontalOffset(-getLeft());
+        int left = getLeft();
+        left += mPopupPadding.left;
+        if (left != -getDropDownHorizontalOffset()) {
+            setDropDownHorizontalOffset(-left);
         }
     }
 

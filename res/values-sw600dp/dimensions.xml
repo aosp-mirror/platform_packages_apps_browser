@@ -33,7 +33,7 @@
     <dimen name="qc_thumb_width">240dip</dimen>
     <dimen name="qc_thumb_height">160dip</dimen>
     <dimen name="qc_item_size">48dip</dimen>
-    <dimen name="suggest_item_padding">16dp</dimen>
+    <dimen name="suggest_item_padding">8dp</dimen>
     <dimen name="toolbar_height">48dip</dimen>
     <dimen name="tab_thumbnail_width">@dimen/qc_thumb_width</dimen>
     <dimen name="tab_thumbnail_height">@dimen/qc_thumb_height</dimen>
