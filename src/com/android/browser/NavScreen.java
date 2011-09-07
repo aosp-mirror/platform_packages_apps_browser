@@ -37,18 +37,15 @@ import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.android.browser.NavTabGallery.OnRemoveListener;
+import com.android.browser.NavTabScroller.OnLayoutListener;
+import com.android.browser.NavTabScroller.OnRemoveListener;
 import com.android.browser.TabControl.OnThumbnailUpdatedListener;
-import com.android.browser.view.Gallery.OnScrollFinishedListener;
 
 import java.util.HashMap;
 
 public class NavScreen extends RelativeLayout
         implements OnClickListener, OnMenuItemClickListener, OnThumbnailUpdatedListener {
 
-
-    private static final int SCROLL_MIN = 200;
-    private static final int SCROLL_FACTOR = 20;
 
     UiController mUiController;
     PhoneUi mUi;
@@ -66,7 +63,7 @@ public class NavScreen extends RelativeLayout
     ImageView mFavicon;
     ImageButton mCloseTab;
 
-    NavTabGallery mScroller;
+    NavTabScroller mScroller;
     TabAdapter mAdapter;
     int mOrientation;
     boolean mNeedsMenu;
@@ -81,22 +78,18 @@ public class NavScreen extends RelativeLayout
         init();
     }
 
-    protected Tab getSelectedTab() {
-        return (Tab) mScroller.getSelectedItem();
-    }
-
     protected void showMenu() {
         PopupMenu popup = new PopupMenu(mContext, mMore);
         Menu menu = popup.getMenu();
         popup.getMenuInflater().inflate(R.menu.browser, menu);
-        mUiController.updateMenuState(mScroller.getSelectedItem(), menu);
+        mUiController.updateMenuState(mUiController.getCurrentTab(), menu);
         popup.setOnMenuItemClickListener(this);
         popup.show();
     }
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
-        mUi.hideNavScreen(false);
+        mUi.hideNavScreen(mUiController.getTabControl().getCurrentPosition(), false);
         return mUiController.onOptionsItemSelected(item);
     }
 
@@ -104,15 +97,14 @@ public class NavScreen extends RelativeLayout
         return mActivity.getResources().getDimension(R.dimen.toolbar_height);
     }
 
-    // for configuration changes
     @Override
     protected void onConfigurationChanged(Configuration newconfig) {
         if (newconfig.orientation != mOrientation) {
-            int selIx = mScroller.getSelectionIndex();
+            int sv = mScroller.getScrollValue();
             removeAllViews();
             mOrientation = newconfig.orientation;
             init();
-            mScroller.setSelection(selIx);
+            mScroller.setScrollValue(sv);
             mAdapter.notifyDataSetChanged();
         }
     }
@@ -127,7 +119,7 @@ public class NavScreen extends RelativeLayout
         mBookmarks.setOnClickListener(this);
         mNewTab.setOnClickListener(this);
         mMore.setOnClickListener(this);
-        mScroller = (NavTabGallery) findViewById(R.id.scroller);
+        mScroller = (NavTabScroller) findViewById(R.id.scroller);
         TabControl tc = mUiController.getTabControl();
         mTabViews = new HashMap<Tab, View>(tc.getTabCount());
         mAdapter = new TabAdapter(mContext, tc);
@@ -150,28 +142,12 @@ public class NavScreen extends RelativeLayout
 
     @Override
     public void onClick(View v) {
-        WebView web = (mTab != null) ? mTab.getWebView() : null;
-        if (web != null) {
-            if (mForward == v) {
-                mUi.hideNavScreen(true);
-                mTab.goForward();
-            } else if (mRefresh == v) {
-                mUi.hideNavScreen(true);
-                web.reload();
-            }
-        }
         if (mBookmarks == v) {
-            switchToSelected();
             mUiController.bookmarksOrHistoryPicker(false);
         } else if (mNewTab == v) {
             openNewTab();
         } else if (mMore == v) {
             showMenu();
-        } else if (mTitle == v) {
-            mUi.getTitleBar().setSkipTitleBarAnimations(true);
-            close(false);
-            mUi.editUrl(false);
-            mUi.getTitleBar().setSkipTitleBarAnimations(false);
         }
     }
 
@@ -182,49 +158,46 @@ public class NavScreen extends RelativeLayout
             } else {
                 mUiController.closeTab(tab);
             }
-            mAdapter.notifyDataSetChanged();
+            mScroller.handleDataChanged();
         }
     }
 
     private void openNewTab() {
         // need to call openTab explicitely with setactive false
-        Tab tab = mUiController.openTab(BrowserSettings.getInstance().getHomePage(),
+        final Tab tab = mUiController.openTab(BrowserSettings.getInstance().getHomePage(),
                 false, false, false);
-        int duration = 0;
         if (tab != null) {
             mUiController.setBlockEvents(true);
-            int oldsel = mScroller.getSelectedItemPosition();
             final int tix = mUi.mTabControl.getTabPosition(tab);
-            duration = SCROLL_MIN + SCROLL_FACTOR * Math.abs(oldsel - tix);
-            mScroller.handleDataChanged();
-            mScroller.smoothScrollToPosition(tix, duration, new OnScrollFinishedListener() {
+            mScroller.setOnLayoutListener(new OnLayoutListener() {
+
                 @Override
-                public void onScrollFinished() {
-                    mUiController.setBlockEvents(false);
-                    mUi.hideNavScreen(true);
-                    switchToSelected();
+                public void onLayout(int l, int t, int r, int b) {
+                    mUi.hideNavScreen(tix, true);
+                    switchToTab(tab);
                 }
             });
+            mScroller.handleDataChanged(tix);
+            mUiController.setBlockEvents(false);
         }
     }
 
-    View getSelectedTabView() {
-        return mScroller.getSelectedTab();
-    }
-
-    private void switchToSelected() {
-        Tab tab = (Tab) mScroller.getSelectedItem();
+    private void switchToTab(Tab tab) {
         if (tab != mUi.getActiveTab()) {
             mUiController.setActiveTab(tab);
         }
     }
 
-    protected void close() {
-        close(true);
+    protected void close(int position) {
+        close(position, true);
     }
 
-    protected void close(boolean animate) {
-        mUi.hideNavScreen(animate);
+    protected void close(int position, boolean animate) {
+        mUi.hideNavScreen(position, animate);
+    }
+
+    protected NavTabView getTabView(int pos) {
+        return mScroller.getTabView(pos);
     }
 
     class TabAdapter extends BaseAdapter {
@@ -263,15 +236,13 @@ public class NavScreen extends RelativeLayout
                     if (tabview.isClose(v)) {
                         mScroller.animateOut(tabview);
                     } else if (tabview.isTitle(v)) {
-                        mScroller.setSelection(position);
-                        switchToSelected();
+                        switchToTab(tab);
                         mUi.getTitleBar().setSkipTitleBarAnimations(true);
-                        close(false);
+                        close(position, false);
                         mUi.editUrl(false);
                         mUi.getTitleBar().setSkipTitleBarAnimations(false);
                     } else if (tabview.isWebView(v)) {
-                        mScroller.setSelection(position);
-                        close();
+                        close(position);
                     }
                 }
             });
@@ -285,7 +256,6 @@ public class NavScreen extends RelativeLayout
         View v = mTabViews.get(t);
         if (v != null) {
             v.invalidate();
-            mScroller.invalidate();
         }
     }
 
