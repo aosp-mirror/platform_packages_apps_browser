@@ -16,11 +16,14 @@
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <CheckBoxPreference
-        android:key="preload_enabled"
+    <ListPreference
+        android:key="preload_when"
         android:title="@string/pref_data_preload_title"
         android:summary="@string/pref_data_preload_summary"
-        android:defaultValue="false" />
+        android:defaultValue="@string/pref_data_preload_value_wifi_only"
+        android:entries="@array/pref_data_preload_choices"
+        android:entryValues="@array/pref_data_preload_values"
+        android:dialogTitle="@string/pref_data_preload_dialogtitle" />
 
     <CheckBoxPreference
         android:key="load_images"
