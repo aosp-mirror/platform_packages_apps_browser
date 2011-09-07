@@ -789,7 +789,7 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     }
 
     private String getDefaultPreloadSetting() {
-        return getPreloadOnWifiOnlyPreferenceString(mContext);
+        return mContext.getResources().getString(R.string.pref_data_preload_default_value);
     }
 
     public String getPreloadEnabled() {
