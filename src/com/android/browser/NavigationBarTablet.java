@@ -249,6 +249,7 @@ public class NavigationBarTablet extends NavigationBarBase {
     }
 
     private void stopOrRefresh() {
+        if (mUiController == null) return;
         if (mTitleBar.isInLoad()) {
             mUiController.stopLoading();
         } else {
