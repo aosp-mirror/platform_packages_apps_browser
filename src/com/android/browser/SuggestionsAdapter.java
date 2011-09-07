@@ -479,8 +479,6 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable,
             Uri.Builder ub = OmniboxSuggestions.CONTENT_URI.buildUpon();
             ub.appendQueryParameter(BrowserContract.PARAM_LIMIT,
                     Integer.toString(Math.max(mLinesLandscape, mLinesPortrait)));
-            ub.appendQueryParameter(BrowserProvider2.PARAM_GROUP_BY,
-                    OmniboxSuggestions.URL);
             mCursor =
                     mContext.getContentResolver().query(ub.build(), COMBINED_PROJECTION,
                             selection, (constraint != null) ? args : null, null);
