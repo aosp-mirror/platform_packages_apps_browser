@@ -61,7 +61,14 @@ public abstract class WebViewPreview extends Preference
     protected View onCreateView(ViewGroup parent) {
         View root = super.onCreateView(parent);
         WebView webView = (WebView) root.findViewById(R.id.webview);
+        // Tell WebView to really, truly ignore all touch events. No, seriously,
+        // ignore them all. And don't show scrollbars.
         webView.setFocusable(false);
+        webView.setFocusableInTouchMode(false);
+        webView.setClickable(false);
+        webView.setLongClickable(false);
+        webView.setHorizontalScrollBarEnabled(false);
+        webView.setVerticalScrollBarEnabled(false);
         setupWebView(webView);
         return root;
     }
