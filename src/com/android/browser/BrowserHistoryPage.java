@@ -357,6 +357,7 @@ public class BrowserHistoryPage extends Fragment
         // Setup the header
         if (mContextHeader == null) {
             mContextHeader = new HistoryItem(parent, false);
+            mContextHeader.setEnableScrolling(true);
         } else if (mContextHeader.getParent() != null) {
             ((ViewGroup) mContextHeader.getParent()).removeView(mContextHeader);
         }
@@ -641,7 +642,6 @@ public class BrowserHistoryPage extends Fragment
                         item.getPaddingRight(),
                         item.getPaddingBottom());
                 item.setFaviconBackground(mFaviconBackground);
-                item.startMarquee();
             } else {
                 item = (HistoryItem) convertView;
             }
