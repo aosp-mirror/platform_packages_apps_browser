@@ -15,6 +15,10 @@
  */
 package com.android.browser;
 
+import android.animation.Animator;
+import android.animation.Animator.AnimatorListener;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.app.Fragment;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.ContentResolver;
@@ -63,6 +67,7 @@ public class BrowserSnapshotPage extends Fragment implements
         Snapshots.URL,
         Snapshots.DATE_CREATED,
     };
+    private static final int SNAPSHOT_ID = 0;
     private static final int SNAPSHOT_TITLE = 1;
     private static final int SNAPSHOT_VIEWSTATE_LENGTH = 2;
     private static final int SNAPSHOT_THUMBNAIL = 3;
@@ -74,11 +79,13 @@ public class BrowserSnapshotPage extends Fragment implements
     View mEmpty;
     SnapshotAdapter mAdapter;
     CombinedBookmarksCallbacks mCallback;
+    long mAnimateId;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mCallback = (CombinedBookmarksCallbacks) getActivity();
+        mAnimateId = getArguments().getLong(EXTRA_ANIMATE_ID);
     }
 
     @Override
@@ -130,6 +137,11 @@ public class BrowserSnapshotPage extends Fragment implements
                 mGrid.setAdapter(mAdapter);
             } else {
                 mAdapter.changeCursor(data);
+            }
+            if (mAnimateId > 0) {
+                mAdapter.animateIn(mAnimateId);
+                mAnimateId = 0;
+                getArguments().remove(EXTRA_ANIMATE_ID);
             }
             boolean empty = mAdapter.isEmpty();
             mGrid.setVisibility(empty ? View.GONE : View.VISIBLE);
@@ -196,13 +208,65 @@ public class BrowserSnapshotPage extends Fragment implements
     }
 
     private static class SnapshotAdapter extends ResourceCursorAdapter {
+        private long mAnimateId;
+        private AnimatorSet mAnimation;
+        private View mAnimationTarget;
 
         public SnapshotAdapter(Context context, Cursor c) {
             super(context, R.layout.snapshot_item, c, 0);
+            mAnimation = new AnimatorSet();
+            mAnimation.playTogether(
+                    ObjectAnimator.ofFloat(null, View.SCALE_X, 0f, 1f),
+                    ObjectAnimator.ofFloat(null, View.SCALE_Y, 0f, 1f));
+            mAnimation.setStartDelay(100);
+            mAnimation.setDuration(400);
+            mAnimation.addListener(new AnimatorListener() {
+
+                @Override
+                public void onAnimationStart(Animator animation) {
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animation) {
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    mAnimateId = 0;
+                    mAnimationTarget = null;
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animation) {
+                }
+            });
+        }
+
+        public void animateIn(long id) {
+            mAnimateId = id;
         }
 
         @Override
         public void bindView(View view, Context context, Cursor cursor) {
+            long id = cursor.getLong(SNAPSHOT_ID);
+            if (id == mAnimateId) {
+                if (mAnimationTarget != view) {
+                    float scale = 0f;
+                    if (mAnimationTarget != null) {
+                        scale = mAnimationTarget.getScaleX();
+                        mAnimationTarget.setScaleX(1f);
+                        mAnimationTarget.setScaleY(1f);
+                    }
+                    view.setScaleX(scale);
+                    view.setScaleY(scale);
+                }
+                mAnimation.setTarget(view);
+                mAnimationTarget = view;
+                if (!mAnimation.isRunning()) {
+                    mAnimation.start();
+                }
+
+            }
             ImageView thumbnail = (ImageView) view.findViewById(R.id.thumb);
             byte[] thumbBlob = cursor.getBlob(SNAPSHOT_THUMBNAIL);
             if (thumbBlob == null) {
