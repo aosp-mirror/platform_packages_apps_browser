@@ -19,7 +19,8 @@
         android:layout_height="wrap_content"
         android:minHeight="?android:attr/listPreferredItemHeight"
         android:orientation="horizontal"
-        android:paddingLeft="20dip"
+        android:paddingLeft="12dip"
+        android:paddingRight="8dip"
         >
     <ImageView android:id="@+id/favicon"
         android:layout_width="32dip"
@@ -33,7 +34,8 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingLeft="16dip"
+            android:paddingLeft="8dip"
+            android:paddingRight="8dip"
             android:layout_gravity="center_vertical"
             >
         <TextView android:id="@+id/title"
@@ -42,8 +44,7 @@
                 android:layout_width="wrap_content" 
                 android:layout_height="wrap_content"
                 android:singleLine="true"
-                android:ellipsize="marquee"
-                android:marqueeRepeatLimit="marquee_forever"
+                android:ellipsize="end"
                 />
         <TextView android:id="@+id/url" 
                 android:textAppearance="?android:attr/textAppearanceSmall"
@@ -51,8 +52,7 @@
                 android:layout_width="wrap_content" 
                 android:layout_height="wrap_content"
                 android:singleLine="true"
-                android:ellipsize="marquee"
-                android:marqueeRepeatLimit="marquee_forever"
+                android:ellipsize="middle"
                 />
     </LinearLayout>
     <CheckBox android:id="@+id/star"
@@ -60,8 +60,8 @@
             android:layout_height="wrap_content"
             android:paddingTop="16dip"
             android:paddingBottom="16dip"
-            android:paddingRight="20dip"
-            android:paddingLeft="16dip"
+            android:paddingRight="8dip"
+            android:paddingLeft="8dip"
             android:focusable="false"
             android:button="@drawable/btn_checkbox_star"
             android:layout_gravity="center_vertical"

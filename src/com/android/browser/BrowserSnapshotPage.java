@@ -148,6 +148,7 @@ public class BrowserSnapshotPage extends Fragment implements
         inflater.inflate(R.menu.snapshots_context, menu);
         // Create the header, re-use BookmarkItem (has the layout we want)
         BookmarkItem header = new BookmarkItem(getActivity());
+        header.setEnableScrolling(true);
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;
         populateBookmarkItem(mAdapter.getItem(info.position), header);
         menu.setHeaderView(header);

@@ -274,6 +274,7 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
             }
         }
         BookmarkItem header = new BookmarkItem(activity);
+        header.setEnableScrolling(true);
         populateBookmarkItem(cursor, header, isFolder);
         menu.setHeaderView(header);
 

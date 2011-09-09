@@ -20,15 +20,17 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 /**
  *  Custom layout for an item representing a bookmark in the browser.
  */
-class BookmarkItem extends LinearLayout {
+class BookmarkItem extends HorizontalScrollView {
 
     final static int MAX_TEXTVIEW_LEN = 80;
 
@@ -37,6 +39,7 @@ class BookmarkItem extends LinearLayout {
     protected ImageView   mImageView;
     protected String      mUrl;
     protected String      mTitle;
+    protected boolean mEnableScrolling = false;
 
     /**
      *  Instantiate a bookmark item, including a default favicon.
@@ -46,6 +49,8 @@ class BookmarkItem extends LinearLayout {
     BookmarkItem(Context context) {
         super(context);
 
+        setClickable(false);
+        setEnableScrolling(false);
         LayoutInflater factory = LayoutInflater.from(context);
         factory.inflate(R.layout.history_item, this);
         mTextView = (TextView) findViewById(R.id.title);
@@ -65,28 +70,11 @@ class BookmarkItem extends LinearLayout {
         item.mImageView.setImageDrawable(mImageView.getDrawable());
     }
 
-    public void startMarquee() {
-        mTextView.setSelected(true);
-        mUrlText.setSelected(true);
-    }
-
-    public void stopMarquee() {
-        mTextView.setSelected(false);
-        mUrlText.setSelected(false);
-    }
-
     /**
      * Return the name assigned to this bookmark item.
      */
     /* package */ String getName() {
         return mTitle;
-    }
-
-    /**
-     * Return the TextView which holds the name of this bookmark item.
-     */
-    /* package */ TextView getNameTextView() {
-        return mTextView;
     }
 
     /* package */ String getUrl() {
@@ -141,10 +129,67 @@ class BookmarkItem extends LinearLayout {
 
         mUrl = url;
 
+        url = UrlUtils.stripUrl(url);
         if (url.length() > MAX_TEXTVIEW_LEN) {
             url = url.substring(0, MAX_TEXTVIEW_LEN);
         }
 
         mUrlText.setText(url);
+    }
+
+    void setEnableScrolling(boolean enable) {
+        mEnableScrolling = enable;
+        setFocusable(mEnableScrolling);
+        setFocusableInTouchMode(mEnableScrolling);
+        requestDisallowInterceptTouchEvent(!mEnableScrolling);
+        requestLayout();
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent ev) {
+        if (mEnableScrolling) {
+            return super.onTouchEvent(ev);
+        }
+        return false;
+    }
+
+    @Override
+    protected void measureChild(View child, int parentWidthMeasureSpec,
+            int parentHeightMeasureSpec) {
+        if (mEnableScrolling) {
+            super.measureChild(child, parentWidthMeasureSpec, parentHeightMeasureSpec);
+            return;
+        }
+
+        final ViewGroup.LayoutParams lp = child.getLayoutParams();
+
+        final int childWidthMeasureSpec = getChildMeasureSpec(parentWidthMeasureSpec,
+                mPaddingLeft + mPaddingRight, lp.width);
+        final int childHeightMeasureSpec = getChildMeasureSpec(parentHeightMeasureSpec,
+                mPaddingTop + mPaddingBottom, lp.height);
+
+        child.measure(childWidthMeasureSpec, childHeightMeasureSpec);
+    }
+
+    @Override
+    protected void measureChildWithMargins(View child,
+            int parentWidthMeasureSpec, int widthUsed,
+            int parentHeightMeasureSpec, int heightUsed) {
+        if (mEnableScrolling) {
+            super.measureChildWithMargins(child, parentWidthMeasureSpec,
+                    widthUsed, parentHeightMeasureSpec, heightUsed);
+            return;
+        }
+
+        final MarginLayoutParams lp = (MarginLayoutParams) child.getLayoutParams();
+
+        final int childWidthMeasureSpec = getChildMeasureSpec(parentWidthMeasureSpec,
+                mPaddingLeft + mPaddingRight + lp.leftMargin + lp.rightMargin
+                        + widthUsed, lp.width);
+        final int childHeightMeasureSpec = getChildMeasureSpec(parentHeightMeasureSpec,
+                mPaddingTop + mPaddingBottom + lp.topMargin + lp.bottomMargin
+                        + heightUsed, lp.height);
+
+        child.measure(childWidthMeasureSpec, childHeightMeasureSpec);
     }
 }
