@@ -123,10 +123,12 @@ public class BookmarkThumbnailWidgetService extends RemoteViewsService {
     static void removeOrphanedStates(Context context, int[] widgetIds) {
         File prefsDirectory = context.getSharedPrefsFile("null").getParentFile();
         File[] widgetStates = prefsDirectory.listFiles(new StateFilter(widgetIds));
-        for (File f : widgetStates) {
-            Log.w(TAG, "Found orphaned state: " + f.getName());
-            if (!f.delete()) {
-                f.deleteOnExit();
+        if (widgetStates != null) {
+            for (File f : widgetStates) {
+                Log.w(TAG, "Found orphaned state: " + f.getName());
+                if (!f.delete()) {
+                    f.deleteOnExit();
+                }
             }
         }
     }
