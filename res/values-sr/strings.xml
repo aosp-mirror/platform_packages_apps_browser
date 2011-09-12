@@ -276,7 +276,12 @@
     <string name="pref_lab_fullscreen_summary" msgid="6853711692160711419">"Сакријте статусну траку помоћу режима целог екрана."</string>
     <string name="pref_data_title" msgid="750316606686075162">"Управљање проп. опсегом"</string>
     <string name="pref_data_preload_title" msgid="4479320472980292873">"Учитавање резултата претраге унапред"</string>
+    <!-- no translation found for pref_data_preload_choices:0 (5180466923190095508) -->
+    <!-- no translation found for pref_data_preload_choices:1 (1791664748778640002) -->
+    <!-- no translation found for pref_data_preload_choices:2 (3944061253437827617) -->
     <string name="pref_data_preload_summary" msgid="7488335627364473744">"Дозволи да прегледач у позадини унапред учита резултате претраге високог степена поузданости"</string>
+    <!-- no translation found for pref_data_preload_dialogtitle (8421297746110796536) -->
+    <skip />
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Проблем при повезивању са подацима"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Проблем са датотеком"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Потврда"</string>
@@ -350,8 +355,8 @@
     <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"Делите локацију"</string>
     <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"Одбиј"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"Запамти подешавања"</string>
-    <!-- outdated translation 987286072035125498 -->     <string name="geolocation_permissions_prompt_toast_allowed" msgid="7833771073195530638">"Овај сајт може да приступи вашој локацији. Промените то у оквиру „Подешавања“ – &gt; „Подешавања веб сајта“"</string>
-    <!-- outdated translation 7695100950212692515 -->     <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7418225389343746465">"Овај сајт не може да приступи вашој локацији. Промените то у оквиру „Подешавања“ – &gt; „Подешавања веб сајта“"</string>
+    <string name="geolocation_permissions_prompt_toast_allowed" msgid="7833771073195530638">"Овај сајт може да приступи локацији. Промените то у оквиру Подешавања –&gt; Напредно –&gt; Подешавања веб сајта"</string>
+    <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7418225389343746465">"Овај сајт не може да приступи локацији. Промените то у оквиру Подешавања –&gt; Напредно –&gt; Подешавања веб сајта"</string>
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Брисање приступа локацији"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Овај сајт тренутно може да приступи вашој локацији"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"Овај сајт тренутно не може да приступи вашој локацији"</string>

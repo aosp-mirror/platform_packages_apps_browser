@@ -276,7 +276,12 @@
     <string name="pref_lab_fullscreen_summary" msgid="6853711692160711419">"Utiliser le mode plein écran pour masquer la barre d\'état"</string>
     <string name="pref_data_title" msgid="750316606686075162">"Gestion bande passante"</string>
     <string name="pref_data_preload_title" msgid="4479320472980292873">"Préchargement résultats de recherche…"</string>
+    <!-- no translation found for pref_data_preload_choices:0 (5180466923190095508) -->
+    <!-- no translation found for pref_data_preload_choices:1 (1791664748778640002) -->
+    <!-- no translation found for pref_data_preload_choices:2 (3944061253437827617) -->
     <string name="pref_data_preload_summary" msgid="7488335627364473744">"Autoriser le préchargement des résultats fiables de recherche en arrière-plan"</string>
+    <!-- no translation found for pref_data_preload_dialogtitle (8421297746110796536) -->
+    <skip />
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Problème de connectivité des données"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Problème de fichier"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Confirmer"</string>
@@ -350,8 +355,8 @@
     <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"Partager ma position"</string>
     <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"Refuser"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"Mémoriser les préférences"</string>
-    <!-- outdated translation 987286072035125498 -->     <string name="geolocation_permissions_prompt_toast_allowed" msgid="7833771073195530638">"Ce site peut afficher votre position. Modifiez cette option dans Paramètres -&gt; Paramètres du site Web."</string>
-    <!-- outdated translation 7695100950212692515 -->     <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7418225389343746465">"Ce site ne peut afficher votre position. Modifiez cette option dans Paramètres -&gt; Paramètres du site Web."</string>
+    <string name="geolocation_permissions_prompt_toast_allowed" msgid="7833771073195530638">"Ce site peut accéder à votre position. Modifiez cette option dans Paramètres -&gt; Avancés -&gt; Paramètres du site Web."</string>
+    <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7418225389343746465">"Ce site ne peut pas accéder à votre position. Modifiez cette option dans Paramètres -&gt; Avancés -&gt; Paramètres du site Web."</string>
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Supprimer l\'accès"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Ce site a actuellement accès à vos données de localisation."</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"Ce site n\'a actuellement pas accès à vos données de localisation."</string>
@@ -407,7 +412,7 @@
     <string name="accessibility_button_uaswitch" msgid="6286804719724282339">"Changer d\'agent utilisateur"</string>
     <string name="accessibility_button_go" msgid="1182818872083055958">"OK"</string>
     <string name="accessibility_button_navscreen" msgid="9142904748728713075">"Gestionnaire de pages"</string>
-    <string name="accessibility_button_more" msgid="3054251446394224216">"Plus d\'options"</string>
+    <string name="accessibility_button_more" msgid="3054251446394224216">"Autres options"</string>
     <string name="accessibility_state_incognito" msgid="5786038488425202355">"Page de navigation privée"</string>
     <string name="accessibility_state_frozen" msgid="8041539250447035570">"Page enregistrée"</string>
     <string name="accessibility_transition_navscreen" msgid="2734915619351519547">"Gestion des onglets"</string>

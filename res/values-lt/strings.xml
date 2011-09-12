@@ -276,7 +276,13 @@
     <string name="pref_lab_fullscreen_summary" msgid="6853711692160711419">"Jei norite paslėpti būsenos juostą, naudokite viso ekrano režimą."</string>
     <string name="pref_data_title" msgid="750316606686075162">"Pralaidumo valdymas"</string>
     <string name="pref_data_preload_title" msgid="4479320472980292873">"Iš anksto įkeliamas paieškos rezultatas"</string>
+  <string-array name="pref_data_preload_choices">
+    <item msgid="5180466923190095508">"Niekada"</item>
+    <item msgid="1791664748778640002">"Tik naudoj. „Wi-Fi“"</item>
+    <item msgid="3944061253437827617">"Visada"</item>
+  </string-array>
     <string name="pref_data_preload_summary" msgid="7488335627364473744">"Leisti naršyklei fone iš anksto įkelti itin patikimus paieškos rezultatus"</string>
+    <string name="pref_data_preload_dialogtitle" msgid="8421297746110796536">"Iš anksto įkeliamas paieškos rezultatas"</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Duomenų jungiamumo problema"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Failo problema"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Patvirtinti"</string>
@@ -350,8 +356,8 @@
     <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"Bendrinti vietą"</string>
     <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"Atmesti"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"Atsiminti nuostatą"</string>
-    <!-- outdated translation 987286072035125498 -->     <string name="geolocation_permissions_prompt_toast_allowed" msgid="7833771073195530638">"Ši svetainė gali pasiekti jūsų vietos. Pakeiskite tai apsilankę „Nustatymai“ -&gt; „Svetainės nustatymai“"</string>
-    <!-- outdated translation 7695100950212692515 -->     <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7418225389343746465">"Ši svetainė negali pasiekti jūsų vietos. Pakeiskite tai apsilankę „Nustatymai“ -&gt; „Svetainės nustatymai“"</string>
+    <string name="geolocation_permissions_prompt_toast_allowed" msgid="7833771073195530638">"Ši svetainė gali pasiekti jūsų vietą. Pakeiskite tai apsilankę „Nustatymai“ -&gt; „Išplėstiniai“ -&gt; „Svetainės nustatymai“"</string>
+    <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7418225389343746465">"Ši svetainė negali pasiekti jūsų vietos. Pakeiskite tai apsilankę „Nustatymai“ -&gt; „Išplėstiniai“ -&gt; „Svetainės nustatymai“"</string>
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Išvalyti prieigą prie vietos"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Šiuo metu ši svetainė gali pasiekti jūsų vietą"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"Ši svetainė dabar negali pasiekti jūsų vietos"</string>

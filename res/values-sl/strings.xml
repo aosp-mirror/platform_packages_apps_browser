@@ -276,7 +276,12 @@
     <string name="pref_lab_fullscreen_summary" msgid="6853711692160711419">"Če želite skriti vrstico stanja, uporabite celozaslonski način."</string>
     <string name="pref_data_title" msgid="750316606686075162">"Upravljanje pasov. širine"</string>
     <string name="pref_data_preload_title" msgid="4479320472980292873">"Vnaprejšnje nalaganje rezultatov iskanja"</string>
+    <!-- no translation found for pref_data_preload_choices:0 (5180466923190095508) -->
+    <!-- no translation found for pref_data_preload_choices:1 (1791664748778640002) -->
+    <!-- no translation found for pref_data_preload_choices:2 (3944061253437827617) -->
     <string name="pref_data_preload_summary" msgid="7488335627364473744">"Dovoli brskalniku vnapr. nalag. rezult. z visoko stopnjo zanesljivosti v ozadju."</string>
+    <!-- no translation found for pref_data_preload_dialogtitle (8421297746110796536) -->
+    <skip />
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Težava s povezljivostjo podatkov"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Težava z datoteko"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Potrdi"</string>
@@ -350,8 +355,8 @@
     <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"Skupna raba lokacije"</string>
     <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"Zavrni"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"Zapomni si izbiro"</string>
-    <!-- outdated translation 987286072035125498 -->     <string name="geolocation_permissions_prompt_toast_allowed" msgid="7833771073195530638">"To mesto lahko dostopa do vaše lokacije. Spremenite to v možnostih »Nastavitve« &gt; »Nastavitve spletnega mesta«"</string>
-    <!-- outdated translation 7695100950212692515 -->     <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7418225389343746465">"To mesto ne more dostopati do vaše lokacije. Spremenite to v možnostih »Nastavitve« &gt; »Nastavitve spletnega mesta«"</string>
+    <string name="geolocation_permissions_prompt_toast_allowed" msgid="7833771073195530638">"To spletno mesto lahko dostopa do vaše lokacije. To spremenite v možnostih »Nastavitve« –&gt; »Dodatno« –&gt; »Nastavitve spletnih mest«"</string>
+    <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7418225389343746465">"To spletno mesto ne more dostopati do vaše lokacije. To spremenite v možnostih »Nastavitve« –&gt; »Dodatno« –&gt; »Nastavitve spletnih mest«"</string>
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Počisti dostop do lokacije"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"To mesto trenutno lahko dostopa do vaše lokacije"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"To mesto trenutno ne more dostopati do vaše lokacije"</string>
