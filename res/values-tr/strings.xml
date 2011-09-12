@@ -276,7 +276,12 @@
     <string name="pref_lab_fullscreen_summary" msgid="6853711692160711419">"Durum çubuğunu gizlemek için tam ekran modunu kullanın"</string>
     <string name="pref_data_title" msgid="750316606686075162">"Bant Genişliği Yönetimi"</string>
     <string name="pref_data_preload_title" msgid="4479320472980292873">"Arama sonucunu önyükleme"</string>
+    <!-- no translation found for pref_data_preload_choices:0 (5180466923190095508) -->
+    <!-- no translation found for pref_data_preload_choices:1 (1791664748778640002) -->
+    <!-- no translation found for pref_data_preload_choices:2 (3944061253437827617) -->
     <string name="pref_data_preload_summary" msgid="7488335627364473744">"Tarayıcının yüksek güvenli arama sonuçlarını arka planda önyüklemesine izin ver"</string>
+    <!-- no translation found for pref_data_preload_dialogtitle (8421297746110796536) -->
+    <skip />
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Veri bağlantısı sorunu"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Sorunlu dosya"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Doğrula"</string>
@@ -350,8 +355,8 @@
     <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"Konumu paylaş"</string>
     <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"Reddet"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"Tercihi anımsa"</string>
-    <!-- outdated translation 987286072035125498 -->     <string name="geolocation_permissions_prompt_toast_allowed" msgid="7833771073195530638">"Bu site konum bilginize erişebilir. Bunu, Ayarlar -&gt; Web sitesi ayarlarından değiştirin"</string>
-    <!-- outdated translation 7695100950212692515 -->     <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7418225389343746465">"Bu site konum bilginize erişemiyor. Bunu, Ayarlar -&gt; Web sitesi ayarlarından değiştirin"</string>
+    <string name="geolocation_permissions_prompt_toast_allowed" msgid="7833771073195530638">"Bu site konum bilginize erişebilir. Bunu, Ayarlar -&gt; Gelişmiş -&gt; Web sitesi ayarlarından değiştirin"</string>
+    <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7418225389343746465">"Bu site konum bilginize erişemez. Bunu, Ayarlar -&gt; Gelişmiş -&gt; Web sitesi ayarlarından değiştirin"</string>
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Konum erişimini temizle"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Bu site şu anda konumunuza erişebilir"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"Bu site şu anda konumunuza erişemiyor"</string>

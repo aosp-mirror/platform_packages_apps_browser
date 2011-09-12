@@ -276,7 +276,12 @@
     <string name="pref_lab_fullscreen_summary" msgid="6853711692160711419">"전체화면 모드를 사용하여 상태 표시줄을 숨깁니다."</string>
     <string name="pref_data_title" msgid="750316606686075162">"대역폭 관리"</string>
     <string name="pref_data_preload_title" msgid="4479320472980292873">"검색결과 미리 로드"</string>
+    <!-- no translation found for pref_data_preload_choices:0 (5180466923190095508) -->
+    <!-- no translation found for pref_data_preload_choices:1 (1791664748778640002) -->
+    <!-- no translation found for pref_data_preload_choices:2 (3944061253437827617) -->
     <string name="pref_data_preload_summary" msgid="7488335627364473744">"브라우저가 신뢰도 높은 검색결과를 백그라운드에 미리 로드하도록 허용"</string>
+    <!-- no translation found for pref_data_preload_dialogtitle (8421297746110796536) -->
+    <skip />
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"데이터 연결에 문제 발생"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"파일 문제 발생"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"확인"</string>
@@ -350,8 +355,8 @@
     <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"위치 공유"</string>
     <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"거부"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"환경설정 저장"</string>
-    <!-- outdated translation 987286072035125498 -->     <string name="geolocation_permissions_prompt_toast_allowed" msgid="7833771073195530638">"사이트에서 현재 위치에 액세스할 수 있습니다. 설정 -&gt; 웹사이트 설정에서 설정을 변경하세요."</string>
-    <!-- outdated translation 7695100950212692515 -->     <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7418225389343746465">"사이트에서 현재 위치에 액세스할 수 없습니다. 설정 -&gt; 웹사이트 설정에서 설정을 변경하세요."</string>
+    <string name="geolocation_permissions_prompt_toast_allowed" msgid="7833771073195530638">"사이트에서 현재 위치에 액세스할 수 있습니다. \'설정 -&gt; 고급 -&gt; 웹사이트 설정\'에서 변경하세요."</string>
+    <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7418225389343746465">"사이트에서 현재 위치에 액세스할 수 없습니다. \'설정 -&gt; 고급 -&gt; 웹사이트 설정\'에서 변경하세요."</string>
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"위치 정보 액세스 삭제"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"사이트에서 사용자의 위치에 현재 액세스할 수 있음"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"사이트에서 사용자의 위치에 현재 액세스할 수 없음"</string>

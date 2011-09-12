@@ -363,7 +363,12 @@
     <skip />
     <!-- no translation found for pref_data_preload_title (4479320472980292873) -->
     <skip />
+    <!-- no translation found for pref_data_preload_choices:0 (5180466923190095508) -->
+    <!-- no translation found for pref_data_preload_choices:1 (1791664748778640002) -->
+    <!-- no translation found for pref_data_preload_choices:2 (3944061253437827617) -->
     <!-- no translation found for pref_data_preload_summary (7488335627364473744) -->
+    <skip />
+    <!-- no translation found for pref_data_preload_dialogtitle (8421297746110796536) -->
     <skip />
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Problem da connectivitad da datas"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Problem da datoteca"</string>

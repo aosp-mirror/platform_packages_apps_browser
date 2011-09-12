@@ -276,7 +276,13 @@
     <string name="pref_lab_fullscreen_summary" msgid="6853711692160711419">"Gamitin ang mode na fullscreen upang itago ang status bar."</string>
     <string name="pref_data_title" msgid="750316606686075162">"Pamamahala ng Bandwidth"</string>
     <string name="pref_data_preload_title" msgid="4479320472980292873">"Pauna pag-load ng resulta sa paghahanap"</string>
+  <string-array name="pref_data_preload_choices">
+    <item msgid="5180466923190095508">"Hindi kailanman"</item>
+    <item msgid="1791664748778640002">"Sa Wi-Fi lamang"</item>
+    <item msgid="3944061253437827617">"Palagi"</item>
+  </string-array>
     <string name="pref_data_preload_summary" msgid="7488335627364473744">"Payagan ang browser na una load ng taas na kumpyansa resulta paghanap sa background"</string>
+    <string name="pref_data_preload_dialogtitle" msgid="8421297746110796536">"Paunang pagload sa resulta ng paghahanap"</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Problema sa pagkakakonekta ng data"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Problema sa file"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Kumpirmahin"</string>
@@ -350,8 +356,8 @@
     <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"Ibahagi ang lokasyon"</string>
     <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"Tanggihan"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"Tandaan ang kagustuhan"</string>
-    <!-- outdated translation 987286072035125498 -->     <string name="geolocation_permissions_prompt_toast_allowed" msgid="7833771073195530638">"Maa-access ng site na ito ang iyong lokasyon. Baguhin ito sa Mga Setting --&gt; Mga setting ng website"</string>
-    <!-- outdated translation 7695100950212692515 -->     <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7418225389343746465">"Hindi maa-access ng site na ito ang iyong lokasyon. Baguhin ito sa Mga Setting --&gt; Mga setting ng website"</string>
+    <string name="geolocation_permissions_prompt_toast_allowed" msgid="7833771073195530638">"Naa-access ng site na ito ang iyong lokasyon. Baguhin ito sa Mga Setting - &gt; Advanced -&gt; Mga setting ng Website"</string>
+    <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7418225389343746465">"Hindi ma-access ng site na ito ang iyong lokasyon. Baguhin ito sa mga Mga Setting -&gt; Advanced -&gt; Mga setting ng Website"</string>
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"I-clear ang access sa lokasyon"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Kasalukuyang maa-access ng site na ito ang iyong lokasyon"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"Kasalukuyang hindi maa-access ng site na ito ang iyong lokasyon"</string>

@@ -276,7 +276,13 @@
     <string name="pref_lab_fullscreen_summary" msgid="6853711692160711419">"Lai paslēptu statusa joslu, izmantojiet pilnekrāna režīmu."</string>
     <string name="pref_data_title" msgid="750316606686075162">"Joslas platuma pārvaldība"</string>
     <string name="pref_data_preload_title" msgid="4479320472980292873">"Meklēšanas rezultātu pirmsielāde"</string>
+  <string-array name="pref_data_preload_choices">
+    <item msgid="5180466923190095508">"Nekad"</item>
+    <item msgid="1791664748778640002">"Tikai Wi-Fi tīklā"</item>
+    <item msgid="3944061253437827617">"Vienmēr"</item>
+  </string-array>
     <string name="pref_data_preload_summary" msgid="7488335627364473744">"Ļaut pārlūkprogrammai fonā veikt atbilstošu meklēšanas rezultātu pirmsielādi"</string>
+    <string name="pref_data_preload_dialogtitle" msgid="8421297746110796536">"Meklēšanas rezultātu pirmsielāde"</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Datu savienojamības problēma"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Faila problēma"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Apstiprināt"</string>
@@ -350,8 +356,8 @@
     <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"Kopīgot atrašanās vietu"</string>
     <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"Noraidīt"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"Atcerēties preferenci"</string>
-    <!-- outdated translation 987286072035125498 -->     <string name="geolocation_permissions_prompt_toast_allowed" msgid="7833771073195530638">"Vietne var piekļūt jūsu atrašanās vietai. Iestatījumu varat mainīt šeit: Iestatījumi -&gt; Vietnes iestatījumi."</string>
-    <!-- outdated translation 7695100950212692515 -->     <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7418225389343746465">"Vietne nevar piekļūt jūsu atrašanās vietai. Iestatījumu varat mainīt šeit: Iestatījumi -&gt; Vietnes iestatījumi."</string>
+    <string name="geolocation_permissions_prompt_toast_allowed" msgid="7833771073195530638">"No šīs vietnes var piekļūt jūsu atrašanās vietai. Iestatījumus varat mainīt šeit: Iestatījumi -&gt; Papildu -&gt; Vietnes iestatījumi."</string>
+    <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7418225389343746465">"No šīs vietnes nevar piekļūt jūsu atrašanās vietai. Iestatījumus varat mainīt šeit: Iestatījumi -&gt; Papildu -&gt; Vietnes iestatījumi."</string>
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Atrašanās vietas piekļuves atļaujas notīrīšana"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Vietne pašlaik var piekļūt jūsu atrašanās vietai."</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"Vietne pašlaik nevar piekļūt jūsu atrašanās vietai."</string>

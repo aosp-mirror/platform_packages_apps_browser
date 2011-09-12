@@ -276,7 +276,12 @@
     <string name="pref_lab_fullscreen_summary" msgid="6853711692160711419">"Gebruik de modus voor volledig scherm om de statusbalk te verbergen."</string>
     <string name="pref_data_title" msgid="750316606686075162">"Bandbreedtebeheer"</string>
     <string name="pref_data_preload_title" msgid="4479320472980292873">"Zoekresultaten vooraf laden"</string>
+    <!-- no translation found for pref_data_preload_choices:0 (5180466923190095508) -->
+    <!-- no translation found for pref_data_preload_choices:1 (1791664748778640002) -->
+    <!-- no translation found for pref_data_preload_choices:2 (3944061253437827617) -->
     <string name="pref_data_preload_summary" msgid="7488335627364473744">"Browser toestaan resultaten met hoog betrouwbaarheidsniveau vooraf te laden"</string>
+    <!-- no translation found for pref_data_preload_dialogtitle (8421297746110796536) -->
+    <skip />
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Probleem met gegevensverbinding"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Probleem met bestand"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Bevestigen"</string>
@@ -350,8 +355,8 @@
     <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"Locatie delen"</string>
     <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"Weigeren"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"Voorkeur onthouden"</string>
-    <!-- outdated translation 987286072035125498 -->     <string name="geolocation_permissions_prompt_toast_allowed" msgid="7833771073195530638">"Deze site heeft toegang tot uw locatie. Wijzig dit in \'Instellingen\' -&gt; \'Website-instellingen\'"</string>
-    <!-- outdated translation 7695100950212692515 -->     <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7418225389343746465">"Deze site heeft geen toegang tot uw locatie. Wijzig dit in \'Instellingen\' -&gt; \'Website-instellingen\'"</string>
+    <string name="geolocation_permissions_prompt_toast_allowed" msgid="7833771073195530638">"Deze site heeft toegang tot uw locatie. Wijzig dit in \'Instellingen\' -&gt; \'Geavanceerd\' -&gt; \'Website-instellingen\'"</string>
+    <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7418225389343746465">"Deze site heeft geen toegang tot uw locatie. Wijzig dit in \'Instellingen\' -&gt; \'Geavanceerd\' -&gt; \'Website-instellingen\'"</string>
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Locatietoegang blokk."</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Deze site heeft momenteel toegang tot uw locatie"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"Deze site heeft momenteel geen toegang tot uw locatie"</string>

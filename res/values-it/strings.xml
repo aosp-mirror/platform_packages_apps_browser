@@ -276,7 +276,13 @@
     <string name="pref_lab_fullscreen_summary" msgid="6853711692160711419">"Usa la modalità a schermo intero per nascondere la barra di stato."</string>
     <string name="pref_data_title" msgid="750316606686075162">"Gestione larghezza di banda"</string>
     <string name="pref_data_preload_title" msgid="4479320472980292873">"Precaricamento risultati di ricerca"</string>
+  <string-array name="pref_data_preload_choices">
+    <item msgid="5180466923190095508">"Mai"</item>
+    <item msgid="1791664748778640002">"Solo su Wi-Fi"</item>
+    <item msgid="3944061253437827617">"Sempre"</item>
+  </string-array>
     <string name="pref_data_preload_summary" msgid="7488335627364473744">"Consenti al browser di precaricare i risultati di ricerca affidabili in background"</string>
+    <string name="pref_data_preload_dialogtitle" msgid="8421297746110796536">"Precaricamento risultati di ricerca"</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Problema di connettività dati"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Problemi con il file"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Conferma"</string>

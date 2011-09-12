@@ -161,9 +161,9 @@
     <string name="pref_autologin_title" msgid="2362827272595366379">"Log masuk Google automatik"</string>
     <string name="pref_autologin_progress" msgid="8333244467048833461">"Melog masuk ke dalam tapak Google menggunakan <xliff:g id="ID_1">%s</xliff:g>"</string>
     <string name="autologin_bar_text" msgid="3684581827167173371">"Log masuk sebagai"</string>
-    <string name="autologin_bar_login_text" msgid="3336615320510851879">"Daftar masuk"</string>
+    <string name="autologin_bar_login_text" msgid="3336615320510851879">"Log masuk"</string>
     <string name="autologin_bar_hide_text" msgid="3629355974385859580">"Sembunyikn"</string>
-    <string name="autologin_bar_error" msgid="7470001207395920811">"Tidak dapat mendaftar masuk."</string>
+    <string name="autologin_bar_error" msgid="7470001207395920811">"Tidak dapat melog masuk."</string>
     <string name="autofill_profile_editor_heading" msgid="8392952553626722083">"Masukkan data yang anda mahu auto isi dalam medan web apabila anda menyentuhnya."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Nama penuh:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"E-mel:"</string>
@@ -276,7 +276,12 @@
     <string name="pref_lab_fullscreen_summary" msgid="6853711692160711419">"Gunakan mod skrin penuh untuk menyembunyikan bar status."</string>
     <string name="pref_data_title" msgid="750316606686075162">"Pengurusan Lebar Jalur"</string>
     <string name="pref_data_preload_title" msgid="4479320472980292873">"Hasil carian sedang dipramuat"</string>
+    <!-- no translation found for pref_data_preload_choices:0 (5180466923190095508) -->
+    <!-- no translation found for pref_data_preload_choices:1 (1791664748778640002) -->
+    <!-- no translation found for pref_data_preload_choices:2 (3944061253437827617) -->
     <string name="pref_data_preload_summary" msgid="7488335627364473744">"Benarkan penyemak imbas mempramuat hasil carian berkeyakinan tinggi di ltr blkg"</string>
+    <!-- no translation found for pref_data_preload_dialogtitle (8421297746110796536) -->
+    <skip />
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Masalah kesambungan data"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Masalah dengan fail"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Sahkan"</string>
@@ -350,8 +355,8 @@
     <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"Kongsi lokasi"</string>
     <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"Tolak"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"Ingat pilihan"</string>
-    <!-- outdated translation 987286072035125498 -->     <string name="geolocation_permissions_prompt_toast_allowed" msgid="7833771073195530638">"Tapak ini boleh mengakses lokasi anda. Tukarkannya dalam Tetapan -&gt; Tetapan tapak web"</string>
-    <!-- outdated translation 7695100950212692515 -->     <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7418225389343746465">"Tapak ini tidak boleh mengakses lokasi anda. Tukarkannya dalam Tetapan -&gt; Tetapan tapak web"</string>
+    <string name="geolocation_permissions_prompt_toast_allowed" msgid="7833771073195530638">"Tapak ini boleh mengakses lokasi anda. Tukarkannya dalam Tetapan -&gt; Lanjutan -&gt; Tetapan laman Web"</string>
+    <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7418225389343746465">"Tapak ini tidak boleh mengakses lokasi anda. Tukarkannya dalam Tetapan -&gt; Lanjutan -&gt; Tetapan laman Web"</string>
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Padam bersih akses lokasi"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Tapak ini boleh mengakses lokasi anda pada masa ini"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"Tapak ini tidak boleh mengakses lokasi anda pada masa ini"</string>
