@@ -15,6 +15,7 @@
  */
 package com.android.browser;
 
+import android.os.SystemClock;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -68,7 +69,7 @@ public class UrlBarAutoShowManager implements OnTouchListener,
 
     @Override
     public void onScrollChanged(int l, int t, int oldl, int oldt) {
-        mLastScrollTime = System.currentTimeMillis();
+        mLastScrollTime = SystemClock.uptimeMillis();
         if (t != oldt) {
             if (t != 0) {
                 // If it is showing, extend it
@@ -124,7 +125,7 @@ public class UrlBarAutoShowManager implements OnTouchListener,
                     if (dy > mSlop && angle > V_TRIGGER_ANGLE
                             && !mUi.isTitleBarShowing()
                             && web.getVisibleTitleHeight() == 0) {
-                        mTriggeredTime = System.currentTimeMillis();
+                        mTriggeredTime = SystemClock.uptimeMillis();
                         mUi.showTitleBar();
                     }
                 }
