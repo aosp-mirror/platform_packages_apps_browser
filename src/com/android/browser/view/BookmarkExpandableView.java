@@ -264,8 +264,15 @@ public class BookmarkExpandableView extends ExpandableListView
 
         @Override
         public void onClick(View v) {
+            if (v.getVisibility() != View.VISIBLE) {
+                return;
+            }
             int groupPosition = (Integer) v.getTag(R.id.group_position);
             int childPosition = (Integer) v.getTag(R.id.child_position);
+            if (mAdapter.getGroupCount() <= groupPosition
+                    || mAdapter.mChildren.get(groupPosition).getCount() <= childPosition) {
+                return;
+            }
             long id = (Long) v.getTag(R.id.child_id);
             if (mOnChildClickListener != null) {
                 mOnChildClickListener.onChildClick(BookmarkExpandableView.this,
