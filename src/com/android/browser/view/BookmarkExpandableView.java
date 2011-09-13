@@ -502,6 +502,7 @@ public class BookmarkExpandableView extends ExpandableListView
                 crumbs.pushView(bookmarks, false,
                         BrowserContract.Bookmarks.CONTENT_URI_DEFAULT_FOLDER);
                 crumbs.setTag(R.id.group_position, groupPosition);
+                crumbs.setVisibility(View.GONE);
                 mBreadcrumbs.put(groupPosition, crumbs);
             }
             return crumbs;
