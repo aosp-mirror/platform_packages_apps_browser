@@ -91,6 +91,7 @@ public class BookmarkExpandableView extends ExpandableListView
         setLongClickable(false);
         mMaxColumnCount = mContext.getResources()
                 .getInteger(R.integer.max_bookmark_columns);
+        setScrollBarStyle(SCROLLBARS_OUTSIDE_OVERLAY);
         mAdapter = new BookmarkAccountAdapter(mContext);
         super.setAdapter(mAdapter);
     }
@@ -101,9 +102,7 @@ public class BookmarkExpandableView extends ExpandableListView
         int widthMode = MeasureSpec.getMode(widthMeasureSpec);
         if (width > 0) {
             mAdapter.measureChildren(width);
-            if (mAdapter.mRowPadding > 0) {
-                width -= mAdapter.mRowPadding * 2;
-            }
+            setPadding(mAdapter.mRowPadding, 0, mAdapter.mRowPadding, 0);
             widthMeasureSpec = MeasureSpec.makeMeasureSpec(width, widthMode);
         }
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
