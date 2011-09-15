@@ -656,7 +656,7 @@
     <string name="pref_data_preload_value_never" translatable="false">NEVER</string>
     <string name="pref_data_preload_value_wifi_only" translatable="false">WIFI_ONLY</string>
     <string name="pref_data_preload_value_always" translatable="false">ALWAYS</string>
-    <string name="pref_data_preload_default_value" translatable="false">@string/pref_data_preload_value_always</string>
+    <string name="pref_data_preload_default_value" translatable="false">@string/pref_data_preload_value_wifi_only</string>
     <string-array name="pref_data_preload_values" translatable="false">
         <item><xliff:g>@string/pref_data_preload_value_never</xliff:g></item>
         <item><xliff:g>@string/pref_data_preload_value_wifi_only</xliff:g></item>
