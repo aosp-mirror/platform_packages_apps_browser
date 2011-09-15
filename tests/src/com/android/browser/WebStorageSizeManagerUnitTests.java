@@ -90,7 +90,8 @@ public class WebStorageSizeManagerUnitTests extends AndroidTestCase {
         // We have an appcache file size of 0 MB.
         mAppCacheInfo.setAppCacheSizeBytes(0);
         // Create the manager.
-        WebStorageSizeManager manager = new WebStorageSizeManager(null, mDiskInfo, mAppCacheInfo);
+        WebStorageSizeManager manager = new WebStorageSizeManager(getContext(), mDiskInfo,
+                mAppCacheInfo);
         // We add origin 1.
         long origin1Quota = 0;
         long origin1EstimatedSize = bytes(3.5);
@@ -247,7 +248,8 @@ public class WebStorageSizeManagerUnitTests extends AndroidTestCase {
         mAppCacheInfo.setAppCacheSizeBytes(0);
 
         // Create the manager.
-        WebStorageSizeManager manager = new WebStorageSizeManager(null, mDiskInfo, mAppCacheInfo);
+        WebStorageSizeManager manager = new WebStorageSizeManager(getContext(), mDiskInfo,
+                mAppCacheInfo);
 
         // We add an origin.
         long originQuota = 0;
