@@ -392,10 +392,6 @@ public class WebStorageSizeManager {
         if(LOGV_ENABLED) {
             Log.v(LOGTAG, "scheduleOutOfSpaceNotification called.");
         }
-        if (mContext == null) {
-            // mContext can be null if we're running unit tests.
-            return;
-        }
         if ((mLastOutOfSpaceNotificationTime == -1) ||
             (System.currentTimeMillis() - mLastOutOfSpaceNotificationTime > NOTIFICATION_INTERVAL)) {
             // setup the notification boilerplate.
