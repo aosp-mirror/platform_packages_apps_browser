@@ -162,7 +162,6 @@ public class PhoneUi extends BaseUi {
 
     @Override
     public void updateMenuState(Tab tab, Menu menu) {
-        menu.setGroupVisible(R.id.NAV_MENU, (mNavScreen == null));
         MenuItem bm = menu.findItem(R.id.bookmarks_menu_id);
         if (bm != null) {
             bm.setVisible(mNavScreen == null);
@@ -173,7 +172,13 @@ public class PhoneUi extends BaseUi {
         }
         MenuItem abm = menu.findItem(R.id.add_bookmark_menu_id);
         if (abm != null) {
-            abm.setVisible((tab != null) && !tab.isSnapshot());
+            abm.setVisible((tab != null) && !tab.isSnapshot() && mNavScreen == null);
+        }
+        if (mNavScreen != null) {
+            menu.setGroupVisible(R.id.LIVE_MENU, false);
+            menu.setGroupVisible(R.id.SNAPSHOT_MENU, false);
+            menu.findItem(R.id.page_info_menu_id).setVisible(false);
+            menu.setGroupVisible(R.id.NAV_MENU, false);
         }
     }
 
