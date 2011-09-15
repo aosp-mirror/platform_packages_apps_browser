@@ -103,7 +103,7 @@ public class UrlBarAutoShowManager implements OnTouchListener,
         case MotionEvent.ACTION_DOWN:
             if (!mIsTracking && event.getPointerCount() == 1) {
                 long sinceLastScroll =
-                        System.currentTimeMillis() - mLastScrollTime;
+                        SystemClock.uptimeMillis() - mLastScrollTime;
                 if (sinceLastScroll < IGNORE_INTERVAL) {
                     break;
                 }

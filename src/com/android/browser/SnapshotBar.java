@@ -21,7 +21,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -29,21 +28,18 @@ import android.view.ViewConfiguration;
 import android.view.ViewPropertyAnimator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.TextView;
 
 import java.text.DateFormat;
 import java.util.Date;
 
-public class SnapshotBar extends LinearLayout implements OnClickListener,
-        OnMenuItemClickListener {
+public class SnapshotBar extends LinearLayout implements OnClickListener {
 
     private static final int MSG_SHOW_TITLE = 1;
     private static final long DURATION_SHOW_DATE = BaseUi.HIDE_TITLEBAR_DELAY;
 
     private ImageView mFavicon;
-    private View mGoLive;
     private TextView mDate;
     private TextView mTitle;
     private View mBookmarks;
@@ -86,10 +82,7 @@ public class SnapshotBar extends LinearLayout implements OnClickListener,
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        mGoLive = mFavicon = (ImageView) findViewById(R.id.favicon);
-        if (mGoLive == null) {
-            mGoLive = findViewById(R.id.date_icon);
-        }
+        mFavicon = (ImageView) findViewById(R.id.favicon);
         mDate = (TextView) findViewById(R.id.date);
         mTitle = (TextView) findViewById(R.id.title);
         mBookmarks = findViewById(R.id.all_btn);
@@ -113,7 +106,6 @@ public class SnapshotBar extends LinearLayout implements OnClickListener,
             mToggleContainer.setOnClickListener(this);
             resetAnimation();
         }
-        mGoLive.setOnClickListener(this);
     }
 
     @Override
@@ -173,12 +165,6 @@ public class SnapshotBar extends LinearLayout implements OnClickListener,
     public void onClick(View v) {
         if (mBookmarks == v) {
             mTitleBar.getUiController().bookmarksOrHistoryPicker(false);
-        } else if (mGoLive == v) {
-            PopupMenu popup = new PopupMenu(mContext, mGoLive);
-            Menu menu = popup.getMenu();
-            popup.getMenuInflater().inflate(R.menu.snapshot_go_live, menu);
-            popup.setOnMenuItemClickListener(this);
-            popup.show();
         } else if (mTabSwitcher == v) {
             ((PhoneUi) mTitleBar.getUi()).toggleNavScreen();
         } else if (mOverflowMenu == v) {
@@ -193,21 +179,6 @@ public class SnapshotBar extends LinearLayout implements OnClickListener,
             Message m = mHandler.obtainMessage(MSG_SHOW_TITLE);
             mHandler.sendMessageDelayed(m, DURATION_SHOW_DATE);
         }
-    }
-
-    @Override
-    public boolean onMenuItemClick(MenuItem item) {
-        switch (item.getItemId()) {
-        case R.id.snapshot_go_live:
-            goLive();
-            return true;
-        }
-        return false;
-    }
-
-    private void goLive() {
-        Tab t = mTitleBar.getUi().getActiveTab();
-        t.loadUrl(t.getUrl(), null);
     }
 
     public void onTabDataChanged(Tab tab) {

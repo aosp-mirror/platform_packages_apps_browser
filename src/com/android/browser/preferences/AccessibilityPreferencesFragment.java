@@ -76,7 +76,8 @@ public class AccessibilityPreferencesFragment extends PreferenceFragment
                     .getAdjustedMinimumFontSize((Integer) objValue));
         }
         if (PreferenceKeys.PREF_TEXT_ZOOM.equals(pref.getKey())) {
-            updateTextZoomSummary(pref, BrowserSettings
+            BrowserSettings settings = BrowserSettings.getInstance();
+            updateTextZoomSummary(pref, settings
                     .getAdjustedTextZoom((Integer) objValue));
         }
         if (PreferenceKeys.PREF_INVERTED_CONTRAST.equals(pref.getKey())) {

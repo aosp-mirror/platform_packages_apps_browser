@@ -16,6 +16,7 @@
 
 package com.android.browser;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -99,5 +100,7 @@ public interface UiController {
     void loadUrl(Tab tab, String url);
 
     void setBlockEvents(boolean block);
+
+    Activity getActivity();
 
 }

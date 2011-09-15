@@ -25,6 +25,7 @@ import android.os.Build;
 import android.os.Message;
 import android.preference.PreferenceManager;
 import android.provider.Browser;
+import android.util.DisplayMetrics;
 import android.webkit.CookieManager;
 import android.webkit.GeolocationPermissions;
 import android.webkit.WebIconDatabase;
@@ -104,6 +105,7 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     private WeakHashMap<WebSettings, String> mCustomUserAgents;
     private static boolean sInitialized = false;
     private boolean mNeedsSharedSync = true;
+    private float mFontSizeMult = 1.0f;
 
     // Cached values
     private int mPageCacheCapacity = 1;
@@ -158,6 +160,8 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
 
         @Override
         public void run() {
+            DisplayMetrics metrics = mContext.getResources().getDisplayMetrics();
+            mFontSizeMult = metrics.scaledDensity / metrics.density;
             // the cost of one cached page is ~3M (measured using nytimes.com). For
             // low end devices, we only cache one page. For high end devices, we try
             // to cache more pages, currently choose 5.
@@ -522,9 +526,9 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         return rawValue;
     }
 
-    public static int getAdjustedTextZoom(int rawValue) {
+    public int getAdjustedTextZoom(int rawValue) {
         rawValue = (rawValue - TEXT_ZOOM_START_VAL) * TEXT_ZOOM_STEP;
-        return rawValue + 100;
+        return (int) ((rawValue + 100) * mFontSizeMult);
     }
 
     static int getRawTextZoom(int percent) {
