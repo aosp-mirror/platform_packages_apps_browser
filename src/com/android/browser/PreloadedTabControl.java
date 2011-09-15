@@ -15,7 +15,6 @@
  */
 package com.android.browser;
 
-import android.app.PendingIntent;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
@@ -40,7 +39,7 @@ public class PreloadedTabControl {
         mTab = t;
     }
 
-    private boolean maybeSetQuery(final String query, SearchBox sb) {
+    private void maybeSetQuery(final String query, SearchBox sb) {
         if (!TextUtils.equals(mLastQuery, query)) {
             if (sb != null) {
                 if (LOGD_ENABLED) Log.d(LOGTAG, "Changing searchbox query to " + query);
@@ -56,27 +55,25 @@ public class PreloadedTabControl {
                         }
                     }
                 });
-                return true;
             } else {
                 if (LOGD_ENABLED) Log.d(LOGTAG, "Cannot set query: no searchbox interface");
             }
         }
-        return false;
     }
 
     public void setQuery(String query) {
         maybeSetQuery(query, mTab.getWebView().getSearchBox());
     }
 
-    public boolean searchBoxSubmit(final String query, final String fallbackUrl,
-            final Map<String, String> fallbackHeaders, final PendingIntent onLoadCompleteIntent) {
+    public boolean searchBoxSubmit(final String query,
+            final String fallbackUrl, final Map<String, String> fallbackHeaders) {
         final SearchBox sb = mTab.getWebView().getSearchBox();
         if (sb == null) {
             // no searchbox, cannot submit. Fallback to regular tab creation
             if (LOGD_ENABLED) Log.d(LOGTAG, "No searchbox, cannot submit query");
             return false;
         }
-        final boolean newQuery = maybeSetQuery(query, sb);
+        maybeSetQuery(query, sb);
         if (LOGD_ENABLED) Log.d(LOGTAG, "Submitting query " + query);
         final String currentUrl = mTab.getUrl();
         sb.onsubmit(new SearchBox.SearchBoxListener() {
@@ -87,14 +84,9 @@ public class PreloadedTabControl {
                 if (!called) {
                     if (LOGD_ENABLED) Log.d(LOGTAG, "Query not submitted; falling back");
                     loadUrl(fallbackUrl, fallbackHeaders);
-
                     // make sure that the failed, preloaded URL is cleared from the back stack
                     mTab.clearBackStackWhenItemAdded(Pattern.compile(
                             "^" + Pattern.quote(fallbackUrl) + "$"));
-                    // When setting the search box query, preloadAttempted=true implies that the
-                    // the query was prefetched using the searchbox API. This is the case if we
-                    // the query is not new.
-                    registerLoadCompleteListener(!newQuery, false, onLoadCompleteIntent);
                 } else {
                     // ignore the next fragment change, to avoid leaving a blank page in the browser
                     // after the query has been submitted.
@@ -108,25 +100,9 @@ public class PreloadedTabControl {
                                     Pattern.quote(currentWithoutFragment) +
                                     "(\\#.*)?" +
                                     "$"));
-                    registerLoadCompleteListener(!newQuery, true, onLoadCompleteIntent);
                 }
             }});
         return true;
-    }
-
-    private void registerLoadCompleteListener(
-            final boolean queryPreloaded,
-            final boolean preloadSucceeded,
-            final PendingIntent pendingIntent) {
-        if (pendingIntent == null) {
-            return;
-        }
-        mTab.setOnPageLoadCompleteListener(null, new Tab.OnPageLoadCompleteListener(){
-            @Override
-            public void onPageLoadComplete() {
-                IntentHandler.sendPageLoadCompletePendingIntent(mTab.mContext, pendingIntent,
-                        queryPreloaded, preloadSucceeded);
-            }});
     }
 
     public void searchBoxCancel() {

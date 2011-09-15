@@ -66,6 +66,8 @@ import android.webkit.WebView;
 import android.webkit.WebView.PictureListener;
 import android.webkit.WebViewClient;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.browser.TabControl.OnThumbnailUpdatedListener;
@@ -172,12 +174,9 @@ class Tab implements PictureListener {
     private Handler mHandler;
 
     /**
-     * See {@link #clearBackStackWhenItemAdded(Pattern)}.
+     * See {@link #clearBackStackWhenItemAdded(String)}.
      */
     private Pattern mClearHistoryUrlPattern;
-
-    private OnPageLoadCompleteListener mOnPageLoadCompleteListener;
-    private Pattern mOnPageLoadCompleteUrlMatch;
 
     private static synchronized Bitmap getDefaultFavicon(Context context) {
         if (sDefaultFavicon == null) {
@@ -533,26 +532,6 @@ class Tab implements PictureListener {
         }
     }
 
-    public interface OnPageLoadCompleteListener {
-        void onPageLoadComplete();
-    }
-
-    /**
-     * Requests a notification when the next page load completes. This is a one shot notification,
-     * the listener will be discarded after the first callback, or if the page load is cancelled.
-     * @param listener
-     */
-    public void setOnPageLoadCompleteListener(Pattern urlMatch,
-            OnPageLoadCompleteListener listener) {
-        mOnPageLoadCompleteListener = listener;
-        mOnPageLoadCompleteUrlMatch = urlMatch;
-    }
-
-    public void clearPageLoadCompleteListener() {
-        mOnPageLoadCompleteListener = null;
-        mOnPageLoadCompleteUrlMatch = null;
-    }
-
     // -------------------------------------------------------------------------
     // WebViewClient implementation for the main WebView
     // -------------------------------------------------------------------------
@@ -616,13 +595,6 @@ class Tab implements PictureListener {
 
         @Override
         public void onPageFinished(WebView view, String url) {
-            if (mOnPageLoadCompleteListener != null) {
-                if (mOnPageLoadCompleteUrlMatch == null
-                        || mOnPageLoadCompleteUrlMatch.matcher(url).matches())
-                mOnPageLoadCompleteListener.onPageLoadComplete();
-                mOnPageLoadCompleteListener = null;
-                mOnPageLoadCompleteUrlMatch = null;
-            }
             if (!mInPageLoad) {
                 // In page navigation links (www.something.com#footer) will
                 // trigger an onPageFinished which we don't care about.
@@ -2070,7 +2042,6 @@ class Tab implements PictureListener {
             mCurrentState = new PageState(mContext, false, url, null);
             mWebViewController.onPageStarted(this, mMainView, null);
             mMainView.loadUrl(url, headers);
-            clearPageLoadCompleteListener();
         }
     }
 
@@ -2122,14 +2093,12 @@ class Tab implements PictureListener {
 
     public void goBack() {
         if (mMainView != null) {
-            clearPageLoadCompleteListener();
             mMainView.goBack();
         }
     }
 
     public void goForward() {
         if (mMainView != null) {
-            clearPageLoadCompleteListener();
             mMainView.goForward();
         }
     }
