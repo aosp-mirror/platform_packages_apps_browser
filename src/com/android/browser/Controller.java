@@ -1245,10 +1245,6 @@ public class Controller
         }
         MenuInflater inflater = mActivity.getMenuInflater();
         inflater.inflate(R.menu.browser, menu);
-        updateInLoadMenuItems(menu);
-        // hold on to the menu reference here; it is used by the page callbacks
-        // to update the menu based on loading state
-        mCachedMenu = menu;
         return true;
     }
 
@@ -1432,6 +1428,10 @@ public class Controller
     }
 
     boolean onPrepareOptionsMenu(Menu menu) {
+        updateInLoadMenuItems(menu);
+        // hold on to the menu reference here; it is used by the page callbacks
+        // to update the menu based on loading state
+        mCachedMenu = menu;
         // Note: setVisible will decide whether an item is visible; while
         // setEnabled() will decide whether an item is enabled, which also means
         // whether the matching shortcut key will function.
@@ -1462,11 +1462,13 @@ public class Controller
         boolean canGoForward = false;
         boolean isHome = false;
         boolean isDesktopUa = false;
+        boolean isLive = false;
         if (tab != null) {
             canGoBack = tab.canGoBack();
             canGoForward = tab.canGoForward();
             isHome = mSettings.getHomePage().equals(tab.getUrl());
             isDesktopUa = mSettings.hasDesktopUseragent(tab.getWebView());
+            isLive = !tab.isSnapshot();
         }
         final MenuItem back = menu.findItem(R.id.back_menu_id);
         back.setEnabled(canGoBack);
@@ -1483,6 +1485,7 @@ public class Controller
             dest.setTitle(source.getTitle());
             dest.setIcon(source.getIcon());
         }
+        menu.setGroupVisible(R.id.NAV_MENU, isLive);
 
         // decide whether to show the share link option
         PackageManager pm = mActivity.getPackageManager();
@@ -1503,6 +1506,8 @@ public class Controller
         counter.setEnabled(showDebugSettings);
         final MenuItem uaSwitcher = menu.findItem(R.id.ua_desktop_menu_id);
         uaSwitcher.setChecked(isDesktopUa);
+        menu.setGroupVisible(R.id.LIVE_MENU, isLive);
+        menu.setGroupVisible(R.id.SNAPSHOT_MENU, !isLive);
 
         mUi.updateMenuState(tab, menu);
     }
@@ -1620,6 +1625,10 @@ public class Controller
                 mPageDialogsHandler.showPageInfo(mTabControl.getCurrentTab(), false, null);
                 break;
 
+            case R.id.snapshot_go_live:
+                goLive();
+                return true;
+
             case R.id.classic_history_menu_id:
                 bookmarksOrHistoryPicker(true);
                 break;
@@ -1685,6 +1694,11 @@ public class Controller
                 return false;
         }
         return true;
+    }
+
+    private void goLive() {
+        Tab t = getCurrentTab();
+        t.loadUrl(t.getUrl(), null);
     }
 
     public boolean onContextItemSelected(MenuItem item) {

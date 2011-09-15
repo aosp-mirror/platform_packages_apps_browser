@@ -15,6 +15,7 @@
  */
 package com.android.browser;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
@@ -174,14 +175,21 @@ public class NavigationBarPhone extends NavigationBarBase implements
     }
 
     void showMenu(View anchor) {
-        mOverflowMenuShowing = true;
-        mPopupMenu = new PopupMenu(mContext, anchor);
+        Activity activity = mUiController.getActivity();
+        if (mPopupMenu == null) {
+            mPopupMenu = new PopupMenu(mContext, anchor);
+            mPopupMenu.setOnMenuItemClickListener(this);
+            mPopupMenu.setOnDismissListener(this);
+            if (!activity.onCreateOptionsMenu(mPopupMenu.getMenu())) {
+                mPopupMenu = null;
+                return;
+            }
+        }
         Menu menu = mPopupMenu.getMenu();
-        mPopupMenu.getMenuInflater().inflate(R.menu.browser, menu);
-        mUiController.updateMenuState(mBaseUi.getActiveTab(), menu);
-        mPopupMenu.setOnMenuItemClickListener(this);
-        mPopupMenu.setOnDismissListener(this);
-        mPopupMenu.show();
+        if (activity.onPrepareOptionsMenu(menu)) {
+            mOverflowMenuShowing = true;
+            mPopupMenu.show();
+        }
     }
 
     @Override
@@ -193,7 +201,6 @@ public class NavigationBarPhone extends NavigationBarBase implements
 
     private void onMenuHidden() {
         mOverflowMenuShowing = false;
-        mPopupMenu = null;
         mBaseUi.showTitleBarForDuration();
     }
 

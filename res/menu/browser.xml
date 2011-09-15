@@ -50,21 +50,30 @@
             android:icon="@drawable/ic_bookmarks_history_holo_dark"
             android:alphabeticShortcut="b"
             android:visible="@bool/menu_show_bookmarks" />
-        <item
-            android:id="@+id/share_page_menu_id"
-            android:title="@string/share_page"
-            android:icon="@drawable/ic_share_holo_dark"
-            android:alphabeticShortcut="s" />
-        <item
-            android:id="@+id/find_menu_id"
-            android:title="@*android:string/find_on_page"/>
-        <item
-            android:id="@+id/ua_desktop_menu_id"
-            android:checkable="true"
-            android:title="@string/ua_switcher_desktop" />
-        <item
-            android:id="@+id/save_snapshot_menu_id"
-            android:title="@string/menu_save_snapshot" />
+        <group
+            android:id="@+id/LIVE_MENU">
+            <item
+                android:id="@+id/share_page_menu_id"
+                android:title="@string/share_page"
+                android:icon="@drawable/ic_share_holo_dark"
+                android:alphabeticShortcut="s" />
+            <item
+                android:id="@+id/find_menu_id"
+                android:title="@*android:string/find_on_page"/>
+            <item
+                android:id="@+id/ua_desktop_menu_id"
+                android:checkable="true"
+                android:title="@string/ua_switcher_desktop" />
+            <item
+                android:id="@+id/save_snapshot_menu_id"
+                android:title="@string/menu_save_snapshot" />
+        </group>
+        <group
+            android:id="@+id/SNAPSHOT_MENU">
+            <item
+                android:id="@+id/snapshot_go_live"
+                android:title="@string/snapshot_go_live" />
+        </group>
         <item
             android:id="@+id/page_info_menu_id"
             android:title="@string/page_info" />
