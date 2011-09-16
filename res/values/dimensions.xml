@@ -50,7 +50,7 @@
     <dimen name="widgetThumbnailHeight">94dip</dimen>
     <dimen name="widgetHorizontalSpacing">6dip</dimen>
     <dimen name="widgetVerticalSpacing">6dip</dimen>
-    <dimen name="widgetColumnWidth">90dip</dimen>
+    <dimen name="widgetColumnWidth">80dip</dimen>
     <!-- For the combined Bookmarks History view -->
     <dimen name="combo_paddingTop">0dip</dimen>
     <dimen name="combo_horizontalSpacing">6dip</dimen>
