@@ -26,6 +26,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.ActionMode;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -52,6 +53,7 @@ public class PhoneUi extends BaseUi {
     private PieControlPhone mPieControl;
     private NavScreen mNavScreen;
     private NavigationBarPhone mNavigationBar;
+    private int mActionBarHeight;
 
     boolean mExtendedMenuOpen;
     boolean mOptionsMenuOpen;
@@ -63,9 +65,13 @@ public class PhoneUi extends BaseUi {
      */
     public PhoneUi(Activity browser, UiController controller) {
         super(browser, controller);
-        mActivity.getActionBar().hide();
         setUseQuickControls(BrowserSettings.getInstance().useQuickControls());
         mNavigationBar = (NavigationBarPhone) mTitleBar.getNavigationBar();
+        TypedValue heightValue = new TypedValue();
+        browser.getTheme().resolveAttribute(
+                com.android.internal.R.attr.actionBarSize, heightValue, true);
+        mActionBarHeight = TypedValue.complexToDimensionPixelSize(heightValue.data,
+                browser.getResources().getDisplayMetrics());
     }
 
     @Override
@@ -208,18 +214,20 @@ public class PhoneUi extends BaseUi {
     public void onActionModeStarted(ActionMode mode) {
         if (!isEditingUrl()) {
             hideTitleBar();
+        } else {
+            mTitleBar.animate().translationY(mActionBarHeight);
         }
     }
 
     @Override
     public void onActionModeFinished(boolean inLoad) {
+        mTitleBar.animate().translationY(0);
         if (inLoad) {
             if (mUseQuickControls) {
                 mTitleBar.setShowProgressOnly(true);
             }
             showTitleBar();
         }
-        mActivity.getActionBar().hide();
     }
 
     @Override

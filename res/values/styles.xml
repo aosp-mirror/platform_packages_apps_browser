@@ -21,9 +21,9 @@
     <style name="BrowserTheme" parent="@android:Theme.Holo">
         <item name="android:windowBackground">@color/white</item>
         <item name="android:colorBackground">#FFFFFFFF</item>
-        <item name="android:windowActionBar">true</item>
-        <item name="android:windowNoTitle">false</item>
-        <item name="android:windowActionBarOverlay">false</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionModeOverlay">true</item>
         <item name="android:actionBarStyle">@style/ActionBarStyle</item>
     </style>
     <style name="DialogWhenLarge" parent="@android:style/Theme.Holo.DialogWhenLarge" >

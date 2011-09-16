@@ -211,8 +211,6 @@ public class Controller
     private ContentObserver mBookmarksObserver;
     private CrashRecoveryHandler mCrashRecoveryHandler;
 
-    private boolean mSimulateActionBarOverlayMode;
-
     private boolean mBlockEvents;
 
     public Controller(Activity browser, boolean preloadCrashState) {
@@ -251,7 +249,6 @@ public class Controller
         mSystemAllowGeolocationOrigins.start();
 
         openIconDatabase();
-        mSimulateActionBarOverlayMode = !BrowserActivity.isTablet(mActivity);
     }
 
     void start(final Bundle icicle, final Intent intent) {
@@ -1819,15 +1816,6 @@ public class Controller
     void onActionModeStarted(ActionMode mode) {
         mUi.onActionModeStarted(mode);
         mActionMode = mode;
-        if (mSimulateActionBarOverlayMode && !mUi.isEditingUrl()) {
-            WebView web = getCurrentWebView();
-            // Simulate overlay mode by scrolling the webview the amount it will be
-            // pushed down. Actual overlay mode doesn't work for us as otherwise
-            // the CAB will, well, overlay the content, which breaks things like
-            // find on page.
-            int scrollBy = getActionModeHeight();
-            web.scrollBy(0, scrollBy);
-        }
     }
 
     /*
@@ -1856,11 +1844,6 @@ public class Controller
         if (!isInCustomActionMode()) return;
         mUi.onActionModeFinished(mInLoad);
         mActionMode = null;
-        if (mSimulateActionBarOverlayMode) {
-            WebView web = getCurrentWebView();
-            int scrollBy = getActionModeHeight();
-            web.scrollBy(0, -scrollBy);
-        }
     }
 
     boolean isInLoad() {
