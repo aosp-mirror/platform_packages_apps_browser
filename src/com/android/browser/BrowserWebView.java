@@ -121,4 +121,9 @@ public class BrowserWebView extends WebView {
         mOnScrollChangedListener = listener;
     }
 
+    @Override
+    public boolean showContextMenuForChild(View originalView) {
+        return false;
+    }
+
 }
