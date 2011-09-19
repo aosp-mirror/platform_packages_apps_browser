@@ -17,7 +17,6 @@
 package com.android.browser;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -38,9 +37,6 @@ public class NetworkStateHandler {
     private IntentFilter mNetworkStateChangedFilter;
     private BroadcastReceiver mNetworkStateIntentReceiver;
     private boolean mIsNetworkUp;
-
-    /* hold a ref so we can auto-cancel if necessary */
-    private AlertDialog mAlertDialog;
 
     public NetworkStateHandler(Activity activity, Controller controller) {
         mActivity = activity;
@@ -99,18 +95,8 @@ public class NetworkStateHandler {
     void onNetworkToggle(boolean up) {
         if (up == mIsNetworkUp) {
             return;
-        } else if (up) {
-            mIsNetworkUp = true;
-            if (mAlertDialog != null) {
-                mAlertDialog.cancel();
-                mAlertDialog = null;
-            }
-        } else {
-            mIsNetworkUp = false;
-            if (mController.isInLoad()) {
-                createAndShowNetworkDialog();
-           }
         }
+        mIsNetworkUp = up;
         WebView w = mController.getCurrentWebView();
         if (w != null) {
             w.setNetworkAvailable(up);
@@ -119,18 +105,6 @@ public class NetworkStateHandler {
 
     boolean isNetworkUp() {
         return mIsNetworkUp;
-    }
-
-    // This method shows the network dialog alerting the user that the net is
-    // down. It will only show the dialog if mAlertDialog is null.
-    void createAndShowNetworkDialog() {
-        if (mAlertDialog == null) {
-            mAlertDialog = new AlertDialog.Builder(mActivity)
-                    .setTitle(R.string.loadSuspendedTitle)
-                    .setMessage(R.string.loadSuspended)
-                    .setPositiveButton(R.string.ok, null)
-                    .show();
-        }
     }
 
     private void sendNetworkType(String type, String subtype) {
