@@ -800,9 +800,6 @@ public class Controller
             resumeWebViewTimers(tab);
         }
         mLoadStopped = false;
-        if (!mNetworkHandler.isNetworkUp()) {
-            mNetworkHandler.createAndShowNetworkDialog();
-        }
         endActionMode();
 
         mUi.onTabDataChanged(tab);
