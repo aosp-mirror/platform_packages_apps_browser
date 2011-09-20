@@ -276,12 +276,13 @@
     <string name="pref_lab_fullscreen_summary" msgid="6853711692160711419">"استخدم وضع ملء الشاشة لإخفاء شريط الحالة."</string>
     <string name="pref_data_title" msgid="750316606686075162">"إدارة النطاق الترددي"</string>
     <string name="pref_data_preload_title" msgid="4479320472980292873">"التحميل المسبق لنتيجة البحث"</string>
-    <!-- no translation found for pref_data_preload_choices:0 (5180466923190095508) -->
-    <!-- no translation found for pref_data_preload_choices:1 (1791664748778640002) -->
-    <!-- no translation found for pref_data_preload_choices:2 (3944061253437827617) -->
+  <string-array name="pref_data_preload_choices">
+    <item msgid="5180466923190095508">"مطلقًا"</item>
+    <item msgid="1791664748778640002">"في شبكة Wi-Fi فقط"</item>
+    <item msgid="3944061253437827617">"دائمًا"</item>
+  </string-array>
     <string name="pref_data_preload_summary" msgid="7488335627364473744">"السماح للمتصفح بتحميل نتائج بحث عالية الثقة في الخلفية مسبقًا"</string>
-    <!-- no translation found for pref_data_preload_dialogtitle (8421297746110796536) -->
-    <skip />
+    <string name="pref_data_preload_dialogtitle" msgid="8421297746110796536">"التحميل المسبق لنتيجة البحث"</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"مشكلة في اتصال البيانات"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"مشكلة في الملف"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"تأكيد"</string>
