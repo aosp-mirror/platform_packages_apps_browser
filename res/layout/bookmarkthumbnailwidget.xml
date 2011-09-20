@@ -16,38 +16,28 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingTop="0dip"
-    android:paddingBottom="3dip"
-    android:paddingLeft="0dip"
-    android:paddingRight="0dip">
+    android:layout_height="match_parent">
     <GridView
         android:id="@+id/bookmarks_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:numColumns="auto_fit"
         android:columnWidth="@dimen/widgetColumnWidth"
-        android:paddingTop="6dip"
-        android:paddingRight="7dip"
-        android:paddingLeft="7dip"
         android:stretchMode="columnWidth"
         android:horizontalSpacing="@dimen/widgetHorizontalSpacing"
         android:verticalSpacing="@dimen/widgetVerticalSpacing"
         android:drawSelectorOnTop="true"
         android:listSelector="@drawable/bookmark_widget_thumb_selector"
-        android:fadingEdgeLength="24dp"
-        android:scrollbarStyle="outsideOverlay"
         android:background="@drawable/bg_bookmarks_widget_holo" />
 
     <ImageButton
         android:id="@+id/app_shortcut"
-        android:layout_width="56dip"
-        android:layout_height="56dip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_marginRight="4dip"
-        android:layout_marginBottom="6dip"
-        android:scaleType="centerInside"
+        android:layout_marginBottom="4dip"
         android:src="@mipmap/ic_launcher_browser"
         android:background="@drawable/bookmark_widget_thumb_selector"
         android:padding="4dip" />
