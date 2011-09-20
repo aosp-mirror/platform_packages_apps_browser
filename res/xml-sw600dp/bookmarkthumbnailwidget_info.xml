@@ -17,10 +17,10 @@
 <!-- 3x3 Widget displaying the user's bookmarks as a list with favicons. -->
 <appwidget-provider
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:minWidth="219dip"
-    android:minHeight="219dip"
-    android:minResizeHeight="72dip"
-    android:minResizeWidth="146dip"
+    android:minWidth="180dip"
+    android:minHeight="180dip"
+    android:minResizeHeight="40dip"
+    android:minResizeWidth="110dip"
     android:updatePeriodMillis="0"
     android:previewImage="@drawable/browser_widget_preview"
     android:initialLayout="@layout/bookmarkthumbnailwidget"
