@@ -422,7 +422,6 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
             return true;
         }
 
-        // TODO: Folder stuff
         if (isFolder) {
             String title = cursor.getString(BookmarksLoader.COLUMN_INDEX_TITLE);
             Uri uri = ContentUris.withAppendedId(
@@ -431,6 +430,7 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
             if (crumbs != null) {
                 // update crumbs
                 crumbs.pushView(title, uri);
+                crumbs.setVisibility(View.VISIBLE);
             }
             loadFolder(groupPosition, uri);
         }
@@ -563,6 +563,11 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
             uri = BrowserContract.Bookmarks.CONTENT_URI_DEFAULT_FOLDER;
         }
         loadFolder(groupPosition, uri);
+        if (level <= 1) {
+            view.setVisibility(View.GONE);
+        } else {
+            view.setVisibility(View.VISIBLE);
+        }
     }
 
     /**
