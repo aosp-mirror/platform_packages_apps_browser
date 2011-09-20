@@ -146,7 +146,7 @@
     <item msgid="844041670142910837">"Ukurasa uliopo"</item>
     <item msgid="4430498748295169195">"Ukurasa mtupu"</item>
     <item msgid="5747608191946904074">"Ukurasa chaguo-msingi"</item>
-    <item msgid="6092441301001006473">"Wavuti uliotembelewa zaidi"</item>
+    <item msgid="6092441301001006473">"Tovuti zilizotembelewa zaidi"</item>
     <item msgid="5021822752506507426">"Nyinginezo…"</item>
   </string-array>
     <string name="pref_content_autofit" msgid="8260474534053660809">"Kuweka kiotomatiki kurasa"</string>
@@ -226,7 +226,7 @@
     <item msgid="5043128215356351184">"Kubwa"</item>
     <item msgid="7201512237890458902">"Kubwa mno"</item>
   </string-array>
-    <string name="pref_min_font_size" msgid="8811125835817449131">"Wastani wa ukubwa wa fonti"</string>
+    <string name="pref_min_font_size" msgid="8811125835817449131">"Ukubwa wa chini wa fonti"</string>
     <string name="pref_min_font_size_value" msgid="2924708480509060209">"pt <xliff:g id="FONT_SIZE">%d</xliff:g>"</string>
     <string name="pref_text_zoom" msgid="8387229123479610157">"Kuza maandishi"</string>
     <string name="pref_force_userscalable" msgid="5641500562399892621">"Lazimishakuwezesha kukuza"</string>
@@ -273,9 +273,9 @@
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Google Moja kwa moja"</string>
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Tumia Google Moja kwa moja unapotumia Google Search, ili kuonyesha matokeo unapokiwaukichapisha (hii inaweza kuongeza kuongeza data inayotumika)"</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"Skrini nzima"</string>
-    <string name="pref_lab_fullscreen_summary" msgid="6853711692160711419">"Tumia modi ya skrini nzima ili kuficha mwamba hali."</string>
+    <string name="pref_lab_fullscreen_summary" msgid="6853711692160711419">"Tumia hali ya skrini nzima ili kuficha mwamba hali."</string>
     <string name="pref_data_title" msgid="750316606686075162">"Udhibitii wa Kipimo-Data"</string>
-    <string name="pref_data_preload_title" msgid="4479320472980292873">"Matokeo ya utafutaji yanapakia kabla"</string>
+    <string name="pref_data_preload_title" msgid="4479320472980292873">"Matokeo ya utafutaji yanapakia awali"</string>
   <string-array name="pref_data_preload_choices">
     <item msgid="5180466923190095508">"kamwe"</item>
     <item msgid="1791664748778640002">"kwenye Wi-Fi tu"</item>

@@ -402,7 +402,7 @@
     <string name="accessibility_button_forward" msgid="1236827218480658168">"Maju"</string>
     <string name="accessibility_button_refresh" msgid="1023441396241841313">"Menyegarkan laman"</string>
     <string name="accessibility_button_stop" msgid="6793644120043222148">"Menghentikan pemuatan laman"</string>
-    <string name="accessibility_button_addbookmark" msgid="4787844912630006181">"Mem-bookmark laman"</string>
+    <string name="accessibility_button_addbookmark" msgid="4787844912630006181">"Bookmark laman"</string>
     <string name="accessibility_button_search" msgid="5357014102136055376">"Penelusuran"</string>
     <string name="accessibility_button_voice" msgid="152016375096083337">"Memulai penelusuran suara"</string>
     <string name="accessibility_button_bookmarks" msgid="7435055677299151649">"Mem-bookmark"</string>
