@@ -440,8 +440,7 @@ public class Gallery extends ViewGroup implements
             return;
         }
         boolean toLeft = deltaX < 0;
-        int limitedDeltaX = mFlingRunnable.mScroller.isFinished()
-                ? deltaX : getLimitedMotionScrollAmount(toLeft, deltaX);
+        int limitedDeltaX = getLimitedMotionScrollAmount(toLeft, deltaX);
         if (limitedDeltaX != deltaX) {
             // The above call returned a limited amount, so stop any
             // scrolls/flings
