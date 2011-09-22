@@ -20,12 +20,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/browser_background_holo" >
+    <com.android.browser.NavTabScroller
+        android:id="@+id/scroller"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
     <LinearLayout
         android:id="@+id/tabbar"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="44dip"
-        android:layout_alignParentBottom="true"
+        android:layout_height="@dimen/toolbar_height"
+        android:layout_gravity="top"
         android:gravity="right"
         android:background="#C0404040">
         <ImageButton
@@ -54,9 +58,4 @@
             android:contentDescription="@string/accessibility_button_more"
             android:src="@drawable/ic_menu_overflow" />
     </LinearLayout>
-    <com.android.browser.NavTabGallery
-        android:id="@+id/scroller"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/tabbar" />
 </RelativeLayout>

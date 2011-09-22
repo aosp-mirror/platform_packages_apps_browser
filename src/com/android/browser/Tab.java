@@ -32,7 +32,10 @@ import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Picture;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Bundle;
@@ -66,8 +69,6 @@ import android.webkit.WebView;
 import android.webkit.WebView.PictureListener;
 import android.webkit.WebViewClient;
 import android.widget.CheckBox;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.browser.TabControl.OnThumbnailUpdatedListener;
@@ -104,6 +105,12 @@ class Tab implements PictureListener {
     private static final int CAPTURE_DELAY = 100;
 
     private static Bitmap sDefaultFavicon;
+
+    private static Paint sAlphaPaint = new Paint();
+    static {
+        sAlphaPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
+        sAlphaPaint.setColor(Color.TRANSPARENT);
+    }
 
     public enum LockIcon {
         LOCK_ICON_UNSECURE,
@@ -2050,6 +2057,7 @@ class Tab implements PictureListener {
         Canvas c = new Canvas(mCapture);
         final int left = mMainView.getScrollX();
         final int top = mMainView.getScrollY() + mMainView.getVisibleTitleHeight();
+        int state = c.save();
         c.translate(-left, -top);
         float scale = mCaptureWidth / (float) mMainView.getWidth();
         c.scale(scale, scale, left, top);
@@ -2058,6 +2066,14 @@ class Tab implements PictureListener {
         } else {
             mMainView.draw(c);
         }
+        c.restoreToCount(state);
+        // manually anti-alias the edges for the tilt
+        c.drawRect(0, 0, 1, mCapture.getHeight(), sAlphaPaint);
+        c.drawRect(mCapture.getWidth() - 1, 0, mCapture.getWidth(),
+                mCapture.getHeight(), sAlphaPaint);
+        c.drawRect(0, 0, mCapture.getWidth(), 1, sAlphaPaint);
+        c.drawRect(0, mCapture.getHeight() - 1, mCapture.getWidth(),
+                mCapture.getHeight(), sAlphaPaint);
         c.setBitmap(null);
         mHandler.removeMessages(MSG_CAPTURE);
         persistThumbnail();
