@@ -30,6 +30,8 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.util.TypedValue;
 
+import com.android.browser.R;
+
 public class Template {
 
     private static HashMap<Integer, Template> sCachedTemplates = new HashMap<Integer, Template>();
@@ -234,7 +236,7 @@ public class Template {
     private static String replaceConsts(Context context, String template) {
         final Pattern pattern = Pattern.compile("<%@\\s*(\\w+/\\w+)\\s*%>");
         final Resources res = context.getResources();
-        final String packageName = context.getPackageName();
+        final String packageName = R.class.getPackage().getName();
         Matcher m = pattern.matcher(template);
         StringBuffer sb = new StringBuffer();
         while (m.find()) {
