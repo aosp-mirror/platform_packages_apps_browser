@@ -115,7 +115,8 @@ public class RequestHandler extends Thread {
 
     void writeResource(String fileName) throws IOException {
         Resources res = mContext.getResources();
-        int id = res.getIdentifier(fileName, null, mContext.getPackageName());
+        String packageName = R.class.getPackage().getName();
+        int id = res.getIdentifier(fileName, null, packageName);
         if (id != 0) {
             InputStream in = res.openRawResource(id);
             byte[] buf = new byte[4096];
