@@ -68,6 +68,7 @@ public interface PreferenceKeys {
     static final String PREF_ENABLE_NAV_DUMP = "enable_nav_dump";
     static final String PREF_ENABLE_TRACING = "enable_tracing";
     static final String PREF_ENABLE_VISUAL_INDICATOR = "enable_visual_indicator";
+    static final String PREF_ENABLE_CPU_UPLOAD_PATH = "enable_cpu_upload_path";
     static final String PREF_JAVASCRIPT_CONSOLE = "javascript_console";
     static final String PREF_JS_ENGINE_FLAGS = "js_engine_flags";
     static final String PREF_NORMAL_LAYOUT = "normal_layout";

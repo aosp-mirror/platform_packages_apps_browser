@@ -18,4 +18,5 @@ package com.android.browser;
 public interface WebViewProperties {
     static final String gfxInvertedScreen = "inverted";
     static final String gfxInvertedScreenContrast = "inverted_contrast";
+    static final String gfxEnableCpuUploadPath = "enable_cpu_upload_path";
 }
