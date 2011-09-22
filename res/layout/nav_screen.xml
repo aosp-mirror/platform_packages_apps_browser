@@ -20,7 +20,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/browser_background_holo">
-    <com.android.browser.NavTabGallery
+    <com.android.browser.NavTabScroller
         android:id="@+id/scroller"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
