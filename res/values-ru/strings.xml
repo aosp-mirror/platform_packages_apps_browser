@@ -244,7 +244,7 @@
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"Масштаб по умолчанию"</string>
     <string name="pref_content_load_page" msgid="2219810141690955452">"Обзор страниц"</string>
     <string name="pref_content_load_page_summary" msgid="8792093504054149369">"Открывать страницы в мелком маштабе для ознакомления"</string>
-    <string name="pref_extras_title" msgid="7075456173747370647">"Дополнительные функции"</string>
+    <string name="pref_extras_title" msgid="7075456173747370647">"Расширенные"</string>
     <string name="pref_extras_website_settings" msgid="67866640052455549">"Настройки веб-сайтов"</string>
     <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"Дополнительные настройки для отдельных сайтов"</string>
     <string name="pref_extras_reset_default_title" msgid="3579760449455761762">"Сброс настроек"</string>
