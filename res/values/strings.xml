@@ -567,6 +567,8 @@
     <!-- Do not tranlsate.  Development option -->
     <string name="pref_development_visual_indicator" translatable="false">Enable Visual Indicator</string>
     <!-- Do not tranlsate.  Development option -->
+    <string name="pref_development_cpu_upload_path" translatable="false">Enable Cpu Upload Path</string>
+    <!-- Do not tranlsate.  Development option -->
     <string name="js_engine_flags" translatable="false">Set JS flags</string>
     <!-- Do not tranlsate.  Development option -->
     <string name="pref_development_uastring" translatable="false">UAString</string>

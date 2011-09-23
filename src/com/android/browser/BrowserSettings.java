@@ -268,6 +268,9 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
 
         settings.setProperty(WebViewProperties.gfxInvertedScreenContrast,
                 Float.toString(getInvertedContrast()));
+
+        settings.setProperty(WebViewProperties.gfxEnableCpuUploadPath,
+                enableCpuUploadPath() ? "true" : "false");
     }
 
     /**
@@ -670,6 +673,13 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
             return false;
         }
         return mPrefs.getBoolean(PREF_ENABLE_VISUAL_INDICATOR, false);
+    }
+
+    public boolean enableCpuUploadPath() {
+        if (!isDebugEnabled()) {
+            return true;
+        }
+        return mPrefs.getBoolean(PREF_ENABLE_CPU_UPLOAD_PATH, true);
     }
 
     public boolean enableJavascriptConsole() {
