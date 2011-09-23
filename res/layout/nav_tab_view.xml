@@ -26,7 +26,7 @@
         android:id="@+id/titlebar"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="48dip"
+        android:layout_height="32dip"
         android:layout_gravity="center_horizontal"
         android:paddingLeft="8dip" >
         <TextView
@@ -43,7 +43,7 @@
             android:drawablePadding="8dip" />
         <ImageView
             android:id="@+id/closetab"
-            android:src="@drawable/ic_stop_holo_dark"
+            android:src="@drawable/ic_tab_close"
             android:layout_gravity="center_vertical"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
