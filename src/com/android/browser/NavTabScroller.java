@@ -60,7 +60,7 @@ public class NavTabScroller extends ScrollerView {
 
     // after drag animation velocity in pixels/sec
     private static final float MIN_VELOCITY = 1500;
-    private Animator mAnimator;
+    private AnimatorSet mAnimator;
 
     private float mFlingVelocity;
     private boolean mNeedsScroll;
@@ -335,11 +335,16 @@ public class NavTabScroller extends ScrollerView {
         }
         int distance = target - (mHorizontal ? v.getTop() : v.getLeft());
         long duration = (long) (Math.abs(distance) * 1000 / Math.abs(velocity));
+        mAnimator = new AnimatorSet();
+        ObjectAnimator trans;
+        ObjectAnimator alpha = ObjectAnimator.ofFloat(v, ALPHA, getAlpha(v,start),
+                getAlpha(v,target));
         if (mHorizontal) {
-            mAnimator = ObjectAnimator.ofFloat(v, TRANSLATION_Y, start, target);
+            trans = ObjectAnimator.ofFloat(v, TRANSLATION_Y, start, target);
         } else {
-            mAnimator = ObjectAnimator.ofFloat(v, TRANSLATION_X, start, target);
+            trans = ObjectAnimator.ofFloat(v, TRANSLATION_X, start, target);
         }
+        mAnimator.playTogether(trans, alpha);
         mAnimator.setDuration(duration);
         mAnimator.addListener(new AnimatorListenerAdapter() {
             public void onAnimationEnd(Animator a) {
@@ -415,6 +420,7 @@ public class NavTabScroller extends ScrollerView {
     }
 
     private void offsetView(View v, float distance) {
+        v.setAlpha(getAlpha(v, distance));
         if (mHorizontal) {
             v.setTranslationY(distance);
         } else {
@@ -422,7 +428,12 @@ public class NavTabScroller extends ScrollerView {
         }
     }
 
-    private float ease(DecelerateInterpolator inter, float value, float start, float dist, float duration) {
+    private float getAlpha(View v, float distance) {
+        return 1 - (float) Math.abs(distance) / (mHorizontal ? v.getHeight() : v.getWidth());
+    }
+
+    private float ease(DecelerateInterpolator inter, float value, float start,
+            float dist, float duration) {
         return start + dist * inter.getInterpolation(value / duration);
     }
 
