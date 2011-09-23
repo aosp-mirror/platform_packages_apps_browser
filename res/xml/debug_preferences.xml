@@ -39,6 +39,11 @@
         android:defaultValue="false"
         android:title="@string/pref_development_visual_indicator" />
 
+    <CheckBoxPreference
+        android:key="enable_cpu_upload_path"
+        android:defaultValue="true"
+        android:title="@string/pref_development_cpu_upload_path" />
+
     <!-- The javascript console is enabled by default when the user has
          also enabled debug mode by navigating to about:debug. -->
     <CheckBoxPreference
