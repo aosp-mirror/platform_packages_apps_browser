@@ -297,8 +297,9 @@ public class PhoneUi extends BaseUi {
         int fromBottom = mContentView.getHeight();
         int width = mActivity.getResources().getDimensionPixelSize(R.dimen.nav_tab_width);
         int height = mActivity.getResources().getDimensionPixelSize(R.dimen.nav_tab_height);
+        int ntth = mActivity.getResources().getDimensionPixelSize(R.dimen.nav_tab_titleheight);
         int toLeft = (mContentView.getWidth() - width) / 2;
-        int toTop = ((fromBottom - (fromTop + height)) / 2 + fromTop);
+        int toTop = ((fromBottom - (ntth + height)) / 2 + ntth);
         int toRight = toLeft + width;
         int toBottom = toTop + height;
         float scaleFactor = width / (float) mContentView.getWidth();
