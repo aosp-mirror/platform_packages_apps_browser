@@ -26,7 +26,7 @@
         android:id="@+id/titlebar"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="32dip"
+        android:layout_height="@dimen/nav_tab_titleheight"
         android:layout_gravity="center_horizontal"
         android:paddingLeft="8dip" >
         <TextView
