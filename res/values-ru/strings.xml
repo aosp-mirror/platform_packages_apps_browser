@@ -103,7 +103,7 @@
     <string name="copy_page_url" msgid="7635062169011319208">"Копировать URL страницы"</string>
     <string name="share_page" msgid="593756995297268343">"Отправить страницу"</string>
     <string name="menu_save_snapshot" msgid="6935080344031126139">"Сохранить для чтения офлайн"</string>
-    <string name="snapshot_failed" msgid="4584580873565876033">"Не удалось сохранить страницу для чтения офлайн."</string>
+    <string name="snapshot_failed" msgid="4584580873565876033">"Не удалось сохранить страницу для офлайн-доступа."</string>
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"Закладок: <xliff:g id="BOOKMARK_COUNT">%d</xliff:g>"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Папка пуста"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Открыть"</string>
@@ -393,7 +393,7 @@
     <string name="instant_search_label" msgid="8769284297650716935">"Google с Живым поиском (Лаборатория Google)"</string>
     <string name="preview" msgid="6450823514561689038">"Предварительный просмотр"</string>
     <string name="local_bookmarks" msgid="533816851415228520">"Локальные"</string>
-    <string name="ua_switcher_desktop" msgid="220097077327558435">"Запросить версию веб-сайта для компьютера"</string>
+    <string name="ua_switcher_desktop" msgid="220097077327558435">"Запросить версию веб-сайта для ПК"</string>
     <string name="permission_preload_label" msgid="4856971662337877316">"Загрузить результаты"</string>
     <string name="empty_snapshots_folder" msgid="5788256228290785444">"Нет сохраненных страниц."</string>
     <string name="remove_snapshot" msgid="1624447424544976849">"Удалить сохраненную страницу"</string>
