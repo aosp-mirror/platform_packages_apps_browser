@@ -40,6 +40,7 @@ import java.util.List;
  */
 public class BreadCrumbView extends LinearLayout implements OnClickListener {
     private static final int DIVIDER_PADDING = 12; // dips
+    private static final int CRUMB_PADDING = 8; // dips
 
     public interface Controller {
         public void onTop(BreadCrumbView view, int level, Object data);
@@ -53,6 +54,7 @@ public class BreadCrumbView extends LinearLayout implements OnClickListener {
     private float mDividerPadding;
     private int mMaxVisible = -1;
     private Context mContext;
+    private int mCrumbPadding;
 
     /**
      * @param context
@@ -89,7 +91,9 @@ public class BreadCrumbView extends LinearLayout implements OnClickListener {
         TypedArray a = mContext.obtainStyledAttributes(com.android.internal.R.styleable.Theme);
         mSeparatorDrawable = a.getDrawable(com.android.internal.R.styleable.Theme_dividerVertical);
         a.recycle();
-        mDividerPadding = DIVIDER_PADDING * mContext.getResources().getDisplayMetrics().density;
+        float density = mContext.getResources().getDisplayMetrics().density;
+        mDividerPadding = DIVIDER_PADDING * density;
+        mCrumbPadding = (int) (CRUMB_PADDING * density);
         addBackButton();
     }
 
@@ -359,14 +363,12 @@ public class BreadCrumbView extends LinearLayout implements OnClickListener {
         private TextView makeCrumbView(String name) {
             TextView tv = new TextView(mContext);
             tv.setTextAppearance(mContext, android.R.style.TextAppearance_Medium);
-            tv.setPadding(16, 0, 16, 0);
+            tv.setPadding(mCrumbPadding, 0, mCrumbPadding, 0);
             tv.setGravity(Gravity.CENTER_VERTICAL);
             tv.setText(name);
             tv.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,
                     LayoutParams.MATCH_PARENT));
-            tv.setMaxWidth(mContext.getResources().getInteger(
-                    R.integer.max_width_crumb));
-            tv.setMaxLines(1);
+            tv.setSingleLine();
             tv.setEllipsize(TextUtils.TruncateAt.END);
             return tv;
         }

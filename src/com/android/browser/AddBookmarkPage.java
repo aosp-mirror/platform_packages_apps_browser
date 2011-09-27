@@ -367,6 +367,8 @@ public class AddBookmarkPage extends Activity
         mFakeTitleHolder.setVisibility(View.GONE);
         mAddNewFolder.setVisibility(View.VISIBLE);
         mAddSeparator.setVisibility(View.VISIBLE);
+        getInputMethodManager().hideSoftInputFromWindow(
+                mListView.getWindowToken(), 0);
     }
 
     private void descendInto(String foldername, long id) {
