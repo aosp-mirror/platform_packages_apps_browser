@@ -17,13 +17,12 @@
 package com.android.browser;
 
 import android.app.Activity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup.LayoutParams;
-import android.webkit.WebView;
-import android.widget.ImageView;
-import android.widget.ImageView.ScaleType;
-import android.widget.TextView;
+import android.widget.PopupMenu;
+import android.widget.PopupMenu.OnMenuItemClickListener;
 
 import com.android.browser.view.PieItem;
 import com.android.browser.view.PieMenu.PieView.OnLayoutListener;
@@ -34,13 +33,15 @@ import java.util.List;
 /**
  * controller for Quick Controls pie menu
  */
-public class PieControlPhone extends PieControlBase implements OnClickListener {
+public class PieControlPhone extends PieControlBase implements OnClickListener,
+        OnMenuItemClickListener {
 
     private PhoneUi mUi;
-    private PieItem mBack;
     private PieItem mUrl;
     private PieItem mShowTabs;
+    private PieItem mOptions;
     private TabAdapter mTabAdapter;
+    private PopupMenu mPopup;
 
     public PieControlPhone(Activity activity, UiController controller, PhoneUi ui) {
         super(activity, controller);
@@ -48,7 +49,6 @@ public class PieControlPhone extends PieControlBase implements OnClickListener {
     }
 
     protected void populateMenu() {
-        mBack = makeItem(R.drawable.ic_back_holo_dark, 1);
         mUrl = makeItem(R.drawable.ic_web_holo_dark, 1);
         View tabs = makeTabsView();
         mShowTabs = new PieItem(tabs, 1);
@@ -63,12 +63,30 @@ public class PieControlPhone extends PieControlBase implements OnClickListener {
         stack.setOnCurrentListener(mTabAdapter);
         stack.setAdapter(mTabAdapter);
         mShowTabs.setPieView(stack);
+        mOptions = makeItem(com.android.internal.R.drawable.ic_menu_moreoverflow_normal_holo_dark,
+                1);
+
         // level 1
-        mPie.addItem(mBack);
-        mPie.addItem(mUrl);
         mPie.addItem(mShowTabs);
-        setClickListener(this, mBack, mUrl, mShowTabs);
+        mPie.addItem(mUrl);
+        mPie.addItem(mOptions);
+        setClickListener(this, mUrl, mShowTabs, mOptions);
+        mPopup = new PopupMenu(mActivity, mUi.getTitleBar());
+        Menu menu = mPopup.getMenu();
+        mPopup.getMenuInflater().inflate(R.menu.browser, menu);
+        mPopup.setOnMenuItemClickListener(this);
     }
+
+    protected void showMenu() {
+        mUiController.updateMenuState(mUiController.getCurrentTab(), mPopup.getMenu());
+        mPopup.show();
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        return mUiController.onOptionsItemSelected(item);
+    }
+
 
     private void buildTabs() {
         final List<Tab> tabs = mUiController.getTabs();
@@ -81,15 +99,13 @@ public class PieControlPhone extends PieControlBase implements OnClickListener {
 
     @Override
     public void onClick(View v) {
-        Tab tab = mUiController.getTabControl().getCurrentTab();
-        if (mBack.getView() == v) {
-            tab.goBack();
-        } else if (mUrl.getView() == v) {
+        if (mUrl.getView() == v) {
             mUi.editUrl(false);
         } else if (mShowTabs.getView() == v) {
             mUi.showNavScreen();
+        } else if (mOptions.getView() == v) {
+            showMenu();
         }
     }
-
 
 }
