@@ -223,8 +223,15 @@ public class BookmarkThumbnailWidgetService extends RemoteViewsService {
             String url = mBookmarks.getString(BOOKMARK_INDEX_URL);
             boolean isFolder = mBookmarks.getInt(BOOKMARK_INDEX_IS_FOLDER) != 0;
 
-            RemoteViews views = new RemoteViews(
-                    mContext.getPackageName(), R.layout.bookmarkthumbnailwidget_item);
+            RemoteViews views;
+            // Two layouts are needed because of b/5387153
+            if (isFolder) {
+                views = new RemoteViews(mContext.getPackageName(),
+                        R.layout.bookmarkthumbnailwidget_item_folder);
+            } else {
+                views = new RemoteViews(mContext.getPackageName(),
+                        R.layout.bookmarkthumbnailwidget_item);
+            }
             // Set the title of the bookmark. Use the url as a backup.
             String displayTitle = title;
             if (TextUtils.isEmpty(displayTitle)) {
@@ -286,7 +293,7 @@ public class BookmarkThumbnailWidgetService extends RemoteViewsService {
 
         @Override
         public int getViewTypeCount() {
-            return 1;
+            return 2;
         }
 
         @Override
