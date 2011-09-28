@@ -1384,8 +1384,14 @@ public class Controller
                 if (type == WebView.HitTestResult.IMAGE_TYPE) {
                     menu.setHeaderTitle(extra);
                 }
-                menu.findItem(R.id.view_image_context_menu_id).setIntent(
-                        new Intent(Intent.ACTION_VIEW, Uri.parse(extra)));
+                menu.findItem(R.id.view_image_context_menu_id)
+                        .setOnMenuItemClickListener(new OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        openTab(extra, mTabControl.getCurrentTab(), true, true);
+                        return false;
+                    }
+                });
                 menu.findItem(R.id.download_context_menu_id).
                         setOnMenuItemClickListener(
                                 new Download(mActivity, extra, webview.isPrivateBrowsingEnabled()));
