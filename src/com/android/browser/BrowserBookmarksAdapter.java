@@ -25,6 +25,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.widget.TextView;
 
 public class BrowserBookmarksAdapter extends CursorAdapter {
@@ -65,6 +66,7 @@ public class BrowserBookmarksAdapter extends CursorAdapter {
         if (cursor.getInt(BookmarksLoader.COLUMN_INDEX_IS_FOLDER) != 0) {
             // folder
             thumb.setImageResource(R.drawable.thumb_bookmark_widget_folder_holo);
+            thumb.setScaleType(ScaleType.FIT_END);
             thumb.setBackgroundDrawable(null);
         } else {
             byte[] thumbData = cursor.getBlob(BookmarksLoader.COLUMN_INDEX_THUMBNAIL);
@@ -73,6 +75,7 @@ public class BrowserBookmarksAdapter extends CursorAdapter {
                 thumbBitmap = BitmapFactory.decodeByteArray(thumbData, 0, thumbData.length);
             }
 
+            thumb.setScaleType(ScaleType.CENTER_CROP);
             if (thumbBitmap == null) {
                 thumb.setImageResource(R.drawable.browser_thumbnail);
             } else {
