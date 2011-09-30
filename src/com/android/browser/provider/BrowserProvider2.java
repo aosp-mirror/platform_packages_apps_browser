@@ -122,11 +122,24 @@ public class BrowserProvider2 extends SQLiteContentProvider {
     private static final String[] SUGGEST_PROJECTION = new String[] {
             Bookmarks._ID,
             Bookmarks.URL,
-            Bookmarks.TITLE};
+            Bookmarks.TITLE,
+            "0"};
 
     private static final String SUGGEST_SELECTION =
             "url LIKE ? OR url LIKE ? OR url LIKE ? OR url LIKE ?"
             + " OR title LIKE ?";
+
+    private static final String[] HISTORY_SUGGEST_PROJECTION = new String[] {
+            History._ID,
+            History.URL,
+            History.TITLE,
+            History.DATE_LAST_VISITED};
+
+    private static final String HISTORY_SUGGEST_SELECTION =
+            History.DATE_LAST_VISITED + " != 0";
+
+    private static final String HISTORY_SUGGEST_ORDER_BY =
+            History.DATE_LAST_VISITED + " DESC";
 
     private static final String IMAGE_PRUNE =
             "url_key NOT IN (SELECT url FROM bookmarks " +
@@ -1093,8 +1106,13 @@ public class BrowserProvider2 extends SQLiteContentProvider {
     }
 
     private Cursor doSuggestQuery(String selection, String[] selectionArgs, String limit) {
-        if (selectionArgs[0] == null) {
-            return null;
+        Cursor c;
+        int iconId;
+        if (TextUtils.isEmpty(selectionArgs[0])) {
+            c = mOpenHelper.getReadableDatabase().query(TABLE_HISTORY,
+                    HISTORY_SUGGEST_PROJECTION, HISTORY_SUGGEST_SELECTION, null, null, null,
+                    HISTORY_SUGGEST_ORDER_BY, null);
+            iconId = R.drawable.ic_history_holo_dark;
         } else {
             String like = selectionArgs[0] + "%";
             if (selectionArgs[0].startsWith("http")
@@ -1110,15 +1128,16 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 selectionArgs[4] = like;
                 selection = SUGGEST_SELECTION;
             }
+            selection = DatabaseUtils.concatenateWhere(selection,
+                    Bookmarks.IS_DELETED + "=0 AND " + Bookmarks.IS_FOLDER + "=0");
+
+            c = mOpenHelper.getReadableDatabase().query(TABLE_BOOKMARKS,
+                    SUGGEST_PROJECTION, selection, selectionArgs, null, null,
+                    DEFAULT_BOOKMARKS_SORT_ORDER, null);
+            iconId = R.drawable.ic_bookmark_off_holo_dark;
         }
-        selection = DatabaseUtils.concatenateWhere(selection,
-                Bookmarks.IS_DELETED + "=0 AND " + Bookmarks.IS_FOLDER + "=0");
 
-        Cursor c = mOpenHelper.getReadableDatabase().query(TABLE_BOOKMARKS,
-                SUGGEST_PROJECTION, selection, selectionArgs, null, null,
-                DEFAULT_BOOKMARKS_SORT_ORDER, null);
-
-        return new SuggestionsCursor(c);
+        return new SuggestionsCursor(c, iconId);
     }
 
     private String[] createCombinedQuery(
@@ -2016,6 +2035,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
         private static final int ID_INDEX = 0;
         private static final int URL_INDEX = 1;
         private static final int TITLE_INDEX = 2;
+        private static final int LAST_ACCESS_TIME_INDEX = 3;
         // shared suggestion array index, make sure to match COLUMNS
         private static final int SUGGEST_COLUMN_INTENT_ACTION_ID = 1;
         private static final int SUGGEST_COLUMN_INTENT_DATA_ID = 2;
@@ -2023,6 +2043,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
         private static final int SUGGEST_COLUMN_TEXT_2_TEXT_ID = 4;
         private static final int SUGGEST_COLUMN_TEXT_2_URL_ID = 5;
         private static final int SUGGEST_COLUMN_ICON_1_ID = 6;
+        private static final int SUGGEST_COLUMN_LAST_ACCESS_HINT_ID = 7;
 
         // shared suggestion columns
         private static final String[] COLUMNS = new String[] {
@@ -2032,12 +2053,15 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 SearchManager.SUGGEST_COLUMN_TEXT_1,
                 SearchManager.SUGGEST_COLUMN_TEXT_2,
                 SearchManager.SUGGEST_COLUMN_TEXT_2_URL,
-                SearchManager.SUGGEST_COLUMN_ICON_1};
+                SearchManager.SUGGEST_COLUMN_ICON_1,
+                SearchManager.SUGGEST_COLUMN_LAST_ACCESS_HINT};
 
-        private Cursor mSource;
+        private final Cursor mSource;
+        private final String mIconId;
 
-        public SuggestionsCursor(Cursor cursor) {
+        public SuggestionsCursor(Cursor cursor, int iconId) {
             mSource = cursor;
+            mIconId = Integer.toString(iconId);
         }
 
         @Override
@@ -2060,7 +2084,9 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             case SUGGEST_COLUMN_TEXT_1_ID:
                 return mSource.getString(TITLE_INDEX);
             case SUGGEST_COLUMN_ICON_1_ID:
-                return Integer.toString(R.drawable.ic_bookmark_off_holo_dark);
+                return mIconId;
+            case SUGGEST_COLUMN_LAST_ACCESS_HINT_ID:
+                return mSource.getString(LAST_ACCESS_TIME_INDEX);
             }
             return null;
         }
@@ -2090,6 +2116,8 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             switch (column) {
             case ID_INDEX:
                 return mSource.getLong(ID_INDEX);
+            case SUGGEST_COLUMN_LAST_ACCESS_HINT_ID:
+                return mSource.getLong(LAST_ACCESS_TIME_INDEX);
             }
             throw new UnsupportedOperationException();
         }
