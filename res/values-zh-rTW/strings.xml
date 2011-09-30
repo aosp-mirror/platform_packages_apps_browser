@@ -19,7 +19,7 @@
     <string name="application_name" msgid="1935869255545976415">"瀏覽器"</string>
     <string name="choose_upload" msgid="3649366287575002063">"選擇要上載的檔案"</string>
     <string name="uploads_disabled" msgid="463761197575372994">"檔案上傳功能已停用。"</string>
-    <string name="new_tab" msgid="7971857320679510529">"新標籤"</string>
+    <string name="new_tab" msgid="7971857320679510529">"新分頁"</string>
     <string name="new_incognito_tab" msgid="3606197964239039478">"新無痕式分頁"</string>
     <string name="tab_bookmarks" msgid="2305793036003473653">"書籤"</string>
     <string name="tab_most_visited" msgid="1077402532455000703">"最常造訪"</string>

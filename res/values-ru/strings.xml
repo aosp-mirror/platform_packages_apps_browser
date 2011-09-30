@@ -103,7 +103,7 @@
     <string name="copy_page_url" msgid="7635062169011319208">"Копировать URL страницы"</string>
     <string name="share_page" msgid="593756995297268343">"Отправить страницу"</string>
     <string name="menu_save_snapshot" msgid="6935080344031126139">"Сохранить для чтения офлайн"</string>
-    <string name="snapshot_failed" msgid="4584580873565876033">"Не удалось сохранить страницу для чтения офлайн."</string>
+    <string name="snapshot_failed" msgid="4584580873565876033">"Не удалось сохранить страницу для офлайн-доступа."</string>
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"Закладок: <xliff:g id="BOOKMARK_COUNT">%d</xliff:g>"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Папка пуста"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Открыть"</string>
@@ -244,7 +244,7 @@
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"Масштаб по умолчанию"</string>
     <string name="pref_content_load_page" msgid="2219810141690955452">"Обзор страниц"</string>
     <string name="pref_content_load_page_summary" msgid="8792093504054149369">"Открывать страницы в мелком маштабе для ознакомления"</string>
-    <string name="pref_extras_title" msgid="7075456173747370647">"Дополнительные функции"</string>
+    <string name="pref_extras_title" msgid="7075456173747370647">"Расширенные"</string>
     <string name="pref_extras_website_settings" msgid="67866640052455549">"Настройки веб-сайтов"</string>
     <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"Дополнительные настройки для отдельных сайтов"</string>
     <string name="pref_extras_reset_default_title" msgid="3579760449455761762">"Сброс настроек"</string>
@@ -393,7 +393,7 @@
     <string name="instant_search_label" msgid="8769284297650716935">"Google с Живым поиском (Лаборатория Google)"</string>
     <string name="preview" msgid="6450823514561689038">"Предварительный просмотр"</string>
     <string name="local_bookmarks" msgid="533816851415228520">"Локальные"</string>
-    <string name="ua_switcher_desktop" msgid="220097077327558435">"Запросить версию веб-сайта для компьютера"</string>
+    <string name="ua_switcher_desktop" msgid="220097077327558435">"Запросить версию веб-сайта для ПК"</string>
     <string name="permission_preload_label" msgid="4856971662337877316">"Загрузить результаты"</string>
     <string name="empty_snapshots_folder" msgid="5788256228290785444">"Нет сохраненных страниц."</string>
     <string name="remove_snapshot" msgid="1624447424544976849">"Удалить сохраненную страницу"</string>
