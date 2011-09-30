@@ -1014,7 +1014,6 @@ class Tab implements PictureListener {
             // Build a confirmation dialog to display to the user.
             final AlertDialog d =
                     new AlertDialog.Builder(mContext)
-                    .setTitle(R.string.attention)
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .setMessage(R.string.popup_window_attempt)
                     .setPositiveButton(R.string.allow, allowListener)
@@ -1266,7 +1265,6 @@ class Tab implements PictureListener {
             final View layout = inflater.inflate(R.layout.setup_autofill_dialog, null);
 
             builder.setView(layout)
-                .setTitle(R.string.autofill_setup_dialog_title)
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
