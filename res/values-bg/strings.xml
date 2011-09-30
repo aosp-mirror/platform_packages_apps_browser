@@ -19,7 +19,7 @@
     <string name="application_name" msgid="1935869255545976415">"Браузър"</string>
     <string name="choose_upload" msgid="3649366287575002063">"Избор на файл за качване"</string>
     <string name="uploads_disabled" msgid="463761197575372994">"Качванията на файлове са деактивирани."</string>
-    <!-- outdated translation 4505722538297295141 -->     <string name="new_tab" msgid="7971857320679510529">"Нов прозорец"</string>
+    <string name="new_tab" msgid="7971857320679510529">"Нов раздел"</string>
     <string name="new_incognito_tab" msgid="3606197964239039478">"Нов раздел „инкогнито“"</string>
     <string name="tab_bookmarks" msgid="2305793036003473653">"Отметки"</string>
     <string name="tab_most_visited" msgid="1077402532455000703">"Най-посещавани"</string>

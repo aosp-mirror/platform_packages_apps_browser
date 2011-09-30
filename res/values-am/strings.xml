@@ -46,7 +46,7 @@
     <string name="ssl_untrusted" msgid="5369967226521102194">"ይህ ምስክር ከታማኝ ቦታ አይደለም።"</string>
     <string name="ssl_mismatch" msgid="558688832420069896">"የገፁ ስም የምስክሩን ስም አይዛመድም።"</string>
     <string name="ssl_expired" msgid="5739349389499575559">"ይህ ምስክር ጊዜው አልፏል"</string>
-    <string name="ssl_not_yet_valid" msgid="2893167846212645846">"ይህምስክር ገና ትክክል አይደለም።"</string>
+    <string name="ssl_not_yet_valid" msgid="2893167846212645846">"ይህ ምስክር ገና ትክክል አይደለም።"</string>
     <string name="ssl_date_invalid" msgid="3705563379257285534">"ይህ ምስክር ትክክለኛ ቀን አለው።"</string>
     <string name="ssl_invalid" msgid="9041704741505449967">"ይህ ምስክር ትክክል ያልሆነ ነው።"</string>
     <string name="ssl_unknown" msgid="5679243486524754571">"ያልታወቀ የምስክር ስህተት።"</string>
@@ -189,7 +189,7 @@
     <string name="pref_privacy_security_title" msgid="3480313968942160914">"ግላዊነት&amp; ደህንነት"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"መሸጎጫ አጥራ"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"በአካባቢ የተሸጎጠ ይዘት እና የውሂብ ጎታዎችን አጥራ"</string>
-    <string name="pref_privacy_clear_cache_dlg" msgid="5541011591300753881">"እዛው አካባቢየተሸጎጠ ይዘት እና የውሂብ ጎታዎች ይሰረዛሉ።"</string>
+    <string name="pref_privacy_clear_cache_dlg" msgid="5541011591300753881">"እዛው  አካባቢ የተሸጎጠ ይዘት እና የውሂብ ጎታዎች ይሰረዛሉ።"</string>
     <string name="pref_privacy_cookies_title" msgid="6763274282214830526">"ኩኪዎች"</string>
     <string name="pref_privacy_clear_cookies" msgid="3095583579133780331">"ሁሉንም የውሂብ ኩኪ አጥራ"</string>
     <string name="pref_privacy_clear_cookies_summary" msgid="6962742063990677520">"ሁሉንም የአሳሽ ኩኪዎች አጥራ"</string>
@@ -198,7 +198,7 @@
     <string name="pref_privacy_clear_history_summary" msgid="6868501330708940734">"የአሳሹን ዳሰሳታሪክ አጥራ"</string>
     <string name="pref_privacy_clear_history_dlg" msgid="544903007914753853">"የአሳሹ መዳሰሻ ታሪክ ይሰረዛል።"</string>
     <string name="pref_privacy_formdata_title" msgid="6549813837982050424">"የውሂብ ቅፅ"</string>
-    <string name="pref_privacy_clear_form_data" msgid="4232668196344383987">"ውሂቦችቅፅ አጥራ"</string>
+    <string name="pref_privacy_clear_form_data" msgid="4232668196344383987">"ውሂቦች ቅፅ አጥራ"</string>
     <string name="pref_privacy_clear_form_data_summary" msgid="1790390894719517167">"ሁሉንም የተቀመጡ ውሂቦችቅፅ አጥራ"</string>
     <string name="pref_privacy_clear_form_data_dlg" msgid="4443621086781197928">"የተቀመጡ የውሂብ ቅፆች ሁሉ ይሰረዛሉ።"</string>
     <string name="pref_privacy_clear_passwords" msgid="4750234112289277480">"ይለፍቃሎች አጥራ"</string>
@@ -215,7 +215,7 @@
     <string name="pref_security_remember_passwords_summary" msgid="256388703356349137">"ለድረ ገፆች ተጠቃሚ ስሞች እና የይለፍ ቃሎች አስቀምጥ"</string>
     <string name="pref_security_save_form_data" msgid="1213669802810198893">"የቅፅውሂብ አስታውስ"</string>
     <string name="pref_security_save_form_data_summary" msgid="4994074685153708026">"ለኋላ አገልግሎት የተየብኩትን ውሂብ ቅፆች ላይ አስታውስ"</string>
-    <string name="pref_security_show_security_warning" msgid="8901135676266754559">"የደህንነት ማስጠንቀቂያዎች አሳይ"</string>
+    <string name="pref_security_show_security_warning" msgid="8901135676266754559">"የደህንነት ማስጠንቀቂያዎች  አሳይ"</string>
     <string name="pref_security_show_security_warning_summary" msgid="8968906112720511704">"ከድረ ገፅ ደህንነት ጋር ችግር ካለማስጠንቀቂያ አሳይ"</string>
     <string name="pref_security_accept_cookies" msgid="3201367661925047989">"ኩኪዎች ተቀበል"</string>
     <string name="pref_security_accept_cookies_summary" msgid="1465118934875026920">"ድረ ገፆች እንዲያስቀምጡ እና \"ኩኪ\" ውሂብ እንዲያነቡ ፍቀድ"</string>
@@ -242,7 +242,7 @@
     <item msgid="3840999588443167001">"ዝጋ"</item>
   </string-array>
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"ነባሪ አጉላ"</string>
-    <string name="pref_content_load_page" msgid="2219810141690955452">"በጠቅላይ ቅኝት ላይ ገፆችክፈት"</string>
+    <string name="pref_content_load_page" msgid="2219810141690955452">"በጠቅላይ ቅኝት ላይ ገፆች ክፈት"</string>
     <string name="pref_content_load_page_summary" msgid="8792093504054149369">"አዲስ የተከፈቱ ገፆችን በጠቅላይ ቅኝት አሳይ"</string>
     <string name="pref_extras_title" msgid="7075456173747370647">"ከፍተኛ"</string>
     <string name="pref_extras_website_settings" msgid="67866640052455549">"የድረ ገፅ ቅንብሮች"</string>
@@ -286,7 +286,7 @@
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"የውሂብ ተያያዥነት ችግር"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"የፋይሉ ችግር"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"አረጋግጥ"</string>
-    <string name="browserFrameFormResubmitMessage" msgid="2752182215695632138">"ለማየት እየሞከሩ ያሉት ገፅ (\"POSTDATA\") ቀደም ብሎ የተረከበ ውሂብ ይዝዋል። ውሂቡን ድጋሚ ከላኩት፣ ማንኛውም በገፁ ቅፅላይ ያለ ርምጃ ይከናወናል(ለምሳሌ ፍለጋ ወይም የመስመር ላይ ግዢ) ይደገማል።"</string>
+    <string name="browserFrameFormResubmitMessage" msgid="2752182215695632138">"ለማየት እየሞከሩ ያሉት ገፅ (\"POSTDATA\") ቀደም ብሎ የተረከበ ውሂብ ይዝዋል። ውሂቡን ድጋሚ ከላኩት፣ ማንኛውም በገፁ ቅፅ ላይ ያለ ርምጃ ይከናወናል(ለምሳሌ ፍለጋ ወይም የመስመር ላይ ግዢ) ይደገማል።"</string>
     <string name="loadSuspendedTitle" msgid="675991625288706944">"ምንም የአውታረመረብ ተያያዥ የለም"</string>
     <string name="loadSuspended" msgid="3133656588880851273">"አሳሽ ይህን ገፅ ማስገባት አልቻለም ምክያቱም የበይነመረብ ተያያዥነት የለም።"</string>
     <string name="clear_history" msgid="5998307092715979619">"ታሪክ አጥራ"</string>
@@ -317,7 +317,7 @@
     <string name="download_cancel_dlg_msg" msgid="6285389170052357797">"ሁሉም <xliff:g id="DOWNLOAD_COUNT">%d</xliff:g> አውርዶች ከአውርድ ታሪክ ውስጥ ይቀሩ እና ይጠራሉ።"</string>
     <string name="download_delete_file" msgid="5330036497843073249">"ፋይሉ ይሰረዛል"</string>
     <string name="download_file_error_dlg_title" msgid="2693630283595384874">"ቦታ ሞልቷል"</string>
-    <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"<xliff:g id="FILENAME">%s</xliff:g> ማውረድ አልተቻለም።"\n" ስልክዎ ላይ ትንሽ ቦታ ያስለቅቁ እና እንደገና ይሞክሩ።"</string>
+    <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"<xliff:g id="FILENAME">%s</xliff:g> ማውረድ አልተቻለም። "\n" ስልክዎ ላይ ትንሽ ቦታ ያስለቅቁ እና እንደገና ይሞክሩ።"</string>
     <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"አውርድ አልተሳካም"</string>
     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"የUSB ማከማቻ የለም"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"ምንም SD ካርድ የለም"</string>
@@ -338,7 +338,7 @@
     <string name="download_pending_network" msgid="6548714525679461053">"የውሂብ ትይይዝ በመጠበቅ ላይ..."</string>
     <string name="download_running_paused" msgid="6418029352085656495">"የውሂብ ትይይዝ በመጠበቅ ላይ..."</string>
     <string name="download_canceled" msgid="6057083743144492515">"አውርድ ቀርቷል።"</string>
-    <string name="download_not_acceptable" msgid="313769696131563652">"ማውረድ አልተቻለም።ይዘቱ በዚህ ስልክ ላይ አይታገዝም።"</string>
+    <string name="download_not_acceptable" msgid="313769696131563652">"ማውረድ አልተቻለም። ይዘቱ በዚህ ስልክ ላይ አይታገዝም።"</string>
     <string name="download_file_error" msgid="1206648050615176113">"አውርድ መጨረስ አልቻለም። ምንም በቂ ባዶ ቦታ የለም።"</string>
     <string name="download_length_required" msgid="9038605488460437406">"ማውረድ አልተቻለም። የአይነቱ መጠን መታወቅ አልቻለም።"</string>
     <string name="download_precondition_failed" msgid="8327584102874295580">"አውርድ ተስተጓጉሏል። መቀጠል አይችልም።"</string>

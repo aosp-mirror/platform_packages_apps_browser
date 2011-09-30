@@ -19,7 +19,7 @@
     <string name="application_name" msgid="1935869255545976415">"Navegador"</string>
     <string name="choose_upload" msgid="3649366287575002063">"Seleccionar archivo para subir"</string>
     <string name="uploads_disabled" msgid="463761197575372994">"Las subidas de archivos están inhabilitadas."</string>
-    <string name="new_tab" msgid="7971857320679510529">"Nueva ficha"</string>
+    <string name="new_tab" msgid="7971857320679510529">"Nueva pestaña"</string>
     <string name="new_incognito_tab" msgid="3606197964239039478">"Nueva pestaña de incógnito"</string>
     <string name="tab_bookmarks" msgid="2305793036003473653">"Marcadores"</string>
     <string name="tab_most_visited" msgid="1077402532455000703">"Más visitados"</string>

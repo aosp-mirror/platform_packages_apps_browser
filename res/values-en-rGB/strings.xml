@@ -19,7 +19,7 @@
     <string name="application_name" msgid="1935869255545976415">"Browser"</string>
     <string name="choose_upload" msgid="3649366287575002063">"Choose file for upload"</string>
     <string name="uploads_disabled" msgid="463761197575372994">"File uploads are disabled."</string>
-    <!-- outdated translation 4505722538297295141 -->     <string name="new_tab" msgid="7971857320679510529">"New window"</string>
+    <string name="new_tab" msgid="7971857320679510529">"New tab"</string>
     <string name="new_incognito_tab" msgid="3606197964239039478">"New incognito tab"</string>
     <string name="tab_bookmarks" msgid="2305793036003473653">"Bookmarks"</string>
     <string name="tab_most_visited" msgid="1077402532455000703">"Most visited"</string>
