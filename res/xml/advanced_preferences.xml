@@ -92,7 +92,6 @@
                 android:title="@string/pref_extras_reset_default"
                 android:summary="@string/pref_extras_reset_default_summary"
                 android:dialogMessage="@string/pref_extras_reset_default_dlg" 
-                android:dialogTitle="@string/pref_extras_reset_default_dlg_title" 
                 android:dialogIcon="@android:drawable/ic_dialog_alert" />
     </PreferenceCategory>
 
