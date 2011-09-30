@@ -19,7 +19,7 @@
     <string name="application_name" msgid="1935869255545976415">"浏览器"</string>
     <string name="choose_upload" msgid="3649366287575002063">"选择要上传的文件"</string>
     <string name="uploads_disabled" msgid="463761197575372994">"文件上传功能已停用。"</string>
-    <string name="new_tab" msgid="7971857320679510529">"新标签"</string>
+    <string name="new_tab" msgid="7971857320679510529">"新标签页"</string>
     <string name="new_incognito_tab" msgid="3606197964239039478">"新隐身标签页"</string>
     <string name="tab_bookmarks" msgid="2305793036003473653">"书签"</string>
     <string name="tab_most_visited" msgid="1077402532455000703">"访问最多"</string>

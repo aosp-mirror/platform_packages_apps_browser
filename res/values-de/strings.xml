@@ -342,7 +342,7 @@
     <string name="download_file_error" msgid="1206648050615176113">"Download kann nicht beendet werden, da nicht genügend Speicherplatz vorhanden ist."</string>
     <string name="download_length_required" msgid="9038605488460437406">"Download kann nicht gestartet werden, da die Größe des Elements nicht bestimmt werden kann."</string>
     <string name="download_precondition_failed" msgid="8327584102874295580">"Download wurde unterbrochen und kann nicht fortgesetzt werden."</string>
-    <string name="search_the_web" msgid="6046130189241962337">"Web durchsuchen"</string>
+    <string name="search_the_web" msgid="6046130189241962337">"Im Web suchen"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Browserspeicher voll"</string>
     <string name="webstorage_outofspace_notification_text" msgid="7341075135051829692">"Klicken Sie, um Speicherplatz freizugeben."</string>
     <string name="webstorage_clear_data_title" msgid="689484577124333977">"Gespeicherte Daten löschen"</string>
@@ -402,7 +402,7 @@
     <string name="accessibility_button_forward" msgid="1236827218480658168">"Weiter"</string>
     <string name="accessibility_button_refresh" msgid="1023441396241841313">"Seite aktualisieren"</string>
     <string name="accessibility_button_stop" msgid="6793644120043222148">"Laden der Seite anhalten"</string>
-    <string name="accessibility_button_addbookmark" msgid="4787844912630006181">"Seite mit Lesezeichen versehen"</string>
+    <string name="accessibility_button_addbookmark" msgid="4787844912630006181">"Seite als Lesezeichen speichern"</string>
     <string name="accessibility_button_search" msgid="5357014102136055376">"Suchen"</string>
     <string name="accessibility_button_voice" msgid="152016375096083337">"Sprachsuche starten"</string>
     <string name="accessibility_button_bookmarks" msgid="7435055677299151649">"Lesezeichen"</string>

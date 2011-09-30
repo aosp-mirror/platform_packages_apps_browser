@@ -101,7 +101,7 @@
     <string name="history" msgid="2451240511251410032">"Umlando"</string>
     <string name="menu_view_download" msgid="2124570321712995120">"Okulayishiwe"</string>
     <string name="copy_page_url" msgid="7635062169011319208">"Kopisha i-url yekhasi"</string>
-    <string name="share_page" msgid="593756995297268343">"Yabelana nekhasi"</string>
+    <string name="share_page" msgid="593756995297268343">"Yabelana ngekhasi"</string>
     <string name="menu_save_snapshot" msgid="6935080344031126139">"Gcina ukufunda ungaxhumekile kwi-inthanethi"</string>
     <string name="snapshot_failed" msgid="4584580873565876033">"Angikwazanga ukulondolozela ukufunda ngaphandle kwe-inthanethi."</string>
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"<xliff:g id="BOOKMARK_COUNT">%d</xliff:g> amabhukimakhi"</string>
@@ -110,7 +110,7 @@
     <string name="contextmenu_openlink_newwindow" msgid="1205313604181761403">"Vula kwisithikithana esitsha"</string>
     <string name="contextmenu_openlink_newwindow_background" msgid="4690381019116746687">"Vula kwisithikithana sangemuva"</string>
     <string name="contextmenu_savelink" msgid="5508554930832538184">"Londoloza isihlanganisi"</string>
-    <string name="contextmenu_sharelink" msgid="5392275392280130331">"Yabelana nesihlanganisi"</string>
+    <string name="contextmenu_sharelink" msgid="5392275392280130331">"Yabelana ngesihlanganisi"</string>
     <string name="contextmenu_copy" msgid="398860586635404030">"Kopisha"</string>
     <string name="contextmenu_copylink" msgid="5153657160294534270">"Kopisha isihlanganisi se-URL"</string>
     <string name="contextmenu_download_image" msgid="4243829645180686912">"Londoloza isithombe"</string>
@@ -270,7 +270,7 @@
     <string name="pref_lab_title" msgid="5571091610359629423">"Amalebhu"</string>
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Izilawuli ezisheshayo"</string>
     <string name="pref_lab_quick_controls_summary" msgid="1564546156544675707">"Swayipha isithupha kusuka ekucupheleni okwesobunxele kuya kokwesokudla ukuze ufinyelele izimpathi ngokushesha bese ufihla izinhlelo zokusebenza namabha e-URL."</string>
-    <string name="pref_use_instant_search" msgid="1119176077760723740">"I-Google Instant"</string>
+    <string name="pref_use_instant_search" msgid="1119176077760723740">"Google Instant"</string>
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Sebenzisa i-Google Instant uma usebenzisa Usesho lwe-Google, ukubonisa imiphumelo njengoba uthayipha (lokhu kungakhuphula ukusetshenziswa kwedatha)."</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"Isikrini esigcwele"</string>
     <string name="pref_lab_fullscreen_summary" msgid="6853711692160711419">"Sebenzisa imodi yesikrini esiphelele ukuze ufihle umudwa ochaza ngesimo."</string>
