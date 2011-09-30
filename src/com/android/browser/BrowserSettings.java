@@ -677,9 +677,9 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
 
     public boolean enableCpuUploadPath() {
         if (!isDebugEnabled()) {
-            return true;
+            return false;
         }
-        return mPrefs.getBoolean(PREF_ENABLE_CPU_UPLOAD_PATH, true);
+        return mPrefs.getBoolean(PREF_ENABLE_CPU_UPLOAD_PATH, false);
     }
 
     public boolean enableJavascriptConsole() {
