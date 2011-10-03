@@ -114,16 +114,19 @@ class Tab implements PictureListener {
     }
 
     public enum SecurityState {
-        // The page does not use SSL.
+        // The page's main resource does not use SSL. Note that we use this
+        // state irrespective of the SSL authentication state of sub-resources.
         SECURITY_STATE_NOT_SECURE,
-        // The page uses SSL, the certificate is good and all elements are secure.
+        // The page's main resource uses SSL and the certificate is good. The
+        // same is true of all sub-resources.
         SECURITY_STATE_SECURE,
-        // The page uses SSL and the certificate is good, but some elements are insecure.
+        // The page's main resource uses SSL and the certificate is good, but
+        // some sub-resources either do not use SSL or have problems with their
+        // certificates.
         SECURITY_STATE_MIXED,
-        // TODO: Add SECURITY_STATE_BAD_CERTIFICATE
-        // See http://b/5403366
-        // The page uses SSL but there is a problem with the certificate.
-        //SECURITY_STATE_BAD_CERTIFICATE,
+        // The page's main resource uses SSL but there is a problem with its
+        // certificate.
+        SECURITY_STATE_BAD_CERTIFICATE,
     }
 
     Context mContext;
@@ -778,6 +781,7 @@ class Tab implements PictureListener {
                             public void onClick(DialogInterface dialog,
                                     int whichButton) {
                                 handler.proceed();
+                                handleProceededAfterSslError(error);
                             }
                         })
                     .setNeutralButton(R.string.view_certificate,
@@ -810,6 +814,17 @@ class Tab implements PictureListener {
             } else {
                 handler.proceed();
             }
+        }
+
+        /**
+         * Called when an SSL error occurred while loading a resource, but the
+         * WebView but chose to proceed anyway based on a decision retained
+         * from a previous response to onReceivedSslError(). We update our
+         * security state to reflect this.
+         */
+        @Override
+        public void onProceededAfterSslError(WebView view, SslError error) {
+            handleProceededAfterSslError(error);
         }
 
         /**
@@ -2252,4 +2267,12 @@ class Tab implements PictureListener {
         return builder.toString();
     }
 
+    private void handleProceededAfterSslError(SslError error) {
+        if (error.getUrl().equals(mCurrentState.mUrl)) {
+            // The security state should currently be SECURITY_STATE_SECURE.
+            setSecurityState(SecurityState.SECURITY_STATE_BAD_CERTIFICATE);
+        } else if (getSecurityState() == SecurityState.SECURITY_STATE_SECURE) {
+            setSecurityState(SecurityState.SECURITY_STATE_MIXED);
+        }
+    }
 }
