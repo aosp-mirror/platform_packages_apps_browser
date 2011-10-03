@@ -319,13 +319,13 @@ public class PageDialogsHandler {
         if (error.hasError(SslError.SSL_IDMISMATCH)) {
             addError(factory, placeholder, R.string.ssl_mismatch);
         }
-        if (error.hasError(SslError.SSL_EXPIRED) || true) {
+        if (error.hasError(SslError.SSL_EXPIRED)) {
             addError(factory, placeholder, R.string.ssl_expired);
         }
         if (error.hasError(SslError.SSL_NOTYETVALID)) {
             addError(factory, placeholder, R.string.ssl_not_yet_valid);
         }
-        if (error.hasError(SslError.SSL_DATE_INVALID) || true) {
+        if (error.hasError(SslError.SSL_DATE_INVALID)) {
             addError(factory, placeholder, R.string.ssl_date_invalid);
         }
         if (error.hasError(SslError.SSL_INVALID)) {
