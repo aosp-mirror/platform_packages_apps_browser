@@ -209,8 +209,8 @@ public class PreloadController implements WebViewController {
     }
 
     @Override
-    public void onUpdatedLockIcon(Tab tab) {
-        if (LOGD_ENABLED) Log.d(LOGTAG, "onUpdatedLockIcon()");
+    public void onUpdatedSecurityState(Tab tab) {
+        if (LOGD_ENABLED) Log.d(LOGTAG, "onUpdatedSecurityState()");
     }
 
     @Override

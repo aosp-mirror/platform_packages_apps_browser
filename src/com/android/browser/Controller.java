@@ -880,7 +880,7 @@ public class Controller
     }
 
     @Override
-    public void onUpdatedLockIcon(Tab tab) {
+    public void onUpdatedSecurityState(Tab tab) {
         mUi.onTabDataChanged(tab);
     }
 

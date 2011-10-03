@@ -112,10 +112,17 @@ class Tab implements PictureListener {
         sAlphaPaint.setColor(Color.TRANSPARENT);
     }
 
-    public enum LockIcon {
-        LOCK_ICON_UNSECURE,
-        LOCK_ICON_SECURE,
-        LOCK_ICON_MIXED,
+    public enum SecurityState {
+        // The page does not use SSL.
+        SECURITY_STATE_NOT_SECURE,
+        // The page uses SSL, the certificate is good and all elements are secure.
+        SECURITY_STATE_SECURE,
+        // The page uses SSL and the certificate is good, but some elements are insecure.
+        SECURITY_STATE_MIXED,
+        // TODO: Add SECURITY_STATE_BAD_CERTIFICATE
+        // See http://b/5403366
+        // The page uses SSL but there is a problem with the certificate.
+        //SECURITY_STATE_BAD_CERTIFICATE,
     }
 
     Context mContext;
@@ -198,7 +205,7 @@ class Tab implements PictureListener {
         String mUrl;
         String mOriginalUrl;
         String mTitle;
-        LockIcon mLockIcon;
+        SecurityState mSecurityState;
         Bitmap mFavicon;
         boolean mIsBookmarkedSite = false;
         boolean mIncognito = false;
@@ -213,7 +220,7 @@ class Tab implements PictureListener {
                 mTitle = c.getString(R.string.new_tab);
             }
             mFavicon = null;
-            mLockIcon = LockIcon.LOCK_ICON_UNSECURE;
+            mSecurityState = SecurityState.SECURITY_STATE_NOT_SECURE;
         }
 
         PageState(Context c, boolean incognito, String url, Bitmap favicon) {
@@ -221,9 +228,9 @@ class Tab implements PictureListener {
             mOriginalUrl = mUrl = url;
             mTitle = null;
             if (URLUtil.isHttpsUrl(url)) {
-                mLockIcon = LockIcon.LOCK_ICON_SECURE;
+                mSecurityState = SecurityState.SECURITY_STATE_SECURE;
             } else {
-                mLockIcon = LockIcon.LOCK_ICON_UNSECURE;
+                mSecurityState = SecurityState.SECURITY_STATE_NOT_SECURE;
             }
             mFavicon = favicon;
         }
@@ -640,21 +647,22 @@ class Tab implements PictureListener {
         }
 
         /**
-         * Updates the lock icon. This method is called when we discover another
-         * resource to be loaded for this page (for example, javascript). While
-         * we update the icon type, we do not update the lock icon itself until
-         * we are done loading, it is slightly more secure this way.
+         * Updates the security state. This method is called when we discover
+         * another resource to be loaded for this page (for example,
+         * javascript). While we update the security state, we do not update
+         * the lock icon until we are done loading, as it is slightly more
+         * secure this way.
          */
         @Override
         public void onLoadResource(WebView view, String url) {
             if (url != null && url.length() > 0) {
                 // It is only if the page claims to be secure that we may have
-                // to update the lock:
-                if (mCurrentState.mLockIcon == LockIcon.LOCK_ICON_SECURE) {
-                    // If NOT a 'safe' url, change the lock to mixed content!
+                // to update the security state:
+                if (mCurrentState.mSecurityState == SecurityState.SECURITY_STATE_SECURE) {
+                    // If NOT a 'safe' url, change the state to mixed content!
                     if (!(URLUtil.isHttpsUrl(url) || URLUtil.isDataUrl(url)
                             || URLUtil.isAboutUrl(url))) {
-                        mCurrentState.mLockIcon = LockIcon.LOCK_ICON_MIXED;
+                        mCurrentState.mSecurityState = SecurityState.SECURITY_STATE_MIXED;
                     }
                 }
             }
@@ -755,7 +763,7 @@ class Tab implements PictureListener {
                 final SslErrorHandler handler, final SslError error) {
             if (!mInForeground) {
                 handler.cancel();
-                setLockIconType(LockIcon.LOCK_ICON_UNSECURE);
+                setSecurityState(SecurityState.SECURITY_STATE_NOT_SECURE);
                 return;
             }
             if (mSettings.showSecurityWarnings()) {
@@ -793,7 +801,7 @@ class Tab implements PictureListener {
                             @Override
                             public void onCancel(DialogInterface dialog) {
                                 handler.cancel();
-                                setLockIconType(LockIcon.LOCK_ICON_UNSECURE);
+                                setSecurityState(SecurityState.SECURITY_STATE_NOT_SECURE);
                                 mWebViewController.onUserCanceledSsl(Tab.this);
                             }
                         })
@@ -900,7 +908,7 @@ class Tab implements PictureListener {
         if (!URLUtil.isHttpsUrl(mCurrentState.mUrl)) {
             // In case we stop when loading an HTTPS page from an HTTP page
             // but before a provisional load occurred
-            mCurrentState.mLockIcon = LockIcon.LOCK_ICON_UNSECURE;
+            mCurrentState.mSecurityState = SecurityState.SECURITY_STATE_NOT_SECURE;
         }
         mCurrentState.mIncognito = view.isPrivateBrowsingEnabled();
     }
@@ -1881,16 +1889,16 @@ class Tab implements PictureListener {
         return mErrorConsole;
     }
 
-    private void setLockIconType(LockIcon icon) {
-        mCurrentState.mLockIcon = icon;
-        mWebViewController.onUpdatedLockIcon(this);
+    private void setSecurityState(SecurityState securityState) {
+        mCurrentState.mSecurityState = securityState;
+        mWebViewController.onUpdatedSecurityState(this);
     }
 
     /**
-     * @return The tab's lock icon type.
+     * @return The tab's security state.
      */
-    LockIcon getLockIconType() {
-        return mCurrentState.mLockIcon;
+    SecurityState getSecurityState() {
+        return mCurrentState.mSecurityState;
     }
 
     int getLoadProgress() {

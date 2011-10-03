@@ -95,7 +95,7 @@ public interface WebViewController {
 
     boolean shouldShowErrorConsole();
 
-    void onUpdatedLockIcon(Tab tab);
+    void onUpdatedSecurityState(Tab tab);
 
     void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType);
 
