@@ -49,7 +49,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.android.browser.Tab.LockIcon;
+import com.android.browser.Tab.SecurityState;
 import com.android.internal.view.menu.MenuBuilder;
 
 import java.util.List;
@@ -81,8 +81,8 @@ public abstract class BaseUi implements UI {
     protected Tab mActiveTab;
     private InputMethodManager mInputManager;
 
-    private Drawable mSecLockIcon;
-    private Drawable mMixLockIcon;
+    private Drawable mLockIconSecure;
+    private Drawable mLockIconMixed;
     protected Drawable mGenericFavicon;
 
     protected FrameLayout mContentView;
@@ -115,8 +115,8 @@ public abstract class BaseUi implements UI {
         Resources res = mActivity.getResources();
         mInputManager = (InputMethodManager)
                 browser.getSystemService(Activity.INPUT_METHOD_SERVICE);
-        mSecLockIcon = res.getDrawable(R.drawable.ic_secure_holo_dark);
-        mMixLockIcon = res.getDrawable(R.drawable.ic_secure_partial_holo_dark);
+        mLockIconSecure = res.getDrawable(R.drawable.ic_secure_holo_dark);
+        mLockIconMixed = res.getDrawable(R.drawable.ic_secure_partial_holo_dark);
 
         FrameLayout frameLayout = (FrameLayout) mActivity.getWindow()
                 .getDecorView().findViewById(android.R.id.content);
@@ -590,19 +590,19 @@ public abstract class BaseUi implements UI {
      */
     protected void updateLockIconToLatest(Tab t) {
         if (t != null && t.inForeground()) {
-            updateLockIconImage(t.getLockIconType());
+            updateLockIconImage(t.getSecurityState());
         }
     }
 
     /**
      * Updates the lock-icon image in the title-bar.
      */
-    private void updateLockIconImage(LockIcon lockIconType) {
+    private void updateLockIconImage(SecurityState securityState) {
         Drawable d = null;
-        if (lockIconType == LockIcon.LOCK_ICON_SECURE) {
-            d = mSecLockIcon;
-        } else if (lockIconType == LockIcon.LOCK_ICON_MIXED) {
-            d = mMixLockIcon;
+        if (securityState == SecurityState.SECURITY_STATE_SECURE) {
+            d = mLockIconSecure;
+        } else if (securityState == SecurityState.SECURITY_STATE_MIXED) {
+            d = mLockIconMixed;
         }
         mNavigationBar.setLock(d);
     }

@@ -98,7 +98,7 @@ public class PageDialogsHandler {
         mHttpAuthenticationDialog.setCancelListener(new HttpAuthenticationDialog.CancelListener() {
             public void onCancel() {
                 handler.cancel();
-                mController.onUpdatedLockIcon(tab);
+                mController.onUpdatedSecurityState(tab);
                 mHttpAuthenticationDialog = null;
             }
         });
