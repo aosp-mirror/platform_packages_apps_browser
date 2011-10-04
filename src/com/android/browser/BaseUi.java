@@ -17,6 +17,7 @@
 package com.android.browser;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -33,6 +34,7 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -88,7 +90,7 @@ public abstract class BaseUi implements UI {
     protected FrameLayout mContentView;
     protected FrameLayout mCustomViewContainer;
 
-    private View mCustomView;
+    private CustomViewHolder mCustomView;
     private WebChromeClient.CustomViewCallback mCustomViewCallback;
     private int mOriginalOrientation;
 
@@ -124,10 +126,10 @@ public abstract class BaseUi implements UI {
                 .inflate(R.layout.custom_screen, frameLayout);
         mContentView = (FrameLayout) frameLayout.findViewById(
                 R.id.main_content);
+        mCustomViewContainer = (FrameLayout) frameLayout.findViewById(
+                R.id.fullscreen_custom_content);
         mErrorConsoleContainer = (LinearLayout) frameLayout
                 .findViewById(R.id.error_console);
-        mCustomViewContainer = (FrameLayout) frameLayout
-                .findViewById(R.id.fullscreen_custom_content);
         setFullscreen(BrowserSettings.getInstance().useFullscreen());
         mGenericFavicon = res.getDrawable(
                 R.drawable.app_web_browser_sm);
@@ -517,18 +519,23 @@ public abstract class BaseUi implements UI {
         }
 
         mOriginalOrientation = mActivity.getRequestedOrientation();
+        WindowManager wm = (WindowManager) mActivity.getSystemService(Context.WINDOW_SERVICE);
+        WindowManager.LayoutParams params = new WindowManager.LayoutParams(
+                WindowManager.LayoutParams.TYPE_APPLICATION,
+                0);
+        params.x = 0;
+        params.y = 0;
+        params.width = LayoutParams.MATCH_PARENT;
+        params.height = LayoutParams.MATCH_PARENT;
+        params.systemUiVisibility = View.STATUS_BAR_HIDDEN;
+        mCustomView = new CustomViewHolder(mActivity);
+        view.setLayoutParams(new FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT,
+                LayoutParams.MATCH_PARENT));
+        mCustomView.addView(view);
+        wm.addView(mCustomView, params);
 
-        // Add the custom view to its container.
-        mCustomViewContainer.addView(view, COVER_SCREEN_GRAVITY_CENTER);
-        mCustomView = view;
         mCustomViewCallback = callback;
-        // Hide the content view.
-        mContentView.setVisibility(View.GONE);
-        // Finally show the custom view container.
-        setStatusBarVisibility(false);
         mActivity.setRequestedOrientation(requestedOrientation);
-        mCustomViewContainer.setVisibility(View.VISIBLE);
-        mCustomViewContainer.bringToFront();
     }
 
     @Override
@@ -536,17 +543,13 @@ public abstract class BaseUi implements UI {
         if (mCustomView == null)
             return;
 
-        // Hide the custom view.
-        mCustomView.setVisibility(View.GONE);
-        // Remove the custom view from its container.
-        mCustomViewContainer.removeView(mCustomView);
+        WindowManager wm = (WindowManager) mActivity.getSystemService(Context.WINDOW_SERVICE);
+        wm.removeView(mCustomView);
+
         mCustomView = null;
-        mCustomViewContainer.setVisibility(View.GONE);
         mCustomViewCallback.onCustomViewHidden();
         // Show the content view.
         mActivity.setRequestedOrientation(mOriginalOrientation);
-        setStatusBarVisibility(true);
-        mContentView.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -709,12 +712,6 @@ public abstract class BaseUi implements UI {
         }
     }
 
-    private void setStatusBarVisibility(boolean visible) {
-        WindowManager.LayoutParams params = mActivity.getWindow().getAttributes();
-        params.systemUiVisibility = visible ? View.STATUS_BAR_VISIBLE : View.STATUS_BAR_HIDDEN;
-        mActivity.getWindow().setAttributes(params);
-    }
-
     // -------------------------------------------------------------------------
     // Helper function for WebChromeClient
     // -------------------------------------------------------------------------
@@ -826,6 +823,20 @@ public abstract class BaseUi implements UI {
     @Override
     public void showWeb(boolean animate) {
         mUiController.hideCustomView();
+    }
+
+    // custom FrameLayout to forward key events
+    static class CustomViewHolder extends FrameLayout {
+        Activity mActivity;
+
+        public CustomViewHolder(Activity act) {
+            super(act);
+            mActivity = act;
+        }
+
+        public boolean dispatchKeyEvent(KeyEvent event) {
+            return mActivity.dispatchKeyEvent(event);
+        }
     }
 
 }
