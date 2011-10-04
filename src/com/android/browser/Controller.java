@@ -35,6 +35,7 @@ import android.content.res.TypedArray;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.net.Uri;
@@ -2138,6 +2139,10 @@ public class Controller
                     }
                 } catch (IllegalStateException e) {
                     // Ignore
+                } catch (SQLiteException s) {
+                    // Added for possible error when user tries to remove the same bookmark
+                    // that is being updated with a screen shot
+                    Log.w(LOGTAG, "Error when running updateScreenshot ", s);
                 } finally {
                     if (cursor != null) cursor.close();
                 }
