@@ -27,6 +27,7 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.webkit.WebView;
 import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.android.browser.view.PieItem;
@@ -59,6 +60,12 @@ public class PieControlXLarge extends PieControlBase implements OnClickListener 
         super(activity, controller);
         mUiController = controller;
         mUi = ui;
+    }
+
+    @Override
+    protected void attachToContainer(FrameLayout container) {
+        super.attachToContainer(container);
+        mPie.setUseBackground(true);
     }
 
     protected void populateMenu() {

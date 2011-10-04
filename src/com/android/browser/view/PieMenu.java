@@ -89,6 +89,8 @@ public class PieMenu extends FrameLayout {
     // touch handling
     PieItem mCurrentItem;
 
+    private boolean mUseBackground;
+
     /**
      * @param context
      * @param attrs
@@ -140,6 +142,10 @@ public class PieMenu extends FrameLayout {
 
     public void setController(PieController ctl) {
         mController = ctl;
+    }
+
+    public void setUseBackground(boolean useBackground) {
+        mUseBackground = useBackground;
     }
 
     public void addItem(PieItem item) {
@@ -245,18 +251,20 @@ public class PieMenu extends FrameLayout {
     @Override
     protected void onDraw(Canvas canvas) {
         if (mOpen) {
-            int w = mBackground.getIntrinsicWidth();
-            int h = mBackground.getIntrinsicHeight();
-            int left = mCenter.x - w;
-            int top = mCenter.y - h / 2;
-            mBackground.setBounds(left, top, left + w, top + h);
             int state;
-            state = canvas.save();
-            if (onTheLeft()) {
-                canvas.scale(-1, 1);
+            if (mUseBackground) {
+                int w = mBackground.getIntrinsicWidth();
+                int h = mBackground.getIntrinsicHeight();
+                int left = mCenter.x - w;
+                int top = mCenter.y - h / 2;
+                mBackground.setBounds(left, top, left + w, top + h);
+                state = canvas.save();
+                if (onTheLeft()) {
+                    canvas.scale(-1, 1);
+                }
+                mBackground.draw(canvas);
+                canvas.restoreToCount(state);
             }
-            mBackground.draw(canvas);
-            canvas.restoreToCount(state);
             for (PieItem item : mItems) {
                 Paint p = item.isSelected() ? mSelectedPaint : mNormalPaint;
                 state = canvas.save();
