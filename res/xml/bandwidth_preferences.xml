@@ -20,7 +20,6 @@
         android:key="preload_when"
         android:title="@string/pref_data_preload_title"
         android:summary="@string/pref_data_preload_summary"
-        android:defaultValue="@string/pref_data_preload_default_value"
         android:entries="@array/pref_data_preload_choices"
         android:entryValues="@array/pref_data_preload_values"
         android:dialogTitle="@string/pref_data_preload_dialogtitle" />

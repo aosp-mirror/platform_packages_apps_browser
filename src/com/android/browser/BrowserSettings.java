@@ -25,6 +25,7 @@ import android.os.Build;
 import android.os.Message;
 import android.preference.PreferenceManager;
 import android.provider.Browser;
+import android.provider.Settings;
 import android.util.DisplayMetrics;
 import android.webkit.CookieManager;
 import android.webkit.GeolocationPermissions;
@@ -802,8 +803,16 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         return context.getResources().getString(R.string.pref_data_preload_value_always);
     }
 
-    private String getDefaultPreloadSetting() {
-        return mContext.getResources().getString(R.string.pref_data_preload_default_value);
+    private static final String DEAULT_PRELOAD_SECURE_SETTING_KEY =
+            "browser_default_preload_setting";
+
+    public String getDefaultPreloadSetting() {
+        String preload = Settings.Secure.getString(mContext.getContentResolver(),
+                DEAULT_PRELOAD_SECURE_SETTING_KEY);
+        if (preload == null) {
+            preload = mContext.getResources().getString(R.string.pref_data_preload_default_value);
+        }
+        return preload;
     }
 
     public String getPreloadEnabled() {
