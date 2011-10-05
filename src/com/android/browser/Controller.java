@@ -336,8 +336,11 @@ public class Controller
             // TabControl.restoreState() will create a new tab even if
             // restoring the state fails.
             setActiveTab(mTabControl.getCurrentTab());
-            // Handle the intent
-            mIntentHandler.onNewIntent(intent);
+            // Handle the intent if needed. If icicle != null, we are restoring
+            // and the intent will be stale - ignore it.
+            if (icicle == null) {
+                mIntentHandler.onNewIntent(intent);
+            }
         }
         // Read JavaScript flags if it exists.
         String jsFlags = getSettings().getJsEngineFlags();

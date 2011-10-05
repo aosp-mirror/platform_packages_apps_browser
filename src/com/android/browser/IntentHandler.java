@@ -65,7 +65,6 @@ public class IntentHandler {
     }
 
     void onNewIntent(Intent intent) {
-        mActivity.setIntent(null);
         Tab current = mTabControl.getCurrentTab();
         // When a tab is closed on exit, the current tab index is set to -1.
         // Reset before proceed as Browser requires the current tab to be set.
