@@ -222,9 +222,7 @@ public class PageDialogsHandler {
                         } else {
                             // otherwise, display the top-most certificate from
                             // the chain
-                            if (view.getCertificate() != null) {
-                                showSSLCertificate(tab);
-                            }
+                            showSSLCertificate(tab);
                         }
                     }
                 });
@@ -244,24 +242,11 @@ public class PageDialogsHandler {
         if (cert == null) {
             return;
         }
-        final View certificateView = cert.inflateCertificateView(mContext);
-
-        LayoutInflater factory = LayoutInflater.from(mContext);
-
-        final LinearLayout placeholder =
-                (LinearLayout)certificateView.findViewById(com.android.internal.R.id.placeholder);
-
-        LinearLayout ll = (LinearLayout) factory.inflate(
-            R.layout.ssl_success, placeholder);
-        ((TextView)ll.findViewById(R.id.success))
-            .setText(com.android.internal.R.string.ssl_certificate_is_valid);
 
         mSSLCertificateView = tab;
-        mSSLCertificateDialog =
-            new AlertDialog.Builder(mContext)
-                .setTitle(com.android.internal.R.string.ssl_certificate).setIcon(
-                    R.drawable.ic_dialog_browser_certificate_secure)
-                .setView(certificateView)
+        // TODO: We should pass the certificate error for the page's main
+        // resource, if present. See http://b/5248376.
+        mSSLCertificateDialog = createSslCertificateDialog(cert, null)
                 .setPositiveButton(R.string.ok,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,
@@ -284,13 +269,6 @@ public class PageDialogsHandler {
                 .show();
     }
 
-    private void addError(LayoutInflater inflater, LinearLayout parent, int error) {
-        TextView textView = (TextView) inflater.inflate(R.layout.ssl_warning,
-                parent, false);
-        textView.setText(error);
-        parent.addView(textView);
-    }
-
     /**
      * Displays the SSL error certificate dialog.
      * @param view The target web-view.
@@ -306,43 +284,11 @@ public class PageDialogsHandler {
         if (cert == null) {
             return;
         }
-        final View certificateView = cert.inflateCertificateView(mContext);
-
-        LayoutInflater factory = LayoutInflater.from(mContext);
-
-        final LinearLayout placeholder =
-                (LinearLayout)certificateView.findViewById(com.android.internal.R.id.placeholder);
-
-        if (error.hasError(SslError.SSL_UNTRUSTED)) {
-            addError(factory, placeholder, R.string.ssl_untrusted);
-        }
-        if (error.hasError(SslError.SSL_IDMISMATCH)) {
-            addError(factory, placeholder, R.string.ssl_mismatch);
-        }
-        if (error.hasError(SslError.SSL_EXPIRED)) {
-            addError(factory, placeholder, R.string.ssl_expired);
-        }
-        if (error.hasError(SslError.SSL_NOTYETVALID)) {
-            addError(factory, placeholder, R.string.ssl_not_yet_valid);
-        }
-        if (error.hasError(SslError.SSL_DATE_INVALID)) {
-            addError(factory, placeholder, R.string.ssl_date_invalid);
-        }
-        if (error.hasError(SslError.SSL_INVALID)) {
-            addError(factory, placeholder, R.string.ssl_invalid);
-        }
-        if (placeholder.getChildCount() == 0) {
-            addError(factory, placeholder, R.string.ssl_unknown);
-        }
 
         mSSLCertificateOnErrorHandler = handler;
         mSSLCertificateOnErrorView = view;
         mSSLCertificateOnErrorError = error;
-        mSSLCertificateOnErrorDialog =
-            new AlertDialog.Builder(mContext)
-                .setTitle(com.android.internal.R.string.ssl_certificate).setIcon(
-                    R.drawable.ic_dialog_browser_certificate_partially_secure)
-                .setView(certificateView)
+        mSSLCertificateOnErrorDialog = createSslCertificateDialog(cert, error)
                 .setPositiveButton(R.string.ok,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,
@@ -385,5 +331,69 @@ public class PageDialogsHandler {
                             }
                         })
                 .show();
+    }
+
+    /*
+     * Creates an AlertDialog to display the given certificate. If error is
+     * null, text is added to state that the certificae is valid and the icon
+     * is set accordingly. If error is non-null, it must relate to the supplied
+     * certificate. In this case, error is used to add text describing the
+     * problems with the certificate and a different icon is used.
+     */
+    private AlertDialog.Builder createSslCertificateDialog(SslCertificate certificate,
+            SslError error) {
+        View certificateView = certificate.inflateCertificateView(mContext);
+        final LinearLayout placeholder =
+                (LinearLayout)certificateView.findViewById(com.android.internal.R.id.placeholder);
+
+        LayoutInflater factory = LayoutInflater.from(mContext);
+        int iconId;
+
+        if (error == null) {
+            iconId = R.drawable.ic_dialog_browser_certificate_secure;
+            LinearLayout table = (LinearLayout)factory.inflate(R.layout.ssl_success, placeholder);
+            TextView successString = (TextView)table.findViewById(R.id.success);
+            successString.setText(com.android.internal.R.string.ssl_certificate_is_valid);
+        } else {
+            iconId = R.drawable.ic_dialog_browser_certificate_partially_secure;
+            if (error.hasError(SslError.SSL_UNTRUSTED)) {
+                addError(factory, placeholder, R.string.ssl_untrusted);
+            }
+            if (error.hasError(SslError.SSL_IDMISMATCH)) {
+                addError(factory, placeholder, R.string.ssl_mismatch);
+            }
+            if (error.hasError(SslError.SSL_EXPIRED)) {
+                addError(factory, placeholder, R.string.ssl_expired);
+            }
+            if (error.hasError(SslError.SSL_NOTYETVALID)) {
+                addError(factory, placeholder, R.string.ssl_not_yet_valid);
+            }
+            if (error.hasError(SslError.SSL_DATE_INVALID)) {
+                addError(factory, placeholder, R.string.ssl_date_invalid);
+            }
+            if (error.hasError(SslError.SSL_INVALID)) {
+                addError(factory, placeholder, R.string.ssl_invalid);
+            }
+            // The SslError should always have at least one type of error and we
+            // should explicitly handle every type of error it supports. We
+            // therefore expect the condition below to never be hit. We use it
+            // as as safety net in case a new error type is added to SslError
+            // without the logic above being updated accordingly.
+            if (placeholder.getChildCount() == 0) {
+                addError(factory, placeholder, R.string.ssl_unknown);
+            }
+        }
+
+        return new AlertDialog.Builder(mContext)
+                .setTitle(com.android.internal.R.string.ssl_certificate)
+                .setIcon(iconId)
+                .setView(certificateView);
+    }
+
+    private void addError(LayoutInflater inflater, LinearLayout parent, int error) {
+        TextView textView = (TextView) inflater.inflate(R.layout.ssl_warning,
+                parent, false);
+        textView.setText(error);
+        parent.addView(textView);
     }
 }
