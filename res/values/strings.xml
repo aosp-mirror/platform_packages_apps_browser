@@ -498,8 +498,10 @@
     <string name="pref_min_font_size">Minimum font size</string>
     <!-- Label for the current minimum font size value [CHAR LIMIT=6] -->
     <string name="pref_min_font_size_value"><xliff:g id="font_size">%d</xliff:g>pt</string>
-    <!-- Label for text zoom (percent) [CHAR LIMIT=30] -->
-    <string name="pref_text_zoom">Text zoom</string>
+    <!-- Label for text scaling (percent) [CHAR LIMIT=30] -->
+    <string name="pref_text_zoom">Text scaling</string>
+    <!-- Label for zoom on double-tap (percent) [CHAR LIMIT=30] -->
+    <string name="pref_zoom_on_double_tap">Zoom on double-tap</string>
     <!-- Label for whether or not to force-enable user scalablity (aka, zoom) [CHAR LIMIT=30] -->
     <string name="pref_force_userscalable">Force enable zoom</string>
     <!-- Summary for whether or not to force-enable user scalablity (aka, zoom) [CHAR LIMIT=30] -->
@@ -625,7 +627,7 @@
     <!-- Title for accessibility settings [CHAR LIMIT=25] -->
     <string name="pref_accessibility_title">Accessibility</string>
     <!-- Font size settings category under accessibility settings [CHAR LIMIT=50] -->
-    <string name="pref_font_size_category">Font size</string>
+    <string name="pref_font_size_category">Text size</string>
     <!-- Title for lab settings [CHAR LIMIT=25] -->
     <string name="pref_lab_title">Labs</string>
     <!-- Title for lab quick controls feature [CHAR LIMIT=40] -->
