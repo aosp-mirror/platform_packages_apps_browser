@@ -2358,6 +2358,7 @@ public class Controller
         if (tab != null) {
             dismissSubWindow(tab);
             tab.loadUrl(url, headers);
+            mUi.onProgressChanged(tab);
         }
     }
 
