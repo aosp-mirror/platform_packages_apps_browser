@@ -20,6 +20,7 @@ import android.app.ActivityManager;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Build;
 import android.os.Message;
@@ -427,7 +428,13 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     }
 
     public void setDebugEnabled(boolean value) {
-        mPrefs.edit().putBoolean(PREF_DEBUG_MENU, value).apply();
+        Editor edit = mPrefs.edit();
+        edit.putBoolean(PREF_DEBUG_MENU, value);
+        if (!value) {
+            // Reset to "safe" value
+            edit.putBoolean(PREF_ENABLE_HARDWARE_ACCEL_SKIA, false);
+        }
+        edit.apply();
     }
 
     public void clearCache() {
