@@ -203,6 +203,7 @@ public abstract class BaseUi implements UI {
         updateNavigationState(tab);
         mTitleBar.onTabDataChanged(tab);
         mNavigationBar.onTabDataChanged(tab);
+        onProgressChanged(tab);
     }
 
     @Override
