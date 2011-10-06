@@ -34,10 +34,10 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -89,8 +89,9 @@ public abstract class BaseUi implements UI {
 
     protected FrameLayout mContentView;
     protected FrameLayout mCustomViewContainer;
+    protected FrameLayout mFullscreenContainer;
 
-    private CustomViewHolder mCustomView;
+    private View mCustomView;
     private WebChromeClient.CustomViewCallback mCustomViewCallback;
     private int mOriginalOrientation;
 
@@ -119,7 +120,6 @@ public abstract class BaseUi implements UI {
                 browser.getSystemService(Activity.INPUT_METHOD_SERVICE);
         mLockIconSecure = res.getDrawable(R.drawable.ic_secure_holo_dark);
         mLockIconMixed = res.getDrawable(R.drawable.ic_secure_partial_holo_dark);
-
         FrameLayout frameLayout = (FrameLayout) mActivity.getWindow()
                 .getDecorView().findViewById(android.R.id.content);
         LayoutInflater.from(mActivity)
@@ -520,21 +520,11 @@ public abstract class BaseUi implements UI {
         }
 
         mOriginalOrientation = mActivity.getRequestedOrientation();
-        WindowManager wm = (WindowManager) mActivity.getSystemService(Context.WINDOW_SERVICE);
-        WindowManager.LayoutParams params = new WindowManager.LayoutParams(
-                WindowManager.LayoutParams.TYPE_APPLICATION,
-                0);
-        params.x = 0;
-        params.y = 0;
-        params.width = LayoutParams.MATCH_PARENT;
-        params.height = LayoutParams.MATCH_PARENT;
-        params.systemUiVisibility = View.STATUS_BAR_HIDDEN;
-        mCustomView = new CustomViewHolder(mActivity);
-        view.setLayoutParams(new FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT,
-                LayoutParams.MATCH_PARENT));
-        mCustomView.addView(view);
-        wm.addView(mCustomView, params);
-
+        FrameLayout decor = (FrameLayout) mActivity.getWindow().getDecorView();
+        mFullscreenContainer = new FullscreenHolder(mActivity);
+        mFullscreenContainer.addView(view, COVER_SCREEN_PARAMS);
+        decor.addView(mFullscreenContainer, COVER_SCREEN_PARAMS);
+        mCustomView = view;
         mCustomViewCallback = callback;
         mActivity.setRequestedOrientation(requestedOrientation);
     }
@@ -543,10 +533,9 @@ public abstract class BaseUi implements UI {
     public void onHideCustomView() {
         if (mCustomView == null)
             return;
-
-        WindowManager wm = (WindowManager) mActivity.getSystemService(Context.WINDOW_SERVICE);
-        wm.removeView(mCustomView);
-
+        FrameLayout decor = (FrameLayout) mActivity.getWindow().getDecorView();
+        decor.removeView(mFullscreenContainer);
+        mFullscreenContainer = null;
         mCustomView = null;
         mCustomViewCallback.onCustomViewHidden();
         // Show the content view.
@@ -826,18 +815,17 @@ public abstract class BaseUi implements UI {
         mUiController.hideCustomView();
     }
 
-    // custom FrameLayout to forward key events
-    static class CustomViewHolder extends FrameLayout {
-        Activity mActivity;
+    static class FullscreenHolder extends FrameLayout {
 
-        public CustomViewHolder(Activity act) {
-            super(act);
-            mActivity = act;
+        public FullscreenHolder(Context ctx) {
+            super(ctx);
+            setBackgroundColor(ctx.getResources().getColor(R.color.black));
         }
 
-        public boolean dispatchKeyEvent(KeyEvent event) {
-            return mActivity.dispatchKeyEvent(event);
+        @Override
+        public boolean onTouchEvent(MotionEvent evt) {
+            return true;
         }
+
     }
-
 }
