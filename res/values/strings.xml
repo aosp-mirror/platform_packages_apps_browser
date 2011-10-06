@@ -632,7 +632,7 @@
     <string name="pref_lab_title">Labs</string>
     <!-- Title for lab quick controls feature [CHAR LIMIT=40] -->
     <string name="pref_lab_quick_controls">Quick controls</string>
-    <!-- Summary for lab quick controls feature [CHAR LIMIT=80] -->
+    <!-- Summary for lab quick controls feature [CHAR LIMIT=120] -->
     <string name="pref_lab_quick_controls_summary">
         Slide thumb from the left or right edge to open quick controls and hide app and URL bars</string>
     <!-- Title for the "Instant search" lab feature [CHAR LIMIT=40] -->
