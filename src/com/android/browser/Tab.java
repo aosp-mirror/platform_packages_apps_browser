@@ -2017,7 +2017,7 @@ class Tab implements PictureListener {
 
     public ContentValues createSnapshotValues() {
         if (mMainView == null) return null;
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        SnapshotByteArrayOutputStream bos = new SnapshotByteArrayOutputStream();
         try {
             GZIPOutputStream stream = new GZIPOutputStream(bos);
             if (!mMainView.saveViewState(stream)) {
