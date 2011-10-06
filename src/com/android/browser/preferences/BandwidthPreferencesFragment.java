@@ -16,12 +16,11 @@
 
 package com.android.browser.preferences;
 
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.preference.Preference;
+import android.preference.ListPreference;
 import android.preference.PreferenceFragment;
-import android.util.Log;
 
+import com.android.browser.BrowserSettings;
 import com.android.browser.PreferenceKeys;
 import com.android.browser.R;
 
@@ -34,6 +33,20 @@ public class BandwidthPreferencesFragment extends PreferenceFragment {
         super.onCreate(savedInstanceState);
         // Load the XML preferences file
         addPreferencesFromResource(R.xml.bandwidth_preferences);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (!getPreferenceScreen().getSharedPreferences()
+                .contains(PreferenceKeys.PREF_DATA_PRELOAD)) {
+            // set default value for preload setting
+            ListPreference preload = (ListPreference) getPreferenceScreen().findPreference(
+                    PreferenceKeys.PREF_DATA_PRELOAD);
+            if (preload != null) {
+                preload.setValue(BrowserSettings.getInstance().getDefaultPreloadSetting());
+            }
+        }
     }
 
 }
