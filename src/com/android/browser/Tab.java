@@ -103,6 +103,7 @@ class Tab implements PictureListener {
 
     private static final int MSG_CAPTURE = 42;
     private static final int CAPTURE_DELAY = 100;
+    private static final int INITIAL_PROGRESS = 5;
 
     private static Bitmap sDefaultFavicon;
 
@@ -563,7 +564,7 @@ class Tab implements PictureListener {
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             mInPageLoad = true;
-            mPageLoadProgress = 0;
+            mPageLoadProgress = INITIAL_PROGRESS;
             mCurrentState = new PageState(mContext,
                     view.isPrivateBrowsingEnabled(), url, favicon);
             mLoadStartTime = SystemClock.uptimeMillis();
@@ -2054,6 +2055,8 @@ class Tab implements PictureListener {
 
     public void loadUrl(String url, Map<String, String> headers) {
         if (mMainView != null) {
+            mPageLoadProgress = INITIAL_PROGRESS;
+            mInPageLoad = true;
             mCurrentState = new PageState(mContext, false, url, null);
             mWebViewController.onPageStarted(this, mMainView, null);
             mMainView.loadUrl(url, headers);
