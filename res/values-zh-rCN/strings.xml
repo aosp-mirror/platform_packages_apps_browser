@@ -24,9 +24,9 @@
     <string name="tab_bookmarks" msgid="2305793036003473653">"书签"</string>
     <string name="tab_most_visited" msgid="1077402532455000703">"访问最多"</string>
     <string name="tab_history" msgid="1979267558744613746">"历史记录"</string>
-    <string name="tab_snapshots" msgid="4435852763803720588">"保存的页面"</string>
-    <string name="added_to_bookmarks" msgid="1020224130695956728">"已添加到书签"</string>
-    <string name="removed_from_bookmarks" msgid="6063705902028438800">"从书签中删除"</string>
+    <string name="tab_snapshots" msgid="1449241204980265186">"保存的网页"</string>
+    <string name="added_to_bookmarks" msgid="4028710765672851635">"已添加到书签。"</string>
+    <string name="removed_from_bookmarks" msgid="546648923924996722">"已从书签中删除。"</string>
     <string name="sign_in_to" msgid="5939425800148759165">"登录 <xliff:g id="HOSTNAME">%s1</xliff:g>“<xliff:g id="REALM">%s2</xliff:g>”"</string>
     <string name="username" msgid="5057566336518215922">"姓名"</string>
     <string name="password" msgid="1177138552305184404">"密码"</string>
@@ -43,10 +43,10 @@
     <string name="security_warning" msgid="6607795404322797541">"安全警告"</string>
     <string name="view_certificate" msgid="1472768887529093862">"查看证书"</string>
     <string name="ssl_go_back" msgid="4598951822061593819">"返回"</string>
-    <string name="ssl_untrusted" msgid="5369967226521102194">"该证书并非来自可信的授权中心。"</string>
-    <string name="ssl_mismatch" msgid="558688832420069896">"网站的名称与证书上的名称不一致。"</string>
+    <string name="ssl_untrusted" msgid="7754507359360636447">"该证书并非来自可信的授权中心。"</string>
+    <string name="ssl_mismatch" msgid="3809794439740523641">"网站的名称与证书上的名称不一致。"</string>
     <string name="ssl_expired" msgid="5739349389499575559">"该证书已过期。"</string>
-    <string name="ssl_not_yet_valid" msgid="2893167846212645846">"该证书尚未生效。"</string>
+    <string name="ssl_not_yet_valid" msgid="8193083327719048247">"该证书尚未生效。"</string>
     <string name="ssl_date_invalid" msgid="3705563379257285534">"该证书的日期无效。"</string>
     <string name="ssl_invalid" msgid="9041704741505449967">"该证书无效。"</string>
     <string name="ssl_unknown" msgid="5679243486524754571">"未知证书错误。"</string>
@@ -63,13 +63,13 @@
     <string name="new_folder" msgid="7743540149088867917">"新建文件夹"</string>
     <string name="edit_folder" msgid="621817453133656156">"修改文件夹"</string>
     <string name="delete_folder" msgid="2046483129024501116">"删除文件夹"</string>
-    <string name="no_subfolders" msgid="5880411440592452802">"无子文件夹"</string>
+    <string name="no_subfolders" msgid="3303645239686962674">"无子文件夹。"</string>
     <string name="add_to_bookmarks_menu_option" msgid="4449323955122214389">"书签"</string>
     <string name="add_to_homescreen_menu_option" msgid="1461447829242963790">"主屏幕"</string>
-    <string name="add_to_other_folder_menu_option" msgid="5450890093372998187">"其他文件夹..."</string>
+    <string name="add_to_other_folder_menu_option" msgid="5947586525822134105">"其他文件夹"</string>
     <string name="name" msgid="5462672162695365387">"标签"</string>
     <string name="http" msgid="2163722670597250102">"http://"</string>
-    <string name="save_to_bookmarks" msgid="6101482434920313244">"添加到书签"</string>
+    <string name="save_to_bookmarks" msgid="1679286010089780932">"保存到书签"</string>
     <string name="bookmark_this_page" msgid="7530739804320811054">"将此页加为书签"</string>
     <string name="remove" msgid="7820112494467011374">"删除"</string>
     <string name="edit_bookmark" msgid="5024089053490231905">"编辑书签"</string>
@@ -80,27 +80,27 @@
     <string name="remove_history_item" msgid="5021424935726728618">"从历史记录中删除"</string>
     <string name="set_as_homepage" msgid="4752937379414905560">"设置为主页"</string>
     <string name="bookmark_saved" msgid="2766434679871317557">"已保存至书签。"</string>
-    <string name="bookmark_not_saved" msgid="700600955089376724">"无法保存书签。"</string>
+    <string name="bookmark_not_saved" msgid="1077732557310662080">"无法保存书签。"</string>
     <string name="homepage_set" msgid="8768087280310966395">"主页已设置。"</string>
     <string name="bookmark_needs_title" msgid="6245900436119218187">"书签必须具有名称。"</string>
     <string name="bookmark_needs_url" msgid="7809876865972755158">"书签必须具有位置。"</string>
-    <string name="bookmark_url_not_valid" msgid="6719785633980202419">"网址无效。"</string>
-    <string name="bookmark_cannot_save_url" msgid="791722768778386941">"无法将此网址添加到书签。"</string>
+    <string name="bookmark_url_not_valid" msgid="4917440933384496211">"此网址无效。"</string>
+    <string name="bookmark_cannot_save_url" msgid="7836064647943671126">"无法将此网址添加到书签。"</string>
     <string name="delete_bookmark" msgid="2422989994934201992">"删除"</string>
     <string name="bookmark_page" msgid="6845189305130307274">"将上次查看过的网页加为书签"</string>
     <string name="bookmark_thumbnail_view" msgid="3164068314718522138">"缩略图"</string>
     <string name="bookmark_list_view" msgid="7848510619500937839">"列表"</string>
     <string name="current_page" msgid="7510129573681663135">"来源 "</string>
-    <string name="delete_bookmark_warning" msgid="758043186202032205">"将会删除书签“<xliff:g id="BOOKMARK">%s</xliff:g>”。"</string>
+    <string name="delete_bookmark_warning" msgid="7825328496411904321">"要删除书签“<xliff:g id="BOOKMARK">%s</xliff:g>”吗？"</string>
     <string name="open_all_in_new_window" msgid="455786763426575293">"在新标签页中打开全部书签"</string>
     <string name="goto_dot" msgid="3895839050522602723">"转至"</string>
     <string name="select_dot" msgid="6299170761900561967">"选择文本"</string>
     <string name="bookmarks" msgid="1961279134885867815">"书签"</string>
     <string name="shortcut_bookmark" msgid="3974876480401135895">"书签"</string>
-    <string name="shortcut_bookmark_title" msgid="3072725276532691472">"选择一个书签"</string>
+    <string name="shortcut_bookmark_title" msgid="7570786275916681296">"选择书签"</string>
     <string name="history" msgid="2451240511251410032">"历史记录"</string>
     <string name="menu_view_download" msgid="2124570321712995120">"下载内容"</string>
-    <string name="copy_page_url" msgid="7635062169011319208">"复制网页网址"</string>
+    <string name="copy_page_url" msgid="1188679152608889555">"复制网页网址"</string>
     <string name="share_page" msgid="593756995297268343">"分享网页"</string>
     <string name="menu_save_snapshot" msgid="6935080344031126139">"保存以供离线阅读"</string>
     <string name="snapshot_failed" msgid="4584580873565876033">"无法保存以供离线阅读。"</string>
@@ -125,7 +125,7 @@
     <string name="replace" msgid="4843033491070384047">"替换"</string>
     <string name="browser_bookmarks_page_bookmarks_text" msgid="6787605028726162673">"书签"</string>
     <string name="menu_preferences" msgid="6709237687234102240">"设置"</string>
-    <string name="pref_content_title" msgid="722227111894838633">"网页内容设置"</string>
+    <string name="pref_content_title" msgid="3834107397725342174">"网页内容"</string>
     <string name="pref_content_load_images" msgid="2125616852957377561">"载入图片"</string>
     <string name="pref_content_load_images_summary" msgid="5055874125248398584">"显示网页上的图片"</string>
     <string name="pref_content_block_popups" msgid="4158524847764470895">"阻止弹出式窗口"</string>
@@ -137,88 +137,88 @@
     <item msgid="2484126708670016519">"在需要时打开"</item>
     <item msgid="8547442717307793863">"关"</item>
   </string-array>
-    <string name="pref_content_open_in_background_summary" msgid="6114922017800433172">"在当前标签页后方打开新标签页"</string>
+    <string name="pref_content_open_in_background_summary" msgid="955411158407739504">"在当前标签后方打开新标签"</string>
     <string name="pref_content_homepage" msgid="3324574611613105696">"设置主页"</string>
     <string name="pref_content_search_engine" msgid="1620101310821644144">"设置搜索引擎"</string>
-    <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"选择搜索引擎"</string>
-    <string name="pref_set_homepage_to" msgid="7196350233061395098">"设置为..."</string>
+    <string name="pref_content_search_engine_summary" msgid="304003941861818133">"选择搜索引擎"</string>
+    <string name="pref_set_homepage_to" msgid="7838684355145561242">"设置为"</string>
   <string-array name="pref_homepage_choices">
     <item msgid="844041670142910837">"当前页"</item>
     <item msgid="4430498748295169195">"空白页"</item>
     <item msgid="5747608191946904074">"默认页"</item>
     <item msgid="6092441301001006473">"访问最多的网站"</item>
-    <item msgid="5021822752506507426">"其他..."</item>
+    <item msgid="6569304572171444894">"其他"</item>
   </string-array>
     <string name="pref_content_autofit" msgid="8260474534053660809">"自动调整页面"</string>
-    <string name="pref_content_autofit_summary" msgid="4587831659894879986">"调整网页版面以适合屏幕大小"</string>
+    <string name="pref_content_autofit_summary" msgid="324810555822572112">"调整网页版面以适合屏幕大小"</string>
     <string name="pref_general_title" msgid="1946872771219249323">"常规"</string>
     <string name="pref_general_sync_title" msgid="3138637035975860324">"同步"</string>
     <string name="pref_general_autofill_title" msgid="547881256865816858">"自动填充"</string>
     <string name="pref_autofill_enabled" msgid="1015751713312396713">"表单自动填充"</string>
-    <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"只需点击一下，即可填完网络表单"</string>
-    <string name="pref_autofill_profile_editor" msgid="3864116896052437796">"自动填充数据"</string>
-    <string name="pref_autofill_profile_editor_summary" msgid="3653552312512743181">"输入并保存网络表单自动填充字段的数据"</string>
-    <string name="pref_autologin_title" msgid="2362827272595366379">"自动登录 Google"</string>
+    <string name="pref_autofill_enabled_summary" msgid="7659954073892471496">"只需触摸一下，即可填完网络表单"</string>
+    <string name="pref_autofill_profile_editor" msgid="8934844472922113166">"自动填充文本"</string>
+    <string name="pref_autofill_profile_editor_summary" msgid="4864447251676856190">"设置要用于自动填充网络表单的文本"</string>
+    <string name="pref_autologin_title" msgid="4421187193809267096">"自动登录 Google"</string>
     <string name="pref_autologin_progress" msgid="8333244467048833461">"正使用 <xliff:g id="ID_1">%s</xliff:g> 登录 Google 网站"</string>
     <string name="autologin_bar_text" msgid="3684581827167173371">"使用以下身份登录："</string>
     <string name="autologin_bar_login_text" msgid="3336615320510851879">"登录"</string>
     <string name="autologin_bar_hide_text" msgid="3629355974385859580">"隐藏"</string>
     <string name="autologin_bar_error" msgid="7470001207395920811">"无法登录。"</string>
-    <string name="autofill_profile_editor_heading" msgid="8392952553626722083">"请在网络字段中输入希望触摸时自动填充的数据。"</string>
+    <string name="autofill_profile_editor_heading" msgid="4798644544927738078">"键入您要用于自动填充网络表单的文本。"</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"全名："</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"电子邮件地址："</string>
     <string name="autofill_profile_editor_company_name" msgid="2813443159949210417">"公司名称："</string>
     <string name="autofill_profile_editor_address_line_1" msgid="836433242509243081">"地址行 1："</string>
     <string name="autofill_profile_editor_address_line_1_hint" msgid="5965659598509327172">"街道地址、邮政信箱、转交"</string>
     <string name="autofill_profile_editor_address_line_2" msgid="8194745202893822479">"地址行 2："</string>
-    <string name="autofill_profile_editor_address_line_2_hint" msgid="2048330295853546405">"公寓、套房、单元、楼栋、楼层等等。"</string>
-    <string name="autofill_profile_editor_city" msgid="4193225955409148508">"城市/乡镇："</string>
-    <string name="autofill_profile_editor_state" msgid="8549739922338171458">"州或省/直辖市/自治区："</string>
+    <string name="autofill_profile_editor_address_line_2_hint" msgid="8529642768127569254">"公寓、套房、单元、楼栋、楼层等等。"</string>
+    <string name="autofill_profile_editor_city" msgid="7306716145784997135">"城市/乡镇："</string>
+    <string name="autofill_profile_editor_state" msgid="2150403366835080407">"州或省/直辖市/自治区："</string>
     <string name="autofill_profile_editor_zip_code" msgid="283668573295656671">"邮政编码："</string>
     <string name="autofill_profile_editor_country" msgid="7234470301239156656">"国家/地区："</string>
     <string name="autofill_profile_editor_phone_number" msgid="4938852821413729276">"电话："</string>
-    <string name="autofill_profile_editor_phone_number_invalid" msgid="7166394872369167580">"电话号码无效"</string>
-    <string name="autofill_profile_editor_save_profile" msgid="8349915287435262888">"保存个人资料"</string>
-    <string name="autofill_profile_successful_save" msgid="6834102203944938409">"个人资料已保存"</string>
-    <string name="autofill_profile_successful_delete" msgid="2421442112954362732">"个人资料已删除"</string>
-    <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"删除个人资料"</string>
-    <string name="autofill_setup_dialog_title" msgid="1955613311837926540">"要设置自动填充功能吗？"</string>
-    <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"浏览器可自动填充网络表单（例如该表单）。您希望设置个人资料吗？"</string>
-    <string name="autofill_setup_dialog_negative_toast" msgid="6990737008936188620">"您可以随时通过“浏览器设置”配置自动填充功能。"</string>
+    <string name="autofill_profile_editor_phone_number_invalid" msgid="6795411298467068957">"电话号码无效。"</string>
+    <string name="autofill_profile_editor_save_profile" msgid="3230301454458581157">"保存"</string>
+    <string name="autofill_profile_successful_save" msgid="5691459703493331983">"自动填充文本已保存。"</string>
+    <string name="autofill_profile_successful_delete" msgid="1790262652460723127">"自动填充文本已删除。"</string>
+    <string name="autofill_profile_editor_delete_profile" msgid="3098369314558164153">"删除"</string>
+    <string name="autofill_setup_dialog_title" msgid="3564907335366130582">"自动填充"</string>
+    <string name="autofill_setup_dialog_message" msgid="1096164985825394616">"浏览器可以自动填写与此类似的网络表单。您要设置自动填充文本吗？"</string>
+    <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"您可以随时通过“浏览器”&gt;“设置”&gt;“常规”屏幕设置自动填充文本。"</string>
     <string name="disable_autofill" msgid="8305901059849400354">"停用自动填充"</string>
     <string name="pref_privacy_security_title" msgid="3480313968942160914">"隐私和安全"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"清除缓存"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"清除存储在本地缓存中的内容和数据库"</string>
-    <string name="pref_privacy_clear_cache_dlg" msgid="5541011591300753881">"此操作将会刪除存储在本地缓存中的内容和数据库。"</string>
+    <string name="pref_privacy_clear_cache_dlg" msgid="4344512581716422465">"要删除本地缓存的内容和数据库吗？"</string>
     <string name="pref_privacy_cookies_title" msgid="6763274282214830526">"Cookie"</string>
     <string name="pref_privacy_clear_cookies" msgid="3095583579133780331">"清除所有 Cookie 数据"</string>
     <string name="pref_privacy_clear_cookies_summary" msgid="6962742063990677520">"清除所有浏览器 Cookie"</string>
-    <string name="pref_privacy_clear_cookies_dlg" msgid="552855688091432682">"此操作将会删除所有 Cookie。"</string>
+    <string name="pref_privacy_clear_cookies_dlg" msgid="1493252163164621278">"要删除所有 Cookie 吗？"</string>
     <string name="pref_privacy_clear_history" msgid="8723795508825198477">"清除历史记录"</string>
     <string name="pref_privacy_clear_history_summary" msgid="6868501330708940734">"清除浏览器导航历史记录"</string>
-    <string name="pref_privacy_clear_history_dlg" msgid="544903007914753853">"此操作将会删除浏览器导航历史记录。"</string>
+    <string name="pref_privacy_clear_history_dlg" msgid="6934317391642846227">"要删除浏览器导航历史记录吗？"</string>
     <string name="pref_privacy_formdata_title" msgid="6549813837982050424">"表单数据"</string>
     <string name="pref_privacy_clear_form_data" msgid="4232668196344383987">"清除表单数据"</string>
-    <string name="pref_privacy_clear_form_data_summary" msgid="1790390894719517167">"清除所有已保存的表单数据"</string>
-    <string name="pref_privacy_clear_form_data_dlg" msgid="4443621086781197928">"此操作将会删除所有已保存的表单数据。"</string>
+    <string name="pref_privacy_clear_form_data_summary" msgid="7702091143640546200">"清除所有保存的表单数据"</string>
+    <string name="pref_privacy_clear_form_data_dlg" msgid="8205626042241338983">"要删除所有保存的表单数据吗？"</string>
     <string name="pref_privacy_clear_passwords" msgid="4750234112289277480">"清除密码"</string>
     <string name="pref_privacy_clear_passwords_summary" msgid="8856782718942903335">"清除所有保存的密码"</string>
-    <string name="pref_privacy_clear_passwords_dlg" msgid="2083869328824248255">"此操作将会刪除所有已保存的密码。"</string>
+    <string name="pref_privacy_clear_passwords_dlg" msgid="5836576259947160045">"要删除所有保存的密码吗？"</string>
     <string name="pref_privacy_location_title" msgid="7458378016606081067">"位置"</string>
     <string name="pref_privacy_enable_geolocation" msgid="1395040170290765686">"启用位置信息功能"</string>
     <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"允许网站访问您的位置信息"</string>
     <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"取消位置信息访问权限"</string>
     <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"取消所有网站访问位置信息的权限"</string>
-    <string name="pref_privacy_clear_geolocation_access_dlg" msgid="7327063124488827244">"取消所有网站访问位置信息的权限"</string>
+    <string name="pref_privacy_clear_geolocation_access_dlg" msgid="3190928760598034346">"要清除网站位置信息访问权限吗？"</string>
     <string name="pref_security_passwords_title" msgid="5734190542383756711">"密码"</string>
     <string name="pref_security_remember_passwords" msgid="6492957683454529549">"记住密码"</string>
     <string name="pref_security_remember_passwords_summary" msgid="256388703356349137">"保存网站的用户名和密码"</string>
     <string name="pref_security_save_form_data" msgid="1213669802810198893">"记住表单数据"</string>
     <string name="pref_security_save_form_data_summary" msgid="4994074685153708026">"记住我在表单中输入的数据以便于以后使用"</string>
     <string name="pref_security_show_security_warning" msgid="8901135676266754559">"显示安全警告"</string>
-    <string name="pref_security_show_security_warning_summary" msgid="8968906112720511704">"当网站安全性出现问题时显示警告"</string>
+    <string name="pref_security_show_security_warning_summary" msgid="5260098316025397525">"当网站安全性出现问题时显示警告"</string>
     <string name="pref_security_accept_cookies" msgid="3201367661925047989">"接受 Cookie"</string>
-    <string name="pref_security_accept_cookies_summary" msgid="1465118934875026920">"允许网站保存并读取 Cookie 数据"</string>
+    <string name="pref_security_accept_cookies_summary" msgid="1907951236154433751">"允许网站保存和读取 Cookie 数据"</string>
   <string-array name="pref_text_size_choices">
     <item msgid="4952686548944739548">"超小"</item>
     <item msgid="1950030433642671460">"小"</item>
@@ -228,12 +228,14 @@
   </string-array>
     <string name="pref_min_font_size" msgid="8811125835817449131">"字体大小下限"</string>
     <string name="pref_min_font_size_value" msgid="2924708480509060209">"<xliff:g id="FONT_SIZE">%d</xliff:g> PT"</string>
-    <string name="pref_text_zoom" msgid="8387229123479610157">"文字缩放"</string>
+    <!-- outdated translation 8387229123479610157 -->     <string name="pref_text_zoom" msgid="5171056101805125497">"文字缩放"</string>
+    <!-- no translation found for pref_zoom_on_double_tap (902786475250741795) -->
+    <skip />
     <string name="pref_force_userscalable" msgid="5641500562399892621">"强制启用缩放"</string>
-    <string name="pref_force_userscalable_summary" msgid="4431962409438162448">"是否通过替换网站的请求来控制缩放行为"</string>
-    <string name="pref_inverted_category" msgid="3115731672066279347">"屏幕反色显示"</string>
-    <string name="pref_inverted" msgid="4813962104859359420">"反色显示"</string>
-    <string name="pref_inverted_summary" msgid="8570087335228699813">"启用反色显示。黑色部分将会显示为白色，反之亦然。"</string>
+    <string name="pref_force_userscalable_summary" msgid="3613242300617172230">"替换网站的请求以控制缩放行为"</string>
+    <string name="pref_inverted_category" msgid="1280639705117152207">"屏幕反色显示"</string>
+    <string name="pref_inverted" msgid="7613556986776824112">"反色显示"</string>
+    <string name="pref_inverted_summary" msgid="7357225897413923085">"黑色会变成白色，反之亦然"</string>
     <string name="pref_inverted_contrast" msgid="8527441236225288169">"对比度"</string>
     <string name="pref_default_zoom" msgid="8076142259097187395">"默认缩放设置"</string>
   <string-array name="pref_default_zoom_choices">
@@ -243,14 +245,14 @@
   </string-array>
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"默认缩放设置"</string>
     <string name="pref_content_load_page" msgid="2219810141690955452">"以概览模式打开网页"</string>
-    <string name="pref_content_load_page_summary" msgid="8792093504054149369">"显示新打开网页的概览"</string>
+    <string name="pref_content_load_page_summary" msgid="9168803276420332955">"显示新打开网页的概览"</string>
     <string name="pref_extras_title" msgid="7075456173747370647">"高级"</string>
     <string name="pref_extras_website_settings" msgid="67866640052455549">"网站设置"</string>
     <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"各网站的高级设置"</string>
     <string name="pref_extras_reset_default_title" msgid="3579760449455761762">"重置默认设置"</string>
     <string name="pref_extras_reset_default" msgid="8904000515846202110">"重置为默认设置"</string>
     <string name="pref_extras_reset_default_summary" msgid="4247870778270414501">"还原默认设置"</string>
-    <string name="pref_extras_reset_default_dlg" msgid="6640261575874704022">"设置将恢复为默认值。"</string>
+    <string name="pref_extras_reset_default_dlg" msgid="7922814420184322450">"要将设置恢复为默认值吗？"</string>
     <string name="pref_extras_reset_default_dlg_title" msgid="2250334970728938936">"重置为默认设置"</string>
     <string name="pref_development_title" msgid="3263854204533056480">"调试"</string>
     <string name="pref_default_text_encoding" msgid="5742965543955558478">"文字编码"</string>
@@ -266,46 +268,46 @@
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"文字编码"</string>
     <string name="pref_accessibility_title" msgid="5127836981587423215">"辅助功能"</string>
-    <string name="pref_font_size_category" msgid="6288925476811083551">"字体大小"</string>
+    <!-- outdated translation 6288925476811083551 -->     <string name="pref_font_size_category" msgid="6683754355084218254">"字体大小"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"实验室"</string>
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"快速控制"</string>
-    <string name="pref_lab_quick_controls_summary" msgid="1564546156544675707">"从左边缘或右边缘滑动拇指即可访问快速控制并隐藏应用程序和网址栏"</string>
+    <string name="pref_lab_quick_controls_summary" msgid="3149664132600968775">"从左侧或右侧边缘滑动拇指可打开快速控件并隐藏应用程序和网址栏"</string>
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Google 即搜即得"</string>
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"借助 Google 即搜即得，您可以在使用 Google 搜索时一边键入内容一边查看结果（此功能可能会增加数据使用量）。"</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"全屏"</string>
-    <string name="pref_lab_fullscreen_summary" msgid="6853711692160711419">"使用全屏模式可隐藏状态栏。"</string>
-    <string name="pref_data_title" msgid="750316606686075162">"带宽管理"</string>
+    <string name="pref_lab_fullscreen_summary" msgid="7694738112219376740">"使用全屏模式可隐藏状态栏"</string>
+    <string name="pref_data_title" msgid="7255058703417796578">"带宽管理"</string>
     <string name="pref_data_preload_title" msgid="4479320472980292873">"搜索结果预加载"</string>
   <string-array name="pref_data_preload_choices">
     <item msgid="5180466923190095508">"从不"</item>
-    <item msgid="1791664748778640002">"仅限 Wi-Fi"</item>
+    <item msgid="3514802063791531888">"仅通过 Wi-Fi 网络"</item>
     <item msgid="3944061253437827617">"始终"</item>
   </string-array>
-    <string name="pref_data_preload_summary" msgid="7488335627364473744">"允许浏览器在后台预加载相关度高的搜索结果"</string>
+    <string name="pref_data_preload_summary" msgid="3809168910751382727">"允许浏览器在后台预加载相关度高的搜索结果"</string>
     <string name="pref_data_preload_dialogtitle" msgid="8421297746110796536">"搜索结果预加载"</string>
-    <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"数据连接性问题"</string>
-    <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"文件有问题"</string>
-    <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"确认"</string>
-    <string name="browserFrameFormResubmitMessage" msgid="2752182215695632138">"您尝试查看的网页中包含已经提交的数据（“POSTDATA”）。如果您重新发送这些数据，系统会重复该网页上的表单所执行过的一切操作（如搜索或在线购买）。"</string>
-    <string name="loadSuspendedTitle" msgid="675991625288706944">"没有网络连接"</string>
-    <string name="loadSuspended" msgid="3133656588880851273">"未连接到互联网，因此浏览器无法载入该网页。"</string>
+    <string name="browserFrameNetworkErrorLabel" msgid="8102515020625680714">"连接问题"</string>
+    <string name="browserFrameFileErrorLabel" msgid="4703792279852977350">"文件问题"</string>
+    <string name="browserFrameFormResubmitLabel" msgid="2385512101948178841"></string>
+    <string name="browserFrameFormResubmitMessage" msgid="5244059279866705254">"您尝试查看的网页中包含已提交的数据（“POSTDATA”）。如果您重新发送这些数据，系统会重复该网页上的表单所执行过的一切操作（如搜索或在线购买）。"</string>
+    <string name="loadSuspendedTitle" msgid="6453376579109644551">"无连接"</string>
+    <string name="loadSuspended" msgid="3843343290039218668">"浏览器无法加载此网页，因为没有互联网连接。"</string>
     <string name="clear_history" msgid="5998307092715979619">"清除历史记录"</string>
-    <string name="browser_history" msgid="1038987118290272525">"最近访问过的网页"</string>
-    <string name="empty_history" msgid="8738772352308207274">"浏览器历史记录为空。"</string>
-    <string name="go_home" msgid="3140773562046381164">"主屏幕"</string>
-    <string name="add_new_bookmark" msgid="8086367791400349049">"添加书签…"</string>
+    <string name="browser_history" msgid="2979476257919939232">"最近访问过的网页"</string>
+    <string name="empty_history" msgid="7013369425484218985">"没有浏览器历史记录。"</string>
+    <string name="go_home" msgid="109129207276086793">"首页"</string>
+    <string name="add_new_bookmark" msgid="3158497555612337238">"添加书签"</string>
     <string name="add_bookmark_short" msgid="3783984330998103735">"添加"</string>
     <string name="search_hint" msgid="4647356319916631820">"搜索或键入网址"</string>
     <string name="search_button_text" msgid="5235226933877634410">"开始"</string>
     <string name="search_settings_description" msgid="1422401062529014107">"书签和网络历史记录"</string>
     <string name="attention" msgid="3473639060042811244">"注意"</string>
-    <string name="popup_window_attempt" msgid="2673111696288657989">"该网站试图打开一个弹出式窗口。"</string>
+    <string name="popup_window_attempt" msgid="31565781154067629">"要允许此网站打开一个弹出式窗口吗？"</string>
     <string name="allow" msgid="1157313689171991335">"允许"</string>
     <string name="block" msgid="9172175889884707800">"阻止"</string>
     <string name="too_many_windows_dialog_title" msgid="5709782301477380438">"已达到标签页数上限"</string>
-    <string name="too_many_windows_dialog_message" msgid="7417529754382308997">"无法打开新标签页，因为打开的标签页数已达到上限。"</string>
+    <string name="too_many_windows_dialog_message" msgid="3644234634638290304">"无法打开新标签，请先关闭某个标签。"</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"弹出式窗口已经打开"</string>
-    <string name="too_many_subwindows_dialog_message" msgid="5827289829907966657">"无法打开新的弹出式窗口，因为任何时候都是一次只能打开一个窗口。"</string>
+    <string name="too_many_subwindows_dialog_message" msgid="2164725447981195556">"一次只能打开一个弹出式窗口。"</string>
     <string name="download_title" msgid="2122874021047565594">"下载历史记录"</string>
     <string name="download_unknown_filename" msgid="4013465542563652175">"&lt;未知&gt;"</string>
     <string name="download_menu_open" msgid="4888327480367757513">"打开"</string>
@@ -314,10 +316,10 @@
     <string name="download_menu_cancel" msgid="2545333007601851574">"取消下载"</string>
     <string name="download_menu_cancel_all" msgid="2136550823151999166">"取消所有下载"</string>
     <string name="download_cancel_dlg_title" msgid="8909108500262799748">"取消下载"</string>
-    <string name="download_cancel_dlg_msg" msgid="6285389170052357797">"所有 <xliff:g id="DOWNLOAD_COUNT">%d</xliff:g> 项下载都会取消并从下载历史记录中清除。"</string>
-    <string name="download_delete_file" msgid="5330036497843073249">"文件将被删除"</string>
+    <string name="download_cancel_dlg_msg" msgid="2546124668173027248">"要取消并从下载历史记录中清除所有 <xliff:g id="DOWNLOAD_COUNT">%d</xliff:g> 个下载项吗？"</string>
+    <string name="download_delete_file" msgid="8941963362686617405">"删除"</string>
     <string name="download_file_error_dlg_title" msgid="2693630283595384874">"没有存储空间"</string>
-    <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"无法下载<xliff:g id="FILENAME">%s</xliff:g>。"\n"请释放部分手机空间，然后重试。"</string>
+    <string name="download_file_error_dlg_msg" msgid="5904538987107408124">"无法下载“<xliff:g id="FILENAME">%s</xliff:g>”。"\n"请释放部分空间，然后重试。"</string>
     <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"下载失败"</string>
     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"不存在 USB 存储设备"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"无 SD 卡"</string>
@@ -325,68 +327,68 @@
     <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"需要有 SD 卡才能下载<xliff:g id="FILENAME">%s</xliff:g>。"</string>
     <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"不存在 USB 存储设备"</string>
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"SD 卡不可用"</string>
-    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"USB 存储设备正忙。要允许下载，请在通知中选择“关闭 USB 存储设备”。"</string>
-    <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"SD 卡正忙。要允许下载，请在通知中选择“关闭 USB 存储设备”。"</string>
+    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="8412543086906716875">"USB 存储设备正忙。要允许下载，请在通知中触摸“关闭 USB 存储设备”。"</string>
+    <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"SD 卡正忙。要允许下载，请在通知中触摸“关闭 USB 存储设备”。"</string>
     <string name="cannot_download" msgid="8150552478556798780">"只能从“http”或“https”网址下载。"</string>
-    <string name="download_no_application_title" msgid="1286056729168874295">"无法打开文件"</string>
+    <string name="download_no_application_title" msgid="4809479884191068159">"无法打开文件"</string>
     <string name="retry" msgid="1835923075542266721">"重试"</string>
-    <string name="no_downloads" msgid="3947445710685021498">"下载历史记录为空。"</string>
-    <string name="download_error" msgid="413496839831257187">"下载不成功。"</string>
-    <string name="download_success" msgid="2279041638155595203">"<xliff:g id="FILE">%s</xliff:g>下载完成。"</string>
+    <string name="no_downloads" msgid="8031648287973400156">"没有下载历史记录。"</string>
+    <string name="download_error" msgid="21835634921715697">"无法下载。"</string>
+    <string name="download_success" msgid="1651605015937749469">"“<xliff:g id="FILE">%s</xliff:g>”下载完成。"</string>
     <string name="download_running" msgid="2622942231322015059">"正在下载..."</string>
     <string name="download_pending" msgid="2599683668575349559">"正在开始下载..."</string>
     <string name="download_pending_network" msgid="6548714525679461053">"正在等待数据连接..."</string>
     <string name="download_running_paused" msgid="6418029352085656495">"正在等待数据连接..."</string>
     <string name="download_canceled" msgid="6057083743144492515">"下载已取消。"</string>
-    <string name="download_not_acceptable" msgid="313769696131563652">"无法下载，此手机不支持此内容。"</string>
-    <string name="download_file_error" msgid="1206648050615176113">"无法完成下载，存储空间不足。"</string>
-    <string name="download_length_required" msgid="9038605488460437406">"无法下载，因为无法确定该下载项的大小。"</string>
-    <string name="download_precondition_failed" msgid="8327584102874295580">"下载中断，无法重新开始。"</string>
+    <string name="download_not_acceptable" msgid="5415339992984899924">"无法下载，因为手机不支持此内容。"</string>
+    <string name="download_file_error" msgid="7702971488793861815">"无法完成下载，因为空间不足。"</string>
+    <string name="download_length_required" msgid="1240338682223054142">"无法下载，因为无法确定该下载项的大小。"</string>
+    <string name="download_precondition_failed" msgid="6264432738865797635">"下载中断，无法继续进行。"</string>
     <string name="search_the_web" msgid="6046130189241962337">"搜索网页"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"浏览器存储空间已满"</string>
-    <string name="webstorage_outofspace_notification_text" msgid="7341075135051829692">"点击可释放空间。"</string>
+    <string name="webstorage_outofspace_notification_text" msgid="47273584426988640">"触摸可释放空间。"</string>
     <string name="webstorage_clear_data_title" msgid="689484577124333977">"清除存储的数据"</string>
     <string name="webstorage_clear_data_dialog_title" msgid="345457466368974706">"清除存储的数据"</string>
-    <string name="webstorage_clear_data_dialog_message" msgid="6678281256970470125">"此时将删除由此网站存储的所有数据"</string>
-    <string name="webstorage_clear_data_dialog_ok_button" msgid="2516563534211898636">"全部清除"</string>
+    <string name="webstorage_clear_data_dialog_message" msgid="6200681632891775881">"要删除此网站中存储的所有数据吗？"</string>
+    <string name="webstorage_clear_data_dialog_ok_button" msgid="6682570951259237542">"确定"</string>
     <string name="webstorage_clear_data_dialog_cancel_button" msgid="2028867751958942762">"取消"</string>
     <string name="webstorage_origin_summary_mb_stored" msgid="1985885826292236210">"MB 数据存储在您手机中"</string>
-    <string name="loading_video" msgid="4887871585216091096">"正在载入视频"</string>
+    <string name="loading_video" msgid="7886324933131962321">"正在加载视频..."</string>
     <string name="geolocation_permissions_prompt_message" msgid="356796102004052471">"<xliff:g id="WEBSITE_ORIGIN">%s</xliff:g>需要了解您的位置信息"</string>
     <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"共享位置信息"</string>
     <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"拒绝"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"记住偏好设置"</string>
-    <string name="geolocation_permissions_prompt_toast_allowed" msgid="7833771073195530638">"此网站可以访问您的位置信息。请在“设置”-&gt;“高级”-&gt;“网站设置”中进行相应更改"</string>
-    <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7418225389343746465">"此网站无法访问您的位置信息。请在“设置”-&gt;“高级”-&gt;“网站设置”中进行相应更改"</string>
+    <string name="geolocation_permissions_prompt_toast_allowed" msgid="7201417941112726112">"此网站可以访问您的位置信息。您可以在“设置”&gt;“高级”&gt;“网站设置”屏幕中更改此设置。"</string>
+    <string name="geolocation_permissions_prompt_toast_disallowed" msgid="156443445797377409">"此网站无法访问您的位置信息。您可以在“设置”&gt;“高级”&gt;“网站设置”屏幕中更改此设置。"</string>
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"取消位置信息访问权限"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"此网站目前可访问您的位置信息"</string>
-    <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"此网站目前不能访问您的位置信息"</string>
+    <string name="geolocation_settings_page_summary_not_allowed" msgid="7941769772784366199">"此网站目前不能访问您的位置信息"</string>
     <string name="geolocation_settings_page_dialog_title" msgid="1549842043381347668">"取消位置信息访问权限"</string>
-    <string name="geolocation_settings_page_dialog_message" msgid="7586671987576403993">"此时将取消此网站的位置信息访问权限"</string>
-    <string name="geolocation_settings_page_dialog_ok_button" msgid="4789434178048077287">"取消访问权限"</string>
+    <string name="geolocation_settings_page_dialog_message" msgid="8772923416296868537">"要清除此网站的位置信息访问权限吗？"</string>
+    <string name="geolocation_settings_page_dialog_ok_button" msgid="2113465477131017852">"确定"</string>
     <string name="geolocation_settings_page_dialog_cancel_button" msgid="7941036504673409747">"取消"</string>
     <string name="website_settings_clear_all" msgid="8739804325997655980">"全部清除"</string>
-    <string name="website_settings_clear_all_dialog_title" msgid="7791826325122461718">"是否清除所有网站设置？"</string>
-    <string name="website_settings_clear_all_dialog_message" msgid="6150502090601476333">"此操作将会删除所有网站数据和位置权限。"</string>
-    <string name="website_settings_clear_all_dialog_ok_button" msgid="6401582240627669431">"删除所有数据"</string>
+    <string name="website_settings_clear_all_dialog_title" msgid="5746255931965842184">"全部清除"</string>
+    <string name="website_settings_clear_all_dialog_message" msgid="1551164275687475061">"要删除所有网站数据和位置信息权限吗？"</string>
+    <string name="website_settings_clear_all_dialog_ok_button" msgid="7858504776529106243">"确定"</string>
     <string name="website_settings_clear_all_dialog_cancel_button" msgid="1896757051856611674">"取消"</string>
-    <string name="progress_dialog_setting_wallpaper" msgid="4871900779338536674">"正在设置壁纸..."</string>
+    <string name="progress_dialog_setting_wallpaper" msgid="2031391201442335889">"正在设置壁纸..."</string>
     <string name="defaultBookmarksUpButton" msgid="2303951020715704735">"书签"</string>
-    <string name="empty_bookmarks_folder" msgid="7843361614634930942">"无书签"</string>
+    <string name="empty_bookmarks_folder" msgid="6239830231917618556">"没有书签。"</string>
     <string name="rlz_access_point" msgid="7165847807377650632">"Y1"</string>
     <string name="account_chooser_dialog_title" msgid="3314204833188808194">"选择帐户"</string>
     <string name="import_bookmarks_dialog_title" msgid="3325557652271172128">"与 Google 帐户同步"</string>
-    <string name="import_bookmarks_dialog_description" msgid="1942452375564381488">"该设备上的书签尚未与 Google 帐户关联。可以通过将这些书签添加到帐户以进行保存。如果不希望同步书签，请将书签删除。"</string>
-    <string name="import_bookmarks_dialog_select_add_account" msgid="3102882579089291099">"添加此设备上的当前书签，并开始与 Google 帐户同步"</string>
-    <string name="import_bookmarks_dialog_delete_select_account" msgid="5192284761080626386">"删除此设备上的当前书签，并开始与 Google 帐户同步"</string>
-    <string name="import_bookmarks_dialog_confirm_delete" msgid="8854001080444749211">"删除此设备上的当前书签，并开始与 <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g> 同步书签。"</string>
-    <string name="import_bookmarks_dialog_confirm_add" msgid="5433677293195372675">"添加此设备上的当前书签，并开始与 <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g> 同步书签。"</string>
+    <string name="import_bookmarks_dialog_description" msgid="2362897194870789609">"此设备上的书签尚未与 Google 帐户关联。您只需将这些书签添加到帐户中即可保存它们。如果您不想同步这些书签，请将它们删除。"</string>
+    <string name="import_bookmarks_dialog_select_add_account" msgid="7643058662272484895">"添加此设备上的当前书签，并开始与 Google 帐户同步"</string>
+    <string name="import_bookmarks_dialog_delete_select_account" msgid="4333848003180415516">"删除此设备上的当前书签，并开始与 Google 帐户同步"</string>
+    <string name="import_bookmarks_dialog_confirm_delete" msgid="2204771572755630570">"要删除此设备上的当前书签，并开始与 <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g> 同步书签吗？"</string>
+    <string name="import_bookmarks_dialog_confirm_add" msgid="8942794112340838111">"要添加此设备上的当前书签，并开始与 <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g> 同步书签吗？"</string>
     <string name="import_bookmarks_dialog_remove" msgid="5984607822851800902">"删除书签"</string>
     <string name="import_bookmarks_wizard_next" msgid="7578143961884352676">"下一页"</string>
     <string name="import_bookmarks_wizard_previous" msgid="8551440353688257031">"上一页"</string>
     <string name="import_bookmarks_wizard_cancel" msgid="4936061122806506634">"取消"</string>
     <string name="import_bookmarks_wizard_done" msgid="1446247092194489191">"完成"</string>
-    <string name="import_bookmarks_dialog_add" msgid="7552306756868669353">"将书签添加到 Google 帐户"</string>
+    <string name="import_bookmarks_dialog_add" msgid="1743359725294101189">"将书签添加到 Google 帐户中"</string>
     <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"将 Android 书签添加到 <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g> 的书签中"</string>
     <string name="menu_share_url" msgid="5851814357333739700">"分享"</string>
     <string name="max_tabs_warning" msgid="4122034303809457570">"没有更多标签可用"</string>
@@ -395,7 +397,7 @@
     <string name="local_bookmarks" msgid="533816851415228520">"本地"</string>
     <string name="ua_switcher_desktop" msgid="220097077327558435">"请求桌面版网站"</string>
     <string name="permission_preload_label" msgid="4856971662337877316">"预加载结果"</string>
-    <string name="empty_snapshots_folder" msgid="5788256228290785444">"没有已保存的网页。"</string>
+    <string name="empty_snapshots_folder" msgid="7675378008107026013">"没有保存的网页。"</string>
     <string name="remove_snapshot" msgid="1624447424544976849">"删除已保存的网页"</string>
     <string name="snapshot_go_live" msgid="1209542802541168497">"转到实际网页"</string>
     <string name="accessibility_button_back" msgid="6194680634245279407">"后退"</string>
