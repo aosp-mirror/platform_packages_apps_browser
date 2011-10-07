@@ -667,6 +667,12 @@ public class WebsiteSettingsFragment extends ListFragment implements OnClickList
         getListView().setOnItemClickListener(mAdapter);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        mAdapter.askForOrigins();
+    }
+
     private void finish() {
         PreferenceActivity activity = (PreferenceActivity) getActivity();
         if (activity != null) {
