@@ -41,7 +41,6 @@ public class ComboViewActivity extends Activity implements CombinedBookmarksCall
     public static final String EXTRA_OPEN_SNAPSHOT = "snapshot_id";
     public static final String EXTRA_OPEN_ALL = "open_all";
     public static final String EXTRA_CURRENT_URL = "url";
-    public static final String EXTRA_BOOKMARK_PAGE = "create_bookmark";
     private ViewPager mViewPager;
     private TabsAdapter mTabsAdapter;
 

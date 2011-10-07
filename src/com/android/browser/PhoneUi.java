@@ -51,6 +51,7 @@ public class PhoneUi extends BaseUi {
 
     private PieControlPhone mPieControl;
     private NavScreen mNavScreen;
+    private AnimScreen mAnimScreen;
     private NavigationBarPhone mNavigationBar;
     private int mActionBarHeight;
 
@@ -88,11 +89,15 @@ public class PhoneUi extends BaseUi {
 
     @Override
     public boolean onBackKey() {
-        if (mNavScreen != null) {
+        if (showingNavScreen()) {
             mNavScreen.close(mUiController.getTabControl().getCurrentPosition());
             return true;
         }
         return super.onBackKey();
+    }
+
+    private boolean showingNavScreen() {
+        return mNavScreen != null && mNavScreen.getVisibility() == View.VISIBLE;
     }
 
     @Override
@@ -169,17 +174,17 @@ public class PhoneUi extends BaseUi {
     public void updateMenuState(Tab tab, Menu menu) {
         MenuItem bm = menu.findItem(R.id.bookmarks_menu_id);
         if (bm != null) {
-            bm.setVisible(mNavScreen == null);
+            bm.setVisible(!showingNavScreen());
         }
         MenuItem nt = menu.findItem(R.id.new_tab_menu_id);
         if (nt != null) {
-            nt.setVisible(mNavScreen == null);
+            nt.setVisible(!showingNavScreen());
         }
         MenuItem abm = menu.findItem(R.id.add_bookmark_menu_id);
         if (abm != null) {
-            abm.setVisible((tab != null) && !tab.isSnapshot() && mNavScreen == null);
+            abm.setVisible((tab != null) && !tab.isSnapshot() && !showingNavScreen());
         }
-        if (mNavScreen != null) {
+        if (showingNavScreen()) {
             menu.setGroupVisible(R.id.LIVE_MENU, false);
             menu.setGroupVisible(R.id.SNAPSHOT_MENU, false);
             menu.findItem(R.id.page_info_menu_id).setVisible(false);
@@ -189,7 +194,7 @@ public class PhoneUi extends BaseUi {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (mNavScreen != null) {
+        if (showingNavScreen()) {
             hideNavScreen(mUiController.getTabControl().getCurrentPosition(), false);
         }
         return false;
@@ -271,7 +276,7 @@ public class PhoneUi extends BaseUi {
 
     @Override
     public boolean isWebShowing() {
-        return super.isWebShowing() && mNavScreen == null;
+        return super.isWebShowing() && !showingNavScreen();
     }
 
     @Override
@@ -282,12 +287,19 @@ public class PhoneUi extends BaseUi {
 
     void showNavScreen() {
         mUiController.setBlockEvents(true);
-        mNavScreen = new NavScreen(mActivity, mUiController, this);
+        if (mNavScreen == null) {
+            mNavScreen = new NavScreen(mActivity, mUiController, this);
+            mCustomViewContainer.addView(mNavScreen, COVER_SCREEN_PARAMS);
+        } else {
+            mNavScreen.setVisibility(View.VISIBLE);
+            mNavScreen.setAlpha(1f);
+        }
         mActiveTab.capture();
-        // Add the custom view to its container
-        mCustomViewContainer.addView(mNavScreen, COVER_SCREEN_PARAMS);
-        AnimScreen ascreen = new AnimScreen(mActivity, getTitleBar(), getWebView());
-        final View animView = ascreen.mMain;
+        if (mAnimScreen == null) {
+            mAnimScreen = new AnimScreen(mActivity);
+        }
+        mAnimScreen.set(getTitleBar(), getWebView());
+        final View animView = mAnimScreen.mMain;
         mCustomViewContainer.addView(animView, COVER_SCREEN_PARAMS);
         mCustomViewContainer.setVisibility(View.VISIBLE);
         mCustomViewContainer.bringToFront();
@@ -307,19 +319,19 @@ public class PhoneUi extends BaseUi {
         mContentView.setVisibility(View.GONE);
         AnimatorSet set1 = new AnimatorSet();
         AnimatorSet inanim = new AnimatorSet();
-        ObjectAnimator tx = ObjectAnimator.ofInt(ascreen.mContent, "left",
+        ObjectAnimator tx = ObjectAnimator.ofInt(mAnimScreen.mContent, "left",
                 fromLeft, toLeft);
-        ObjectAnimator ty = ObjectAnimator.ofInt(ascreen.mContent, "top",
+        ObjectAnimator ty = ObjectAnimator.ofInt(mAnimScreen.mContent, "top",
                 fromTop, toTop);
-        ObjectAnimator tr = ObjectAnimator.ofInt(ascreen.mContent, "right",
+        ObjectAnimator tr = ObjectAnimator.ofInt(mAnimScreen.mContent, "right",
                 fromRight, toRight);
-        ObjectAnimator tb = ObjectAnimator.ofInt(ascreen.mContent, "bottom",
+        ObjectAnimator tb = ObjectAnimator.ofInt(mAnimScreen.mContent, "bottom",
                 fromBottom, toBottom);
-        ObjectAnimator title = ObjectAnimator.ofFloat(ascreen.mTitle, "alpha",
+        ObjectAnimator title = ObjectAnimator.ofFloat(mAnimScreen.mTitle, "alpha",
                 1f, 0f);
-        ObjectAnimator sx = ObjectAnimator.ofFloat(ascreen, "scaleFactor",
+        ObjectAnimator sx = ObjectAnimator.ofFloat(mAnimScreen, "scaleFactor",
                 1f, scaleFactor);
-        ObjectAnimator blend1 = ObjectAnimator.ofFloat(ascreen.mMain, "alpha", 1, 0);
+        ObjectAnimator blend1 = ObjectAnimator.ofFloat(mAnimScreen.mMain, "alpha", 1, 0);
         blend1.setDuration(100);
 
         inanim.playTogether(tx, ty, tr, tb, sx, title);
@@ -337,7 +349,7 @@ public class PhoneUi extends BaseUi {
     }
 
     private void finishAnimationIn() {
-        if (mNavScreen != null) {
+        if (showingNavScreen()) {
             // notify accessibility manager about the screen change
             mNavScreen.sendAccessibilityEvent(AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED);
             mTabControl.setOnThumbnailUpdatedListener(mNavScreen);
@@ -345,7 +357,7 @@ public class PhoneUi extends BaseUi {
     }
 
     void hideNavScreen(int position, boolean animate) {
-        if (mNavScreen == null) return;
+        if (!showingNavScreen()) return;
         final Tab tab = mUiController.getTabControl().getTab(position);
         if ((tab == null) || !animate) {
             if (tab != null) {
@@ -371,9 +383,12 @@ public class PhoneUi extends BaseUi {
         mUiController.setBlockEvents(true);
         mUiController.setActiveTab(tab);
         mContentView.setVisibility(View.VISIBLE);
-        final AnimScreen screen = new AnimScreen(mActivity, tab.getScreenshot());
-        mCustomViewContainer.addView(screen.mMain, COVER_SCREEN_PARAMS);
-        screen.mMain.layout(0, 0, mContentView.getWidth(),
+        if (mAnimScreen == null) {
+            mAnimScreen = new AnimScreen(mActivity);
+        }
+        mAnimScreen.set(tab.getScreenshot());
+        mCustomViewContainer.addView(mAnimScreen.mMain, COVER_SCREEN_PARAMS);
+        mAnimScreen.mMain.layout(0, 0, mContentView.getWidth(),
                 mContentView.getHeight());
         mNavScreen.mScroller.finishScroller();
         ImageView target = tabview.mImage;
@@ -388,29 +403,29 @@ public class PhoneUi extends BaseUi {
         int fromBottom = fromTop + height;
         float scaleFactor = mContentView.getWidth() / (float) width;
         int toBottom = toTop + (int) (height * scaleFactor);
-        ObjectAnimator l1 = ObjectAnimator.ofInt(screen.mContent, "left",
+        ObjectAnimator l1 = ObjectAnimator.ofInt(mAnimScreen.mContent, "left",
                 fromLeft, fromLeft);
-        ObjectAnimator t1 = ObjectAnimator.ofInt(screen.mContent, "top",
+        ObjectAnimator t1 = ObjectAnimator.ofInt(mAnimScreen.mContent, "top",
                 fromTop, fromTop);
-        ObjectAnimator r1 = ObjectAnimator.ofInt(screen.mContent, "right",
+        ObjectAnimator r1 = ObjectAnimator.ofInt(mAnimScreen.mContent, "right",
                 fromRight, fromRight);
-        ObjectAnimator b1 = ObjectAnimator.ofInt(screen.mContent, "bottom",
+        ObjectAnimator b1 = ObjectAnimator.ofInt(mAnimScreen.mContent, "bottom",
                 fromBottom, fromBottom);
         AnimatorSet set1 = new AnimatorSet();
-        ObjectAnimator fade2 = ObjectAnimator.ofFloat(screen.mMain, "alpha", 0f, 1f);
+        ObjectAnimator fade2 = ObjectAnimator.ofFloat(mAnimScreen.mMain, "alpha", 0f, 1f);
         ObjectAnimator fade1 = ObjectAnimator.ofFloat(mNavScreen, "alpha", 1f, 0f);
         set1.playTogether(l1, t1, r1, b1, fade1, fade2);
         set1.setDuration(100);
         AnimatorSet set2 = new AnimatorSet();
-        ObjectAnimator l = ObjectAnimator.ofInt(screen.mContent, "left",
+        ObjectAnimator l = ObjectAnimator.ofInt(mAnimScreen.mContent, "left",
                 fromLeft, toLeft);
-        ObjectAnimator t = ObjectAnimator.ofInt(screen.mContent, "top",
+        ObjectAnimator t = ObjectAnimator.ofInt(mAnimScreen.mContent, "top",
                 fromTop, toTop);
-        ObjectAnimator r = ObjectAnimator.ofInt(screen.mContent, "right",
+        ObjectAnimator r = ObjectAnimator.ofInt(mAnimScreen.mContent, "right",
                 fromRight, toRight);
-        ObjectAnimator b = ObjectAnimator.ofInt(screen.mContent, "bottom",
+        ObjectAnimator b = ObjectAnimator.ofInt(mAnimScreen.mContent, "bottom",
                 fromBottom, toBottom);
-        ObjectAnimator scale = ObjectAnimator.ofFloat(screen, "scaleFactor",
+        ObjectAnimator scale = ObjectAnimator.ofFloat(mAnimScreen, "scaleFactor",
                 1f, scaleFactor);
         ObjectAnimator otheralpha = ObjectAnimator.ofFloat(mCustomViewContainer, "alpha", 1f, 0f);
         otheralpha.setDuration(100);
@@ -421,7 +436,7 @@ public class PhoneUi extends BaseUi {
         combo.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator anim) {
-                mCustomViewContainer.removeView(screen.mMain);
+                mCustomViewContainer.removeView(mAnimScreen.mMain);
                 finishAnimateOut();
                 mUiController.setBlockEvents(false);
             }
@@ -431,9 +446,8 @@ public class PhoneUi extends BaseUi {
 
     private void finishAnimateOut() {
         mTabControl.setOnThumbnailUpdatedListener(null);
-        mCustomViewContainer.removeView(mNavScreen);
+        mNavScreen.setVisibility(View.GONE);
         mCustomViewContainer.setAlpha(1f);
-        mNavScreen = null;
         mCustomViewContainer.setVisibility(View.GONE);
     }
 
@@ -443,7 +457,7 @@ public class PhoneUi extends BaseUi {
     }
 
     public void toggleNavScreen() {
-        if (mNavScreen == null) {
+        if (!showingNavScreen()) {
             showNavScreen();
         } else {
             hideNavScreen(mUiController.getTabControl().getCurrentPosition(), false);
@@ -461,55 +475,61 @@ public class PhoneUi extends BaseUi {
         private ImageView mTitle;
         private ImageView mContent;
         private float mScale;
+        private Bitmap mTitleBarBitmap;
+        private Bitmap mContentBitmap;
 
-        public AnimScreen(Context ctx, TitleBar tbar, WebView web) {
+        public AnimScreen(Context ctx) {
             mMain = LayoutInflater.from(ctx).inflate(R.layout.anim_screen,
                     null);
-            mContent = (ImageView) mMain.findViewById(R.id.content);
-            mContent.setTop(tbar.getHeight());
-
             mTitle = (ImageView) mMain.findViewById(R.id.title);
-            Bitmap bm1 = Bitmap.createBitmap(tbar.getWidth(), tbar.getHeight(),
-                    Bitmap.Config.RGB_565);
-            Canvas c1 = new Canvas(bm1);
-            tbar.draw(c1);
-            mTitle.setImageBitmap(bm1);
+            mContent = (ImageView) mMain.findViewById(R.id.content);
+            mContent.setScaleType(ImageView.ScaleType.MATRIX);
+            mContent.setImageMatrix(new Matrix());
+            mScale = 1.0f;
+            setScaleFactor(getScaleFactor());
+        }
+
+        public void set(TitleBar tbar, WebView web) {
+            if (mTitleBarBitmap == null
+                    || mTitleBarBitmap.getWidth() != tbar.getWidth()
+                    || mTitleBarBitmap.getHeight() != tbar.getHeight()) {
+                mTitleBarBitmap = Bitmap.createBitmap(tbar.getWidth(),
+                        tbar.getHeight(), Bitmap.Config.RGB_565);
+            }
+            Canvas c = new Canvas(mTitleBarBitmap);
+            tbar.draw(c);
+            c.setBitmap(null);
+            mTitle.setImageBitmap(mTitleBarBitmap);
+            mTitle.setVisibility(View.VISIBLE);
             int h = web.getHeight() - tbar.getHeight();
-            Bitmap bm2 = Bitmap.createBitmap(web.getWidth(), h,
-                    Bitmap.Config.RGB_565);
-            Canvas c2 = new Canvas(bm2);
+            if (mContentBitmap == null
+                    || mContentBitmap.getWidth() != web.getWidth()
+                    || mContentBitmap.getHeight() != h) {
+                mContentBitmap = Bitmap.createBitmap(web.getWidth(), h,
+                        Bitmap.Config.RGB_565);
+            }
+            c.setBitmap(mContentBitmap);
             int tx = web.getScrollX();
             int ty = web.getScrollY();
-            c2.translate(-tx, -ty - tbar.getHeight());
-            web.draw(c2);
-            mContent.setImageBitmap(bm2);
-            mContent.setScaleType(ImageView.ScaleType.MATRIX);
-            mContent.setImageMatrix(new Matrix());
-            mScale = 1.0f;
-            setScaleFactor(getScaleFactor());
+            c.translate(-tx, -ty - tbar.getHeight());
+            web.draw(c);
+            c.setBitmap(null);
+            mContent.setImageBitmap(mContentBitmap);
         }
 
-        public AnimScreen(Context ctx, Bitmap image) {
-            mMain = LayoutInflater.from(ctx).inflate(R.layout.anim_screen,
-                    null);
-            mTitle = (ImageView) mMain.findViewById(R.id.title);
+        public void set(Bitmap image) {
             mTitle.setVisibility(View.GONE);
-            mContent = (ImageView) mMain.findViewById(R.id.content);
             mContent.setImageBitmap(image);
-            mContent.setScaleType(ImageView.ScaleType.MATRIX);
-            mContent.setImageMatrix(new Matrix());
-            mScale = 1.0f;
-            setScaleFactor(getScaleFactor());
         }
 
-        public void setScaleFactor(float sf) {
+        private void setScaleFactor(float sf) {
             mScale = sf;
             Matrix m = new Matrix();
             m.postScale(sf,sf);
             mContent.setImageMatrix(m);
         }
 
-        public float getScaleFactor() {
+        private float getScaleFactor() {
             return mScale;
         }
 

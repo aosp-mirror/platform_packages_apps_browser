@@ -505,8 +505,6 @@ public abstract class BaseUi implements UI {
         if (t != null) {
             intent.putExtra(ComboViewActivity.EXTRA_CURRENT_URL, t.getUrl());
         }
-        intent.putExtra(ComboViewActivity.EXTRA_BOOKMARK_PAGE,
-                mUiController.createBookmarkCurrentPageIntent(false));
         mActivity.startActivityForResult(intent, Controller.COMBO_VIEW);
     }
 
