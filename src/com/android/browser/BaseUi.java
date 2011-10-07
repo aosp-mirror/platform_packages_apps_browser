@@ -594,7 +594,10 @@ public abstract class BaseUi implements UI {
         Drawable d = null;
         if (securityState == SecurityState.SECURITY_STATE_SECURE) {
             d = mLockIconSecure;
-        } else if (securityState == SecurityState.SECURITY_STATE_MIXED) {
+        } else if (securityState == SecurityState.SECURITY_STATE_MIXED
+                || securityState == SecurityState.SECURITY_STATE_BAD_CERTIFICATE) {
+            // TODO: It would be good to have different icons for insecure vs mixed content.
+            // See http://b/5403800
             d = mLockIconMixed;
         }
         mNavigationBar.setLock(d);
