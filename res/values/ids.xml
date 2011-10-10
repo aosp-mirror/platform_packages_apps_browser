@@ -20,4 +20,6 @@
     <item type="id" name="child_position" />
     <item type="id" name="child_id" />
     <item type="id" name="tab_view" />
+    <item type="id" name="position" />
+    <item type="id" name="load_object" />
 </resources>

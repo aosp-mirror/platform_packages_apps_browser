@@ -29,7 +29,8 @@ import android.widget.RelativeLayout;
 public class BookmarkContainer extends RelativeLayout implements OnClickListener {
 
     private OnClickListener mClickListener;
-    
+    private boolean mIgnoreRequestLayout = false;
+
     public BookmarkContainer(Context context) {
         super(context);
         init();
@@ -87,6 +88,17 @@ public class BookmarkContainer extends RelativeLayout implements OnClickListener
         updateTransitionDrawable(false);
         if (mClickListener != null) {
             mClickListener.onClick(view);
+        }
+    }
+
+    public void setIgnoreRequestLayout(boolean ignore) {
+        mIgnoreRequestLayout = ignore;
+    }
+
+    @Override
+    public void requestLayout() {
+        if (!mIgnoreRequestLayout) {
+            super.requestLayout();
         }
     }
 }

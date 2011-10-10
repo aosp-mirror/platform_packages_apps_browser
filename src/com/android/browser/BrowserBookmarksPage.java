@@ -32,6 +32,7 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.BitmapFactory.Options;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -235,11 +236,30 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
     }
 
     static Bitmap getBitmap(Cursor cursor, int columnIndex) {
+        return getBitmap(cursor, columnIndex, null);
+    }
+
+    static ThreadLocal<Options> sOptions = new ThreadLocal<Options>() {
+        @Override
+        protected Options initialValue() {
+            return new Options();
+        };
+    };
+    static Bitmap getBitmap(Cursor cursor, int columnIndex, Bitmap inBitmap) {
         byte[] data = cursor.getBlob(columnIndex);
         if (data == null) {
             return null;
         }
-        return BitmapFactory.decodeByteArray(data, 0, data.length);
+        Options opts = sOptions.get();
+        opts.inBitmap = inBitmap;
+        opts.inSampleSize = 1;
+        opts.inScaled = false;
+        try {
+            return BitmapFactory.decodeByteArray(data, 0, data.length, opts);
+        } catch (IllegalArgumentException ex) {
+            // Failed to re-use bitmap, create a new one
+            return BitmapFactory.decodeByteArray(data, 0, data.length);
+        }
     }
 
     private MenuItem.OnMenuItemClickListener mContextItemClickListener =
