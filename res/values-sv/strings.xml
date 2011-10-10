@@ -24,9 +24,9 @@
     <string name="tab_bookmarks" msgid="2305793036003473653">"Bokmärken"</string>
     <string name="tab_most_visited" msgid="1077402532455000703">"Mest besökta"</string>
     <string name="tab_history" msgid="1979267558744613746">"Historik"</string>
-    <string name="tab_snapshots" msgid="4435852763803720588">"Sparade sidor"</string>
-    <string name="added_to_bookmarks" msgid="1020224130695956728">"Har lagts till i Bokmärken"</string>
-    <string name="removed_from_bookmarks" msgid="6063705902028438800">"Har tagits bort från Bokmärken"</string>
+    <string name="tab_snapshots" msgid="1449241204980265186">"Sparade sidor"</string>
+    <string name="added_to_bookmarks" msgid="4028710765672851635">"Har lagts till i Bokmärken."</string>
+    <string name="removed_from_bookmarks" msgid="546648923924996722">"Har tagits bort från Bokmärken."</string>
     <string name="sign_in_to" msgid="5939425800148759165">"Logga in på <xliff:g id="HOSTNAME">%s1</xliff:g> <xliff:g id="REALM">%s2</xliff:g>"</string>
     <string name="username" msgid="5057566336518215922">"Namn"</string>
     <string name="password" msgid="1177138552305184404">"Lösenord"</string>
@@ -43,10 +43,10 @@
     <string name="security_warning" msgid="6607795404322797541">"Säkerhetsvarning"</string>
     <string name="view_certificate" msgid="1472768887529093862">"Visa certifikat"</string>
     <string name="ssl_go_back" msgid="4598951822061593819">"Föregående"</string>
-    <string name="ssl_untrusted" msgid="5369967226521102194">"Detta certifikat kommer inte från en betrodd utfärdare."</string>
-    <string name="ssl_mismatch" msgid="558688832420069896">"Webbplatsens namn stämmer inte med namnet på certifikatet."</string>
+    <string name="ssl_untrusted" msgid="7754507359360636447">"Certifikatet kommer inte från en betrodd utfärdare."</string>
+    <string name="ssl_mismatch" msgid="3809794439740523641">"Webbplatsens namn stämmer inte med namnet på certifikatet."</string>
     <string name="ssl_expired" msgid="5739349389499575559">"Certifikatet har upphört att gälla."</string>
-    <string name="ssl_not_yet_valid" msgid="2893167846212645846">"Certifikatet är inte giltigt än."</string>
+    <string name="ssl_not_yet_valid" msgid="8193083327719048247">"Certifikatet är inte giltigt än."</string>
     <string name="ssl_date_invalid" msgid="3705563379257285534">"Det här certifikatet har ett ogiltigt datum."</string>
     <string name="ssl_invalid" msgid="9041704741505449967">"Certifikatet är ogiltigt."</string>
     <string name="ssl_unknown" msgid="5679243486524754571">"Okänt certifikatfel."</string>
@@ -63,13 +63,13 @@
     <string name="new_folder" msgid="7743540149088867917">"Ny mapp"</string>
     <string name="edit_folder" msgid="621817453133656156">"Redigera mapp"</string>
     <string name="delete_folder" msgid="2046483129024501116">"Ta bort mapp"</string>
-    <string name="no_subfolders" msgid="5880411440592452802">"Inga undermappar"</string>
+    <string name="no_subfolders" msgid="3303645239686962674">"Inga undermappar."</string>
     <string name="add_to_bookmarks_menu_option" msgid="4449323955122214389">"Bokmärken"</string>
     <string name="add_to_homescreen_menu_option" msgid="1461447829242963790">"Startsida"</string>
-    <string name="add_to_other_folder_menu_option" msgid="5450890093372998187">"En annan mapp"</string>
+    <string name="add_to_other_folder_menu_option" msgid="5947586525822134105">"Annan mapp"</string>
     <string name="name" msgid="5462672162695365387">"Etikett"</string>
     <string name="http" msgid="2163722670597250102">"http://"</string>
-    <string name="save_to_bookmarks" msgid="6101482434920313244">"Lägg till i bokmärken"</string>
+    <string name="save_to_bookmarks" msgid="1679286010089780932">"Spara i bokmärken"</string>
     <string name="bookmark_this_page" msgid="7530739804320811054">"Lägg till bokmärke för den här sidan"</string>
     <string name="remove" msgid="7820112494467011374">"Ta bort"</string>
     <string name="edit_bookmark" msgid="5024089053490231905">"Redigera bokmärke"</string>
@@ -80,27 +80,27 @@
     <string name="remove_history_item" msgid="5021424935726728618">"Ta bort från historiken"</string>
     <string name="set_as_homepage" msgid="4752937379414905560">"Använd som startsida"</string>
     <string name="bookmark_saved" msgid="2766434679871317557">"Bokmärke sparat."</string>
-    <string name="bookmark_not_saved" msgid="700600955089376724">"Det gick inte att spara bokmärket."</string>
+    <string name="bookmark_not_saved" msgid="1077732557310662080">"Det gick inte att spara bokmärket."</string>
     <string name="homepage_set" msgid="8768087280310966395">"Startsida har angetts."</string>
     <string name="bookmark_needs_title" msgid="6245900436119218187">"Du måste ange ett namn på bokmärket."</string>
     <string name="bookmark_needs_url" msgid="7809876865972755158">"Du måste ange en plats för bokmärket."</string>
-    <string name="bookmark_url_not_valid" msgid="6719785633980202419">"Webbadressen är ogiltig."</string>
-    <string name="bookmark_cannot_save_url" msgid="791722768778386941">"Det går inte att spara webbadressen som ett bokmärke"</string>
+    <string name="bookmark_url_not_valid" msgid="4917440933384496211">"Webbadressen är inte giltig."</string>
+    <string name="bookmark_cannot_save_url" msgid="7836064647943671126">"Det går inte att spara webbadressen som ett bokmärke."</string>
     <string name="delete_bookmark" msgid="2422989994934201992">"Ta bort"</string>
     <string name="bookmark_page" msgid="6845189305130307274">"Skapa bokmärke för den senast visade sidan"</string>
     <string name="bookmark_thumbnail_view" msgid="3164068314718522138">"Miniatyrer"</string>
     <string name="bookmark_list_view" msgid="7848510619500937839">"Lista"</string>
     <string name="current_page" msgid="7510129573681663135">"från "</string>
-    <string name="delete_bookmark_warning" msgid="758043186202032205">"Bokmärket <xliff:g id="BOOKMARK">%s</xliff:g> tas bort."</string>
+    <string name="delete_bookmark_warning" msgid="7825328496411904321">"Vill du ta bort bokmärket <xliff:g id="BOOKMARK">%s</xliff:g>?"</string>
     <string name="open_all_in_new_window" msgid="455786763426575293">"Öppna alla i nya flikar"</string>
     <string name="goto_dot" msgid="3895839050522602723">"Kör"</string>
     <string name="select_dot" msgid="6299170761900561967">"Markera text"</string>
     <string name="bookmarks" msgid="1961279134885867815">"Bokmärken"</string>
     <string name="shortcut_bookmark" msgid="3974876480401135895">"Bokmärke"</string>
-    <string name="shortcut_bookmark_title" msgid="3072725276532691472">"Välj ett bokmärke"</string>
+    <string name="shortcut_bookmark_title" msgid="7570786275916681296">"Välj ett bokmärke"</string>
     <string name="history" msgid="2451240511251410032">"Historik"</string>
     <string name="menu_view_download" msgid="2124570321712995120">"Hämtningar"</string>
-    <string name="copy_page_url" msgid="7635062169011319208">"Kopiera sidans webbadress"</string>
+    <string name="copy_page_url" msgid="1188679152608889555">"Kopiera sidans webbadress"</string>
     <string name="share_page" msgid="593756995297268343">"Dela sida"</string>
     <string name="menu_save_snapshot" msgid="6935080344031126139">"Spara för läsning offline"</string>
     <string name="snapshot_failed" msgid="4584580873565876033">"Det gick inte att spara för läsning offline."</string>
@@ -125,7 +125,7 @@
     <string name="replace" msgid="4843033491070384047">"Ersätt"</string>
     <string name="browser_bookmarks_page_bookmarks_text" msgid="6787605028726162673">"Bokmärken"</string>
     <string name="menu_preferences" msgid="6709237687234102240">"Inställningar"</string>
-    <string name="pref_content_title" msgid="722227111894838633">"Inställningar för sidinnehåll"</string>
+    <string name="pref_content_title" msgid="3834107397725342174">"Sidinnehåll"</string>
     <string name="pref_content_load_images" msgid="2125616852957377561">"Överför bilder"</string>
     <string name="pref_content_load_images_summary" msgid="5055874125248398584">"Visa bilder på webbsidor"</string>
     <string name="pref_content_block_popups" msgid="4158524847764470895">"Blockera popupfönster"</string>
@@ -137,88 +137,88 @@
     <item msgid="2484126708670016519">"På begäran"</item>
     <item msgid="8547442717307793863">"Av"</item>
   </string-array>
-    <string name="pref_content_open_in_background_summary" msgid="6114922017800433172">"Öppna nya flikar bakom den aktiva"</string>
+    <string name="pref_content_open_in_background_summary" msgid="955411158407739504">"Öppna nya flikar bakom den aktiva"</string>
     <string name="pref_content_homepage" msgid="3324574611613105696">"Ange startsida"</string>
     <string name="pref_content_search_engine" msgid="1620101310821644144">"Ange sökmotor"</string>
-    <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"Välj en sökmotor"</string>
-    <string name="pref_set_homepage_to" msgid="7196350233061395098">"Ställ in på..."</string>
+    <string name="pref_content_search_engine_summary" msgid="304003941861818133">"Välj en sökmotor"</string>
+    <string name="pref_set_homepage_to" msgid="7838684355145561242">"Ställ in på"</string>
   <string-array name="pref_homepage_choices">
     <item msgid="844041670142910837">"Aktuell sida"</item>
     <item msgid="4430498748295169195">"Tom sida"</item>
     <item msgid="5747608191946904074">"Standardsida"</item>
     <item msgid="6092441301001006473">"Mest besökta webbplatser"</item>
-    <item msgid="5021822752506507426">"Annan..."</item>
+    <item msgid="6569304572171444894">"Annan"</item>
   </string-array>
     <string name="pref_content_autofit" msgid="8260474534053660809">"Autoanpassa sidor"</string>
-    <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Anpassa webbsidor efter skärmen"</string>
+    <string name="pref_content_autofit_summary" msgid="324810555822572112">"Anpassa webbsidor efter skärmen"</string>
     <string name="pref_general_title" msgid="1946872771219249323">"Allmänt"</string>
     <string name="pref_general_sync_title" msgid="3138637035975860324">"Synka"</string>
     <string name="pref_general_autofill_title" msgid="547881256865816858">"Autofyll"</string>
     <string name="pref_autofill_enabled" msgid="1015751713312396713">"Fyll i formulär automatiskt"</string>
-    <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"Fyll i webbformulär med ett enda klick"</string>
-    <string name="pref_autofill_profile_editor" msgid="3864116896052437796">"Fyll i data automatiskt"</string>
-    <string name="pref_autofill_profile_editor_summary" msgid="3653552312512743181">"Ange och spara data för automatisk ifyllning av webbformulärfält"</string>
-    <string name="pref_autologin_title" msgid="2362827272595366379">"Automatiskt inloggning på Google"</string>
+    <string name="pref_autofill_enabled_summary" msgid="7659954073892471496">"Fyll i webbformulär med ett enda klick"</string>
+    <string name="pref_autofill_profile_editor" msgid="8934844472922113166">"Text för autofyll"</string>
+    <string name="pref_autofill_profile_editor_summary" msgid="4864447251676856190">"Ange text som ska fyllas i automatiskt i webbformulär"</string>
+    <string name="pref_autologin_title" msgid="4421187193809267096">"Automatisk inloggning på Google"</string>
     <string name="pref_autologin_progress" msgid="8333244467048833461">"Loggar in på Google Sites med <xliff:g id="ID_1">%s</xliff:g>"</string>
     <string name="autologin_bar_text" msgid="3684581827167173371">"Logga in som"</string>
     <string name="autologin_bar_login_text" msgid="3336615320510851879">"Logga in"</string>
     <string name="autologin_bar_hide_text" msgid="3629355974385859580">"Dölj"</string>
     <string name="autologin_bar_error" msgid="7470001207395920811">"Det gick inte att logga in."</string>
-    <string name="autofill_profile_editor_heading" msgid="8392952553626722083">"Ange de data som du vill ska fyllas i automatiskt i webbformulär när du trycker på dem."</string>
+    <string name="autofill_profile_editor_heading" msgid="4798644544927738078">"Ange texten som du vill fylla i automatiskt i webbformulär."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Fullständigt namn:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"E-post:"</string>
     <string name="autofill_profile_editor_company_name" msgid="2813443159949210417">"Företagsnamn:"</string>
     <string name="autofill_profile_editor_address_line_1" msgid="836433242509243081">"Adressrad 1:"</string>
     <string name="autofill_profile_editor_address_line_1_hint" msgid="5965659598509327172">"Gatuadress, postboxadress, c/o"</string>
     <string name="autofill_profile_editor_address_line_2" msgid="8194745202893822479">"Adressrad 2:"</string>
-    <string name="autofill_profile_editor_address_line_2_hint" msgid="2048330295853546405">"Lägenhetsnummer, byggnad, våning med mera"</string>
-    <string name="autofill_profile_editor_city" msgid="4193225955409148508">"Stad:"</string>
-    <string name="autofill_profile_editor_state" msgid="8549739922338171458">"Stat/provins/region:"</string>
+    <string name="autofill_profile_editor_address_line_2_hint" msgid="8529642768127569254">"Lägenhetsnummer, byggnad, våning med mera."</string>
+    <string name="autofill_profile_editor_city" msgid="7306716145784997135">"Ort:"</string>
+    <string name="autofill_profile_editor_state" msgid="2150403366835080407">"Delstat/provins/region:"</string>
     <string name="autofill_profile_editor_zip_code" msgid="283668573295656671">"Postnummer:"</string>
     <string name="autofill_profile_editor_country" msgid="7234470301239156656">"Land:"</string>
     <string name="autofill_profile_editor_phone_number" msgid="4938852821413729276">"Telefon:"</string>
-    <string name="autofill_profile_editor_phone_number_invalid" msgid="7166394872369167580">"Ogiltigt telefonnummer"</string>
-    <string name="autofill_profile_editor_save_profile" msgid="8349915287435262888">"Spara profil"</string>
-    <string name="autofill_profile_successful_save" msgid="6834102203944938409">"Profilen har sparats"</string>
-    <string name="autofill_profile_successful_delete" msgid="2421442112954362732">"Profilen har tagits bort"</string>
-    <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"Ta bort profil"</string>
-    <string name="autofill_setup_dialog_title" msgid="1955613311837926540">"Vill du konfigurera autofyll?"</string>
-    <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"Webbläsaren kan fylla i den här typen av formulär automatiskt. Vill du skapa en profil?"</string>
-    <string name="autofill_setup_dialog_negative_toast" msgid="6990737008936188620">"Du kan när som helst ändra inställningarna för Autofyll bland inställningarna för webbläsaren."</string>
+    <string name="autofill_profile_editor_phone_number_invalid" msgid="6795411298467068957">"Ogiltigt telefonnummer."</string>
+    <string name="autofill_profile_editor_save_profile" msgid="3230301454458581157">"Spara"</string>
+    <string name="autofill_profile_successful_save" msgid="5691459703493331983">"Text för autofyll har sparats."</string>
+    <string name="autofill_profile_successful_delete" msgid="1790262652460723127">"Text för autofyll har tagits bort."</string>
+    <string name="autofill_profile_editor_delete_profile" msgid="3098369314558164153">"Ta bort"</string>
+    <string name="autofill_setup_dialog_title" msgid="3564907335366130582">"Autofyll"</string>
+    <string name="autofill_setup_dialog_message" msgid="1096164985825394616">"Den här typen av webbformulär kan fyllas i automatiskt. Vill du ange en text för autofyll?"</string>
+    <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"Du kan alltid ange texten för autofyll på skärmen Webbläsare &gt; Inställningar &gt; Allmänt."</string>
     <string name="disable_autofill" msgid="8305901059849400354">"Inaktivera Autofyll"</string>
     <string name="pref_privacy_security_title" msgid="3480313968942160914">"Sekretess och säkerhet"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Rensa cacheminne"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Ta bort innehåll och databaser som cachelagrats lokalt"</string>
-    <string name="pref_privacy_clear_cache_dlg" msgid="5541011591300753881">"Innehåll och databaser som cachelagrats lokalt tas bort."</string>
+    <string name="pref_privacy_clear_cache_dlg" msgid="4344512581716422465">"Vill du ta bort innehåll och databaser som cachelagrats lokalt?"</string>
     <string name="pref_privacy_cookies_title" msgid="6763274282214830526">"Cookies"</string>
     <string name="pref_privacy_clear_cookies" msgid="3095583579133780331">"Ta bort alla cookie-data"</string>
     <string name="pref_privacy_clear_cookies_summary" msgid="6962742063990677520">"Ta bort alla webbläsarens cookies"</string>
-    <string name="pref_privacy_clear_cookies_dlg" msgid="552855688091432682">"Alla cookies tas bort."</string>
+    <string name="pref_privacy_clear_cookies_dlg" msgid="1493252163164621278">"Vill du ta bort alla cookies?"</string>
     <string name="pref_privacy_clear_history" msgid="8723795508825198477">"Rensa historik"</string>
     <string name="pref_privacy_clear_history_summary" msgid="6868501330708940734">"Rensa webbläsarhistoriken"</string>
-    <string name="pref_privacy_clear_history_dlg" msgid="544903007914753853">"Webbläsarhistoriken kommer att tas bort."</string>
+    <string name="pref_privacy_clear_history_dlg" msgid="6934317391642846227">"Vill du ta bort webbläsarhistoriken?"</string>
     <string name="pref_privacy_formdata_title" msgid="6549813837982050424">"Formulärdata"</string>
     <string name="pref_privacy_clear_form_data" msgid="4232668196344383987">"Rensa data i formulär"</string>
-    <string name="pref_privacy_clear_form_data_summary" msgid="1790390894719517167">"Rensa data från alla sparade formulär"</string>
-    <string name="pref_privacy_clear_form_data_dlg" msgid="4443621086781197928">"Alla sparade formulärdata kommer att tas bort."</string>
+    <string name="pref_privacy_clear_form_data_summary" msgid="7702091143640546200">"Rensa data från alla sparade formulär"</string>
+    <string name="pref_privacy_clear_form_data_dlg" msgid="8205626042241338983">"Vill du rensa data från alla sparade formulär?"</string>
     <string name="pref_privacy_clear_passwords" msgid="4750234112289277480">"Ta bort lösenord"</string>
     <string name="pref_privacy_clear_passwords_summary" msgid="8856782718942903335">"Ta bort alla sparade lösenord"</string>
-    <string name="pref_privacy_clear_passwords_dlg" msgid="2083869328824248255">"Alla sparade lösenord tas bort."</string>
+    <string name="pref_privacy_clear_passwords_dlg" msgid="5836576259947160045">"Vill du ta bort alla sparade lösenord?"</string>
     <string name="pref_privacy_location_title" msgid="7458378016606081067">"Plats"</string>
     <string name="pref_privacy_enable_geolocation" msgid="1395040170290765686">"Aktivera plats"</string>
     <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"Tillåt att webbplatser begär åtkomst till din plats"</string>
     <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"Ta bort platsåtkomst"</string>
     <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"Ta bort platsåtkomst för alla webbplatser"</string>
-    <string name="pref_privacy_clear_geolocation_access_dlg" msgid="7327063124488827244">"Ta bort platsåtkomst för alla webbplatser"</string>
+    <string name="pref_privacy_clear_geolocation_access_dlg" msgid="3190928760598034346">"Vill du rensa webbplatsens platsadress?"</string>
     <string name="pref_security_passwords_title" msgid="5734190542383756711">"Lösenord"</string>
     <string name="pref_security_remember_passwords" msgid="6492957683454529549">"Kom ihåg lösenord"</string>
     <string name="pref_security_remember_passwords_summary" msgid="256388703356349137">"Spara användarnamn och lösenord för webbplatser"</string>
     <string name="pref_security_save_form_data" msgid="1213669802810198893">"Spara formulärdata"</string>
     <string name="pref_security_save_form_data_summary" msgid="4994074685153708026">"Kom ihåg data som jag anger i formulär för senare bruk"</string>
     <string name="pref_security_show_security_warning" msgid="8901135676266754559">"Visa säkerhetsvarningar"</string>
-    <string name="pref_security_show_security_warning_summary" msgid="8968906112720511704">"Visa varningar om det uppstår problem med en webbplats säkerhet"</string>
+    <string name="pref_security_show_security_warning_summary" msgid="5260098316025397525">"Visa varningar om det uppstår problem med en webbplats säkerhet"</string>
     <string name="pref_security_accept_cookies" msgid="3201367661925047989">"Acceptera cookies"</string>
-    <string name="pref_security_accept_cookies_summary" msgid="1465118934875026920">"Tillåt att webbplatser sparar och läser cookie-data"</string>
+    <string name="pref_security_accept_cookies_summary" msgid="1907951236154433751">"Tillåt att webbplatser sparar och läser data i cookies"</string>
   <string-array name="pref_text_size_choices">
     <item msgid="4952686548944739548">"Pytteliten"</item>
     <item msgid="1950030433642671460">"Liten"</item>
@@ -228,12 +228,14 @@
   </string-array>
     <string name="pref_min_font_size" msgid="8811125835817449131">"Minsta teckenstorlek"</string>
     <string name="pref_min_font_size_value" msgid="2924708480509060209">"<xliff:g id="FONT_SIZE">%d</xliff:g> pt"</string>
-    <string name="pref_text_zoom" msgid="8387229123479610157">"Zooma in text"</string>
+    <!-- outdated translation 8387229123479610157 -->     <string name="pref_text_zoom" msgid="5171056101805125497">"Zooma in text"</string>
+    <!-- no translation found for pref_zoom_on_double_tap (902786475250741795) -->
+    <skip />
     <string name="pref_force_userscalable" msgid="5641500562399892621">"Tvinga aktivering av  zoom"</string>
-    <string name="pref_force_userscalable_summary" msgid="4431962409438162448">"Om en webbplats begäran om att styra zoomfunktionen ska åsidosättas"</string>
-    <string name="pref_inverted_category" msgid="3115731672066279347">"Inverterad skärmrendering"</string>
-    <string name="pref_inverted" msgid="4813962104859359420">"Inverterad rendering"</string>
-    <string name="pref_inverted_summary" msgid="8570087335228699813">"Aktivera inverterad rendering. Svart blir vitt och tvärtom."</string>
+    <string name="pref_force_userscalable_summary" msgid="3613242300617172230">"Neka en webbplats zoomkontroll"</string>
+    <string name="pref_inverted_category" msgid="1280639705117152207">"Inverterad skärmrendering"</string>
+    <string name="pref_inverted" msgid="7613556986776824112">"Inverterad rendering"</string>
+    <string name="pref_inverted_summary" msgid="7357225897413923085">"Svart blir vitt och vice versa"</string>
     <string name="pref_inverted_contrast" msgid="8527441236225288169">"Kontrast"</string>
     <string name="pref_default_zoom" msgid="8076142259097187395">"Standardinställning för zoom"</string>
   <string-array name="pref_default_zoom_choices">
@@ -243,14 +245,14 @@
   </string-array>
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"Standardinställning för zoom"</string>
     <string name="pref_content_load_page" msgid="2219810141690955452">"Öppna sidor i översikt"</string>
-    <string name="pref_content_load_page_summary" msgid="8792093504054149369">"Visa översikt över nyligen öppnade sidor"</string>
+    <string name="pref_content_load_page_summary" msgid="9168803276420332955">"Visa översikt över nyligen öppnade sidor"</string>
     <string name="pref_extras_title" msgid="7075456173747370647">"Avancerat"</string>
     <string name="pref_extras_website_settings" msgid="67866640052455549">"Webbplatsinställningar"</string>
     <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"Avancerade inställningar för enskilda webbplatser"</string>
     <string name="pref_extras_reset_default_title" msgid="3579760449455761762">"Återställ standardvärden"</string>
     <string name="pref_extras_reset_default" msgid="8904000515846202110">"Återställ standardinställningarna"</string>
     <string name="pref_extras_reset_default_summary" msgid="4247870778270414501">"Återställ standardinställningar"</string>
-    <string name="pref_extras_reset_default_dlg" msgid="6640261575874704022">"Standardvärdena för inställningarna återställs."</string>
+    <string name="pref_extras_reset_default_dlg" msgid="7922814420184322450">"Vill du återställa inställningarna till standardvärdena?"</string>
     <string name="pref_extras_reset_default_dlg_title" msgid="2250334970728938936">"Återställ standardinställn."</string>
     <string name="pref_development_title" msgid="3263854204533056480">"Felsökning"</string>
     <string name="pref_default_text_encoding" msgid="5742965543955558478">"Textkodning"</string>
@@ -266,46 +268,46 @@
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Textkodning"</string>
     <string name="pref_accessibility_title" msgid="5127836981587423215">"Tillgänglighet"</string>
-    <string name="pref_font_size_category" msgid="6288925476811083551">"Teckenstorlek"</string>
+    <!-- outdated translation 6288925476811083551 -->     <string name="pref_font_size_category" msgid="6683754355084218254">"Teckenstorlek"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"Labs"</string>
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Snabbkontroller"</string>
-    <string name="pref_lab_quick_controls_summary" msgid="1564546156544675707">"Svep från vänster eller höger så visas snabbkontrollerna och program- och adressfälten döljs"</string>
+    <string name="pref_lab_quick_controls_summary" msgid="3149664132600968775">"Dra från vänster/höger för att öppna kontrollerna och dölja app- och adressfält"</string>
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Google Instant"</string>
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Använd Google Instant när du söker på Google så får du resultat medan du skriver (detta kan öka dataanvändningen)."</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"Helskärm"</string>
-    <string name="pref_lab_fullscreen_summary" msgid="6853711692160711419">"Använd helskärmsläge om du vill dölja statusfältet."</string>
-    <string name="pref_data_title" msgid="750316606686075162">"Bandbreddshantering"</string>
+    <string name="pref_lab_fullscreen_summary" msgid="7694738112219376740">"Använd helskärmsläge om du vill dölja statusfältet"</string>
+    <string name="pref_data_title" msgid="7255058703417796578">"Bandbreddshantering"</string>
     <string name="pref_data_preload_title" msgid="4479320472980292873">"Förinläsning av sökresultat"</string>
   <string-array name="pref_data_preload_choices">
     <item msgid="5180466923190095508">"Aldrig"</item>
-    <item msgid="1791664748778640002">"Endast på Wi-Fi"</item>
+    <item msgid="3514802063791531888">"Endast på Wi-Fi"</item>
     <item msgid="3944061253437827617">"Alltid"</item>
   </string-array>
-    <string name="pref_data_preload_summary" msgid="7488335627364473744">"Låt webbläsaren läsa in säkra sökresultat i förväg i bakgrunden"</string>
+    <string name="pref_data_preload_summary" msgid="3809168910751382727">"Låt webbläsaren läsa in säkra sökresultat i förväg i bakgrunden"</string>
     <string name="pref_data_preload_dialogtitle" msgid="8421297746110796536">"Läser in sökresultat i förväg"</string>
-    <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Problem med dataanslutning"</string>
-    <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Problem med filen"</string>
-    <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Bekräfta"</string>
-    <string name="browserFrameFormResubmitMessage" msgid="2752182215695632138">"Sidan du försöker öppna innehåller data som redan har skickats (POSTDATA). Om du skickar uppgifterna igen kommer alla åtgärder i formuläret på sidan (till exempel sökningar eller onlineköp) att utföras en gång till."</string>
-    <string name="loadSuspendedTitle" msgid="675991625288706944">"Ingen nätverksanslutning"</string>
-    <string name="loadSuspended" msgid="3133656588880851273">"Webbläsaren kan inte läsa in sidan eftersom det inte finns någon anslutning till Internet."</string>
+    <string name="browserFrameNetworkErrorLabel" msgid="8102515020625680714">"Anslutningsproblem"</string>
+    <string name="browserFrameFileErrorLabel" msgid="4703792279852977350">"Filproblem"</string>
+    <string name="browserFrameFormResubmitLabel" msgid="2385512101948178841"></string>
+    <string name="browserFrameFormResubmitMessage" msgid="5244059279866705254">"Sidan som du försöker öppna innehåller data som redan har skickats (POSTDATA). Om du skickar uppgifterna igen kommer alla åtgärder i formuläret på sidan (till exempel sökningar eller onlineköp) att utföras en gång till."</string>
+    <string name="loadSuspendedTitle" msgid="6453376579109644551">"Ingen anslutning"</string>
+    <string name="loadSuspended" msgid="3843343290039218668">"Webbläsaren kan inte läsa in sidan eftersom det inte finns någon anslutning till Internet."</string>
     <string name="clear_history" msgid="5998307092715979619">"Rensa historik"</string>
-    <string name="browser_history" msgid="1038987118290272525">"Senast besökta sidor"</string>
-    <string name="empty_history" msgid="8738772352308207274">"Det finns ingen webbläsarhistorik."</string>
-    <string name="go_home" msgid="3140773562046381164">"Startsida"</string>
-    <string name="add_new_bookmark" msgid="8086367791400349049">"Lägg till bokmärke…"</string>
+    <string name="browser_history" msgid="2979476257919939232">"Nyligen besökta sidor"</string>
+    <string name="empty_history" msgid="7013369425484218985">"Det finns ingen webbläsarhistorik."</string>
+    <string name="go_home" msgid="109129207276086793">"Startsida"</string>
+    <string name="add_new_bookmark" msgid="3158497555612337238">"Lägg till bokmärke"</string>
     <string name="add_bookmark_short" msgid="3783984330998103735">"Lägg till"</string>
     <string name="search_hint" msgid="4647356319916631820">"Ange eller sök efter webbplats"</string>
     <string name="search_button_text" msgid="5235226933877634410">"Kör"</string>
     <string name="search_settings_description" msgid="1422401062529014107">"Bokmärken och webbhistorik"</string>
     <string name="attention" msgid="3473639060042811244">"Obs!"</string>
-    <string name="popup_window_attempt" msgid="2673111696288657989">"Webbplatsen försöker öppna ett popup-fönster."</string>
+    <string name="popup_window_attempt" msgid="31565781154067629">"Vill du tillåta att webbplatsen öppnar popup-fönster?"</string>
     <string name="allow" msgid="1157313689171991335">"Tillåt"</string>
     <string name="block" msgid="9172175889884707800">"Blockera"</string>
     <string name="too_many_windows_dialog_title" msgid="5709782301477380438">"Flikgränsen har nåtts"</string>
-    <string name="too_many_windows_dialog_message" msgid="7417529754382308997">"Det gick inte att öppna en ny flik. Det högsta antalet flikar är redan öppna."</string>
+    <string name="too_many_windows_dialog_message" msgid="3644234634638290304">"Du måste stänga en flik innan du öppnar en ny."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Ett popup-fönster är redan öppet"</string>
-    <string name="too_many_subwindows_dialog_message" msgid="5827289829907966657">"Det gick inte att öppna ett nytt popup-fönster. Endast ett fönster i taget kan vara öppet."</string>
+    <string name="too_many_subwindows_dialog_message" msgid="2164725447981195556">"Endast ett popup-fönster kan vara öppet i taget."</string>
     <string name="download_title" msgid="2122874021047565594">"Hämtningshistorik"</string>
     <string name="download_unknown_filename" msgid="4013465542563652175">"&lt;Okänd&gt;"</string>
     <string name="download_menu_open" msgid="4888327480367757513">"Öppna"</string>
@@ -314,10 +316,10 @@
     <string name="download_menu_cancel" msgid="2545333007601851574">"Avbryt hämtning"</string>
     <string name="download_menu_cancel_all" msgid="2136550823151999166">"Avbryt alla hämtningar"</string>
     <string name="download_cancel_dlg_title" msgid="8909108500262799748">"Avbryt hämtningar"</string>
-    <string name="download_cancel_dlg_msg" msgid="6285389170052357797">"Alla <xliff:g id="DOWNLOAD_COUNT">%d</xliff:g> hämtningar avbryts och tas bort från hämtningshistoriken."</string>
-    <string name="download_delete_file" msgid="5330036497843073249">"Filen kommer att tas bort"</string>
+    <string name="download_cancel_dlg_msg" msgid="2546124668173027248">"Vill du avbryta och ta bort alla <xliff:g id="DOWNLOAD_COUNT">%d</xliff:g> hämtningar från hämtningshistoriken?"</string>
+    <string name="download_delete_file" msgid="8941963362686617405">"Ta bort"</string>
     <string name="download_file_error_dlg_title" msgid="2693630283595384874">"Slut på ledigt diskutrymme"</string>
-    <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"<xliff:g id="FILENAME">%s</xliff:g> gick inte att hämta."\n"Frigör lite utrymme i telefonen och försök igen."</string>
+    <string name="download_file_error_dlg_msg" msgid="5904538987107408124">"Det gick inte att hämta <xliff:g id="FILENAME">%s</xliff:g>."\n"Frigör utrymme och försök igen."</string>
     <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"Det gick inte att hämta"</string>
     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"USB-enhet ej tillgänglig"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"Inget SD-kort"</string>
@@ -325,68 +327,68 @@
     <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"Du behöver ett SD-kort för att hämta <xliff:g id="FILENAME">%s</xliff:g>."</string>
     <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"USB-enhet ej tillgänglig"</string>
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"SD-kortet är inte tillgängligt"</string>
-    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"USB-lagringsenheten är upptagen. Om du vill tillåta hämtning väljer du Inaktivera USB-lagring i aviseringen."</string>
-    <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"SD-kortet är upptaget. Om du vill tillåta hämtning väljer du Inaktivera USB-lagring i meddelandet."</string>
+    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="8412543086906716875">"USB-lagringsenheten är upptagen. Om du vill tillåta hämtning väljer du Inaktivera USB-lagring i meddelandet."</string>
+    <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"SD-kortet är upptaget. Om du vill tillåta hämtning väljer du Inaktivera USB-lagring i meddelandet."</string>
     <string name="cannot_download" msgid="8150552478556798780">"Det går bara att hämta webbadresser som inleds med http eller https."</string>
-    <string name="download_no_application_title" msgid="1286056729168874295">"Det går inte att öppna filen"</string>
+    <string name="download_no_application_title" msgid="4809479884191068159">"Det går inte att öppna filen"</string>
     <string name="retry" msgid="1835923075542266721">"Försök igen"</string>
-    <string name="no_downloads" msgid="3947445710685021498">"Det finns ingen hämtningshistorik."</string>
-    <string name="download_error" msgid="413496839831257187">"Det gick inte att hämta."</string>
-    <string name="download_success" msgid="2279041638155595203">"<xliff:g id="FILE">%s</xliff:g> har hämtats."</string>
+    <string name="no_downloads" msgid="8031648287973400156">"Det finns ingen hämtningshistorik."</string>
+    <string name="download_error" msgid="21835634921715697">"Det gick inte att hämta."</string>
+    <string name="download_success" msgid="1651605015937749469">"<xliff:g id="FILE">%s</xliff:g> har hämtats."</string>
     <string name="download_running" msgid="2622942231322015059">"Hämtar..."</string>
     <string name="download_pending" msgid="2599683668575349559">"Startar hämtning…"</string>
     <string name="download_pending_network" msgid="6548714525679461053">"Väntar på dataanslutning…"</string>
     <string name="download_running_paused" msgid="6418029352085656495">"Väntar på dataanslutning…"</string>
     <string name="download_canceled" msgid="6057083743144492515">"Hämtningen avbröts."</string>
-    <string name="download_not_acceptable" msgid="313769696131563652">"Det gick inte att hämta. Innehållet stöds inte på telefonen."</string>
-    <string name="download_file_error" msgid="1206648050615176113">"Det går inte att hämta. Det finns inte tillräckligt med utrymme."</string>
-    <string name="download_length_required" msgid="9038605488460437406">"Det går inte att hämta eftersom objektets storlek inte kan avläsas."</string>
-    <string name="download_precondition_failed" msgid="8327584102874295580">"Hämtningen avbröts. Den kan inte återupptas."</string>
+    <string name="download_not_acceptable" msgid="5415339992984899924">"Det gick inte att hämta. Innehållet stöds inte på mobilen."</string>
+    <string name="download_file_error" msgid="7702971488793861815">"Det går inte att slutföra hämtningen. Det finns inte tillräckligt med utrymme."</string>
+    <string name="download_length_required" msgid="1240338682223054142">"Det går inte att hämta objektet eftersom storleken inte kan avläsas."</string>
+    <string name="download_precondition_failed" msgid="6264432738865797635">"Hämtningen avbröts och kan inte återupptas."</string>
     <string name="search_the_web" msgid="6046130189241962337">"Sök på webben"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Webbläsarens lagringsutrymme är fullt"</string>
-    <string name="webstorage_outofspace_notification_text" msgid="7341075135051829692">"Klicka om du vill frigöra utrymme."</string>
+    <string name="webstorage_outofspace_notification_text" msgid="47273584426988640">"Tryck här om du vill frigöra utrymme."</string>
     <string name="webstorage_clear_data_title" msgid="689484577124333977">"Ta bort sparade data"</string>
     <string name="webstorage_clear_data_dialog_title" msgid="345457466368974706">"Ta bort sparade data"</string>
-    <string name="webstorage_clear_data_dialog_message" msgid="6678281256970470125">"Alla data som sparats på webbplatsen tas bort"</string>
-    <string name="webstorage_clear_data_dialog_ok_button" msgid="2516563534211898636">"Ta bort alla"</string>
+    <string name="webstorage_clear_data_dialog_message" msgid="6200681632891775881">"Vill du ta bort alla data som lagrats på den här webbplatsen?"</string>
+    <string name="webstorage_clear_data_dialog_ok_button" msgid="6682570951259237542">"OK"</string>
     <string name="webstorage_clear_data_dialog_cancel_button" msgid="2028867751958942762">"Avbryt"</string>
     <string name="webstorage_origin_summary_mb_stored" msgid="1985885826292236210">"MB har sparats på telefonen"</string>
-    <string name="loading_video" msgid="4887871585216091096">"Läser in videoklipp"</string>
+    <string name="loading_video" msgid="7886324933131962321">"Läser in video…"</string>
     <string name="geolocation_permissions_prompt_message" msgid="356796102004052471">"<xliff:g id="WEBSITE_ORIGIN">%s</xliff:g> vill känna till din plats"</string>
     <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"Dela plats"</string>
     <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"Avvisa"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"Kom ihåg mina inställningar"</string>
-    <string name="geolocation_permissions_prompt_toast_allowed" msgid="7833771073195530638">"Webbplatsen har åtkomst till din plats. Ändra detta under Inställningar -&gt; Webbplatsinställningar"</string>
-    <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7418225389343746465">"Webbplatsen har inte åtkomst till din plats. Ändra detta under Inställningar -&gt; Webbplatsinställningar"</string>
+    <string name="geolocation_permissions_prompt_toast_allowed" msgid="7201417941112726112">"Webbplatsen har åtkomst till din plats. Ändra detta på sidan Inställningar &gt; Avancerat &gt; Webbplats."</string>
+    <string name="geolocation_permissions_prompt_toast_disallowed" msgid="156443445797377409">"Webbplatsen har inte åtkomst till din plats. Ändra detta på sidan Inställningar &gt; Avancerat &gt; Webbplats."</string>
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Ta bort platsåtkomst"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Den här webbplatsen har för närvarande åtkomst till din plats"</string>
-    <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"Den här webbplatsen har för närvarande inte åtkomst till din plats"</string>
+    <string name="geolocation_settings_page_summary_not_allowed" msgid="7941769772784366199">"Den här webbplatsen har för närvarande inte åtkomst till din plats"</string>
     <string name="geolocation_settings_page_dialog_title" msgid="1549842043381347668">"Ta bort platsåtkomst"</string>
-    <string name="geolocation_settings_page_dialog_message" msgid="7586671987576403993">"Platsåtkomst tas bort för den här webbplatsen"</string>
-    <string name="geolocation_settings_page_dialog_ok_button" msgid="4789434178048077287">"Ta bort åtkomst"</string>
+    <string name="geolocation_settings_page_dialog_message" msgid="8772923416296868537">"Vill du ta bort platsåtkomst för den här webbplatsen?"</string>
+    <string name="geolocation_settings_page_dialog_ok_button" msgid="2113465477131017852">"OK"</string>
     <string name="geolocation_settings_page_dialog_cancel_button" msgid="7941036504673409747">"Avbryt"</string>
     <string name="website_settings_clear_all" msgid="8739804325997655980">"Ta bort alla"</string>
-    <string name="website_settings_clear_all_dialog_title" msgid="7791826325122461718">"Vill du ta bort alla webbplatsinställningar?"</string>
-    <string name="website_settings_clear_all_dialog_message" msgid="6150502090601476333">"Alla webbplatsdata och alla platsbehörigheter kommer att tas bort."</string>
-    <string name="website_settings_clear_all_dialog_ok_button" msgid="6401582240627669431">"Ta bort alla data"</string>
+    <string name="website_settings_clear_all_dialog_title" msgid="5746255931965842184">"Rensa alla"</string>
+    <string name="website_settings_clear_all_dialog_message" msgid="1551164275687475061">"Vill du ta bort alla webbplatsdata och platsbehörigheter?"</string>
+    <string name="website_settings_clear_all_dialog_ok_button" msgid="7858504776529106243">"OK"</string>
     <string name="website_settings_clear_all_dialog_cancel_button" msgid="1896757051856611674">"Avbryt"</string>
-    <string name="progress_dialog_setting_wallpaper" msgid="4871900779338536674">"Anger bakgrund..."</string>
+    <string name="progress_dialog_setting_wallpaper" msgid="2031391201442335889">"Bakgrund ställs in ..."</string>
     <string name="defaultBookmarksUpButton" msgid="2303951020715704735">"Bokmärken"</string>
-    <string name="empty_bookmarks_folder" msgid="7843361614634930942">"Det finns inga bokmärken"</string>
+    <string name="empty_bookmarks_folder" msgid="6239830231917618556">"Inga bokmärken."</string>
     <string name="rlz_access_point" msgid="7165847807377650632">"Y1"</string>
     <string name="account_chooser_dialog_title" msgid="3314204833188808194">"Välj konto"</string>
     <string name="import_bookmarks_dialog_title" msgid="3325557652271172128">"Synkronisera med Google-konto"</string>
-    <string name="import_bookmarks_dialog_description" msgid="1942452375564381488">"Det finns bokmärken på enheten som inte har kopplats till något Google-konto än. Du sparar dessa bokmärken genom att lägga till dem i ett konto. Ta bort dem om du inte vill att de ska synkroniseras."</string>
-    <string name="import_bookmarks_dialog_select_add_account" msgid="3102882579089291099">"Lägg till de bokmärken som finns på enheten för närvarande och börja synkronisera med Google-kontot"</string>
-    <string name="import_bookmarks_dialog_delete_select_account" msgid="5192284761080626386">"Ta bort de bokmärken som finns på enheten för närvarande och börja synkronisera med Google-kontot"</string>
-    <string name="import_bookmarks_dialog_confirm_delete" msgid="8854001080444749211">"Ta bort de bokmärken som finns på enheten för närvarande och börja synkronisera bokmärken med <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>."</string>
-    <string name="import_bookmarks_dialog_confirm_add" msgid="5433677293195372675">"Lägg till de bokmärken som finns på enheten för närvarande och börja synkronisera bokmärken med <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>."</string>
+    <string name="import_bookmarks_dialog_description" msgid="2362897194870789609">"Det finns bokmärken på enheten som inte har kopplats till något Google-konto än. Du sparar dessa bokmärken genom att lägga till dem i ett konto. Ta bort dem om du inte vill att de ska synkroniseras."</string>
+    <string name="import_bookmarks_dialog_select_add_account" msgid="7643058662272484895">"Lägg till de bokmärken som finns på enheten för närvarande och börja synkronisera med Google-kontot"</string>
+    <string name="import_bookmarks_dialog_delete_select_account" msgid="4333848003180415516">"Ta bort de bokmärken som finns på enheten för närvarande och börja synkronisera med Google-kontot"</string>
+    <string name="import_bookmarks_dialog_confirm_delete" msgid="2204771572755630570">"Vill du ta bort de bokmärken som finns på enheten för närvarande och börja synkronisera bokmärken med <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>?"</string>
+    <string name="import_bookmarks_dialog_confirm_add" msgid="8942794112340838111">"Vill du lägga till de bokmärken som finns på enheten för närvarande och börja synkronisera bokmärken med <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>?"</string>
     <string name="import_bookmarks_dialog_remove" msgid="5984607822851800902">"Ta bort bokmärken"</string>
     <string name="import_bookmarks_wizard_next" msgid="7578143961884352676">"Nästa"</string>
     <string name="import_bookmarks_wizard_previous" msgid="8551440353688257031">"Föregående"</string>
     <string name="import_bookmarks_wizard_cancel" msgid="4936061122806506634">"Avbryt"</string>
     <string name="import_bookmarks_wizard_done" msgid="1446247092194489191">"Klar"</string>
-    <string name="import_bookmarks_dialog_add" msgid="7552306756868669353">"Lägg till bokmärken i Google-kontot"</string>
+    <string name="import_bookmarks_dialog_add" msgid="1743359725294101189">"Lägg till bokmärken i Google-kontot"</string>
     <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"Lägg till dina Android-bokmärken i bokmärkena för <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>"</string>
     <string name="menu_share_url" msgid="5851814357333739700">"Dela"</string>
     <string name="max_tabs_warning" msgid="4122034303809457570">"Det finnns inga fler flikar"</string>
@@ -395,7 +397,7 @@
     <string name="local_bookmarks" msgid="533816851415228520">"Lokala"</string>
     <string name="ua_switcher_desktop" msgid="220097077327558435">"Begär skrivbordsversion av webbplats"</string>
     <string name="permission_preload_label" msgid="4856971662337877316">"Läs in resultat i förväg"</string>
-    <string name="empty_snapshots_folder" msgid="5788256228290785444">"Det finns inga sparade sidor."</string>
+    <string name="empty_snapshots_folder" msgid="7675378008107026013">"Det finns inga sparade sidor."</string>
     <string name="remove_snapshot" msgid="1624447424544976849">"Ta bort sparad sida"</string>
     <string name="snapshot_go_live" msgid="1209542802541168497">"Sänd live"</string>
     <string name="accessibility_button_back" msgid="6194680634245279407">"Tillbaka"</string>
