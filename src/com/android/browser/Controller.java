@@ -40,6 +40,7 @@ import android.net.Uri;
 import android.net.http.SslError;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.os.PowerManager;
@@ -68,6 +69,7 @@ import android.view.View;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import android.webkit.HttpAuthHandler;
+import android.webkit.MimeTypeMap;
 import android.webkit.SslErrorHandler;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
@@ -86,9 +88,15 @@ import com.android.browser.search.SearchEngine;
 import com.android.common.Search;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URLEncoder;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -140,7 +148,7 @@ public class Controller
     // "source" parameter for Google search through simplily type
     final static String GOOGLE_SEARCH_SOURCE_TYPE = "browser-type";
 
-    // "no-crash-recovery" parameter in intetnt to suppress crash recovery
+    // "no-crash-recovery" parameter in intent to suppress crash recovery
     final static String NO_CRASH_RECOVERY = "no-crash-recovery";
 
     // A bitmap that is re-used in createScreenshot as scratch space
@@ -2048,10 +2056,16 @@ public class Controller
         private Activity mActivity;
         private String mText;
         private boolean mPrivateBrowsing;
+        private static final String FALLBACK_EXTENSION = "dat";
+        private static final String IMAGE_BASE_FORMAT = "yyyy-MM-dd-HH-mm-ss-";
 
         public boolean onMenuItemClick(MenuItem item) {
-            DownloadHandler.onDownloadStartNoStream(mActivity, mText, null,
-                    null, null, mPrivateBrowsing);
+            if (DataUri.isDataUri(mText)) {
+                saveDataUri();
+            } else {
+                DownloadHandler.onDownloadStartNoStream(mActivity, mText, null,
+                        null, null, mPrivateBrowsing);
+            }
             return true;
         }
 
@@ -2059,6 +2073,56 @@ public class Controller
             mActivity = activity;
             mText = toDownload;
             mPrivateBrowsing = privateBrowsing;
+        }
+
+        /**
+         * Treats mText as a data URI and writes its contents to a file
+         * based on the current time.
+         */
+        private void saveDataUri() {
+            FileOutputStream outputStream = null;
+            try {
+                DataUri uri = new DataUri(mText);
+                File target = getTarget(uri);
+                outputStream = new FileOutputStream(target);
+                outputStream.write(uri.getData());
+                final DownloadManager manager =
+                        (DownloadManager) mActivity.getSystemService(Context.DOWNLOAD_SERVICE);
+                 manager.addCompletedDownload(target.getName(),
+                        mActivity.getTitle().toString(), false,
+                        uri.getMimeType(), target.getAbsolutePath(),
+                        (long)uri.getData().length, false);
+            } catch (IOException e) {
+                Log.e(LOGTAG, "Could not save data URL");
+            } finally {
+                if (outputStream != null) {
+                    try {
+                        outputStream.close();
+                    } catch (IOException e) {
+                        // ignore close errors
+                    }
+                }
+            }
+        }
+
+        /**
+         * Creates a File based on the current time stamp and uses
+         * the mime type of the DataUri to get the extension.
+         */
+        private File getTarget(DataUri uri) throws IOException {
+            File dir = mActivity.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
+            DateFormat format = new SimpleDateFormat(IMAGE_BASE_FORMAT);
+            String nameBase = format.format(new Date());
+            String mimeType = uri.getMimeType();
+            MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+            String extension = mimeTypeMap.getExtensionFromMimeType(mimeType);
+            if (extension == null) {
+                Log.w(LOGTAG, "Unknown mime type in data URI" + mimeType);
+                extension = FALLBACK_EXTENSION;
+            }
+            extension = "." + extension; // createTempFile needs the '.'
+            File targetFile = File.createTempFile(nameBase, extension, dir);
+            return targetFile;
         }
     }
 

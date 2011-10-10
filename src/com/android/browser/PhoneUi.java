@@ -196,7 +196,9 @@ public class PhoneUi extends BaseUi {
     public void updateMenuState(Tab tab, Menu menu) {
         MenuItem bm = menu.findItem(R.id.bookmarks_menu_id);
         if (bm != null) {
-            bm.setVisible(!showingNavScreen());
+            String url = tab.getUrl();
+            boolean isDataUrl = DataUri.isDataUri(url);
+            bm.setVisible(!showingNavScreen() && !isDataUrl);
         }
         MenuItem nt = menu.findItem(R.id.new_tab_menu_id);
         if (nt != null) {

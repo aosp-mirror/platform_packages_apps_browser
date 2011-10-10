@@ -27,8 +27,8 @@ import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.MenuItem.OnMenuItemClickListener;
-
 import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -41,24 +41,19 @@ import java.net.URL;
 public class WallpaperHandler extends Thread
         implements OnMenuItemClickListener, DialogInterface.OnCancelListener {
 
-
     private static final String LOGTAG = "WallpaperHandler";
     // This should be large enough for BitmapFactory to decode the header so
     // that we can mark and reset the input stream to avoid duplicate network i/o
     private static final int BUFFER_SIZE = 128 * 1024;
 
     private Context mContext;
-    private URL mUrl;
+    private String  mUrl;
     private ProgressDialog mWallpaperProgress;
     private boolean mCanceled = false;
 
     public WallpaperHandler(Context context, String url) {
         mContext = context;
-        try {
-            mUrl = new URL(url);
-        } catch (MalformedURLException e) {
-            mUrl = null;
-        }
+        mUrl = url;
     }
 
     @Override
@@ -97,7 +92,7 @@ public class WallpaperHandler extends Thread
             // version and instead open an input stream on that. This pattern
             // could also be used in the download manager where the same problem
             // exists.
-            inputstream = mUrl.openStream();
+            inputstream = openStream();
             if (inputstream != null) {
                 if (!inputstream.markSupported()) {
                     inputstream = new BufferedInputStream(inputstream, BUFFER_SIZE);
@@ -118,7 +113,7 @@ public class WallpaperHandler extends Thread
                 int bmHeight = options.outHeight;
 
                 int scale = 1;
-                while (bmWidth > maxWidth || bmHeight > maxWidth) {
+                while (bmWidth > maxWidth || bmHeight > maxHeight) {
                     scale <<= 1;
                     bmWidth >>= 1;
                     bmHeight >>= 1;
@@ -131,7 +126,7 @@ public class WallpaperHandler extends Thread
                     // BitmapFactory read more than we could buffer
                     // Re-open the stream
                     inputstream.close();
-                    inputstream = mUrl.openStream();
+                    inputstream = openStream();
                 }
                 Bitmap scaledWallpaper = BitmapFactory.decodeStream(inputstream,
                         null, options);
@@ -174,5 +169,25 @@ public class WallpaperHandler extends Thread
         if (mWallpaperProgress.isShowing()) {
             mWallpaperProgress.dismiss();
         }
+    }
+
+    /**
+     * Opens the input stream for the URL that the class should
+     * use to set the wallpaper. Abstracts the difference between
+     * standard URLs and data URLs.
+     * @return An open InputStream for the data at the URL
+     * @throws IOException if there is an error opening the URL stream
+     * @throws MalformedURLException if the URL is malformed
+     */
+    private InputStream openStream() throws IOException, MalformedURLException {
+        InputStream inputStream = null;
+        if (DataUri.isDataUri(mUrl)) {
+            DataUri dataUri = new DataUri(mUrl);
+            inputStream = new ByteArrayInputStream(dataUri.getData());
+        } else {
+            URL url = new URL(mUrl);
+            inputStream = url.openStream();
+        }
+        return inputStream;
     }
 }

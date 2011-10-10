@@ -151,6 +151,12 @@ public class NavigationBarTablet extends NavigationBarBase {
     }
 
     @Override
+    public void onTabDataChanged(Tab tab) {
+        super.onTabDataChanged(tab);
+        showHideStar(tab);
+    }
+
+    @Override
     public void setCurrentUrlIsBookmark(boolean isBookmark) {
         mStar.setActivated(isBookmark);
     }
@@ -235,7 +241,7 @@ public class NavigationBarTablet extends NavigationBarBase {
             }
             mGoButton.setVisibility(View.GONE);
             mVoiceSearch.setVisibility(View.GONE);
-            mStar.setVisibility(View.VISIBLE);
+            showHideStar(mUiController.getCurrentTab());
             mClearButton.setVisibility(View.GONE);
             if (mTitleBar.useQuickControls()) {
                 mSearchButton.setVisibility(View.GONE);
@@ -319,6 +325,18 @@ public class NavigationBarTablet extends NavigationBarBase {
         mNavButtons.setVisibility(View.VISIBLE);
         combo.setDuration(150);
         combo.start();
+    }
+
+    private void showHideStar(Tab tab) {
+        // hide the bookmark star for data URLs
+        if (tab != null && tab.inForeground()) {
+            int starVisibility = View.VISIBLE;
+            String url = tab.getUrl();
+            if (DataUri.isDataUri(url)) {
+                starVisibility = View.GONE;
+            }
+            mStar.setVisibility(starVisibility);
+        }
     }
 
 }
