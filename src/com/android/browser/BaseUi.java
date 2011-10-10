@@ -801,15 +801,18 @@ public abstract class BaseUi implements UI {
         mHandler.sendMessageDelayed(msg, duration);
     }
 
-    private Handler mHandler = new Handler() {
+    protected Handler mHandler = new Handler() {
 
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == MSG_HIDE_TITLEBAR) {
                 suggestHideTitleBar();
             }
+            BaseUi.this.handleMessage(msg);
         }
     };
+
+    protected void handleMessage(Message msg) {}
 
     @Override
     public void showWeb(boolean animate) {
