@@ -24,9 +24,9 @@
     <string name="tab_bookmarks" msgid="2305793036003473653">"Bookmarks"</string>
     <string name="tab_most_visited" msgid="1077402532455000703">"Most visited"</string>
     <string name="tab_history" msgid="1979267558744613746">"History"</string>
-    <string name="tab_snapshots" msgid="4435852763803720588">"Saved Pages"</string>
-    <string name="added_to_bookmarks" msgid="1020224130695956728">"Added to bookmarks"</string>
-    <string name="removed_from_bookmarks" msgid="6063705902028438800">"Removed from bookmarks"</string>
+    <string name="tab_snapshots" msgid="1449241204980265186">"Saved pages"</string>
+    <string name="added_to_bookmarks" msgid="4028710765672851635">"Added to bookmarks."</string>
+    <string name="removed_from_bookmarks" msgid="546648923924996722">"Removed from bookmarks."</string>
     <string name="sign_in_to" msgid="5939425800148759165">"Sign in to <xliff:g id="HOSTNAME">%s1</xliff:g> \"<xliff:g id="REALM">%s2</xliff:g>\""</string>
     <string name="username" msgid="5057566336518215922">"Name"</string>
     <string name="password" msgid="1177138552305184404">"Password"</string>
@@ -43,10 +43,10 @@
     <string name="security_warning" msgid="6607795404322797541">"Security warning"</string>
     <string name="view_certificate" msgid="1472768887529093862">"View certificate"</string>
     <string name="ssl_go_back" msgid="4598951822061593819">"Go back"</string>
-    <string name="ssl_untrusted" msgid="5369967226521102194">"This certificate is not from a trusted authority."</string>
-    <string name="ssl_mismatch" msgid="558688832420069896">"The name of the site does not match the name on the certificate."</string>
+    <string name="ssl_untrusted" msgid="7754507359360636447">"This certificate isn\'t from a trusted authority."</string>
+    <string name="ssl_mismatch" msgid="3809794439740523641">"The name of the site doesn\'t match the name on the certificate."</string>
     <string name="ssl_expired" msgid="5739349389499575559">"This certificate has expired."</string>
-    <string name="ssl_not_yet_valid" msgid="2893167846212645846">"This certificate is not valid yet."</string>
+    <string name="ssl_not_yet_valid" msgid="8193083327719048247">"This certificate isn\'t valid yet."</string>
     <string name="ssl_date_invalid" msgid="3705563379257285534">"This certificate has an invalid date."</string>
     <string name="ssl_invalid" msgid="9041704741505449967">"This certificate is invalid."</string>
     <string name="ssl_unknown" msgid="5679243486524754571">"Unknown certificate error."</string>
@@ -63,13 +63,13 @@
     <string name="new_folder" msgid="7743540149088867917">"New folder"</string>
     <string name="edit_folder" msgid="621817453133656156">"Edit folder"</string>
     <string name="delete_folder" msgid="2046483129024501116">"Delete folder"</string>
-    <string name="no_subfolders" msgid="5880411440592452802">"No sub-folders"</string>
+    <string name="no_subfolders" msgid="3303645239686962674">"No sub-folders."</string>
     <string name="add_to_bookmarks_menu_option" msgid="4449323955122214389">"Bookmarks"</string>
     <string name="add_to_homescreen_menu_option" msgid="1461447829242963790">"Home screen"</string>
-    <string name="add_to_other_folder_menu_option" msgid="5450890093372998187">"Other folder…"</string>
+    <string name="add_to_other_folder_menu_option" msgid="5947586525822134105">"Other folder"</string>
     <string name="name" msgid="5462672162695365387">"Label"</string>
     <string name="http" msgid="2163722670597250102">"http://"</string>
-    <string name="save_to_bookmarks" msgid="6101482434920313244">"Add to Bookmarks"</string>
+    <string name="save_to_bookmarks" msgid="1679286010089780932">"Saved to bookmarks"</string>
     <string name="bookmark_this_page" msgid="7530739804320811054">"Bookmark this page"</string>
     <string name="remove" msgid="7820112494467011374">"Remove"</string>
     <string name="edit_bookmark" msgid="5024089053490231905">"Edit bookmark"</string>
@@ -80,27 +80,27 @@
     <string name="remove_history_item" msgid="5021424935726728618">"Remove from history"</string>
     <string name="set_as_homepage" msgid="4752937379414905560">"Set as homepage"</string>
     <string name="bookmark_saved" msgid="2766434679871317557">"Saved to bookmarks."</string>
-    <string name="bookmark_not_saved" msgid="700600955089376724">"Unable to save bookmark."</string>
+    <string name="bookmark_not_saved" msgid="1077732557310662080">"Couldn\'t save bookmark."</string>
     <string name="homepage_set" msgid="8768087280310966395">"Homepage set."</string>
     <string name="bookmark_needs_title" msgid="6245900436119218187">"Bookmark must have a name."</string>
     <string name="bookmark_needs_url" msgid="7809876865972755158">"Bookmark must have a location."</string>
-    <string name="bookmark_url_not_valid" msgid="6719785633980202419">"URL is not valid."</string>
-    <string name="bookmark_cannot_save_url" msgid="791722768778386941">"This URL cannot be bookmarked."</string>
+    <string name="bookmark_url_not_valid" msgid="4917440933384496211">"This URL isn\'t valid."</string>
+    <string name="bookmark_cannot_save_url" msgid="7836064647943671126">"This URL can\'t be bookmarked."</string>
     <string name="delete_bookmark" msgid="2422989994934201992">"Delete"</string>
     <string name="bookmark_page" msgid="6845189305130307274">"Bookmark last viewed page"</string>
     <string name="bookmark_thumbnail_view" msgid="3164068314718522138">"Thumbnails"</string>
     <string name="bookmark_list_view" msgid="7848510619500937839">"List"</string>
     <string name="current_page" msgid="7510129573681663135">"from "</string>
-    <string name="delete_bookmark_warning" msgid="758043186202032205">"Bookmark \"<xliff:g id="BOOKMARK">%s</xliff:g>\" will be deleted."</string>
+    <string name="delete_bookmark_warning" msgid="7825328496411904321">"Delete bookmark \"<xliff:g id="BOOKMARK">%s</xliff:g>\"?"</string>
     <string name="open_all_in_new_window" msgid="455786763426575293">"Open all in new tabs"</string>
     <string name="goto_dot" msgid="3895839050522602723">"Go"</string>
     <string name="select_dot" msgid="6299170761900561967">"Select text"</string>
     <string name="bookmarks" msgid="1961279134885867815">"Bookmarks"</string>
     <string name="shortcut_bookmark" msgid="3974876480401135895">"Bookmark"</string>
-    <string name="shortcut_bookmark_title" msgid="3072725276532691472">"Pick a bookmark"</string>
+    <string name="shortcut_bookmark_title" msgid="7570786275916681296">"Choose a bookmark"</string>
     <string name="history" msgid="2451240511251410032">"History"</string>
     <string name="menu_view_download" msgid="2124570321712995120">"Downloads"</string>
-    <string name="copy_page_url" msgid="7635062169011319208">"Copy page URL"</string>
+    <string name="copy_page_url" msgid="1188679152608889555">"Copy page URL"</string>
     <string name="share_page" msgid="593756995297268343">"Share page"</string>
     <string name="menu_save_snapshot" msgid="6935080344031126139">"Save for offline reading"</string>
     <string name="snapshot_failed" msgid="4584580873565876033">"Couldn\'t save for offline reading."</string>
@@ -125,7 +125,7 @@
     <string name="replace" msgid="4843033491070384047">"Replace"</string>
     <string name="browser_bookmarks_page_bookmarks_text" msgid="6787605028726162673">"Bookmarks"</string>
     <string name="menu_preferences" msgid="6709237687234102240">"Settings"</string>
-    <string name="pref_content_title" msgid="722227111894838633">"Page content settings"</string>
+    <string name="pref_content_title" msgid="3834107397725342174">"Page content"</string>
     <string name="pref_content_load_images" msgid="2125616852957377561">"Load images"</string>
     <string name="pref_content_load_images_summary" msgid="5055874125248398584">"Display images on web pages"</string>
     <string name="pref_content_block_popups" msgid="4158524847764470895">"Block pop-ups"</string>
@@ -137,88 +137,88 @@
     <item msgid="2484126708670016519">"On demand"</item>
     <item msgid="8547442717307793863">"Off"</item>
   </string-array>
-    <string name="pref_content_open_in_background_summary" msgid="6114922017800433172">"Open new tabs behind the current one"</string>
+    <string name="pref_content_open_in_background_summary" msgid="955411158407739504">"Open new tabs behind the current tab"</string>
     <string name="pref_content_homepage" msgid="3324574611613105696">"Set homepage"</string>
     <string name="pref_content_search_engine" msgid="1620101310821644144">"Set search engine"</string>
-    <string name="pref_content_search_engine_summary" msgid="5162667665858487316">"Select a search engine"</string>
-    <string name="pref_set_homepage_to" msgid="7196350233061395098">"Set to…"</string>
+    <string name="pref_content_search_engine_summary" msgid="304003941861818133">"Choose a search engine"</string>
+    <string name="pref_set_homepage_to" msgid="7838684355145561242">"Set to"</string>
   <string-array name="pref_homepage_choices">
     <item msgid="844041670142910837">"Current page"</item>
     <item msgid="4430498748295169195">"Blank page"</item>
     <item msgid="5747608191946904074">"Default page"</item>
     <item msgid="6092441301001006473">"Most-visited sites"</item>
-    <item msgid="5021822752506507426">"Other…"</item>
+    <item msgid="6569304572171444894">"Other"</item>
   </string-array>
     <string name="pref_content_autofit" msgid="8260474534053660809">"Auto-fit pages"</string>
-    <string name="pref_content_autofit_summary" msgid="4587831659894879986">"Format web pages to fit the screen"</string>
+    <string name="pref_content_autofit_summary" msgid="324810555822572112">"Format web pages to fit the screen"</string>
     <string name="pref_general_title" msgid="1946872771219249323">"General"</string>
     <string name="pref_general_sync_title" msgid="3138637035975860324">"Sync"</string>
     <string name="pref_general_autofill_title" msgid="547881256865816858">"Auto-fill"</string>
     <string name="pref_autofill_enabled" msgid="1015751713312396713">"Form auto-fill"</string>
-    <string name="pref_autofill_enabled_summary" msgid="422640696197018914">"Fill in web forms with a single click"</string>
-    <string name="pref_autofill_profile_editor" msgid="3864116896052437796">"Auto-fill data"</string>
-    <string name="pref_autofill_profile_editor_summary" msgid="3653552312512743181">"Enter and save data for auto-filling web form fields"</string>
-    <string name="pref_autologin_title" msgid="2362827272595366379">"Automatic Google sign-in"</string>
+    <string name="pref_autofill_enabled_summary" msgid="7659954073892471496">"Fill in web forms with a single touch"</string>
+    <string name="pref_autofill_profile_editor" msgid="8934844472922113166">"Auto-fill text"</string>
+    <string name="pref_autofill_profile_editor_summary" msgid="4864447251676856190">"Set up text to auto-fill in web forms"</string>
+    <string name="pref_autologin_title" msgid="4421187193809267096">"Automatic Google sign-in"</string>
     <string name="pref_autologin_progress" msgid="8333244467048833461">"Signing in to Google sites using <xliff:g id="ID_1">%s</xliff:g>"</string>
     <string name="autologin_bar_text" msgid="3684581827167173371">"Sign in as"</string>
     <string name="autologin_bar_login_text" msgid="3336615320510851879">"Sign in"</string>
     <string name="autologin_bar_hide_text" msgid="3629355974385859580">"Hide"</string>
     <string name="autologin_bar_error" msgid="7470001207395920811">"Couldn\'t sign in."</string>
-    <string name="autofill_profile_editor_heading" msgid="8392952553626722083">"Enter the data that you want to auto-fill in web fields when you touch them."</string>
+    <string name="autofill_profile_editor_heading" msgid="4798644544927738078">"Type the text that you want to auto-fill in web forms."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Full name:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"Email:"</string>
     <string name="autofill_profile_editor_company_name" msgid="2813443159949210417">"Company name:"</string>
     <string name="autofill_profile_editor_address_line_1" msgid="836433242509243081">"Address line 1:"</string>
     <string name="autofill_profile_editor_address_line_1_hint" msgid="5965659598509327172">"Street address, P.O. box, c/o"</string>
     <string name="autofill_profile_editor_address_line_2" msgid="8194745202893822479">"Address line 2:"</string>
-    <string name="autofill_profile_editor_address_line_2_hint" msgid="2048330295853546405">"Flat, suite, unit, building, floor, etc."</string>
-    <string name="autofill_profile_editor_city" msgid="4193225955409148508">"City/Town:"</string>
-    <string name="autofill_profile_editor_state" msgid="8549739922338171458">"County/State/Province/Region:"</string>
+    <string name="autofill_profile_editor_address_line_2_hint" msgid="8529642768127569254">"Flat, suite, unit, building, floor, etc."</string>
+    <string name="autofill_profile_editor_city" msgid="7306716145784997135">"City/Town:"</string>
+    <string name="autofill_profile_editor_state" msgid="2150403366835080407">"County/State/Province/Region:"</string>
     <string name="autofill_profile_editor_zip_code" msgid="283668573295656671">"Postcode:"</string>
     <string name="autofill_profile_editor_country" msgid="7234470301239156656">"Country:"</string>
     <string name="autofill_profile_editor_phone_number" msgid="4938852821413729276">"Phone:"</string>
-    <string name="autofill_profile_editor_phone_number_invalid" msgid="7166394872369167580">"Invalid phone number"</string>
-    <string name="autofill_profile_editor_save_profile" msgid="8349915287435262888">"Save profile"</string>
-    <string name="autofill_profile_successful_save" msgid="6834102203944938409">"Profile saved"</string>
-    <string name="autofill_profile_successful_delete" msgid="2421442112954362732">"Profile deleted"</string>
-    <string name="autofill_profile_editor_delete_profile" msgid="2754563301088418752">"Delete profile"</string>
-    <string name="autofill_setup_dialog_title" msgid="1955613311837926540">"Set up auto-fill?"</string>
-    <string name="autofill_setup_dialog_message" msgid="6605682320156223114">"Browser can complete web forms like this one automatically. Would you like to set up your profile?"</string>
-    <string name="autofill_setup_dialog_negative_toast" msgid="6990737008936188620">"Auto-fill can always be configured through Browser Settings."</string>
+    <string name="autofill_profile_editor_phone_number_invalid" msgid="6795411298467068957">"Invalid phone number."</string>
+    <string name="autofill_profile_editor_save_profile" msgid="3230301454458581157">"Save"</string>
+    <string name="autofill_profile_successful_save" msgid="5691459703493331983">"Auto-fill text saved."</string>
+    <string name="autofill_profile_successful_delete" msgid="1790262652460723127">"Auto-fill text deleted."</string>
+    <string name="autofill_profile_editor_delete_profile" msgid="3098369314558164153">"Delete"</string>
+    <string name="autofill_setup_dialog_title" msgid="3564907335366130582">"Auto-fill"</string>
+    <string name="autofill_setup_dialog_message" msgid="1096164985825394616">"The browser can automatically complete web forms like this one. Would you like to set up your auto-fill text?"</string>
+    <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"You can always set up your auto-fill text from the Browser &gt; Settings &gt; General screen."</string>
     <string name="disable_autofill" msgid="8305901059849400354">"Disable auto-fill"</string>
     <string name="pref_privacy_security_title" msgid="3480313968942160914">"Privacy &amp; security"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Clear cache"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Clear locally cached content and databases"</string>
-    <string name="pref_privacy_clear_cache_dlg" msgid="5541011591300753881">"Locally cached content and databases will be deleted."</string>
+    <string name="pref_privacy_clear_cache_dlg" msgid="4344512581716422465">"Delete locally cached content and databases?"</string>
     <string name="pref_privacy_cookies_title" msgid="6763274282214830526">"Cookies"</string>
     <string name="pref_privacy_clear_cookies" msgid="3095583579133780331">"Clear all cookie data"</string>
     <string name="pref_privacy_clear_cookies_summary" msgid="6962742063990677520">"Clear all browser cookies"</string>
-    <string name="pref_privacy_clear_cookies_dlg" msgid="552855688091432682">"All cookies will be deleted."</string>
+    <string name="pref_privacy_clear_cookies_dlg" msgid="1493252163164621278">"Delete all cookies?"</string>
     <string name="pref_privacy_clear_history" msgid="8723795508825198477">"Clear history"</string>
     <string name="pref_privacy_clear_history_summary" msgid="6868501330708940734">"Clear the browser navigation history"</string>
-    <string name="pref_privacy_clear_history_dlg" msgid="544903007914753853">"The browser navigation history will be deleted."</string>
+    <string name="pref_privacy_clear_history_dlg" msgid="6934317391642846227">"Delete the browser navigation history?"</string>
     <string name="pref_privacy_formdata_title" msgid="6549813837982050424">"Form data"</string>
     <string name="pref_privacy_clear_form_data" msgid="4232668196344383987">"Clear form data"</string>
-    <string name="pref_privacy_clear_form_data_summary" msgid="1790390894719517167">"Clear all the saved form data"</string>
-    <string name="pref_privacy_clear_form_data_dlg" msgid="4443621086781197928">"All saved form data will be deleted."</string>
+    <string name="pref_privacy_clear_form_data_summary" msgid="7702091143640546200">"Clear all the saved form data"</string>
+    <string name="pref_privacy_clear_form_data_dlg" msgid="8205626042241338983">"Delete all saved form data?"</string>
     <string name="pref_privacy_clear_passwords" msgid="4750234112289277480">"Clear passwords"</string>
     <string name="pref_privacy_clear_passwords_summary" msgid="8856782718942903335">"Clear all saved passwords"</string>
-    <string name="pref_privacy_clear_passwords_dlg" msgid="2083869328824248255">"All saved passwords will be deleted."</string>
+    <string name="pref_privacy_clear_passwords_dlg" msgid="5836576259947160045">"Delete all saved passwords?"</string>
     <string name="pref_privacy_location_title" msgid="7458378016606081067">"Location"</string>
     <string name="pref_privacy_enable_geolocation" msgid="1395040170290765686">"Enable location"</string>
     <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"Allow sites to request access to your location"</string>
     <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"Clear location access"</string>
     <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"Clear location access for all websites"</string>
-    <string name="pref_privacy_clear_geolocation_access_dlg" msgid="7327063124488827244">"Clear location access for all websites"</string>
+    <string name="pref_privacy_clear_geolocation_access_dlg" msgid="3190928760598034346">"Clear website location access?"</string>
     <string name="pref_security_passwords_title" msgid="5734190542383756711">"Passwords"</string>
     <string name="pref_security_remember_passwords" msgid="6492957683454529549">"Remember passwords"</string>
     <string name="pref_security_remember_passwords_summary" msgid="256388703356349137">"Save usernames and passwords for websites"</string>
     <string name="pref_security_save_form_data" msgid="1213669802810198893">"Remember form data"</string>
     <string name="pref_security_save_form_data_summary" msgid="4994074685153708026">"Remember data that I type in forms for later use"</string>
     <string name="pref_security_show_security_warning" msgid="8901135676266754559">"Show security warnings"</string>
-    <string name="pref_security_show_security_warning_summary" msgid="8968906112720511704">"Show warning if there is a problem with a site\'s security"</string>
+    <string name="pref_security_show_security_warning_summary" msgid="5260098316025397525">"Show warning if there is a problem with a site\'s security"</string>
     <string name="pref_security_accept_cookies" msgid="3201367661925047989">"Accept cookies"</string>
-    <string name="pref_security_accept_cookies_summary" msgid="1465118934875026920">"Allow sites to save and read \"cookie\" data"</string>
+    <string name="pref_security_accept_cookies_summary" msgid="1907951236154433751">"Allow sites to save and read cookie data"</string>
   <string-array name="pref_text_size_choices">
     <item msgid="4952686548944739548">"Tiny"</item>
     <item msgid="1950030433642671460">"Small"</item>
@@ -228,12 +228,13 @@
   </string-array>
     <string name="pref_min_font_size" msgid="8811125835817449131">"Minimum font size"</string>
     <string name="pref_min_font_size_value" msgid="2924708480509060209">"<xliff:g id="FONT_SIZE">%d</xliff:g>pt"</string>
-    <string name="pref_text_zoom" msgid="8387229123479610157">"Text zoom"</string>
+    <string name="pref_text_zoom" msgid="5171056101805125497">"Text scaling"</string>
+    <string name="pref_zoom_on_double_tap" msgid="902786475250741795">"Zoom on double-tap"</string>
     <string name="pref_force_userscalable" msgid="5641500562399892621">"Force enable zoom"</string>
-    <string name="pref_force_userscalable_summary" msgid="4431962409438162448">"Whether or not to override a website\'s request to control zoom behaviour"</string>
-    <string name="pref_inverted_category" msgid="3115731672066279347">"Inverted Screen Rendering"</string>
-    <string name="pref_inverted" msgid="4813962104859359420">"Inverted Rendering"</string>
-    <string name="pref_inverted_summary" msgid="8570087335228699813">"Enable inverted rendering. Black will become white and vice versa."</string>
+    <string name="pref_force_userscalable_summary" msgid="3613242300617172230">"Override a website\'s request to control zoom behaviour"</string>
+    <string name="pref_inverted_category" msgid="1280639705117152207">"Inverted screen rendering"</string>
+    <string name="pref_inverted" msgid="7613556986776824112">"Inverted rendering"</string>
+    <string name="pref_inverted_summary" msgid="7357225897413923085">"Black becomes white and vice versa"</string>
     <string name="pref_inverted_contrast" msgid="8527441236225288169">"Contrast"</string>
     <string name="pref_default_zoom" msgid="8076142259097187395">"Default zoom"</string>
   <string-array name="pref_default_zoom_choices">
@@ -243,14 +244,14 @@
   </string-array>
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"Default zoom"</string>
     <string name="pref_content_load_page" msgid="2219810141690955452">"Open pages in overview"</string>
-    <string name="pref_content_load_page_summary" msgid="8792093504054149369">"Show overview of newly opened pages"</string>
+    <string name="pref_content_load_page_summary" msgid="9168803276420332955">"Show overview of newly opened pages"</string>
     <string name="pref_extras_title" msgid="7075456173747370647">"Advanced"</string>
     <string name="pref_extras_website_settings" msgid="67866640052455549">"Website settings"</string>
     <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"Advanced settings for individual websites"</string>
     <string name="pref_extras_reset_default_title" msgid="3579760449455761762">"Reset defaults"</string>
     <string name="pref_extras_reset_default" msgid="8904000515846202110">"Reset to default"</string>
     <string name="pref_extras_reset_default_summary" msgid="4247870778270414501">"Restore default settings"</string>
-    <string name="pref_extras_reset_default_dlg" msgid="6640261575874704022">"Settings will revert to default values."</string>
+    <string name="pref_extras_reset_default_dlg" msgid="7922814420184322450">"Revert settings to default values?"</string>
     <string name="pref_extras_reset_default_dlg_title" msgid="2250334970728938936">"Reset to default"</string>
     <string name="pref_development_title" msgid="3263854204533056480">"Debug"</string>
     <string name="pref_default_text_encoding" msgid="5742965543955558478">"Text encoding"</string>
@@ -266,46 +267,46 @@
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Text encoding"</string>
     <string name="pref_accessibility_title" msgid="5127836981587423215">"Accessibility"</string>
-    <string name="pref_font_size_category" msgid="6288925476811083551">"Font size"</string>
+    <string name="pref_font_size_category" msgid="6683754355084218254">"Text size"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"Labs"</string>
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Quick controls"</string>
-    <string name="pref_lab_quick_controls_summary" msgid="1564546156544675707">"Swipe thumb from left or right edge to access quick controls and hide Application and URL bars"</string>
+    <string name="pref_lab_quick_controls_summary" msgid="3149664132600968775">"Slide thumb from the left or right edge to open quick controls and hide app and URL bars"</string>
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Google Instant"</string>
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Use Google Instant when you use Google Search, to show results as you type (this can increase data use)."</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"Full screen"</string>
-    <string name="pref_lab_fullscreen_summary" msgid="6853711692160711419">"Use full-screen mode to hide the status bar."</string>
-    <string name="pref_data_title" msgid="750316606686075162">"Bandwidth Management"</string>
+    <string name="pref_lab_fullscreen_summary" msgid="7694738112219376740">"Use full-screen mode to hide the status bar"</string>
+    <string name="pref_data_title" msgid="7255058703417796578">"Bandwidth management"</string>
     <string name="pref_data_preload_title" msgid="4479320472980292873">"Search result preloading"</string>
   <string-array name="pref_data_preload_choices">
     <item msgid="5180466923190095508">"Never"</item>
-    <item msgid="1791664748778640002">"Only on Wi-Fi"</item>
+    <item msgid="3514802063791531888">"Only on Wi-Fi"</item>
     <item msgid="3944061253437827617">"Always"</item>
   </string-array>
-    <string name="pref_data_preload_summary" msgid="7488335627364473744">"Allow the browser to preload high-confidence search results in the background"</string>
+    <string name="pref_data_preload_summary" msgid="3809168910751382727">"Allow the browser to preload high-confidence search results in the background"</string>
     <string name="pref_data_preload_dialogtitle" msgid="8421297746110796536">"Search result preloading"</string>
-    <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Data connectivity problem"</string>
-    <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Problem with file"</string>
-    <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"Confirm"</string>
-    <string name="browserFrameFormResubmitMessage" msgid="2752182215695632138">"The page that you are trying to view contains data that has already been submitted (\"POSTDATA\"). If you resend the data, any action that the form on the page carried out (such as a search or online purchase) will be repeated."</string>
-    <string name="loadSuspendedTitle" msgid="675991625288706944">"No network connection"</string>
-    <string name="loadSuspended" msgid="3133656588880851273">"Browser cannot load this page because there is no Internet connection."</string>
+    <string name="browserFrameNetworkErrorLabel" msgid="8102515020625680714">"Connection problem"</string>
+    <string name="browserFrameFileErrorLabel" msgid="4703792279852977350">"File problem"</string>
+    <string name="browserFrameFormResubmitLabel" msgid="2385512101948178841"></string>
+    <string name="browserFrameFormResubmitMessage" msgid="5244059279866705254">"The page that you are trying to view contains data that has already been submitted (\"POSTDATA\"). If you resend the data, any action that the form on the page carried out (such as a search or online purchase) will be repeated."</string>
+    <string name="loadSuspendedTitle" msgid="6453376579109644551">"No connection"</string>
+    <string name="loadSuspended" msgid="3843343290039218668">"The browser can\'t load this page because there\'s no Internet connection."</string>
     <string name="clear_history" msgid="5998307092715979619">"Clear history"</string>
-    <string name="browser_history" msgid="1038987118290272525">"Recently visited pages"</string>
-    <string name="empty_history" msgid="8738772352308207274">"Browser history is empty."</string>
-    <string name="go_home" msgid="3140773562046381164">"Home"</string>
-    <string name="add_new_bookmark" msgid="8086367791400349049">"Add bookmark…"</string>
+    <string name="browser_history" msgid="2979476257919939232">"Recently visited pages"</string>
+    <string name="empty_history" msgid="7013369425484218985">"No browser history."</string>
+    <string name="go_home" msgid="109129207276086793">"Homepage"</string>
+    <string name="add_new_bookmark" msgid="3158497555612337238">"Add bookmark"</string>
     <string name="add_bookmark_short" msgid="3783984330998103735">"Add"</string>
     <string name="search_hint" msgid="4647356319916631820">"Search or type URL"</string>
     <string name="search_button_text" msgid="5235226933877634410">"Go"</string>
     <string name="search_settings_description" msgid="1422401062529014107">"Bookmarks and web history"</string>
     <string name="attention" msgid="3473639060042811244">"Attention"</string>
-    <string name="popup_window_attempt" msgid="2673111696288657989">"This site is attempting to open a pop-up window."</string>
+    <string name="popup_window_attempt" msgid="31565781154067629">"Allow this site to open a pop-up window?"</string>
     <string name="allow" msgid="1157313689171991335">"Allow"</string>
     <string name="block" msgid="9172175889884707800">"Block"</string>
     <string name="too_many_windows_dialog_title" msgid="5709782301477380438">"Tab limit reached"</string>
-    <string name="too_many_windows_dialog_message" msgid="7417529754382308997">"Couldn\'t open a new tab because you\'ve already opened the maximum number."</string>
+    <string name="too_many_windows_dialog_message" msgid="3644234634638290304">"Can\'t open a new tab until you close one."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Pop-up already open"</string>
-    <string name="too_many_subwindows_dialog_message" msgid="5827289829907966657">"Could not open a new pop-up window because only one can be open at any time."</string>
+    <string name="too_many_subwindows_dialog_message" msgid="2164725447981195556">"Only one pop-up can be open at a time."</string>
     <string name="download_title" msgid="2122874021047565594">"Download history"</string>
     <string name="download_unknown_filename" msgid="4013465542563652175">"&lt;Unknown&gt;"</string>
     <string name="download_menu_open" msgid="4888327480367757513">"Open"</string>
@@ -314,10 +315,10 @@
     <string name="download_menu_cancel" msgid="2545333007601851574">"Cancel download"</string>
     <string name="download_menu_cancel_all" msgid="2136550823151999166">"Cancel all downloads"</string>
     <string name="download_cancel_dlg_title" msgid="8909108500262799748">"Cancel downloads"</string>
-    <string name="download_cancel_dlg_msg" msgid="6285389170052357797">"All <xliff:g id="DOWNLOAD_COUNT">%d</xliff:g> downloads will be cancelled and cleared from the download history."</string>
-    <string name="download_delete_file" msgid="5330036497843073249">"File will be deleted"</string>
+    <string name="download_cancel_dlg_msg" msgid="2546124668173027248">"Cancel and clear all <xliff:g id="DOWNLOAD_COUNT">%d</xliff:g> downloads from the download history?"</string>
+    <string name="download_delete_file" msgid="8941963362686617405">"Delete"</string>
     <string name="download_file_error_dlg_title" msgid="2693630283595384874">"Out of space"</string>
-    <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"<xliff:g id="FILENAME">%s</xliff:g> could not be downloaded."\n"Free up some space on your phone and try again."</string>
+    <string name="download_file_error_dlg_msg" msgid="5904538987107408124">"<xliff:g id="FILENAME">%s</xliff:g> couldn\'t be downloaded."\n"Free up some space and try again."</string>
     <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"Download unsuccessful"</string>
     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"USB storage unavailable"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"No SD card"</string>
@@ -325,68 +326,68 @@
     <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"An SD card is required to download <xliff:g id="FILENAME">%s</xliff:g>."</string>
     <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"USB storage unavailable"</string>
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"SD card unavailable"</string>
-    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="3979329954835690147">"The USB storage is busy. To allow downloads, select \"Turn off USB storage\" in the notification."</string>
-    <string name="download_sdcard_busy_dlg_msg" product="default" msgid="3473883538192835204">"The SD card is busy. To allow downloads, select \"Turn off USB storage\" in the notification."</string>
+    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="8412543086906716875">"The USB storage is busy. To allow downloads, touch Turn Off USB Storage in the notification."</string>
+    <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"The SD card is busy. To allow downloads, select \"Turn off USB storage\" in the notification."</string>
     <string name="cannot_download" msgid="8150552478556798780">"Can only download \"http\" or \"https\" URLs."</string>
-    <string name="download_no_application_title" msgid="1286056729168874295">"Cannot open file"</string>
+    <string name="download_no_application_title" msgid="4809479884191068159">"Cannot open file"</string>
     <string name="retry" msgid="1835923075542266721">"Retry"</string>
-    <string name="no_downloads" msgid="3947445710685021498">"Download history is empty."</string>
-    <string name="download_error" msgid="413496839831257187">"Download unsuccessful."</string>
-    <string name="download_success" msgid="2279041638155595203">"<xliff:g id="FILE">%s</xliff:g> Download complete."</string>
+    <string name="no_downloads" msgid="8031648287973400156">"No download history."</string>
+    <string name="download_error" msgid="21835634921715697">"Couldn\'t download."</string>
+    <string name="download_success" msgid="1651605015937749469">"<xliff:g id="FILE">%s</xliff:g> download complete."</string>
     <string name="download_running" msgid="2622942231322015059">"Downloading…"</string>
     <string name="download_pending" msgid="2599683668575349559">"Starting download…"</string>
     <string name="download_pending_network" msgid="6548714525679461053">"Waiting for data connection…"</string>
     <string name="download_running_paused" msgid="6418029352085656495">"Waiting for data connection…"</string>
     <string name="download_canceled" msgid="6057083743144492515">"Download cancelled."</string>
-    <string name="download_not_acceptable" msgid="313769696131563652">"Cannot download. The content is not supported on this phone."</string>
-    <string name="download_file_error" msgid="1206648050615176113">"Cannot finish download. There is not enough space."</string>
-    <string name="download_length_required" msgid="9038605488460437406">"Cannot download. The size of the item cannot be determined."</string>
-    <string name="download_precondition_failed" msgid="8327584102874295580">"Download interrupted. It cannot be resumed."</string>
+    <string name="download_not_acceptable" msgid="5415339992984899924">"Can\'t download, because the content isn\'t supported on this phone."</string>
+    <string name="download_file_error" msgid="7702971488793861815">"Can\'t finish download, because there isn\'t enough space."</string>
+    <string name="download_length_required" msgid="1240338682223054142">"Can\'t download, because the size of the item can\'t be determined."</string>
+    <string name="download_precondition_failed" msgid="6264432738865797635">"Download interrupted and can\'t be resumed."</string>
     <string name="search_the_web" msgid="6046130189241962337">"Search the web"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Browser storage full"</string>
-    <string name="webstorage_outofspace_notification_text" msgid="7341075135051829692">"Click to free up space."</string>
+    <string name="webstorage_outofspace_notification_text" msgid="47273584426988640">"Touch to free up space."</string>
     <string name="webstorage_clear_data_title" msgid="689484577124333977">"Clear stored data"</string>
     <string name="webstorage_clear_data_dialog_title" msgid="345457466368974706">"Clear stored data"</string>
-    <string name="webstorage_clear_data_dialog_message" msgid="6678281256970470125">"All data stored by this website will be deleted"</string>
-    <string name="webstorage_clear_data_dialog_ok_button" msgid="2516563534211898636">"Clear all"</string>
+    <string name="webstorage_clear_data_dialog_message" msgid="6200681632891775881">"Delete all data stored by this website?"</string>
+    <string name="webstorage_clear_data_dialog_ok_button" msgid="6682570951259237542">"OK"</string>
     <string name="webstorage_clear_data_dialog_cancel_button" msgid="2028867751958942762">"Cancel"</string>
     <string name="webstorage_origin_summary_mb_stored" msgid="1985885826292236210">"MB stored on your phone"</string>
-    <string name="loading_video" msgid="4887871585216091096">"Loading video"</string>
+    <string name="loading_video" msgid="7886324933131962321">"Loading video…"</string>
     <string name="geolocation_permissions_prompt_message" msgid="356796102004052471">"<xliff:g id="WEBSITE_ORIGIN">%s</xliff:g> wants to know your location"</string>
     <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"Share location"</string>
     <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"Decline"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"Remember preference"</string>
-    <string name="geolocation_permissions_prompt_toast_allowed" msgid="7833771073195530638">"This site can access your location. Change this in Settings -&gt; Advanced -&gt; Website settings"</string>
-    <string name="geolocation_permissions_prompt_toast_disallowed" msgid="7418225389343746465">"This site cannot access your location. Change this in Settings -&gt; Advanced -&gt; Website settings"</string>
+    <string name="geolocation_permissions_prompt_toast_allowed" msgid="7201417941112726112">"This site can access your location. Change this on the Settings &gt; Advanced &gt; Website screen."</string>
+    <string name="geolocation_permissions_prompt_toast_disallowed" msgid="156443445797377409">"This site cannot access your location. Change this on the Settings &gt; Advanced &gt; Website screen."</string>
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Clear location access"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"This site can currently access your location"</string>
-    <string name="geolocation_settings_page_summary_not_allowed" msgid="4589649082203102544">"This site cannot currently access your location"</string>
+    <string name="geolocation_settings_page_summary_not_allowed" msgid="7941769772784366199">"This site can\'t currently access your location"</string>
     <string name="geolocation_settings_page_dialog_title" msgid="1549842043381347668">"Clear location access"</string>
-    <string name="geolocation_settings_page_dialog_message" msgid="7586671987576403993">"Location access for this website will be cleared"</string>
-    <string name="geolocation_settings_page_dialog_ok_button" msgid="4789434178048077287">"Clear access"</string>
+    <string name="geolocation_settings_page_dialog_message" msgid="8772923416296868537">"Clear location access for this website?"</string>
+    <string name="geolocation_settings_page_dialog_ok_button" msgid="2113465477131017852">"OK"</string>
     <string name="geolocation_settings_page_dialog_cancel_button" msgid="7941036504673409747">"Cancel"</string>
     <string name="website_settings_clear_all" msgid="8739804325997655980">"Clear all"</string>
-    <string name="website_settings_clear_all_dialog_title" msgid="7791826325122461718">"Clear all website settings?"</string>
-    <string name="website_settings_clear_all_dialog_message" msgid="6150502090601476333">"All website data and location permissions will be deleted."</string>
-    <string name="website_settings_clear_all_dialog_ok_button" msgid="6401582240627669431">"Delete all data"</string>
+    <string name="website_settings_clear_all_dialog_title" msgid="5746255931965842184">"Clear all"</string>
+    <string name="website_settings_clear_all_dialog_message" msgid="1551164275687475061">"Delete all website data and location permission?"</string>
+    <string name="website_settings_clear_all_dialog_ok_button" msgid="7858504776529106243">"OK"</string>
     <string name="website_settings_clear_all_dialog_cancel_button" msgid="1896757051856611674">"Cancel"</string>
-    <string name="progress_dialog_setting_wallpaper" msgid="4871900779338536674">"Setting wallpaper..."</string>
+    <string name="progress_dialog_setting_wallpaper" msgid="2031391201442335889">"Setting wallpaper..."</string>
     <string name="defaultBookmarksUpButton" msgid="2303951020715704735">"Bookmarks"</string>
-    <string name="empty_bookmarks_folder" msgid="7843361614634930942">"There are no bookmarks"</string>
+    <string name="empty_bookmarks_folder" msgid="6239830231917618556">"No bookmarks"</string>
     <string name="rlz_access_point" msgid="7165847807377650632">"Y1"</string>
     <string name="account_chooser_dialog_title" msgid="3314204833188808194">"Choose account"</string>
     <string name="import_bookmarks_dialog_title" msgid="3325557652271172128">"Sync with Google account"</string>
-    <string name="import_bookmarks_dialog_description" msgid="1942452375564381488">"Bookmarks on this device are not yet associated with a Google account. Save these bookmarks by adding them to an account. Delete these bookmarks if you do not want to sync them."</string>
-    <string name="import_bookmarks_dialog_select_add_account" msgid="3102882579089291099">"Add bookmarks currently on this device and begin syncing with Google Account"</string>
-    <string name="import_bookmarks_dialog_delete_select_account" msgid="5192284761080626386">"Delete bookmarks currently on this device and begin synchronising with Google Account"</string>
-    <string name="import_bookmarks_dialog_confirm_delete" msgid="8854001080444749211">"Delete bookmarks currently on this device and begin synchronising bookmarks with <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>."</string>
-    <string name="import_bookmarks_dialog_confirm_add" msgid="5433677293195372675">"Add bookmarks currently on this device and begin synchronising bookmarks with <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>."</string>
+    <string name="import_bookmarks_dialog_description" msgid="2362897194870789609">"Bookmarks on this device are not yet associated with a Google account. Save these bookmarks by adding them to an account. Delete these bookmarks if you don\'t want to sync them."</string>
+    <string name="import_bookmarks_dialog_select_add_account" msgid="7643058662272484895">"Add bookmarks currently on this device and begin syncing with Google Account"</string>
+    <string name="import_bookmarks_dialog_delete_select_account" msgid="4333848003180415516">"Delete bookmarks currently on this device and begin syncing with Google account"</string>
+    <string name="import_bookmarks_dialog_confirm_delete" msgid="2204771572755630570">"Delete bookmarks currently on this device and begin syncing bookmarks with <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>?"</string>
+    <string name="import_bookmarks_dialog_confirm_add" msgid="8942794112340838111">"Add bookmarks currently on this device and begin syncing bookmarks with <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>?"</string>
     <string name="import_bookmarks_dialog_remove" msgid="5984607822851800902">"Delete bookmarks"</string>
     <string name="import_bookmarks_wizard_next" msgid="7578143961884352676">"Next"</string>
     <string name="import_bookmarks_wizard_previous" msgid="8551440353688257031">"Previous"</string>
     <string name="import_bookmarks_wizard_cancel" msgid="4936061122806506634">"Cancel"</string>
     <string name="import_bookmarks_wizard_done" msgid="1446247092194489191">"Done"</string>
-    <string name="import_bookmarks_dialog_add" msgid="7552306756868669353">"Add bookmarks to Google Account"</string>
+    <string name="import_bookmarks_dialog_add" msgid="1743359725294101189">"Add bookmarks to Google Account"</string>
     <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"Add your Android bookmarks to bookmarks for <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>"</string>
     <string name="menu_share_url" msgid="5851814357333739700">"Share"</string>
     <string name="max_tabs_warning" msgid="4122034303809457570">"No more tabs available"</string>
@@ -395,7 +396,7 @@
     <string name="local_bookmarks" msgid="533816851415228520">"Local"</string>
     <string name="ua_switcher_desktop" msgid="220097077327558435">"Request desktop site"</string>
     <string name="permission_preload_label" msgid="4856971662337877316">"Preload results"</string>
-    <string name="empty_snapshots_folder" msgid="5788256228290785444">"There are no saved pages."</string>
+    <string name="empty_snapshots_folder" msgid="7675378008107026013">"No saved pages."</string>
     <string name="remove_snapshot" msgid="1624447424544976849">"Delete saved page"</string>
     <string name="snapshot_go_live" msgid="1209542802541168497">"Go live"</string>
     <string name="accessibility_button_back" msgid="6194680634245279407">"Go back"</string>
