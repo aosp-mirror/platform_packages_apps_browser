@@ -685,12 +685,12 @@ class Tab implements PictureListener {
                     errorCode != WebViewClient.ERROR_UNSUPPORTED_SCHEME &&
                     errorCode != WebViewClient.ERROR_FILE) {
                 queueError(errorCode, description);
-            }
 
-            // Don't log URLs when in private browsing mode
-            if (!isPrivateBrowsingEnabled()) {
-                Log.e(LOGTAG, "onReceivedError " + errorCode + " " + failingUrl
+                // Don't log URLs when in private browsing mode
+                if (!isPrivateBrowsingEnabled()) {
+                    Log.e(LOGTAG, "onReceivedError " + errorCode + " " + failingUrl
                         + " " + description);
+                }
             }
         }
 
