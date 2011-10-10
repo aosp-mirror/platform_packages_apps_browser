@@ -109,6 +109,10 @@ public class NavScreen extends RelativeLayout
         }
     }
 
+    public void refreshAdapter() {
+        mAdapter.notifyDataSetChanged();
+    }
+
     private void init() {
         LayoutInflater.from(mContext).inflate(R.layout.nav_screen, this);
         setContentDescription(mContext.getResources().getString(

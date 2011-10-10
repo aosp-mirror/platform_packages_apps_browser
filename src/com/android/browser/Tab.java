@@ -2181,13 +2181,20 @@ class Tab implements PictureListener {
         }
     }
 
+    private static final ThreadLocal<ByteBuffer> sBuffer = new ThreadLocal<ByteBuffer>();
+
     private byte[] getCaptureBlob() {
         synchronized (Tab.this) {
             if (mCapture == null) {
                 return null;
             }
-            ByteBuffer buffer = ByteBuffer.allocate(mCapture.getByteCount());
+            ByteBuffer buffer = sBuffer.get();
+            if (buffer == null || buffer.limit() < mCapture.getByteCount()) {
+                buffer = ByteBuffer.allocate(mCapture.getByteCount());
+                sBuffer.set(buffer);
+            }
             mCapture.copyPixelsToBuffer(buffer);
+            buffer.rewind();
             return buffer.array();
         }
     }
