@@ -119,27 +119,27 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             Accounts.ACCOUNT_NAME + " IS NOT NULL DESC, "
             + Accounts.ACCOUNT_NAME + " ASC";
 
+    private static final String TABLE_BOOKMARKS_JOIN_HISTORY =
+        "history LEFT OUTER JOIN bookmarks ON history.url = bookmarks.url";
+
     private static final String[] SUGGEST_PROJECTION = new String[] {
-            Bookmarks._ID,
-            Bookmarks.URL,
-            Bookmarks.TITLE,
-            "0"};
+            qualifyColumn(TABLE_HISTORY, History._ID),
+            qualifyColumn(TABLE_HISTORY, History.URL),
+            bookmarkOrHistoryColumn(Combined.TITLE),
+            bookmarkOrHistoryLiteral(Combined.URL,
+                    Integer.toString(R.drawable.ic_bookmark_off_holo_dark),
+                    Integer.toString(R.drawable.ic_history_holo_dark)),
+            qualifyColumn(TABLE_HISTORY, History.DATE_LAST_VISITED)};
 
     private static final String SUGGEST_SELECTION =
-            "url LIKE ? OR url LIKE ? OR url LIKE ? OR url LIKE ?"
-            + " OR title LIKE ?";
+            "history.url LIKE ? OR history.url LIKE ? OR history.url LIKE ? OR history.url LIKE ?"
+            + " OR history.title LIKE ? OR bookmarks.title LIKE ?";
 
-    private static final String[] HISTORY_SUGGEST_PROJECTION = new String[] {
-            History._ID,
-            History.URL,
-            History.TITLE,
-            History.DATE_LAST_VISITED};
+    private static final String ZERO_QUERY_SUGGEST_SELECTION =
+            TABLE_HISTORY + "." + History.DATE_LAST_VISITED + " != 0";
 
-    private static final String HISTORY_SUGGEST_SELECTION =
-            History.DATE_LAST_VISITED + " != 0";
-
-    private static final String HISTORY_SUGGEST_ORDER_BY =
-            History.DATE_LAST_VISITED + " DESC";
+    private static final String SUGGEST_ORDER_BY =
+            TABLE_HISTORY + "." + History.DATE_LAST_VISITED + " DESC";
 
     private static final String IMAGE_PRUNE =
             "url_key NOT IN (SELECT url FROM bookmarks " +
@@ -362,6 +362,12 @@ public class BrowserProvider2 extends SQLiteContentProvider {
     static final String bookmarkOrHistoryColumn(String column) {
         return "CASE WHEN bookmarks." + column + " IS NOT NULL THEN " +
                 "bookmarks." + column + " ELSE history." + column + " END AS " + column;
+    }
+
+    static final String bookmarkOrHistoryLiteral(String column, String bookmarkValue,
+            String historyValue) {
+        return "CASE WHEN bookmarks." + column + " IS NOT NULL THEN \"" + bookmarkValue +
+                "\" ELSE \"" + historyValue + "\" END";
     }
 
     static final String qualifyColumn(String table, String column) {
@@ -1106,38 +1112,34 @@ public class BrowserProvider2 extends SQLiteContentProvider {
     }
 
     private Cursor doSuggestQuery(String selection, String[] selectionArgs, String limit) {
-        Cursor c;
-        int iconId;
         if (TextUtils.isEmpty(selectionArgs[0])) {
-            c = mOpenHelper.getReadableDatabase().query(TABLE_HISTORY,
-                    HISTORY_SUGGEST_PROJECTION, HISTORY_SUGGEST_SELECTION, null, null, null,
-                    HISTORY_SUGGEST_ORDER_BY, null);
-            iconId = R.drawable.ic_history_holo_dark;
+            selection = ZERO_QUERY_SUGGEST_SELECTION;
+            selectionArgs = null;
         } else {
             String like = selectionArgs[0] + "%";
             if (selectionArgs[0].startsWith("http")
                     || selectionArgs[0].startsWith("file")) {
                 selectionArgs[0] = like;
             } else {
-                selectionArgs = new String[5];
+                selectionArgs = new String[6];
                 selectionArgs[0] = "http://" + like;
                 selectionArgs[1] = "http://www." + like;
                 selectionArgs[2] = "https://" + like;
                 selectionArgs[3] = "https://www." + like;
                 // To match against titles.
                 selectionArgs[4] = like;
+                selectionArgs[5] = like;
                 selection = SUGGEST_SELECTION;
             }
             selection = DatabaseUtils.concatenateWhere(selection,
                     Bookmarks.IS_DELETED + "=0 AND " + Bookmarks.IS_FOLDER + "=0");
 
-            c = mOpenHelper.getReadableDatabase().query(TABLE_BOOKMARKS,
-                    SUGGEST_PROJECTION, selection, selectionArgs, null, null,
-                    DEFAULT_BOOKMARKS_SORT_ORDER, null);
-            iconId = R.drawable.ic_bookmark_off_holo_dark;
         }
+        Cursor c = mOpenHelper.getReadableDatabase().query(TABLE_BOOKMARKS_JOIN_HISTORY,
+                SUGGEST_PROJECTION, selection, selectionArgs, null, null,
+                SUGGEST_ORDER_BY, null);
 
-        return new SuggestionsCursor(c, iconId);
+        return new SuggestionsCursor(c);
     }
 
     private String[] createCombinedQuery(
@@ -2035,7 +2037,8 @@ public class BrowserProvider2 extends SQLiteContentProvider {
         private static final int ID_INDEX = 0;
         private static final int URL_INDEX = 1;
         private static final int TITLE_INDEX = 2;
-        private static final int LAST_ACCESS_TIME_INDEX = 3;
+        private static final int ICON_INDEX = 3;
+        private static final int LAST_ACCESS_TIME_INDEX = 4;
         // shared suggestion array index, make sure to match COLUMNS
         private static final int SUGGEST_COLUMN_INTENT_ACTION_ID = 1;
         private static final int SUGGEST_COLUMN_INTENT_DATA_ID = 2;
@@ -2057,11 +2060,9 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 SearchManager.SUGGEST_COLUMN_LAST_ACCESS_HINT};
 
         private final Cursor mSource;
-        private final String mIconId;
 
-        public SuggestionsCursor(Cursor cursor, int iconId) {
+        public SuggestionsCursor(Cursor cursor) {
             mSource = cursor;
-            mIconId = Integer.toString(iconId);
         }
 
         @Override
@@ -2084,7 +2085,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             case SUGGEST_COLUMN_TEXT_1_ID:
                 return mSource.getString(TITLE_INDEX);
             case SUGGEST_COLUMN_ICON_1_ID:
-                return mIconId;
+                return mSource.getString(ICON_INDEX);
             case SUGGEST_COLUMN_LAST_ACCESS_HINT_ID:
                 return mSource.getString(LAST_ACCESS_TIME_INDEX);
             }
