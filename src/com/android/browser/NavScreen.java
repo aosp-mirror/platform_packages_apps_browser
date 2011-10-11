@@ -110,7 +110,8 @@ public class NavScreen extends RelativeLayout
     }
 
     public void refreshAdapter() {
-        mAdapter.notifyDataSetChanged();
+        mScroller.handleDataChanged(
+                mUiController.getTabControl().getTabPosition(mUi.getActiveTab()));
     }
 
     private void init() {

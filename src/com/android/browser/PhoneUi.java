@@ -324,8 +324,7 @@ public class PhoneUi extends BaseUi {
             mAnimScreen = new AnimScreen(mActivity);
         }
         mAnimScreen.set(getTitleBar(), getWebView());
-        final View animView = mAnimScreen.mMain;
-        mCustomViewContainer.addView(animView, COVER_SCREEN_PARAMS);
+        mCustomViewContainer.addView(mAnimScreen.mMain, COVER_SCREEN_PARAMS);
         mCustomViewContainer.setVisibility(View.VISIBLE);
         mCustomViewContainer.bringToFront();
         int fromLeft = 0;
@@ -356,7 +355,8 @@ public class PhoneUi extends BaseUi {
                 1f, 0f);
         ObjectAnimator sx = ObjectAnimator.ofFloat(mAnimScreen, "scaleFactor",
                 1f, scaleFactor);
-        ObjectAnimator blend1 = ObjectAnimator.ofFloat(mAnimScreen.mMain, "alpha", 1, 0);
+        ObjectAnimator blend1 = ObjectAnimator.ofFloat(mAnimScreen.mMain,
+                "alpha", 1f, 0f);
         blend1.setDuration(100);
 
         inanim.playTogether(tx, ty, tr, tb, sx, title);
@@ -364,7 +364,7 @@ public class PhoneUi extends BaseUi {
         set1.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator anim) {
-                mCustomViewContainer.removeView(animView);
+                mCustomViewContainer.removeView(mAnimScreen.mMain);
                 finishAnimationIn();
                 mUiController.setBlockEvents(false);
             }
@@ -512,15 +512,19 @@ public class PhoneUi extends BaseUi {
         }
 
         public void set(TitleBar tbar, WebView web) {
-            if (mTitleBarBitmap == null
-                    || mTitleBarBitmap.getWidth() != tbar.getWidth()
-                    || mTitleBarBitmap.getHeight() != tbar.getEmbeddedHeight()) {
-                mTitleBarBitmap = Bitmap.createBitmap(tbar.getWidth(),
-                        tbar.getEmbeddedHeight(), Bitmap.Config.RGB_565);
+            if (tbar.getWidth() > 0 && tbar.getEmbeddedHeight() > 0) {
+                if (mTitleBarBitmap == null
+                        || mTitleBarBitmap.getWidth() != tbar.getWidth()
+                        || mTitleBarBitmap.getHeight() != tbar.getEmbeddedHeight()) {
+                    mTitleBarBitmap = Bitmap.createBitmap(tbar.getWidth(),
+                            tbar.getEmbeddedHeight(), Bitmap.Config.RGB_565);
+                }
+                Canvas c = new Canvas(mTitleBarBitmap);
+                tbar.draw(c);
+                c.setBitmap(null);
+            } else {
+                mTitleBarBitmap = null;
             }
-            Canvas c = new Canvas(mTitleBarBitmap);
-            tbar.draw(c);
-            c.setBitmap(null);
             mTitle.setImageBitmap(mTitleBarBitmap);
             mTitle.setVisibility(View.VISIBLE);
             int h = web.getHeight() - tbar.getEmbeddedHeight();
@@ -530,7 +534,7 @@ public class PhoneUi extends BaseUi {
                 mContentBitmap = Bitmap.createBitmap(web.getWidth(), h,
                         Bitmap.Config.RGB_565);
             }
-            c.setBitmap(mContentBitmap);
+            Canvas c = new Canvas(mContentBitmap);
             int tx = web.getScrollX();
             int ty = web.getScrollY();
             c.translate(-tx, -ty - tbar.getEmbeddedHeight());
