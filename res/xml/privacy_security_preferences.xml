@@ -22,7 +22,6 @@
             android:title="@string/pref_privacy_clear_cache"
             android:summary="@string/pref_privacy_clear_cache_summary"
             android:dialogMessage="@string/pref_privacy_clear_cache_dlg"
-            android:dialogTitle="@string/clear"
             android:dialogIcon="@android:drawable/ic_dialog_alert" />
 
     <com.android.browser.BrowserYesNoPreference
@@ -30,7 +29,6 @@
             android:title="@string/pref_privacy_clear_history"
             android:summary="@string/pref_privacy_clear_history_summary"
             android:dialogMessage="@string/pref_privacy_clear_history_dlg"
-            android:dialogTitle="@string/clear"
             android:dialogIcon="@android:drawable/ic_dialog_alert"/>
 
     <CheckBoxPreference
@@ -51,7 +49,6 @@
                 android:title="@string/pref_privacy_clear_cookies"
                 android:summary="@string/pref_privacy_clear_cookies_summary"
                 android:dialogMessage="@string/pref_privacy_clear_cookies_dlg"
-                android:dialogTitle="@string/clear"
                 android:dialogIcon="@android:drawable/ic_dialog_alert"/>
     </PreferenceCategory>
 
@@ -67,7 +64,6 @@
                 android:title="@string/pref_privacy_clear_form_data"
                 android:summary="@string/pref_privacy_clear_form_data_summary"
                 android:dialogMessage="@string/pref_privacy_clear_form_data_dlg"
-                android:dialogTitle="@string/clear"
                 android:dialogIcon="@android:drawable/ic_dialog_alert"/>
     </PreferenceCategory>
 
@@ -84,7 +80,6 @@
                 android:title="@string/pref_privacy_clear_geolocation_access"
                 android:summary="@string/pref_privacy_clear_geolocation_access_summary"
                 android:dialogMessage="@string/pref_privacy_clear_geolocation_access_dlg"
-                android:dialogTitle="@string/clear"
                 android:dialogIcon="@android:drawable/ic_dialog_alert"/>
     </PreferenceCategory>
 
@@ -100,7 +95,6 @@
                 android:title="@string/pref_privacy_clear_passwords"
                 android:summary="@string/pref_privacy_clear_passwords_summary"
                 android:dialogMessage="@string/pref_privacy_clear_passwords_dlg" 
-                android:dialogTitle="@string/clear" 
                 android:dialogIcon="@android:drawable/ic_dialog_alert"/>
     </PreferenceCategory>
 
