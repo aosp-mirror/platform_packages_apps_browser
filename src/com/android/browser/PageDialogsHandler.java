@@ -244,9 +244,7 @@ public class PageDialogsHandler {
         }
 
         mSSLCertificateView = tab;
-        // TODO: We should pass the certificate error for the page's main
-        // resource, if present. See http://b/5248376.
-        mSSLCertificateDialog = createSslCertificateDialog(cert, null)
+        mSSLCertificateDialog = createSslCertificateDialog(cert, tab.getSslCertificateError())
                 .setPositiveButton(R.string.ok,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,
