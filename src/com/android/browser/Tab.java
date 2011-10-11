@@ -210,9 +210,11 @@ class Tab implements PictureListener {
         String mOriginalUrl;
         String mTitle;
         SecurityState mSecurityState;
+        // This is non-null only when mSecurityState is SECURITY_STATE_BAD_CERTIFICATE.
+        SslError mSslCertificateError;
         Bitmap mFavicon;
-        boolean mIsBookmarkedSite = false;
-        boolean mIncognito = false;
+        boolean mIsBookmarkedSite;
+        boolean mIncognito;
 
         PageState(Context c, boolean incognito) {
             mIncognito = incognito;
@@ -223,14 +225,12 @@ class Tab implements PictureListener {
                 mOriginalUrl = mUrl = "";
                 mTitle = c.getString(R.string.new_tab);
             }
-            mFavicon = null;
             mSecurityState = SecurityState.SECURITY_STATE_NOT_SECURE;
         }
 
         PageState(Context c, boolean incognito, String url, Bitmap favicon) {
             mIncognito = incognito;
             mOriginalUrl = mUrl = url;
-            mTitle = null;
             if (URLUtil.isHttpsUrl(url)) {
                 mSecurityState = SecurityState.SECURITY_STATE_SECURE;
             } else {
@@ -925,6 +925,7 @@ class Tab implements PictureListener {
             // In case we stop when loading an HTTPS page from an HTTP page
             // but before a provisional load occurred
             mCurrentState.mSecurityState = SecurityState.SECURITY_STATE_NOT_SECURE;
+            mCurrentState.mSslCertificateError = null;
         }
         mCurrentState.mIncognito = view.isPrivateBrowsingEnabled();
     }
@@ -1905,8 +1906,13 @@ class Tab implements PictureListener {
         return mErrorConsole;
     }
 
+    /**
+     * Sets the security state, clears the SSL certificate error and informs
+     * the controller.
+     */
     private void setSecurityState(SecurityState securityState) {
         mCurrentState.mSecurityState = securityState;
+        mCurrentState.mSslCertificateError = null;
         mWebViewController.onUpdatedSecurityState(this);
     }
 
@@ -1915,6 +1921,15 @@ class Tab implements PictureListener {
      */
     SecurityState getSecurityState() {
         return mCurrentState.mSecurityState;
+    }
+
+    /**
+     * Gets the SSL certificate error, if any, for the page's main resource.
+     * This is only non-null when the security state is
+     * SECURITY_STATE_BAD_CERTIFICATE.
+     */
+    SslError getSslCertificateError() {
+        return mCurrentState.mSslCertificateError;
     }
 
     int getLoadProgress() {
@@ -2278,7 +2293,10 @@ class Tab implements PictureListener {
         if (error.getUrl().equals(mCurrentState.mUrl)) {
             // The security state should currently be SECURITY_STATE_SECURE.
             setSecurityState(SecurityState.SECURITY_STATE_BAD_CERTIFICATE);
+            mCurrentState.mSslCertificateError = error;
         } else if (getSecurityState() == SecurityState.SECURITY_STATE_SECURE) {
+            // The page's main resource is secure and this error is for a
+            // sub-resource.
             setSecurityState(SecurityState.SECURITY_STATE_MIXED);
         }
     }
