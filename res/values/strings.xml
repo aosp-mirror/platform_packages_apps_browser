@@ -171,8 +171,6 @@
     <string name="bookmark_url_not_valid">This URL isn\'t valid.</string>
         <!-- Error that appears in the Bookmark dialog when user selects OK with a URL of a type we cannot bookmark -->
     <string name="bookmark_cannot_save_url">This URL can\'t be bookmarked.</string>
-        <!-- Title of a confirmation dialog when the user deletes a bookmark-->
-    <string name="delete_bookmark">Delete</string>
     <!-- Menu item in the page that displays all bookmarks. It brings up a
             dialog that allows the user to bookmark the page that the browser is
             currently on, but is not visible because the bookmarks page is 
@@ -409,8 +407,6 @@
     <!-- Button text to delete all the AutoFill profile data [CHAR-LIMIT=20] -->
     <string name="autofill_profile_editor_delete_profile">Delete</string>
 
-    <!-- Title on a dialog shown to the user when they are prompted to set up the autofill feature [CHAR-LIMIT=32] -->
-    <string name="autofill_setup_dialog_title">Auto-fill</string>
     <!-- Text on a dialog shown to the user when they are prompted to set up the autofill feature [CHAR-LIMIT=NONE] -->
     <string name="autofill_setup_dialog_message">The browser can automatically complete web forms like this one. Would you like to set up your auto-fill text?</string>
     <!-- Toast message displayed when the user decides to not set up autofill at this time. We want to remind them that they can configure
@@ -548,8 +544,6 @@
     <string name="pref_extras_reset_default_summary">Restore default settings</string>
     <!-- Confirmation dialog message -->
     <string name="pref_extras_reset_default_dlg">Revert settings to default values?</string>
-    <!-- Confirmation dialog title -->
-    <string name="pref_extras_reset_default_dlg_title">Reset to default</string>
     <!-- Title for a group of settings -->
     <string name="pref_development_title">Debug</string>
     <!-- Do not tranlsate.  Development option -->
@@ -712,9 +706,6 @@
     <string name="search_settings_description">Bookmarks and web history</string>
 
     <!-- Pop-up window dialog -->
-    <!-- Title for a dialog informing the user that the site is attempting to
-            display a popup window -->
-    <string name="attention">Attention</string>
     <!-- Message for a dialog informing the user that the site is attempting to
             display a popup window -->
     <string name="popup_window_attempt">Allow this site to open a
@@ -739,31 +730,6 @@
       at a time.</string>
 
     <!-- Download History UI strings -->
-    <string name="download_title">Download history</string>
-    <!-- Download history screen string-->
-    <string name="download_unknown_filename">&lt;Unknown&gt;</string>
-    <!-- Context menu item on Download history screen -->
-    <string name="download_menu_open">Open</string>
-    <!-- Context menu item on Download history screen -->
-    <string name="download_menu_clear">Clear from list</string>
-    <!-- Context menu item in Download history screen -->
-    <string name="download_menu_delete">Delete</string>
-    <!-- Context menu item in Download history screen -->
-    <string name="download_menu_cancel">Cancel download</string>
-    <!-- Menu item -->
-    <string name="download_menu_cancel_all">Cancel all downloads</string>
-    <!-- Confirmation dialog title -->
-    <string name="download_cancel_dlg_title">Cancel downloads</string>
-    <!-- Confirmation dialog message -->
-    <string name="download_cancel_dlg_msg">Cancel and clear all <xliff:g id="download_count">%d</xliff:g> downloads from the download history?</string>
-    <!-- Confirmation dialog title -->
-    <string name="download_delete_file">Delete</string>
-    <!-- Dialog title -->
-    <string name="download_file_error_dlg_title">Out of space</string>
-    <!-- Dialog message -->
-    <string name="download_file_error_dlg_msg"><xliff:g id="filename">%s</xliff:g> couldn\'t be downloaded.\nFree up some space and try again.</string>
-    <!-- Title for a dialog informing the user that the download has failed -->
-    <string name="download_failed_generic_dlg_title">Download unsuccessful</string>
     <!-- Dialog title [CHAR LIMIT=25] -->
     <string name="download_no_sdcard_dlg_title" product="nosdcard">USB storage unavailable</string>
     <!-- Dialog title -->
@@ -789,51 +755,10 @@
 
     <!-- Toast for a download which cannot begin because the URL is not http or https -->
     <string name="cannot_download">Can only download \"http\" or \"https\" URLs.</string>
-    <!-- Title for a dialog informing the user that there is no application on
-            the phone that can open the file that was downloaded -->
-    <string name="download_no_application_title">Can\'t open file</string>
-    <!-- Label for a button to re-attempt downloading a file -->
-    <string name="retry">Retry</string>
-    <!-- Appears in Download history screen if there is no history -->
-    <string name="no_downloads">No download history.</string>
-    <!-- the following download_xxxx matches the download manager state, ie Downloads.Status -->
-    <string name="download_error">Couldn\'t download.</string>
-    <!-- Appears in Download history screen after an item has downloaded, included item size -->
-    <string name="download_success"><xliff:g id="file">%s</xliff:g> download complete.</string>
-    <!-- Appears in Download history screen while an item is being downloaded -->
-    <string name="download_running">Downloading\u2026</string>
     <!-- Message in the list of items which have received download requests
             telling their status.  This message states that the download has not
             yet begun -->
     <string name="download_pending">Starting download\u2026</string>
-    <!-- Message in the list of items which have received download requests
-            telling their status.  This message states that the download is
-            waiting for a network connection to continue -->
-    <string name="download_pending_network">Waiting for data connection\u2026</string>
-    <!-- Message in the list of items which have received download requests
-            telling their status.  This message states that the download has
-            paused to wait for a network connection -->
-    <string name="download_running_paused">Waiting for data connection\u2026</string>
-    <!-- Message in the list of items which have received download requests
-            telling their status.  This message states that the download has
-            been canceled -->
-    <string name="download_canceled">Download canceled.</string>
-    <!-- Message in the list of items which have received download requests
-            telling their status.  This message states that the download will
-            not happen because the content is not supported by the phone -->
-    <string name="download_not_acceptable">Can\'t download because the content isn\'t supported on this phone.</string>
-    <!-- Message in the list of items which have received download requests
-            telling their status.  This message states that the download did not
-            finish because there is not enough storage for the file -->
-    <string name="download_file_error">Can\'t finish download because there isn\'t enough space.</string>
-    <!-- Message in the list of items which have received download requests
-            telling their status.  This message states that the item cannot be
-            downloaded because it cannot determine the length of the item -->
-    <string name="download_length_required">Can\'t download because the size of the item can\'t be determined.</string>
-    <!-- Message in the list of items which have received download requests
-            telling their status.  This message states that the download was
-            interrupted and cannot be resumed -->
-    <string name="download_precondition_failed">Download interrupted and can\'t be resumed.</string>
 
     <!-- Do not translate.  Testing only -->
     <string name="dump_nav" translatable="false">Dump navigation cache</string>
@@ -896,7 +821,6 @@
     <string name="webstorage_clear_data_title">Clear stored data</string>
     
     <!-- Confirmation dialog when the user ask to clear all data for an origin -->
-    <string name="webstorage_clear_data_dialog_title">Clear stored data</string>
     <string name="webstorage_clear_data_dialog_message">Delete all data stored by this website?</string>
     <string name="webstorage_clear_data_dialog_ok_button">OK</string>
     <string name="webstorage_clear_data_dialog_cancel_button">Cancel</string>
@@ -919,13 +843,11 @@
     <string name="geolocation_settings_page_summary_allowed">This site can currently access your location</string>
     <string name="geolocation_settings_page_summary_not_allowed">This site can\'t currently access your location</string>
     <!-- Settings page dialog -->
-    <string name="geolocation_settings_page_dialog_title">Clear location access</string>
     <string name="geolocation_settings_page_dialog_message">Clear location access for this website?</string>
     <string name="geolocation_settings_page_dialog_ok_button">OK</string>
     <string name="geolocation_settings_page_dialog_cancel_button">Cancel</string>
     <!-- Label for the menu item in the website settings activity used to clear data stored by all websites -->
     <string name="website_settings_clear_all">Clear all</string>
-    <string name="website_settings_clear_all_dialog_title">Clear all</string>
     <string name="website_settings_clear_all_dialog_message">Delete all website data and location permissions?</string>
     <string name="website_settings_clear_all_dialog_ok_button">OK</string>
     <string name="website_settings_clear_all_dialog_cancel_button">Cancel</string>

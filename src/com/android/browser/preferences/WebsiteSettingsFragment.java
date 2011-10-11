@@ -581,7 +581,6 @@ public class WebsiteSettingsFragment extends ListFragment implements OnClickList
                 switch (mCurrentSite.getFeatureByIndex(position)) {
                     case Site.FEATURE_WEB_STORAGE:
                         new AlertDialog.Builder(getContext())
-                            .setTitle(R.string.webstorage_clear_data_dialog_title)
                             .setMessage(R.string.webstorage_clear_data_dialog_message)
                             .setPositiveButton(R.string.webstorage_clear_data_dialog_ok_button,
                                                new AlertDialog.OnClickListener() {
@@ -602,7 +601,6 @@ public class WebsiteSettingsFragment extends ListFragment implements OnClickList
                         break;
                     case Site.FEATURE_GEOLOCATION:
                         new AlertDialog.Builder(getContext())
-                            .setTitle(R.string.geolocation_settings_page_dialog_title)
                             .setMessage(R.string.geolocation_settings_page_dialog_message)
                             .setPositiveButton(R.string.geolocation_settings_page_dialog_ok_button,
                                                new AlertDialog.OnClickListener() {
@@ -686,7 +684,6 @@ public class WebsiteSettingsFragment extends ListFragment implements OnClickList
         case R.id.clear_all_button:
          // Show the prompt to clear all origins of their data and geolocation permissions.
             new AlertDialog.Builder(getActivity())
-                    .setTitle(R.string.website_settings_clear_all_dialog_title)
                     .setMessage(R.string.website_settings_clear_all_dialog_message)
                     .setPositiveButton(R.string.website_settings_clear_all_dialog_ok_button,
                             new AlertDialog.OnClickListener() {
