@@ -322,11 +322,17 @@ public class PhoneUi extends BaseUi {
         mActiveTab.capture();
         if (mAnimScreen == null) {
             mAnimScreen = new AnimScreen(mActivity);
+        } else {
+            mAnimScreen.mMain.setAlpha(1f);
+            mAnimScreen.mTitle.setAlpha(1f);
+            mAnimScreen.setScaleFactor(1f);
         }
         mAnimScreen.set(getTitleBar(), getWebView());
         mCustomViewContainer.addView(mAnimScreen.mMain, COVER_SCREEN_PARAMS);
         mCustomViewContainer.setVisibility(View.VISIBLE);
         mCustomViewContainer.bringToFront();
+        mAnimScreen.mMain.layout(0, 0, mContentView.getWidth(),
+                mContentView.getHeight());
         int fromLeft = 0;
         int fromTop = getTitleBar().getHeight();
         int fromRight = mContentView.getWidth();
