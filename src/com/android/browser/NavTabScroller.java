@@ -213,7 +213,7 @@ public class NavTabScroller extends ScrollerView {
         handleDataChanged(INVALID_POSITION);
     }
 
-    protected void handleDataChanged(int newscroll) {
+    void handleDataChanged(int newscroll) {
         int scroll = getScrollValue();
         if (mGapAnimator != null) {
             mGapAnimator.cancel();
