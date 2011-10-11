@@ -233,7 +233,7 @@ public class CrashRecoveryHandler {
         }
         updateLastRecovered(mRecoveryState != null
                 ? System.currentTimeMillis() : 0);
-        mController.doStart(mRecoveryState, intent);
+        mController.doStart(mRecoveryState, intent, true);
         mRecoveryState = null;
     }
 

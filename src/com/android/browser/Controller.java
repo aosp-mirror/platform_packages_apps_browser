@@ -262,13 +262,13 @@ public class Controller
     void start(final Bundle icicle, final Intent intent) {
         boolean noCrashRecovery = intent.getBooleanExtra(NO_CRASH_RECOVERY, false);
         if (icicle != null || noCrashRecovery) {
-            doStart(icicle, intent);
+            doStart(icicle, intent, false);
         } else {
             mCrashRecoveryHandler.startRecovery(intent);
         }
     }
 
-    void doStart(final Bundle icicle, final Intent intent) {
+    void doStart(final Bundle icicle, final Intent intent, final boolean fromCrash) {
         // Unless the last browser usage was within 24 hours, destroy any
         // remaining incognito tabs.
 
@@ -296,13 +296,14 @@ public class Controller
         GoogleAccountLogin.startLoginIfNeeded(mActivity,
                 new Runnable() {
                     @Override public void run() {
-                        onPreloginFinished(icicle, intent, currentTabId, restoreIncognitoTabs);
+                        onPreloginFinished(icicle, intent, currentTabId, restoreIncognitoTabs,
+                                fromCrash);
                     }
                 });
     }
 
     private void onPreloginFinished(Bundle icicle, Intent intent, long currentTabId,
-            boolean restoreIncognitoTabs) {
+            boolean restoreIncognitoTabs, boolean fromCrash) {
         if (currentTabId == -1) {
             BackgroundHandler.execute(new PruneThumbnails(mActivity, null));
             final Bundle extra = intent.getExtras();
@@ -346,7 +347,7 @@ public class Controller
             setActiveTab(mTabControl.getCurrentTab());
             // Handle the intent if needed. If icicle != null, we are restoring
             // and the intent will be stale - ignore it.
-            if (icicle == null) {
+            if (icicle == null || fromCrash) {
                 mIntentHandler.onNewIntent(intent);
             }
         }
