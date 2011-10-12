@@ -2394,7 +2394,11 @@ public class Controller
      */
     @Override
     public void closeTab(Tab tab) {
-        removeTab(tab);
+        if (tab == mTabControl.getCurrentTab()) {
+            closeCurrentTab();
+        } else {
+            removeTab(tab);
+        }
     }
 
     // Called when loading from context menu or LOAD_URL message
