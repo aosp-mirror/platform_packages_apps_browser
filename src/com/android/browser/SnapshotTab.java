@@ -189,17 +189,16 @@ public class SnapshotTab extends Tab {
                     if (web != null) {
                         byte[] data = result.getBlob(4);
                         ByteArrayInputStream bis = new ByteArrayInputStream(data);
-                        try {
-                            GZIPInputStream stream = new GZIPInputStream(bis);
-                            web.loadViewState(stream);
-                        } catch (Exception e) {
-                            Log.w(LOGTAG, "Failed to load view state", e);
-                        }
+                        GZIPInputStream stream = new GZIPInputStream(bis);
+                        web.loadViewState(stream);
                     }
                     mTab.mBackgroundColor = result.getInt(5);
                     mTab.mDateCreated = result.getLong(6);
                     mTab.mWebViewController.onPageFinished(mTab);
                 }
+            } catch (Exception e) {
+                Log.w(LOGTAG, "Failed to load view state, closing tab", e);
+                mTab.mWebViewController.closeTab(mTab);
             } finally {
                 if (result != null) {
                     result.close();
