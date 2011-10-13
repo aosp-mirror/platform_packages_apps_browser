@@ -522,6 +522,9 @@ public class PhoneUi extends BaseUi {
         }
 
         public void set(TitleBar tbar, WebView web) {
+            if (tbar == null || web == null) {
+                return;
+            }
             if (tbar.getWidth() > 0 && tbar.getEmbeddedHeight() > 0) {
                 if (mTitleBarBitmap == null
                         || mTitleBarBitmap.getWidth() != tbar.getWidth()
