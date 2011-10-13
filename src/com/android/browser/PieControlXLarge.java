@@ -30,6 +30,7 @@ import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.android.browser.UI.ComboViews;
 import com.android.browser.view.PieItem;
 import com.android.browser.view.PieListView;
 import com.android.browser.view.PieMenu.PieView.OnLayoutListener;
@@ -148,7 +149,7 @@ public class PieControlXLarge extends PieControlBase implements OnClickListener 
         } else if (mUrl.getView() == v) {
             mUi.editUrl(false);
         } else if (mBookmarks.getView() == v) {
-            mUiController.bookmarksOrHistoryPicker(false);
+            mUiController.bookmarksOrHistoryPicker(ComboViews.Bookmarks);
         } else if (mNewTab.getView() == v) {
             mUiController.openTabToHomePage();
             mUi.editUrl(false);

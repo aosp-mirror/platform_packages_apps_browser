@@ -194,34 +194,35 @@ public class PhoneUi extends BaseUi {
 
     @Override
     public void updateMenuState(Tab tab, Menu menu) {
-        MenuItem bm = menu.findItem(R.id.bookmarks_menu_id);
-        if (bm != null) {
-            boolean isDataUrl = false;
-            if (tab != null) {
-                String url = tab.getUrl();
-                isDataUrl = DataUri.isDataUri(url);
-            }
-            bm.setVisible(!showingNavScreen() && !isDataUrl);
-        }
-        MenuItem nt = menu.findItem(R.id.new_tab_menu_id);
-        if (nt != null) {
-            nt.setVisible(!showingNavScreen());
-        }
         MenuItem abm = menu.findItem(R.id.add_bookmark_menu_id);
         if (abm != null) {
             abm.setVisible((tab != null) && !tab.isSnapshot() && !showingNavScreen());
         }
+        MenuItem info = menu.findItem(R.id.page_info_menu_id);
+        if (info != null) {
+            info.setVisible(false);
+        }
+        MenuItem newtab = menu.findItem(R.id.new_tab_menu_id);
+        if (newtab != null && !mUseQuickControls) {
+            newtab.setVisible(false);
+        }
+        MenuItem incognito = menu.findItem(R.id.incognito_menu_id);
+        if (incognito != null) {
+            incognito.setVisible(showingNavScreen() || mUseQuickControls);
+        }
         if (showingNavScreen()) {
             menu.setGroupVisible(R.id.LIVE_MENU, false);
             menu.setGroupVisible(R.id.SNAPSHOT_MENU, false);
-            menu.findItem(R.id.page_info_menu_id).setVisible(false);
             menu.setGroupVisible(R.id.NAV_MENU, false);
+            menu.setGroupVisible(R.id.COMBO_MENU, true);
         }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (showingNavScreen()) {
+        if (showingNavScreen()
+                && (item.getItemId() != R.id.history_menu_id)
+                && (item.getItemId() != R.id.snapshots_menu_id)) {
             hideNavScreen(mUiController.getTabControl().getCurrentPosition(), false);
         }
         return false;
