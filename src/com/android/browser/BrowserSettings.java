@@ -95,6 +95,11 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     private static final int TEXT_ZOOM_START_VAL = 10;
     // The size of a single step in the text zoom range, in percent
     private static final int TEXT_ZOOM_STEP = 5;
+    // The initial value in the double tap zoom range
+    // This is what represents 100% in the SeekBarPreference range
+    private static final int DOUBLE_TAP_ZOOM_START_VAL = 5;
+    // The size of a single step in the double tap zoom range, in percent
+    private static final int DOUBLE_TAP_ZOOM_STEP = 5;
 
     private static BrowserSettings sInstance;
 
@@ -248,6 +253,7 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         settings.setForceUserScalable(forceEnableUserScalable());
         settings.setPluginState(getPluginState());
         settings.setTextZoom(getTextZoom());
+        settings.setDoubleTapZoom(getDoubleTapZoom());
         settings.setAutoFillEnabled(isAutofillEnabled());
         settings.setLayoutAlgorithm(getLayoutAlgorithm());
         settings.setJavaScriptCanOpenWindowsAutomatically(!blockPopupWindows());
@@ -546,6 +552,15 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         return (percent - 100) / TEXT_ZOOM_STEP + TEXT_ZOOM_START_VAL;
     }
 
+    public int getAdjustedDoubleTapZoom(int rawValue) {
+        rawValue = (rawValue - DOUBLE_TAP_ZOOM_START_VAL) * DOUBLE_TAP_ZOOM_STEP;
+        return (int) ((rawValue + 100) * mFontSizeMult);
+    }
+
+    static int getRawDoubleTapZoom(int percent) {
+        return (percent - 100) / DOUBLE_TAP_ZOOM_STEP + DOUBLE_TAP_ZOOM_START_VAL;
+    }
+
     public SharedPreferences getPreferences() {
         return mPrefs;
     }
@@ -577,6 +592,16 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
 
     public void setTextZoom(int percent) {
         mPrefs.edit().putInt(PREF_TEXT_ZOOM, getRawTextZoom(percent)).apply();
+    }
+
+    public int getDoubleTapZoom() {
+        requireInitialization();
+        int doubleTapZoom = mPrefs.getInt(PREF_DOUBLE_TAP_ZOOM, 5);
+        return getAdjustedDoubleTapZoom(doubleTapZoom);
+    }
+
+    public void setDoubleTapZoom(int percent) {
+        mPrefs.edit().putInt(PREF_DOUBLE_TAP_ZOOM, getRawDoubleTapZoom(percent)).apply();
     }
 
     // -----------------------------
