@@ -45,6 +45,9 @@ public class AccessibilityPreferencesFragment extends PreferenceFragment
         e = findPreference(PreferenceKeys.PREF_TEXT_ZOOM);
         e.setOnPreferenceChangeListener(this);
         updateTextZoomSummary(e, settings.getTextZoom());
+        e = findPreference(PreferenceKeys.PREF_DOUBLE_TAP_ZOOM);
+        e.setOnPreferenceChangeListener(this);
+        updateDoubleTapZoomSummary(e, settings.getDoubleTapZoom());
         e = findPreference(PreferenceKeys.PREF_INVERTED_CONTRAST);
         e.setOnPreferenceChangeListener(this);
         updateInvertedContrastSummary(e, (int) (settings.getInvertedContrast() * 100));
@@ -57,6 +60,10 @@ public class AccessibilityPreferencesFragment extends PreferenceFragment
 
     void updateTextZoomSummary(Preference pref, int textZoom) {
         pref.setSummary(mFormat.format(textZoom / 100.0));
+    }
+
+    void updateDoubleTapZoomSummary(Preference pref, int doubleTapZoom) {
+        pref.setSummary(mFormat.format(doubleTapZoom / 100.0));
     }
 
     void updateInvertedContrastSummary(Preference pref, int contrast) {
@@ -79,6 +86,11 @@ public class AccessibilityPreferencesFragment extends PreferenceFragment
             BrowserSettings settings = BrowserSettings.getInstance();
             updateTextZoomSummary(pref, settings
                     .getAdjustedTextZoom((Integer) objValue));
+        }
+        if (PreferenceKeys.PREF_DOUBLE_TAP_ZOOM.equals(pref.getKey())) {
+            BrowserSettings settings = BrowserSettings.getInstance();
+            updateDoubleTapZoomSummary(pref, settings
+                    .getAdjustedDoubleTapZoom((Integer) objValue));
         }
         if (PreferenceKeys.PREF_INVERTED_CONTRAST.equals(pref.getKey())) {
             updateInvertedContrastSummary(pref,
