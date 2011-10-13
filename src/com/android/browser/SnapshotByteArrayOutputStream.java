@@ -21,8 +21,9 @@ import java.io.OutputStream;
 
 public class SnapshotByteArrayOutputStream extends OutputStream {
 
-    // Maximum size, just below CursorWindow's 2mb row limit
-    private static final int MAX_SIZE = 2000000;
+    // Maximum size, this needs to be small enough such that an entire row
+    // can fit in CursorWindow's 2MB limit
+    private static final int MAX_SIZE = 1700000;
     private ByteArrayOutputStream mStream;
 
     public SnapshotByteArrayOutputStream() {
