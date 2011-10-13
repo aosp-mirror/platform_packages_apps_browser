@@ -31,6 +31,8 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import com.android.browser.UI.ComboViews;
+
 import java.util.List;
 
 public class NavigationBarTablet extends NavigationBarBase {
@@ -173,7 +175,7 @@ public class NavigationBarTablet extends NavigationBarBase {
                 getContext().startActivity(intent);
             }
         } else if (mAllButton == v) {
-            mUiController.bookmarksOrHistoryPicker(false);
+            mUiController.bookmarksOrHistoryPicker(ComboViews.Bookmarks);
         } else if (mSearchButton == v) {
             mBaseUi.editUrl(true);
         } else if (mStopButton == v) {

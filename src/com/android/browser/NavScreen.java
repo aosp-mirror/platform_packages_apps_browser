@@ -26,7 +26,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
-import android.webkit.WebView;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -40,6 +39,7 @@ import android.widget.TextView;
 import com.android.browser.NavTabScroller.OnLayoutListener;
 import com.android.browser.NavTabScroller.OnRemoveListener;
 import com.android.browser.TabControl.OnThumbnailUpdatedListener;
+import com.android.browser.UI.ComboViews;
 
 import java.util.HashMap;
 
@@ -89,7 +89,6 @@ public class NavScreen extends RelativeLayout
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
-        mUi.hideNavScreen(mUiController.getTabControl().getCurrentPosition(), false);
         return mUiController.onOptionsItemSelected(item);
     }
 
@@ -148,7 +147,7 @@ public class NavScreen extends RelativeLayout
     @Override
     public void onClick(View v) {
         if (mBookmarks == v) {
-            mUiController.bookmarksOrHistoryPicker(false);
+            mUiController.bookmarksOrHistoryPicker(ComboViews.Bookmarks);
         } else if (mNewTab == v) {
             openNewTab();
         } else if (mMore == v) {

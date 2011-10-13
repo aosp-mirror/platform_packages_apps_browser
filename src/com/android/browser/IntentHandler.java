@@ -32,6 +32,7 @@ import android.speech.RecognizerResultsIntent;
 import android.text.TextUtils;
 import android.util.Patterns;
 
+import com.android.browser.UI.ComboViews;
 import com.android.browser.search.SearchEngine;
 import com.android.common.Search;
 import com.android.common.speech.LoggingEvents;
@@ -85,7 +86,7 @@ public class IntentHandler {
             return;
         }
         if (BrowserActivity.ACTION_SHOW_BOOKMARKS.equals(action)) {
-            mController.bookmarksOrHistoryPicker(false);
+            mController.bookmarksOrHistoryPicker(ComboViews.Bookmarks);
             return;
         }
 

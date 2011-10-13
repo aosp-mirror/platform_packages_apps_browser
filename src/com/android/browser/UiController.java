@@ -22,6 +22,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.WebView;
 
+import com.android.browser.UI.ComboViews;
 import com.android.browser.UI.DropdownChangeListener;
 
 import java.util.List;
@@ -63,7 +64,7 @@ public interface UiController {
 
     Intent createBookmarkCurrentPageIntent(boolean canBeAnEdit);
 
-    void bookmarksOrHistoryPicker(boolean openHistory);
+    void bookmarksOrHistoryPicker(ComboViews startView);
 
     void startVoiceSearch();
 
@@ -102,5 +103,7 @@ public interface UiController {
     void setBlockEvents(boolean block);
 
     Activity getActivity();
+
+    void showPageInfo();
 
 }

@@ -357,7 +357,7 @@ public class Controller
             getCurrentWebView().setJsFlags(jsFlags);
         }
         if (BrowserActivity.ACTION_SHOW_BOOKMARKS.equals(intent.getAction())) {
-            bookmarksOrHistoryPicker(false);
+            bookmarksOrHistoryPicker(ComboViews.Bookmarks);
         }
     }
 
@@ -474,7 +474,7 @@ public class Controller
             public void handleMessage(Message msg) {
                 switch (msg.what) {
                     case OPEN_BOOKMARKS:
-                        bookmarksOrHistoryPicker(false);
+                        bookmarksOrHistoryPicker(ComboViews.Bookmarks);
                         break;
                     case FOCUS_NODE_HREF:
                     {
@@ -1204,7 +1204,7 @@ public class Controller
      *                         Otherwise, start with the bookmarks tab.
      */
     @Override
-    public void bookmarksOrHistoryPicker(boolean startWithHistory) {
+    public void bookmarksOrHistoryPicker(ComboViews startView) {
         if (mTabControl.getCurrentWebView() == null) {
             return;
         }
@@ -1216,8 +1216,7 @@ public class Controller
         // Disable opening in a new window if we have maxed out the windows
         extras.putBoolean(BrowserBookmarksPage.EXTRA_DISABLE_WINDOW,
                 !mTabControl.canCreateNewTab());
-        mUi.showComboView(startWithHistory
-                ? ComboViews.History : ComboViews.Bookmarks, extras);
+        mUi.showComboView(startView, extras);
     }
 
     // combo view callbacks
@@ -1520,6 +1519,7 @@ public class Controller
         uaSwitcher.setChecked(isDesktopUa);
         menu.setGroupVisible(R.id.LIVE_MENU, isLive);
         menu.setGroupVisible(R.id.SNAPSHOT_MENU, !isLive);
+        menu.setGroupVisible(R.id.COMBO_MENU, false);
 
         mUi.updateMenuState(tab, menu);
     }
@@ -1554,7 +1554,15 @@ public class Controller
                 break;
 
             case R.id.bookmarks_menu_id:
-                bookmarksOrHistoryPicker(false);
+                bookmarksOrHistoryPicker(ComboViews.Bookmarks);
+                break;
+
+            case R.id.history_menu_id:
+                bookmarksOrHistoryPicker(ComboViews.History);
+                break;
+
+            case R.id.snapshots_menu_id:
+                bookmarksOrHistoryPicker(ComboViews.Snapshots);
                 break;
 
             case R.id.add_bookmark_menu_id:
@@ -1634,16 +1642,12 @@ public class Controller
                 break;
 
             case R.id.page_info_menu_id:
-                mPageDialogsHandler.showPageInfo(mTabControl.getCurrentTab(), false, null);
+                showPageInfo();
                 break;
 
             case R.id.snapshot_go_live:
                 goLive();
                 return true;
-
-            case R.id.classic_history_menu_id:
-                bookmarksOrHistoryPicker(true);
-                break;
 
             case R.id.share_page_menu_id:
                 Tab currentTab = mTabControl.getCurrentTab();
@@ -1711,6 +1715,11 @@ public class Controller
     private void goLive() {
         Tab t = getCurrentTab();
         t.loadUrl(t.getUrl(), null);
+    }
+
+    @Override
+    public void showPageInfo() {
+        mPageDialogsHandler.showPageInfo(mTabControl.getCurrentTab(), false, null);
     }
 
     public boolean onContextItemSelected(MenuItem item) {
@@ -2685,7 +2694,7 @@ public class Controller
         switch(keyCode) {
         case KeyEvent.KEYCODE_BACK:
             if (mUi.isWebShowing()) {
-                bookmarksOrHistoryPicker(true);
+                bookmarksOrHistoryPicker(ComboViews.History);
                 return true;
             }
             break;
