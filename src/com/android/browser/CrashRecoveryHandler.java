@@ -200,12 +200,13 @@ public class CrashRecoveryHandler {
             parcel.unmarshall(data, 0, data.length);
             parcel.setDataPosition(0);
             state = parcel.readBundle();
+            if (state != null && !state.isEmpty()) {
+                return state;
+            }
         } catch (FileNotFoundException e) {
             // No state to recover
-            state = null;
         } catch (Throwable e) {
             Log.w(LOGTAG, "Failed to recover state!", e);
-            state = null;
         } finally {
             parcel.recycle();
             if (fin != null) {
@@ -213,9 +214,6 @@ public class CrashRecoveryHandler {
                     fin.close();
                 } catch (IOException e) { }
             }
-        }
-        if (state != null && !state.isEmpty()) {
-            return state;
         }
         return null;
     }
