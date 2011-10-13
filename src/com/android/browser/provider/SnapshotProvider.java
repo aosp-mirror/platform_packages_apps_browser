@@ -72,7 +72,7 @@ public class SnapshotProvider extends ContentProvider {
     final static class SnapshotDatabaseHelper extends SQLiteOpenHelper {
 
         static final String DATABASE_NAME = "snapshots.db";
-        static final int DATABASE_VERSION = 1;
+        static final int DATABASE_VERSION = 2;
 
         public SnapshotDatabaseHelper(Context context) {
             super(context, getFullDatabaseName(context), null, DATABASE_VERSION);
@@ -99,7 +99,10 @@ public class SnapshotProvider extends ContentProvider {
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            // Not needed yet
+            if (oldVersion < 2) {
+                db.execSQL("DROP TABLE " + TABLE_SNAPSHOTS);
+                onCreate(db);
+            }
         }
 
     }
