@@ -31,6 +31,8 @@ import android.widget.LinearLayout;
 import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.TextView;
 
+import com.android.browser.UI.ComboViews;
+
 import java.text.DateFormat;
 import java.util.Date;
 
@@ -164,7 +166,7 @@ public class SnapshotBar extends LinearLayout implements OnClickListener {
     @Override
     public void onClick(View v) {
         if (mBookmarks == v) {
-            mTitleBar.getUiController().bookmarksOrHistoryPicker(false);
+            mTitleBar.getUiController().bookmarksOrHistoryPicker(ComboViews.Bookmarks);
         } else if (mTabSwitcher == v) {
             ((PhoneUi) mTitleBar.getUi()).toggleNavScreen();
         } else if (mOverflowMenu == v) {

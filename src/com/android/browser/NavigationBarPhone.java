@@ -80,6 +80,7 @@ public class NavigationBarPhone extends NavigationBarBase implements
         mMore = findViewById(R.id.more);
         mMore.setOnClickListener(this);
         mComboIcon = findViewById(R.id.iconcombo);
+        mComboIcon.setOnClickListener(this);
         mTitleContainer = findViewById(R.id.title_bg);
         setFocusState(false);
         Resources res = getContext().getResources();
@@ -164,6 +165,8 @@ public class NavigationBarPhone extends NavigationBarBase implements
             showMenu(mMore);
         } else if (mClearButton == v) {
             mUrlInput.setText("");
+        } else if (mComboIcon == v) {
+            mUiController.showPageInfo();
         } else {
             super.onClick(v);
         }
