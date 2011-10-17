@@ -112,29 +112,6 @@ public class NavTabScroller extends ScrollerView {
         return (NavTabView) mContentView.getChildAt(pos);
     }
 
-    /**
-     * define a visual gap in the list of items
-     * the gap is rendered in front (left or above)
-     * the given position
-     * @param position
-     * @param gap
-     */
-    public void setGapPosition(int position, int gap) {
-        mGapPosition = position;
-        mGap = gap;
-    }
-
-    public void setGap(int gap) {
-        if (mGapPosition != INVALID_POSITION) {
-            mGap = gap;
-            postInvalidate();
-        }
-    }
-
-    public int getGap() {
-        return mGap;
-    }
-
     protected boolean isHorizontal() {
         return mHorizontal;
     }
@@ -225,8 +202,8 @@ public class NavTabScroller extends ScrollerView {
                     LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
             lp.gravity = (mHorizontal ? Gravity.CENTER_VERTICAL : Gravity.CENTER_HORIZONTAL);
             mContentView.addView(v, lp);
-            if ((mGapPosition > INVALID_POSITION) && (i >= mGapPosition)) {
-                adjustViewGap(v, mGap);
+            if (mGapPosition > INVALID_POSITION){
+                adjustViewGap(v, i);
             }
         }
         if (newscroll > INVALID_POSITION) {
@@ -237,22 +214,6 @@ public class NavTabScroller extends ScrollerView {
         } else {
             setScrollValue(scroll);
         }
-        if (mGapPosition > INVALID_POSITION) {
-            mGapAnimator = ObjectAnimator.ofInt(this, "gap", mGap, 0);
-            mGapAnimator.setDuration(250);
-            mGapAnimator.addListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator a) {
-                    mGap = 0;
-                    adjustGap();
-                    mGapPosition = INVALID_POSITION;
-                    mGapAnimator = null;
-                    mContentView.requestLayout();
-                }
-            });
-            mGapAnimator.start();
-        }
-
     }
 
     protected void finishScroller() {
@@ -272,24 +233,6 @@ public class NavTabScroller extends ScrollerView {
             mLayoutListener = null;
         }
     }
-
-    void adjustGap() {
-        for (int i = 0; i < mContentView.getChildCount(); i++) {
-            if (i >= mGapPosition) {
-                final View child = mContentView.getChildAt(i);
-                adjustViewGap(child, mGap);
-            }
-        }
-    }
-
-    private void adjustViewGap(View view, int gap) {
-        if (mHorizontal) {
-            view.setTranslationX(gap);
-        } else {
-            view.setTranslationY(gap);
-        }
-    }
-
 
     void clearTabs() {
         mContentView.removeAllViews();
@@ -335,38 +278,136 @@ public class NavTabScroller extends ScrollerView {
         }
         int distance = target - (mHorizontal ? v.getTop() : v.getLeft());
         long duration = (long) (Math.abs(distance) * 1000 / Math.abs(velocity));
-        mAnimator = new AnimatorSet();
-        ObjectAnimator trans;
+        int scroll = 0;
+        int translate = 0;
+        int gap = mHorizontal ? v.getWidth() : v.getHeight();
+        int centerView = getViewCenter(v);
+        int centerScreen = getScreenCenter();
+        int newpos = INVALID_POSITION;
+        if (centerView < centerScreen - gap / 2) {
+            // top view
+            scroll = - (centerScreen - centerView - gap);
+            translate = (position > 0) ? gap : 0;
+            newpos = position;
+        } else if (centerView > centerScreen + gap / 2) {
+            // bottom view
+            scroll = - (centerScreen + gap - centerView);
+            if (position < mAdapter.getCount() - 1) {
+                translate = -gap;
+            }
+        } else {
+            // center view
+            scroll = - (centerScreen - centerView);
+            if (position < mAdapter.getCount() - 1) {
+                translate = -gap;
+            } else {
+                scroll -= gap;
+            }
+        }
+        mGapPosition = position;
+        final int pos = newpos;
+        ObjectAnimator trans = ObjectAnimator.ofFloat(v,
+                (mHorizontal ? TRANSLATION_Y : TRANSLATION_X), start, target);
         ObjectAnimator alpha = ObjectAnimator.ofFloat(v, ALPHA, getAlpha(v,start),
                 getAlpha(v,target));
-        if (mHorizontal) {
-            trans = ObjectAnimator.ofFloat(v, TRANSLATION_Y, start, target);
-        } else {
-            trans = ObjectAnimator.ofFloat(v, TRANSLATION_X, start, target);
+        AnimatorSet set1 = new AnimatorSet();
+        set1.playTogether(trans, alpha);
+        set1.setDuration(duration);
+        mAnimator = new AnimatorSet();
+        ObjectAnimator trans2 = null;
+        ObjectAnimator scroll1 = null;
+        if (scroll != 0) {
+            if (mHorizontal) {
+                scroll1 = ObjectAnimator.ofInt(this, "scrollX", getScrollX(), getScrollX() + scroll);
+            } else {
+                scroll1 = ObjectAnimator.ofInt(this, "scrollY", getScrollY(), getScrollY() + scroll);
+            }
         }
-        mAnimator.playTogether(trans, alpha);
-        mAnimator.setDuration(duration);
+        if (translate != 0) {
+            trans2 = ObjectAnimator.ofInt(this, "gap", 0, translate);
+        }
+        final int duration2 = 200;
+        if (scroll1 != null) {
+            if (trans2 != null) {
+                AnimatorSet set2 = new AnimatorSet();
+                set2.playTogether(scroll1, trans2);
+                set2.setDuration(duration2);
+                mAnimator.playSequentially(set1, set2);
+            } else {
+                scroll1.setDuration(duration2);
+                mAnimator.playSequentially(set1, scroll1);
+            }
+        } else {
+            if (trans2 != null) {
+                trans2.setDuration(duration2);
+                mAnimator.playSequentially(set1, trans2);
+            }
+        }
         mAnimator.addListener(new AnimatorListenerAdapter() {
             public void onAnimationEnd(Animator a) {
                 if (mRemoveListener !=  null) {
-                    boolean needsGap = position < (mAdapter.getCount() - 1);
-                    if (needsGap) {
-                        setGapPosition(position, mHorizontal ? v.getWidth() : v.getHeight());
-                    }
                     mRemoveListener.onRemovePosition(position);
                     mAnimator = null;
+                    mGapPosition = INVALID_POSITION;
+                    mGap = 0;
+                    handleDataChanged(pos);
                 }
             }
         });
         mAnimator.start();
     }
 
+    public void setGap(int gap) {
+        if (mGapPosition != INVALID_POSITION) {
+            mGap = gap;
+            postInvalidate();
+        }
+    }
+
+    public int getGap() {
+        return mGap;
+    }
+
+    void adjustGap() {
+        for (int i = 0; i < mContentView.getChildCount(); i++) {
+            final View child = mContentView.getChildAt(i);
+            adjustViewGap(child, i);
+        }
+    }
+
+    private void adjustViewGap(View view, int pos) {
+        if ((mGap < 0 && pos > mGapPosition)
+                || (mGap > 0 && pos < mGapPosition)) {
+            if (mHorizontal) {
+                view.setTranslationX(mGap);
+            } else {
+                view.setTranslationY(mGap);
+            }
+        }
+    }
+
+    private int getViewCenter(View v) {
+        if (mHorizontal) {
+            return v.getLeft() + v.getWidth() / 2;
+        } else {
+            return v.getTop() + v.getHeight() / 2;
+        }
+    }
+
+    private int getScreenCenter() {
+        if (mHorizontal) {
+            return getScrollX() + getWidth() / 2;
+        } else {
+            return getScrollY() + getHeight() / 2;
+        }
+    }
+
     @Override
     public void draw(Canvas canvas) {
-        super.draw(canvas);
         if (mGapPosition > INVALID_POSITION) {
             adjustGap();
         }
+        super.draw(canvas);
     }
 
     @Override
@@ -507,7 +548,7 @@ public class NavTabScroller extends ScrollerView {
         @Override
         protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-            if (mScroller.getGap() > 0) {
+            if (mScroller.getGap() != 0) {
                 View v = getChildAt(0);
                 if (v != null) {
                     if (mScroller.isHorizontal()) {
