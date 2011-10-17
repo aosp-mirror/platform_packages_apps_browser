@@ -379,6 +379,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
     // This is so provider tests can intercept widget updating
     ContentObserver mWidgetObserver = null;
     boolean mUpdateWidgets = false;
+    boolean mSyncToNetwork = true;
 
     final class DatabaseHelper extends SQLiteOpenHelper {
         static final String DATABASE_NAME = "browser2.db";
@@ -804,6 +805,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             }
             mUpdateWidgets = false;
         }
+        mSyncToNetwork = true;
     }
 
     @Override
@@ -1319,7 +1321,9 @@ public class BrowserProvider2 extends SQLiteContentProvider {
         }
         if (deleted > 0) {
             postNotifyUri(uri);
-            postNotifyUri(LEGACY_AUTHORITY_URI);
+            if (shouldNotifyLegacy(uri)) {
+                postNotifyUri(LEGACY_AUTHORITY_URI);
+            }
         }
         return deleted;
     }
@@ -1466,7 +1470,9 @@ public class BrowserProvider2 extends SQLiteContentProvider {
 
         if (id >= 0) {
             postNotifyUri(uri);
-            postNotifyUri(LEGACY_AUTHORITY_URI);
+            if (shouldNotifyLegacy(uri)) {
+                postNotifyUri(LEGACY_AUTHORITY_URI);
+            }
             return ContentUris.withAppendedId(uri, id);
         } else {
             return null;
@@ -1678,15 +1684,26 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                     db.insertOrThrow(TABLE_IMAGES, Images.FAVICON, values);
                     count = 1;
                 }
+                // Only favicon is exposed in the public API. If we updated
+                // the thumbnail or touch icon don't bother notifying the
+                // legacy authority since it can't read it anyway.
+                boolean updatedLegacy = false;
                 if (getUrlCount(db, TABLE_BOOKMARKS, url) > 0) {
                     postNotifyUri(Bookmarks.CONTENT_URI);
+                    updatedLegacy = values.containsKey(Images.FAVICON);
                     refreshWidgets();
                 }
                 if (getUrlCount(db, TABLE_HISTORY, url) > 0) {
                     postNotifyUri(History.CONTENT_URI);
+                    updatedLegacy = values.containsKey(Images.FAVICON);
                 }
-                postNotifyUri(LEGACY_AUTHORITY_URI);
-                pruneImages();
+                if (pruneImages() > 0 || updatedLegacy) {
+                    postNotifyUri(LEGACY_AUTHORITY_URI);
+                }
+                // Even though we may be calling notifyUri on Bookmarks, don't
+                // sync to network as images aren't synced. Otherwise this
+                // unnecessarily triggers a bookmark sync.
+                mSyncToNetwork = false;
                 return count;
             }
 
@@ -1714,7 +1731,9 @@ public class BrowserProvider2 extends SQLiteContentProvider {
         pruneImages();
         if (modified > 0) {
             postNotifyUri(uri);
-            postNotifyUri(LEGACY_AUTHORITY_URI);
+            if (shouldNotifyLegacy(uri)) {
+                postNotifyUri(LEGACY_AUTHORITY_URI);
+            }
         }
         return modified;
     }
@@ -2028,9 +2047,31 @@ public class BrowserProvider2 extends SQLiteContentProvider {
         return imageValues;
     }
 
-    void pruneImages() {
+    int pruneImages() {
         final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
-        db.delete(TABLE_IMAGES, IMAGE_PRUNE, null);
+        return db.delete(TABLE_IMAGES, IMAGE_PRUNE, null);
+    }
+
+    boolean shouldNotifyLegacy(Uri uri) {
+        if (uri.getPathSegments().contains("history")
+                || uri.getPathSegments().contains("bookmarks")
+                || uri.getPathSegments().contains("searches")) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    protected boolean syncToNetwork(Uri uri) {
+        if (BrowserContract.AUTHORITY.equals(uri.getAuthority())
+                && uri.getPathSegments().contains("bookmarks")) {
+            return mSyncToNetwork;
+        }
+        if (LEGACY_AUTHORITY.equals(uri.getAuthority())) {
+            // Allow for 3rd party sync adapters
+            return true;
+        }
+        return false;
     }
 
     static class SuggestionsCursor extends AbstractCursor {
