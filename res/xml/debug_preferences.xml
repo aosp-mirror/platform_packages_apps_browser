@@ -25,7 +25,8 @@
     <CheckBoxPreference
         android:key="enable_hardware_accel_skia"
         android:defaultValue="false"
-        android:title="@string/pref_development_hardware_accel_skia" />
+        android:title="@string/pref_development_hardware_accel_skia"
+        android:enabled="false" />
 
     <ListPreference
         android:key="user_agent"
