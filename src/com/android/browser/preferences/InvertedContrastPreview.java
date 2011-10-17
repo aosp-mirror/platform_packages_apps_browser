@@ -82,7 +82,7 @@ public class InvertedContrastPreview extends WebViewPreview {
                 bs.useInvertedRendering() ? "true" : "false");
         ws.setProperty(WebViewProperties.gfxInvertedScreenContrast,
                 Float.toString(bs.getInvertedContrast()));
-        mWebView.loadData(mHtml, "text/html", "utf-8");
+        mWebView.loadData(mHtml, "text/html", null);
     }
 
 }
