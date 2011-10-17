@@ -16,6 +16,16 @@
  */
 package com.android.browser.homepages;
 
+import android.content.Context;
+import android.content.UriMatcher;
+import android.content.res.Resources;
+import android.database.Cursor;
+import android.net.Uri;
+import android.provider.Browser;
+import android.text.TextUtils;
+import android.util.Base64;
+import android.util.Log;
+
 import com.android.browser.R;
 
 import java.io.IOException;
@@ -23,15 +33,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import android.content.Context;
-import android.content.UriMatcher;
-import android.content.res.Resources;
-import android.database.Cursor;
-import android.net.Uri;
-import android.provider.Browser;
-import android.util.Base64;
-import android.util.Log;
 
 public class RequestHandler extends Thread {
 
@@ -79,6 +80,10 @@ public class RequestHandler extends Thread {
         }
     }
 
+    byte[] htmlEncode(String s) {
+        return TextUtils.htmlEncode(s).getBytes();
+    }
+
     void writeTemplatedIndex() throws IOException {
         Template t = Template.getCachedTemplate(mContext, R.raw.most_visited);
         Cursor cursor = mContext.getContentResolver().query(Browser.BOOKMARKS_URI,
@@ -90,9 +95,9 @@ public class RequestHandler extends Thread {
             public void writeValue(OutputStream stream, String key) throws IOException {
                 Cursor cursor = getCursor();
                 if (key.equals("url")) {
-                    stream.write(cursor.getString(0).getBytes());
+                    stream.write(htmlEncode(cursor.getString(0)));
                 } else if (key.equals("title")) {
-                    stream.write(cursor.getString(1).getBytes());
+                    stream.write(htmlEncode(cursor.getString(1)));
                 } else if (key.equals("thumbnail")) {
                     stream.write("data:image/png;base64,".getBytes());
                     byte[] thumb = cursor.getBlob(2);
