@@ -86,7 +86,6 @@
     <string name="bookmark_needs_url" msgid="7809876865972755158">"Meg kell adni a könyvjelző helyét."</string>
     <string name="bookmark_url_not_valid" msgid="4917440933384496211">"Ez az URL nem érvényes."</string>
     <string name="bookmark_cannot_save_url" msgid="7836064647943671126">"Ezt az URL-t nem lehet a könyvjelzők közé tenni."</string>
-    <string name="delete_bookmark" msgid="2422989994934201992">"Törlés"</string>
     <string name="bookmark_page" msgid="6845189305130307274">"Az utoljára megtekintett oldal felvétele a könyvjelzők közé"</string>
     <string name="bookmark_thumbnail_view" msgid="3164068314718522138">"Indexképek"</string>
     <string name="bookmark_list_view" msgid="7848510619500937839">"Lista"</string>
@@ -182,7 +181,6 @@
     <string name="autofill_profile_successful_save" msgid="5691459703493331983">"Automatikus kitöltés szövege elmentve."</string>
     <string name="autofill_profile_successful_delete" msgid="1790262652460723127">"Automatikus kitöltés szövege törölve."</string>
     <string name="autofill_profile_editor_delete_profile" msgid="3098369314558164153">"Törlés"</string>
-    <string name="autofill_setup_dialog_title" msgid="3564907335366130582">"Automatikus kitöltés"</string>
     <string name="autofill_setup_dialog_message" msgid="1096164985825394616">"A böngésző automatikusan kitölti az ehhez hasonló webes űrlapokat. Szeretné létrehozni az automatikus kitöltés szövegét?"</string>
     <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"Bármikor beállíthatja az automatikus kitöltése szövegét a Böngésző &gt; Beállítások &gt; Általános képernyőn."</string>
     <string name="disable_autofill" msgid="8305901059849400354">"Automatikus kitöltés letiltása"</string>
@@ -228,9 +226,8 @@
   </string-array>
     <string name="pref_min_font_size" msgid="8811125835817449131">"Minimális betűméret"</string>
     <string name="pref_min_font_size_value" msgid="2924708480509060209">"<xliff:g id="FONT_SIZE">%d</xliff:g>pt"</string>
-    <!-- outdated translation 8387229123479610157 -->     <string name="pref_text_zoom" msgid="5171056101805125497">"Szöveg nagyítása"</string>
-    <!-- no translation found for pref_zoom_on_double_tap (902786475250741795) -->
-    <skip />
+    <string name="pref_text_zoom" msgid="5171056101805125497">"Szöveg nagyítása"</string>
+    <string name="pref_zoom_on_double_tap" msgid="902786475250741795">"Dupla érintéssel közelítés"</string>
     <string name="pref_force_userscalable" msgid="5641500562399892621">"Nagyítás engedélyezése"</string>
     <string name="pref_force_userscalable_summary" msgid="3613242300617172230">"A webhely kezeli a nagyítást"</string>
     <string name="pref_inverted_category" msgid="1280639705117152207">"Inverz képernyő-megjelenítés"</string>
@@ -253,7 +250,6 @@
     <string name="pref_extras_reset_default" msgid="8904000515846202110">"Visszaállítás alaphelyzetbe"</string>
     <string name="pref_extras_reset_default_summary" msgid="4247870778270414501">"Alapértelmezett beállítások visszaállítása"</string>
     <string name="pref_extras_reset_default_dlg" msgid="7922814420184322450">"Beállítások visszaállítása az alapértelmezett értékekre?"</string>
-    <string name="pref_extras_reset_default_dlg_title" msgid="2250334970728938936">"Visszaállítás alaphelyzetbe"</string>
     <string name="pref_development_title" msgid="3263854204533056480">"Hibakeresés"</string>
     <string name="pref_default_text_encoding" msgid="5742965543955558478">"Szöveg kódolása"</string>
   <string-array name="pref_default_text_encoding_choices">
@@ -268,7 +264,7 @@
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Szöveg kódolása"</string>
     <string name="pref_accessibility_title" msgid="5127836981587423215">"Kisegítő lehetőségek"</string>
-    <!-- outdated translation 6288925476811083551 -->     <string name="pref_font_size_category" msgid="6683754355084218254">"Betűméret"</string>
+    <string name="pref_font_size_category" msgid="6683754355084218254">"Szöveg mérete"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"Labs"</string>
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Gyorsbeállítások"</string>
     <string name="pref_lab_quick_controls_summary" msgid="3149664132600968775">"Csúsztassa hüvelykujját a bal vagy jobb oldalra a gyorsbeállítások megnyitásához, és az alkalmazás- és URL-sávok elrejtéséhez"</string>
@@ -280,7 +276,7 @@
     <string name="pref_data_preload_title" msgid="4479320472980292873">"Keresési találatok előtöltése"</string>
   <string-array name="pref_data_preload_choices">
     <item msgid="5180466923190095508">"Soha"</item>
-    <item msgid="3514802063791531888">"Csak Wi-Fi"</item>
+    <item msgid="1791664748778640002">"Csak Wi-Fin"</item>
     <item msgid="3944061253437827617">"Mindig"</item>
   </string-array>
     <string name="pref_data_preload_summary" msgid="3809168910751382727">"A biztonságos keresési találatokat előre betöltheti a böngésző a háttérben"</string>
@@ -300,7 +296,6 @@
     <string name="search_hint" msgid="4647356319916631820">"Keressen vagy írjon be egy URL-t"</string>
     <string name="search_button_text" msgid="5235226933877634410">"Ugrás"</string>
     <string name="search_settings_description" msgid="1422401062529014107">"Könyvjelzők és internetes előzmények"</string>
-    <string name="attention" msgid="3473639060042811244">"Figyelem"</string>
     <string name="popup_window_attempt" msgid="31565781154067629">"Engedélyezi, hogy a webhely felugró ablakot nyisson meg?"</string>
     <string name="allow" msgid="1157313689171991335">"Engedélyezés"</string>
     <string name="block" msgid="9172175889884707800">"Letiltás"</string>
@@ -308,19 +303,6 @@
     <string name="too_many_windows_dialog_message" msgid="3644234634638290304">"Nem nyithat meg új fület, amíg be nem zár egy másikat."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Már van egy nyitott előugró ablak"</string>
     <string name="too_many_subwindows_dialog_message" msgid="2164725447981195556">"Egyszerre csak egy felugró ablak lehet nyitva."</string>
-    <string name="download_title" msgid="2122874021047565594">"Letöltési előzmények"</string>
-    <string name="download_unknown_filename" msgid="4013465542563652175">"&lt;Ismeretlen&gt;"</string>
-    <string name="download_menu_open" msgid="4888327480367757513">"Megnyitás"</string>
-    <string name="download_menu_clear" msgid="6264454531553418124">"Törlés a listáról"</string>
-    <string name="download_menu_delete" msgid="8815502136393894148">"Törlés"</string>
-    <string name="download_menu_cancel" msgid="2545333007601851574">"Letöltés megszakítása"</string>
-    <string name="download_menu_cancel_all" msgid="2136550823151999166">"Minden letöltés megszakítása"</string>
-    <string name="download_cancel_dlg_title" msgid="8909108500262799748">"Letöltések megszakítása"</string>
-    <string name="download_cancel_dlg_msg" msgid="2546124668173027248">"Megszakítja és törli mind a <xliff:g id="DOWNLOAD_COUNT">%d</xliff:g> letöltést a letöltési előzményekből?"</string>
-    <string name="download_delete_file" msgid="8941963362686617405">"Törlés"</string>
-    <string name="download_file_error_dlg_title" msgid="2693630283595384874">"Nincs elég hely"</string>
-    <string name="download_file_error_dlg_msg" msgid="5904538987107408124">"A(z) <xliff:g id="FILENAME">%s</xliff:g> nem tölthető le."\n"Szabadítson fel helyet, és próbálkozzon újra."</string>
-    <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"A letöltés nem sikerült"</string>
     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"Az USB-tár nem érhető el"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"Hiányzó SD-kártya"</string>
     <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"USB-tár kell <xliff:g id="FILENAME">%s</xliff:g> fájl letöltéséhez."</string>
@@ -330,25 +312,11 @@
     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="8412543086906716875">"Az USB-tár dolgozik. A letöltések engedélyezéséhez válassza az \"USB-tár kikapcsolása\" lehetőséget."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"Az SD-kártya dolgozik. A letöltések engedélyezéséhez válassza az \"USB-tár kikapcsolása\" lehetőséget."</string>
     <string name="cannot_download" msgid="8150552478556798780">"Csak \"http\" vagy \"https\" URL-ek letöltése lehetséges."</string>
-    <string name="download_no_application_title" msgid="4809479884191068159">"A fájlt nem lehet megnyitni"</string>
-    <string name="retry" msgid="1835923075542266721">"Újra"</string>
-    <string name="no_downloads" msgid="8031648287973400156">"Nincsenek letöltési előzmények."</string>
-    <string name="download_error" msgid="21835634921715697">"Nem lehet letölteni."</string>
-    <string name="download_success" msgid="1651605015937749469">"A(z) <xliff:g id="FILE">%s</xliff:g> letöltése befejeződött."</string>
-    <string name="download_running" msgid="2622942231322015059">"Letöltés..."</string>
     <string name="download_pending" msgid="2599683668575349559">"Letöltés megkezdése..."</string>
-    <string name="download_pending_network" msgid="6548714525679461053">"Várakozás adatkapcsolatra..."</string>
-    <string name="download_running_paused" msgid="6418029352085656495">"Várakozás adatkapcsolatra..."</string>
-    <string name="download_canceled" msgid="6057083743144492515">"A letöltés megszakítva."</string>
-    <string name="download_not_acceptable" msgid="5415339992984899924">"Nem lehet letölteni, mert a telefon nem támogatja ezt a tartalmat."</string>
-    <string name="download_file_error" msgid="7702971488793861815">"Nem lehet a letöltést befejezni, mert nincs elég hely."</string>
-    <string name="download_length_required" msgid="1240338682223054142">"Nem lehet letölteni, mivel az elem mérete nem állapítható meg."</string>
-    <string name="download_precondition_failed" msgid="6264432738865797635">"A letöltés megszakítva, nem lehet folytatni."</string>
     <string name="search_the_web" msgid="6046130189241962337">"Keresés az interneten"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"A böngésző tárterülete megtelt"</string>
     <string name="webstorage_outofspace_notification_text" msgid="47273584426988640">"Érintse meg terület felszabadításához."</string>
     <string name="webstorage_clear_data_title" msgid="689484577124333977">"Tárolt adatok törlése"</string>
-    <string name="webstorage_clear_data_dialog_title" msgid="345457466368974706">"Tárolt adatok törlése"</string>
     <string name="webstorage_clear_data_dialog_message" msgid="6200681632891775881">"A weboldalon tárolt összes adat törlése?"</string>
     <string name="webstorage_clear_data_dialog_ok_button" msgid="6682570951259237542">"OK"</string>
     <string name="webstorage_clear_data_dialog_cancel_button" msgid="2028867751958942762">"Mégse"</string>
@@ -363,12 +331,10 @@
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Helyhozzáférés letiltása"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"A webhely jelenleg hozzáférhet a tartózkodási helyéhez"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="7941769772784366199">"A webhely jelenleg nem férhet hozzá a tartózkodási helyéhez"</string>
-    <string name="geolocation_settings_page_dialog_title" msgid="1549842043381347668">"Helyhozzáférés letiltása"</string>
     <string name="geolocation_settings_page_dialog_message" msgid="8772923416296868537">"Helyhozzáférés törlése ennél a webhelynél?"</string>
     <string name="geolocation_settings_page_dialog_ok_button" msgid="2113465477131017852">"OK"</string>
     <string name="geolocation_settings_page_dialog_cancel_button" msgid="7941036504673409747">"Mégse"</string>
     <string name="website_settings_clear_all" msgid="8739804325997655980">"Az összes törlése"</string>
-    <string name="website_settings_clear_all_dialog_title" msgid="5746255931965842184">"Az összes törlése"</string>
     <string name="website_settings_clear_all_dialog_message" msgid="1551164275687475061">"Törli az összes webhelyadatot és helymeghatározási engedélyt?"</string>
     <string name="website_settings_clear_all_dialog_ok_button" msgid="7858504776529106243">"OK"</string>
     <string name="website_settings_clear_all_dialog_cancel_button" msgid="1896757051856611674">"Mégse"</string>

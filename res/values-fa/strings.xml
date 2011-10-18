@@ -86,7 +86,6 @@
     <string name="bookmark_needs_url" msgid="7809876865972755158">"نشانک باید دارای یک مکان باشد."</string>
     <string name="bookmark_url_not_valid" msgid="4917440933384496211">"این URL معتبر نیست."</string>
     <string name="bookmark_cannot_save_url" msgid="7836064647943671126">"این URL قابل نشانک‌گذاری نمی‌باشد."</string>
-    <string name="delete_bookmark" msgid="2422989994934201992">"حذف"</string>
     <string name="bookmark_page" msgid="6845189305130307274">"نشانک گذاری آخرین صفحه مشاهده شده"</string>
     <string name="bookmark_thumbnail_view" msgid="3164068314718522138">"تصاویر کوچک"</string>
     <string name="bookmark_list_view" msgid="7848510619500937839">"لیست"</string>
@@ -182,7 +181,6 @@
     <string name="autofill_profile_successful_save" msgid="5691459703493331983">"نوشتاری که بطور خودکار تکمیل شده ذخیره شد."</string>
     <string name="autofill_profile_successful_delete" msgid="1790262652460723127">"تکمیل خودکار نوشتار حذف شد."</string>
     <string name="autofill_profile_editor_delete_profile" msgid="3098369314558164153">"حذف"</string>
-    <string name="autofill_setup_dialog_title" msgid="3564907335366130582">"تکمیل خودکار"</string>
     <string name="autofill_setup_dialog_message" msgid="1096164985825394616">"مرورگر می‌تواند به طور خودکار فرم‌های وب مثل این را کامل کند. آیا می‌خواهید تکمیل خودکار نوشتار را تنظیم کنید؟"</string>
     <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"شما همیشه می‌توانید تکمیل خودکار نوشتار خود را از مرورگر &amp;gt؛ تنظیمات &amp;gt؛ صفحه عمومی تنظیم کنید."</string>
     <string name="disable_autofill" msgid="8305901059849400354">"غیرفعال کردن تکمیل خودکار"</string>
@@ -228,9 +226,8 @@
   </string-array>
     <string name="pref_min_font_size" msgid="8811125835817449131">"حداقل اندازه قلم"</string>
     <string name="pref_min_font_size_value" msgid="2924708480509060209">"<xliff:g id="FONT_SIZE">%d</xliff:g>PT"</string>
-    <!-- outdated translation 8387229123479610157 -->     <string name="pref_text_zoom" msgid="5171056101805125497">"بزرگنمایی متن"</string>
-    <!-- no translation found for pref_zoom_on_double_tap (902786475250741795) -->
-    <skip />
+    <string name="pref_text_zoom" msgid="5171056101805125497">"مقیاس‌بندی نوشتار"</string>
+    <string name="pref_zoom_on_double_tap" msgid="902786475250741795">"بزرگنمایی با دوضربه"</string>
     <string name="pref_force_userscalable" msgid="5641500562399892621">"فعال کردن اجباری بزرگنمایی"</string>
     <string name="pref_force_userscalable_summary" msgid="3613242300617172230">"لغو درخواست یک وب سایت برای کنترل رفتار بزرگنمایی"</string>
     <string name="pref_inverted_category" msgid="1280639705117152207">"اجرای صفحه نمایش معکوس"</string>
@@ -253,7 +250,6 @@
     <string name="pref_extras_reset_default" msgid="8904000515846202110">"بازنشانی به پیش فرض"</string>
     <string name="pref_extras_reset_default_summary" msgid="4247870778270414501">"بازیابی تنظیمات پیش فرض"</string>
     <string name="pref_extras_reset_default_dlg" msgid="7922814420184322450">"بازگرداندن تنظیمات به مقادیر پیش فرض؟"</string>
-    <string name="pref_extras_reset_default_dlg_title" msgid="2250334970728938936">"بازنشانی به پیش فرض"</string>
     <string name="pref_development_title" msgid="3263854204533056480">"رفع خطا"</string>
     <string name="pref_default_text_encoding" msgid="5742965543955558478">"رمزگذاری متن"</string>
   <string-array name="pref_default_text_encoding_choices">
@@ -268,7 +264,7 @@
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"رمزگذاری متن"</string>
     <string name="pref_accessibility_title" msgid="5127836981587423215">"قابلیت دسترسی"</string>
-    <!-- outdated translation 6288925476811083551 -->     <string name="pref_font_size_category" msgid="6683754355084218254">"اندازه قلم"</string>
+    <string name="pref_font_size_category" msgid="6683754355084218254">"اندازه نوشتار"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"Labs"</string>
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"کنترل های سریع"</string>
     <string name="pref_lab_quick_controls_summary" msgid="3149664132600968775">"برای باز کردن کنترل‌های سریع و پنهان کردن برنامه‌ها و نوارهای URL انگشت شست را از لبه چپ یا راست بلغزانید"</string>
@@ -280,7 +276,7 @@
     <string name="pref_data_preload_title" msgid="4479320472980292873">"پیش بارگیری نتیجه جستجو"</string>
   <string-array name="pref_data_preload_choices">
     <item msgid="5180466923190095508">"هیچوقت"</item>
-    <item msgid="3514802063791531888">"فقط در WiFi"</item>
+    <item msgid="1791664748778640002">"فقط در Wi-Fi"</item>
     <item msgid="3944061253437827617">"همیشه"</item>
   </string-array>
     <string name="pref_data_preload_summary" msgid="3809168910751382727">"به مرورگر اجازه داده شود نتایج جستجوی با اطمینان بالا را از قبل در پس زمینه بارگیری کند"</string>
@@ -300,7 +296,6 @@
     <string name="search_hint" msgid="4647356319916631820">"جستجو یا تایپ URL"</string>
     <string name="search_button_text" msgid="5235226933877634410">"برو"</string>
     <string name="search_settings_description" msgid="1422401062529014107">"نشاک ها و سابقه وب"</string>
-    <string name="attention" msgid="3473639060042811244">"توجه"</string>
     <string name="popup_window_attempt" msgid="31565781154067629">"به این سایت اجازه می‌دهید یک پنجره بازشو باز کند؟"</string>
     <string name="allow" msgid="1157313689171991335">"اجازه"</string>
     <string name="block" msgid="9172175889884707800">"مسدود کردن"</string>
@@ -308,19 +303,6 @@
     <string name="too_many_windows_dialog_message" msgid="3644234634638290304">"تا یک برگه را نبندید نمی‌توانید برگه جدیدی باز کنید."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"پنجره بازشو از قبل باز است"</string>
     <string name="too_many_subwindows_dialog_message" msgid="2164725447981195556">"هر بار فقط یک پنجره بازشو می‌تواند باز شود."</string>
-    <string name="download_title" msgid="2122874021047565594">"سابقه دانلود"</string>
-    <string name="download_unknown_filename" msgid="4013465542563652175">"&lt;ناشناس&gt;"</string>
-    <string name="download_menu_open" msgid="4888327480367757513">"باز کردن"</string>
-    <string name="download_menu_clear" msgid="6264454531553418124">"پاک کردن از لیست"</string>
-    <string name="download_menu_delete" msgid="8815502136393894148">"حذف"</string>
-    <string name="download_menu_cancel" msgid="2545333007601851574">"لغو دانلود"</string>
-    <string name="download_menu_cancel_all" msgid="2136550823151999166">"لغو همه موارد دانلود"</string>
-    <string name="download_cancel_dlg_title" msgid="8909108500262799748">"لغو دانلودها"</string>
-    <string name="download_cancel_dlg_msg" msgid="2546124668173027248">"همه <xliff:g id="DOWNLOAD_COUNT">%d</xliff:g> دانلود از سابقه دانلود شما لغو و پاک شود؟"</string>
-    <string name="download_delete_file" msgid="8941963362686617405">"حذف"</string>
-    <string name="download_file_error_dlg_title" msgid="2693630283595384874">"بدون فضای کافی"</string>
-    <string name="download_file_error_dlg_msg" msgid="5904538987107408124">"<xliff:g id="FILENAME">%s</xliff:g> قابل دانلود نیست."\n"مقداری از فضا را آزاد کرده و دوباره امتحان کنید."</string>
-    <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"دانلود ناموفق"</string>
     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"حافظه USB در دسترس نیست"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"کارت SD موجود نیست"</string>
     <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"برای دانلود <xliff:g id="FILENAME">%s</xliff:g> به حافظه USB احتیاج دارید."</string>
@@ -330,25 +312,11 @@
     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="8412543086906716875">"حافظه USB مشغول است. برای انجام دانلودها، خاموش کردن حافظه USB را در اعلان لمس کنید."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"کارت SD مشغول است. برای انجام دانلودها، خاموش کردن حافظه USB را در اعلان لمس کنید."</string>
     <string name="cannot_download" msgid="8150552478556798780">"فقط می تواند URL های \"http\" یا \"https\" را دانلود کند."</string>
-    <string name="download_no_application_title" msgid="4809479884191068159">"بازکردن فایل ممکن نیست"</string>
-    <string name="retry" msgid="1835923075542266721">"امتحان مجدد"</string>
-    <string name="no_downloads" msgid="8031648287973400156">"سابقه دانلود موجود نیست."</string>
-    <string name="download_error" msgid="21835634921715697">"دانلود ممکن نیست."</string>
-    <string name="download_success" msgid="1651605015937749469">"دانلود <xliff:g id="FILE">%s</xliff:g> انجام شد."</string>
-    <string name="download_running" msgid="2622942231322015059">"در حال دانلود..."</string>
     <string name="download_pending" msgid="2599683668575349559">"شروع دانلود..."</string>
-    <string name="download_pending_network" msgid="6548714525679461053">"انتظار برای اتصال داده..."</string>
-    <string name="download_running_paused" msgid="6418029352085656495">"انتظار برای اتصال داده..."</string>
-    <string name="download_canceled" msgid="6057083743144492515">"دانلود لغو شد."</string>
-    <string name="download_not_acceptable" msgid="5415339992984899924">"دانلود انجام نمی‌شود زیرا محتوا در این تلفن پشتیبانی نمی‌شود."</string>
-    <string name="download_file_error" msgid="7702971488793861815">"نمی‌توان دانلود را تمام کرد زیرا فضای کافی وجود ندارد."</string>
-    <string name="download_length_required" msgid="1240338682223054142">"دانلود انجام نمی‌شود زیرا تعیین اندازه مورد امکان‌پذیر نیست."</string>
-    <string name="download_precondition_failed" msgid="6264432738865797635">"دانلود قطع شد و از سر گیری آن امکان‌پذیر نیست."</string>
     <string name="search_the_web" msgid="6046130189241962337">"جستجوی وب"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"حافظه مرورگر پر است"</string>
     <string name="webstorage_outofspace_notification_text" msgid="47273584426988640">"برای آزاد کردن فضا لمس کنید."</string>
     <string name="webstorage_clear_data_title" msgid="689484577124333977">"پاک کردن داده های ذخیره شده"</string>
-    <string name="webstorage_clear_data_dialog_title" msgid="345457466368974706">"پاک کردن داده های ذخیره شده"</string>
     <string name="webstorage_clear_data_dialog_message" msgid="6200681632891775881">"تمام داده‌های ذخیره شده توسط این سایت حذف شود؟"</string>
     <string name="webstorage_clear_data_dialog_ok_button" msgid="6682570951259237542">"تأیید"</string>
     <string name="webstorage_clear_data_dialog_cancel_button" msgid="2028867751958942762">"لغو"</string>
@@ -363,12 +331,10 @@
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"پاک کردن دسترسی به موقعیت مکانی"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"این سایت در حال حاضر می تواند به موقعیت مکانی شما دسترسی پیدا کند"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="7941769772784366199">"این سایت در حال حاضر نمی‌تواند به موقعیت مکانی شما دسترسی پیدا کند"</string>
-    <string name="geolocation_settings_page_dialog_title" msgid="1549842043381347668">"پاک کردن دسترسی به موقعیت مکانی"</string>
     <string name="geolocation_settings_page_dialog_message" msgid="8772923416296868537">"دسترسی موقعیت مکانی برای این وب سایت پاک شود؟"</string>
     <string name="geolocation_settings_page_dialog_ok_button" msgid="2113465477131017852">"تأیید"</string>
     <string name="geolocation_settings_page_dialog_cancel_button" msgid="7941036504673409747">"لغو"</string>
     <string name="website_settings_clear_all" msgid="8739804325997655980">"پاک کردن همه"</string>
-    <string name="website_settings_clear_all_dialog_title" msgid="5746255931965842184">"پاک کردن همه"</string>
     <string name="website_settings_clear_all_dialog_message" msgid="1551164275687475061">"تمام داده‌های وب سایت و مجوزهای مکان حذف شوند؟"</string>
     <string name="website_settings_clear_all_dialog_ok_button" msgid="7858504776529106243">"تأیید"</string>
     <string name="website_settings_clear_all_dialog_cancel_button" msgid="1896757051856611674">"لغو"</string>

@@ -86,7 +86,6 @@
     <string name="bookmark_needs_url" msgid="7809876865972755158">"Žymė turi turėti vietą."</string>
     <string name="bookmark_url_not_valid" msgid="4917440933384496211">"Šis URL netinkamas."</string>
     <string name="bookmark_cannot_save_url" msgid="7836064647943671126">"Negalima žymėti URL."</string>
-    <string name="delete_bookmark" msgid="2422989994934201992">"Ištrinti"</string>
     <string name="bookmark_page" msgid="6845189305130307274">"Žymėti paskutinį peržiūrėtą puslapį"</string>
     <string name="bookmark_thumbnail_view" msgid="3164068314718522138">"Miniatiūros"</string>
     <string name="bookmark_list_view" msgid="7848510619500937839">"Sąrašas"</string>
@@ -182,7 +181,6 @@
     <string name="autofill_profile_successful_save" msgid="5691459703493331983">"Automatinio pildymo tekstas išsaugotas."</string>
     <string name="autofill_profile_successful_delete" msgid="1790262652460723127">"Automatinis teksto pildymas ištrintas."</string>
     <string name="autofill_profile_editor_delete_profile" msgid="3098369314558164153">"Ištrinti"</string>
-    <string name="autofill_setup_dialog_title" msgid="3564907335366130582">"Automatinis pildymas"</string>
     <string name="autofill_setup_dialog_message" msgid="1096164985825394616">"Naršyklė gali automatiškai užpildyti tokias žiniatinklio formas kaip ši. Ar norėtumėte nustatyti automatinį teksto pildymą?"</string>
     <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"Automatinį teksto pildymą galite bet kada nustatyti ekrane „Naršyklė“ &gt; „Nustatymai“ &gt; „Bendra“."</string>
     <string name="disable_autofill" msgid="8305901059849400354">"Neleisti automatinio pildymo"</string>
@@ -228,9 +226,8 @@
   </string-array>
     <string name="pref_min_font_size" msgid="8811125835817449131">"Mažiausias šrifto dydis"</string>
     <string name="pref_min_font_size_value" msgid="2924708480509060209">"<xliff:g id="FONT_SIZE">%d</xliff:g> tašk."</string>
-    <!-- outdated translation 8387229123479610157 -->     <string name="pref_text_zoom" msgid="5171056101805125497">"Teksto mastelio keitimas"</string>
-    <!-- no translation found for pref_zoom_on_double_tap (902786475250741795) -->
-    <skip />
+    <string name="pref_text_zoom" msgid="5171056101805125497">"Teksto mastelio keitimas"</string>
+    <string name="pref_zoom_on_double_tap" msgid="902786475250741795">"Keisk. mastelį dukart palietę"</string>
     <string name="pref_force_userscalable" msgid="5641500562399892621">"Priverstinai įgal. mast. keit."</string>
     <string name="pref_force_userscalable_summary" msgid="3613242300617172230">"Nepais. svet. užkl. vald. mast. keit."</string>
     <string name="pref_inverted_category" msgid="1280639705117152207">"Atvirkštinis ekrano atvaizdavimas"</string>
@@ -253,7 +250,6 @@
     <string name="pref_extras_reset_default" msgid="8904000515846202110">"Nustatyti iš naujo į numatytuosius nustatymus"</string>
     <string name="pref_extras_reset_default_summary" msgid="4247870778270414501">"Atkurti numatytuosius nustatymus"</string>
     <string name="pref_extras_reset_default_dlg" msgid="7922814420184322450">"Atstatyti nustatymus į numatytąsias vertes?"</string>
-    <string name="pref_extras_reset_default_dlg_title" msgid="2250334970728938936">"Nustatyti iš naujo į numatytuosius nustatymus"</string>
     <string name="pref_development_title" msgid="3263854204533056480">"Derinti"</string>
     <string name="pref_default_text_encoding" msgid="5742965543955558478">"Teksto koduotė"</string>
   <string-array name="pref_default_text_encoding_choices">
@@ -268,7 +264,7 @@
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Teksto koduotė"</string>
     <string name="pref_accessibility_title" msgid="5127836981587423215">"Pasiekiamumas"</string>
-    <!-- outdated translation 6288925476811083551 -->     <string name="pref_font_size_category" msgid="6683754355084218254">"Šrifto dydis"</string>
+    <string name="pref_font_size_category" msgid="6683754355084218254">"Teksto dydis"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"Laboratorijos"</string>
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Spartieji valdikliai"</string>
     <string name="pref_lab_quick_controls_summary" msgid="3149664132600968775">"Nykšč. slysk. kair. ar deš. kraš., atidar. vald., paslėpt. progr. bei URL juost."</string>
@@ -280,7 +276,7 @@
     <string name="pref_data_preload_title" msgid="4479320472980292873">"Iš anksto įkeliamas paieškos rezultatas"</string>
   <string-array name="pref_data_preload_choices">
     <item msgid="5180466923190095508">"Niekada"</item>
-    <item msgid="3514802063791531888">"Tik su „Wi-Fi“"</item>
+    <item msgid="1791664748778640002">"Tik naudoj. „Wi-Fi“"</item>
     <item msgid="3944061253437827617">"Visada"</item>
   </string-array>
     <string name="pref_data_preload_summary" msgid="3809168910751382727">"Leisti naršyklei fone iš anksto įkelti itin patikimus paieškos rezultatus"</string>
@@ -300,7 +296,6 @@
     <string name="search_hint" msgid="4647356319916631820">"Ieškokite ar įveskite URL"</string>
     <string name="search_button_text" msgid="5235226933877634410">"Pradėti"</string>
     <string name="search_settings_description" msgid="1422401062529014107">"Žymės ir žiniatinklio istorija"</string>
-    <string name="attention" msgid="3473639060042811244">"Dėmesio"</string>
     <string name="popup_window_attempt" msgid="31565781154067629">"Leisti šiai svetainei atidaryti iššokantįjį langą?"</string>
     <string name="allow" msgid="1157313689171991335">"Leisti"</string>
     <string name="block" msgid="9172175889884707800">"Blokuoti"</string>
@@ -308,19 +303,6 @@
     <string name="too_many_windows_dialog_message" msgid="3644234634638290304">"Negalima atidaryti naujo skirtuko, kol neuždarysite bent vieno."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Iššokantysis langas jau atidarytas"</string>
     <string name="too_many_subwindows_dialog_message" msgid="2164725447981195556">"Vienu metu gali būti atidarytas tik vienas iššokantysis langas."</string>
-    <string name="download_title" msgid="2122874021047565594">"Atsisiuntimo istorija"</string>
-    <string name="download_unknown_filename" msgid="4013465542563652175">"&lt;Nežinomas&gt;"</string>
-    <string name="download_menu_open" msgid="4888327480367757513">"Atidaryti"</string>
-    <string name="download_menu_clear" msgid="6264454531553418124">"Išvalyti iš sąrašo"</string>
-    <string name="download_menu_delete" msgid="8815502136393894148">"Ištrinti"</string>
-    <string name="download_menu_cancel" msgid="2545333007601851574">"Atšaukti atsisiuntimą"</string>
-    <string name="download_menu_cancel_all" msgid="2136550823151999166">"Atšaukti visus atsisiuntimus"</string>
-    <string name="download_cancel_dlg_title" msgid="8909108500262799748">"Atšaukti atsisiuntimus"</string>
-    <string name="download_cancel_dlg_msg" msgid="2546124668173027248">"Atšaukti visus <xliff:g id="DOWNLOAD_COUNT">%d</xliff:g> atsisiuntimus (-ų) ir išvalyti juos iš atsisiuntimų istorijos?"</string>
-    <string name="download_delete_file" msgid="8941963362686617405">"Ištrinti"</string>
-    <string name="download_file_error_dlg_title" msgid="2693630283595384874">"Nėra vietos"</string>
-    <string name="download_file_error_dlg_msg" msgid="5904538987107408124">"Nepavyko atsisiųsti <xliff:g id="FILENAME">%s</xliff:g>."\n"Atlaisvinkite vietos ir bandykite dar kartą."</string>
-    <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"Atsisiuntimas nesėkmingas"</string>
     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"USB atmintinė nepasiekiama"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"Nėra SD kortelės"</string>
     <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"Į USB atmintinę reikia atsisiųsti <xliff:g id="FILENAME">%s</xliff:g>."</string>
@@ -330,25 +312,11 @@
     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="8412543086906716875">"USB atmintinė užimta. Jei norite leisti atsisiuntimus, pranešime palieskite „Išjungti USB atmintinę“."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"SD kortelė užimta. Jei norite leisti atsisiuntimus, pranešime palieskite „Išjungti USB atmintinę“."</string>
     <string name="cannot_download" msgid="8150552478556798780">"Galima atsisiųsti tik „http“ ar „https“ prasidedančius URL."</string>
-    <string name="download_no_application_title" msgid="4809479884191068159">"Nepavyksta atidaryti failo"</string>
-    <string name="retry" msgid="1835923075542266721">"Bandyti dar kartą"</string>
-    <string name="no_downloads" msgid="8031648287973400156">"Nėra atsisiuntimų istorijos."</string>
-    <string name="download_error" msgid="21835634921715697">"Nepavyko atsisiųsti."</string>
-    <string name="download_success" msgid="1651605015937749469">"„<xliff:g id="FILE">%s</xliff:g>“ atsisiuntimas baigtas."</string>
-    <string name="download_running" msgid="2622942231322015059">"Atsisiunčiama..."</string>
     <string name="download_pending" msgid="2599683668575349559">"Pradedamas atsisiuntimas..."</string>
-    <string name="download_pending_network" msgid="6548714525679461053">"Laukiama duomenų ryšio..."</string>
-    <string name="download_running_paused" msgid="6418029352085656495">"Laukiama duomenų ryšio..."</string>
-    <string name="download_canceled" msgid="6057083743144492515">"Atsisiuntimas atšauktas."</string>
-    <string name="download_not_acceptable" msgid="5415339992984899924">"Negalima atsisiųsti, nes turinys šiame telefone nepalaikomas."</string>
-    <string name="download_file_error" msgid="7702971488793861815">"Nepavyko užbaigti atsisiuntimo, nes nepakanka vietos."</string>
-    <string name="download_length_required" msgid="1240338682223054142">"Nepavyksta atsisiųsti, nes negalima nustatyti elemento dydžio."</string>
-    <string name="download_precondition_failed" msgid="6264432738865797635">"Atsisiuntimas pertrauktas ir jo atnaujinti negalima."</string>
     <string name="search_the_web" msgid="6046130189241962337">"Ieškoti žiniatinklyje"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Naršyklės saugykla pilna"</string>
     <string name="webstorage_outofspace_notification_text" msgid="47273584426988640">"Palieskite, jei norite atlaisvinti vietos."</string>
     <string name="webstorage_clear_data_title" msgid="689484577124333977">"Išvalyti išsaugotus duomenis"</string>
-    <string name="webstorage_clear_data_dialog_title" msgid="345457466368974706">"Išvalyti išsaugotus duomenis"</string>
     <string name="webstorage_clear_data_dialog_message" msgid="6200681632891775881">"Ištrinti visus šioje svetainėje saugomus duomenis?"</string>
     <string name="webstorage_clear_data_dialog_ok_button" msgid="6682570951259237542">"Gerai"</string>
     <string name="webstorage_clear_data_dialog_cancel_button" msgid="2028867751958942762">"Atšaukti"</string>
@@ -363,12 +331,10 @@
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Išvalyti prieigą prie vietos"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Šiuo metu ši svetainė gali pasiekti jūsų vietą"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="7941769772784366199">"Ši svetainė dabar negali pasiekti jūsų vietos"</string>
-    <string name="geolocation_settings_page_dialog_title" msgid="1549842043381347668">"Išvalyti prieigą prie vietos"</string>
     <string name="geolocation_settings_page_dialog_message" msgid="8772923416296868537">"Išvalyti šios svetainės vietos prieigą?"</string>
     <string name="geolocation_settings_page_dialog_ok_button" msgid="2113465477131017852">"Gerai"</string>
     <string name="geolocation_settings_page_dialog_cancel_button" msgid="7941036504673409747">"Atšaukti"</string>
     <string name="website_settings_clear_all" msgid="8739804325997655980">"Išvalyti viską"</string>
-    <string name="website_settings_clear_all_dialog_title" msgid="5746255931965842184">"Išvalyti viską"</string>
     <string name="website_settings_clear_all_dialog_message" msgid="1551164275687475061">"Ištrinti visus svetainės duomenis ir vietos leidimus?"</string>
     <string name="website_settings_clear_all_dialog_ok_button" msgid="7858504776529106243">"Gerai"</string>
     <string name="website_settings_clear_all_dialog_cancel_button" msgid="1896757051856611674">"Atšaukti"</string>

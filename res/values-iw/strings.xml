@@ -86,7 +86,6 @@
     <string name="bookmark_needs_url" msgid="7809876865972755158">"לסימניה חייב להיות מיקום."</string>
     <string name="bookmark_url_not_valid" msgid="4917440933384496211">"כתובת אתר זו אינה חוקית."</string>
     <string name="bookmark_cannot_save_url" msgid="7836064647943671126">"לא ניתן להוסיף כתובת אתר זו לסימניות."</string>
-    <string name="delete_bookmark" msgid="2422989994934201992">"מחק"</string>
     <string name="bookmark_page" msgid="6845189305130307274">"הוסף את הדף האחרון שהוצג לסימניות"</string>
     <string name="bookmark_thumbnail_view" msgid="3164068314718522138">"תמונות ממוזערות"</string>
     <string name="bookmark_list_view" msgid="7848510619500937839">"רשימה"</string>
@@ -182,7 +181,6 @@
     <string name="autofill_profile_successful_save" msgid="5691459703493331983">"מילוי אוטומטי של טקסט נשמר."</string>
     <string name="autofill_profile_successful_delete" msgid="1790262652460723127">"מילוי אוטומטי של טקסט נמחק."</string>
     <string name="autofill_profile_editor_delete_profile" msgid="3098369314558164153">"מחק"</string>
-    <string name="autofill_setup_dialog_title" msgid="3564907335366130582">"מילוי אוטומטי"</string>
     <string name="autofill_setup_dialog_message" msgid="1096164985825394616">"הדפדפן יכול למלא באופן אוטומטי טופסי אינטרנט כמו זה. האם תרצה להגדיר מילוי אוטומטי של טקסט?"</string>
     <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"תוכל תמיד להגדיר את המילוי האוטומטי של הטקסט דרך המסך \'דפדפן\' &gt; \'הגדרות\' &gt; \'כללי\'."</string>
     <string name="disable_autofill" msgid="8305901059849400354">"השבת את \'מילוי אוטומטי\'"</string>
@@ -228,9 +226,8 @@
   </string-array>
     <string name="pref_min_font_size" msgid="8811125835817449131">"גודל גופן מינימלי"</string>
     <string name="pref_min_font_size_value" msgid="2924708480509060209">"<xliff:g id="FONT_SIZE">%d</xliff:g>pt"</string>
-    <!-- outdated translation 8387229123479610157 -->     <string name="pref_text_zoom" msgid="5171056101805125497">"מרחק מהטקסט"</string>
-    <!-- no translation found for pref_zoom_on_double_tap (902786475250741795) -->
-    <skip />
+    <string name="pref_text_zoom" msgid="5171056101805125497">"שינוי גודל טקסט"</string>
+    <string name="pref_zoom_on_double_tap" msgid="902786475250741795">"הגדל/הקטן בהקשה כפולה"</string>
     <string name="pref_force_userscalable" msgid="5641500562399892621">"אלץ הפעלת מרחק מתצוגה"</string>
     <string name="pref_force_userscalable_summary" msgid="3613242300617172230">"עקוף בקשה של אתר כדי לשלוט באופן הפעולה של מרחק מתצוגה"</string>
     <string name="pref_inverted_category" msgid="1280639705117152207">"עיבוד מסך הפוך"</string>
@@ -253,7 +250,6 @@
     <string name="pref_extras_reset_default" msgid="8904000515846202110">"איפוס לברירת מחדל"</string>
     <string name="pref_extras_reset_default_summary" msgid="4247870778270414501">"שחזר את הגדרות ברירת המחדל"</string>
     <string name="pref_extras_reset_default_dlg" msgid="7922814420184322450">"להחזיר את ההגדרות לערכי ברירת המחדל?"</string>
-    <string name="pref_extras_reset_default_dlg_title" msgid="2250334970728938936">"איפוס לברירת מחדל"</string>
     <string name="pref_development_title" msgid="3263854204533056480">"ניקוי באגים"</string>
     <string name="pref_default_text_encoding" msgid="5742965543955558478">"קידוד טקסט"</string>
   <string-array name="pref_default_text_encoding_choices">
@@ -268,7 +264,7 @@
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"קידוד טקסט"</string>
     <string name="pref_accessibility_title" msgid="5127836981587423215">"נגישות"</string>
-    <!-- outdated translation 6288925476811083551 -->     <string name="pref_font_size_category" msgid="6683754355084218254">"גודל גופן"</string>
+    <string name="pref_font_size_category" msgid="6683754355084218254">"גודל טקסט"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"Google Labs"</string>
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"פקדים מהירים"</string>
     <string name="pref_lab_quick_controls_summary" msgid="3149664132600968775">"החלק אצבע מהקצה הימני או השמאלי כדי לפתוח במהירות פקדים ולהסתיר סרגלי יישום וכתובת אתר"</string>
@@ -280,7 +276,7 @@
     <string name="pref_data_preload_title" msgid="4479320472980292873">"טעינה מוקדמת של תוצאות חיפוש"</string>
   <string-array name="pref_data_preload_choices">
     <item msgid="5180466923190095508">"לעולם לא"</item>
-    <item msgid="3514802063791531888">"רק ב-WiFi"</item>
+    <item msgid="1791664748778640002">"רק ב-Wi-Fi"</item>
     <item msgid="3944061253437827617">"תמיד"</item>
   </string-array>
     <string name="pref_data_preload_summary" msgid="3809168910751382727">"אפשר לדפדפן לטעון מראש תוצאות חיפוש בעלות אמינות גבוהה ברקע"</string>
@@ -300,27 +296,13 @@
     <string name="search_hint" msgid="4647356319916631820">"חפש או הקלד כתובת אתר"</string>
     <string name="search_button_text" msgid="5235226933877634410">"עבור אל"</string>
     <string name="search_settings_description" msgid="1422401062529014107">"סימניות והיסטוריית אתרים"</string>
-    <string name="attention" msgid="3473639060042811244">"לידיעתך"</string>
     <string name="popup_window_attempt" msgid="31565781154067629">"לאפשר לאתר זה לפתוח חלון קופץ?"</string>
     <string name="allow" msgid="1157313689171991335">"מותר"</string>
     <string name="block" msgid="9172175889884707800">"חסום"</string>
     <string name="too_many_windows_dialog_title" msgid="5709782301477380438">"הגעת למגבלת הכרטיסיות"</string>
-    <string name="too_many_windows_dialog_message" msgid="3644234634638290304">"לא ניתן לפתוח כרטיסיה חדשה עד לסגירת כרטיסיה אחת."</string>
+    <string name="too_many_windows_dialog_message" msgid="3644234634638290304">"לא ניתן לפתוח כרטיסיה חדשה עד לסגירת אחת הכרטיסיות."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"חלון קופץ כבר פתוח"</string>
     <string name="too_many_subwindows_dialog_message" msgid="2164725447981195556">"רק חלון קופץ אחד יכול להיות פתוח בכל פעם."</string>
-    <string name="download_title" msgid="2122874021047565594">"היסטוריית הורדות"</string>
-    <string name="download_unknown_filename" msgid="4013465542563652175">"&lt;לא ידוע&gt;"</string>
-    <string name="download_menu_open" msgid="4888327480367757513">"פתח"</string>
-    <string name="download_menu_clear" msgid="6264454531553418124">"נקה מהרשימה"</string>
-    <string name="download_menu_delete" msgid="8815502136393894148">"מחק"</string>
-    <string name="download_menu_cancel" msgid="2545333007601851574">"בטל הורדה"</string>
-    <string name="download_menu_cancel_all" msgid="2136550823151999166">"בטל את כל ההורדות"</string>
-    <string name="download_cancel_dlg_title" msgid="8909108500262799748">"בטל הורדות"</string>
-    <string name="download_cancel_dlg_msg" msgid="2546124668173027248">"לבטל ולנקות את כל <xliff:g id="DOWNLOAD_COUNT">%d</xliff:g> ההורדות מהיסטוריית ההורדות?"</string>
-    <string name="download_delete_file" msgid="8941963362686617405">"מחיקה"</string>
-    <string name="download_file_error_dlg_title" msgid="2693630283595384874">"אין מספיק שטח"</string>
-    <string name="download_file_error_dlg_msg" msgid="5904538987107408124">"לא הייתה אפשרות להוריד את <xliff:g id="FILENAME">%s</xliff:g>."\n"פנה מקום ונסה שוב."</string>
-    <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"ההורדה נכשלה"</string>
     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"אמצעי אחסון מסוג USB אינו זמין"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"אין כרטיס SD"</string>
     <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"דרוש אמצעי אחסון מסוג USB להורדה של <xliff:g id="FILENAME">%s</xliff:g>."</string>
@@ -330,25 +312,11 @@
     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="8412543086906716875">"אחסון ה-USB אינו פנוי. כדי לאפשר הורדות, גע ב\"כבה אמצעי אחסון מסוג USB\" בהתראה."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"כרטיס ה-SD אינו פנוי. כדי לאפשר הורדות, גע ב\"כבה אמצעי אחסון מסוג USB\" בהתראה."</string>
     <string name="cannot_download" msgid="8150552478556798780">"ניתן להוריד רק כתובות אתר המתחילות ב-\"http\" או \"https\"."</string>
-    <string name="download_no_application_title" msgid="4809479884191068159">"אין אפשרות לפתוח את הקובץ"</string>
-    <string name="retry" msgid="1835923075542266721">"נסה שוב"</string>
-    <string name="no_downloads" msgid="8031648287973400156">"אין היסטוריית הורדות."</string>
-    <string name="download_error" msgid="21835634921715697">"לא הייתה אפשרות להוריד."</string>
-    <string name="download_success" msgid="1651605015937749469">"הורדת <xliff:g id="FILE">%s</xliff:g> הושלמה."</string>
-    <string name="download_running" msgid="2622942231322015059">"מוריד..."</string>
     <string name="download_pending" msgid="2599683668575349559">"מתחיל בהורדה..."</string>
-    <string name="download_pending_network" msgid="6548714525679461053">"ממתין לחיבור נתונים..."</string>
-    <string name="download_running_paused" msgid="6418029352085656495">"ממתין לחיבור נתונים..."</string>
-    <string name="download_canceled" msgid="6057083743144492515">"ההורדה בוטלה."</string>
-    <string name="download_not_acceptable" msgid="5415339992984899924">"אין אפשרות להוריד כיוון שהתוכן אינו נתמך בטלפון זה"</string>
-    <string name="download_file_error" msgid="7702971488793861815">"לא ניתן לסיים את ההורדה כי אין מספיק מקום."</string>
-    <string name="download_length_required" msgid="1240338682223054142">"אין אפשרות להוריד משום שלא ניתן לקבוע את גודל הפריט."</string>
-    <string name="download_precondition_failed" msgid="6264432738865797635">"ההורדה הופסקה ולא ניתן להמשיך אותה."</string>
     <string name="search_the_web" msgid="6046130189241962337">"חפש באינטרנט"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"אחסון הדפדפן מלא"</string>
     <string name="webstorage_outofspace_notification_text" msgid="47273584426988640">"גע כדי לפנות שטח."</string>
     <string name="webstorage_clear_data_title" msgid="689484577124333977">"נקה נתונים מאוחסנים"</string>
-    <string name="webstorage_clear_data_dialog_title" msgid="345457466368974706">"נקה נתונים מאוחסנים"</string>
     <string name="webstorage_clear_data_dialog_message" msgid="6200681632891775881">"למחוק את כל הנתונים שאוחסנו על ידי אתר זה?"</string>
     <string name="webstorage_clear_data_dialog_ok_button" msgid="6682570951259237542">"אישור"</string>
     <string name="webstorage_clear_data_dialog_cancel_button" msgid="2028867751958942762">"ביטול"</string>
@@ -363,12 +331,10 @@
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"נקה גישה למיקום"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"אתר זה יכול כעת לגשת למיקומך"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="7941769772784366199">"לאתר זה אין גישה כעת למיקום שלך"</string>
-    <string name="geolocation_settings_page_dialog_title" msgid="1549842043381347668">"נקה גישה למיקום"</string>
     <string name="geolocation_settings_page_dialog_message" msgid="8772923416296868537">"לנקות גישה למיקום עבור אתר זה?"</string>
     <string name="geolocation_settings_page_dialog_ok_button" msgid="2113465477131017852">"אישור"</string>
     <string name="geolocation_settings_page_dialog_cancel_button" msgid="7941036504673409747">"ביטול"</string>
     <string name="website_settings_clear_all" msgid="8739804325997655980">"נקה הכל"</string>
-    <string name="website_settings_clear_all_dialog_title" msgid="5746255931965842184">"נקה הכל"</string>
     <string name="website_settings_clear_all_dialog_message" msgid="1551164275687475061">"למחוק את כל נתוני האתר ואת הרשאות המיקום?"</string>
     <string name="website_settings_clear_all_dialog_ok_button" msgid="7858504776529106243">"אישור"</string>
     <string name="website_settings_clear_all_dialog_cancel_button" msgid="1896757051856611674">"ביטול"</string>
@@ -380,8 +346,8 @@
     <string name="import_bookmarks_dialog_title" msgid="3325557652271172128">"סינכרון עם חשבון Google"</string>
     <string name="import_bookmarks_dialog_description" msgid="2362897194870789609">"הסימניות במכשיר זה עדיין לא משויכות לחשבון Google. שמור סימניות אלה על-ידי הוספתן לחשבון. מחק את הסימניות אם אינך מעוניין לסנכרן אותן."</string>
     <string name="import_bookmarks_dialog_select_add_account" msgid="7643058662272484895">"הוסף את הסימניות הקיימות כרגע במכשיר זה והתחל בסינכרון עם חשבון Google"</string>
-    <string name="import_bookmarks_dialog_delete_select_account" msgid="4333848003180415516">"מחק סימניות הקיימות כרגע במכשיר זה והתחל בסינכרון עם חשבון Google"</string>
-    <string name="import_bookmarks_dialog_confirm_delete" msgid="2204771572755630570">"למחוק סימניות הקיימות כרגע במכשיר זה ולהתחיל בסינכרון סימניות עם <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>?"</string>
+    <string name="import_bookmarks_dialog_delete_select_account" msgid="4333848003180415516">"מחק את הסימניות הנמצאות כרגע במכשיר זה והתחל בסינכרון עם חשבון Google"</string>
+    <string name="import_bookmarks_dialog_confirm_delete" msgid="2204771572755630570">"למחוק את הסימניות שנמצאות כרגע במכשיר זה ולהתחיל בסינכרון סימניות עם <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>?"</string>
     <string name="import_bookmarks_dialog_confirm_add" msgid="8942794112340838111">"להוסיף את הסימניות הקיימות כרגע במכשיר זה ולהתחיל בסינכרון הסימניות עם <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>?"</string>
     <string name="import_bookmarks_dialog_remove" msgid="5984607822851800902">"מחק סימניות"</string>
     <string name="import_bookmarks_wizard_next" msgid="7578143961884352676">"הבא"</string>

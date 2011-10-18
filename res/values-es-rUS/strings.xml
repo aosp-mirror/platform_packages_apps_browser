@@ -86,7 +86,6 @@
     <string name="bookmark_needs_url" msgid="7809876865972755158">"El marcador debe tener una ubicación."</string>
     <string name="bookmark_url_not_valid" msgid="4917440933384496211">"Esta URL no es válida."</string>
     <string name="bookmark_cannot_save_url" msgid="7836064647943671126">"No se puede agregar esta URL a marcadores."</string>
-    <string name="delete_bookmark" msgid="2422989994934201992">"Eliminar"</string>
     <string name="bookmark_page" msgid="6845189305130307274">"Agregar marcador a última página vista"</string>
     <string name="bookmark_thumbnail_view" msgid="3164068314718522138">"Miniaturas"</string>
     <string name="bookmark_list_view" msgid="7848510619500937839">"Lista"</string>
@@ -182,7 +181,6 @@
     <string name="autofill_profile_successful_save" msgid="5691459703493331983">"Texto de autocompletado guardado"</string>
     <string name="autofill_profile_successful_delete" msgid="1790262652460723127">"Texto autocompletado eliminado"</string>
     <string name="autofill_profile_editor_delete_profile" msgid="3098369314558164153">"Borrar"</string>
-    <string name="autofill_setup_dialog_title" msgid="3564907335366130582">"Autocompletar"</string>
     <string name="autofill_setup_dialog_message" msgid="1096164985825394616">"El navegador puede completar formularios web como este de forma automática. ¿Te gustaría configurar el completado automático de texto?"</string>
     <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"Siempre puedes configurar el autocompletado de texto desde la pantalla Navegador &gt; Configuración &gt; General."</string>
     <string name="disable_autofill" msgid="8305901059849400354">"Inhabilitar Autocompletar"</string>
@@ -228,9 +226,8 @@
   </string-array>
     <string name="pref_min_font_size" msgid="8811125835817449131">"Tamaño de fuente mínimo"</string>
     <string name="pref_min_font_size_value" msgid="2924708480509060209">"<xliff:g id="FONT_SIZE">%d</xliff:g> ptos."</string>
-    <!-- outdated translation 8387229123479610157 -->     <string name="pref_text_zoom" msgid="5171056101805125497">"Tamaño del texto"</string>
-    <!-- no translation found for pref_zoom_on_double_tap (902786475250741795) -->
-    <skip />
+    <string name="pref_text_zoom" msgid="5171056101805125497">"Ajuste de texto"</string>
+    <string name="pref_zoom_on_double_tap" msgid="902786475250741795">"Zoom al tocar dos veces"</string>
     <string name="pref_force_userscalable" msgid="5641500562399892621">"Obligar a habilitar el zoom"</string>
     <string name="pref_force_userscalable_summary" msgid="3613242300617172230">"Anular petic. p/controlar zoom"</string>
     <string name="pref_inverted_category" msgid="1280639705117152207">"Representación de pantalla invertida"</string>
@@ -253,7 +250,6 @@
     <string name="pref_extras_reset_default" msgid="8904000515846202110">"Restabl. a valores predet."</string>
     <string name="pref_extras_reset_default_summary" msgid="4247870778270414501">"Restaurar configuración predeterminada"</string>
     <string name="pref_extras_reset_default_dlg" msgid="7922814420184322450">"¿Deseas volver a los valores predeterminados?"</string>
-    <string name="pref_extras_reset_default_dlg_title" msgid="2250334970728938936">"Restabl. a valores predet."</string>
     <string name="pref_development_title" msgid="3263854204533056480">"Depurar"</string>
     <string name="pref_default_text_encoding" msgid="5742965543955558478">"Codificación de texto"</string>
   <string-array name="pref_default_text_encoding_choices">
@@ -268,7 +264,7 @@
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Codificación de texto"</string>
     <string name="pref_accessibility_title" msgid="5127836981587423215">"Accesibilidad"</string>
-    <!-- outdated translation 6288925476811083551 -->     <string name="pref_font_size_category" msgid="6683754355084218254">"Tamaño de fuente"</string>
+    <string name="pref_font_size_category" msgid="6683754355084218254">"Tamaño de la letra"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"Labs"</string>
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Controles rápidos"</string>
     <string name="pref_lab_quick_controls_summary" msgid="3149664132600968775">"Desliza desde la izq. o der. p/abrir controles ráp. y ocultar ap./barras de URL"</string>
@@ -280,7 +276,7 @@
     <string name="pref_data_preload_title" msgid="4479320472980292873">"Se están precargando los resultados de la búsqueda"</string>
   <string-array name="pref_data_preload_choices">
     <item msgid="5180466923190095508">"Nunca"</item>
-    <item msgid="3514802063791531888">"Solo en WiFi"</item>
+    <item msgid="1791664748778640002">"Solo en Wi-Fi"</item>
     <item msgid="3944061253437827617">"Siempre"</item>
   </string-array>
     <string name="pref_data_preload_summary" msgid="3809168910751382727">"Permitir al navegador precargar resultados de búsqueda confiables en el fondo"</string>
@@ -300,7 +296,6 @@
     <string name="search_hint" msgid="4647356319916631820">"Buscar o escribir URL"</string>
     <string name="search_button_text" msgid="5235226933877634410">"Ir"</string>
     <string name="search_settings_description" msgid="1422401062529014107">"Marcadores e historial web"</string>
-    <string name="attention" msgid="3473639060042811244">"Atención"</string>
     <string name="popup_window_attempt" msgid="31565781154067629">"¿Permitir a este sitio abrir una ventana emergente?"</string>
     <string name="allow" msgid="1157313689171991335">"Permitir"</string>
     <string name="block" msgid="9172175889884707800">"Bloquear"</string>
@@ -308,19 +303,6 @@
     <string name="too_many_windows_dialog_message" msgid="3644234634638290304">"No se puede abrir una nueva pestaña hasta que cierres una."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Ventana emergente ya abierta"</string>
     <string name="too_many_subwindows_dialog_message" msgid="2164725447981195556">"Solo se puede abrir una ventana emergente a la vez."</string>
-    <string name="download_title" msgid="2122874021047565594">"Historial de descarga"</string>
-    <string name="download_unknown_filename" msgid="4013465542563652175">"&lt;Desconocido&gt;"</string>
-    <string name="download_menu_open" msgid="4888327480367757513">"Abrir"</string>
-    <string name="download_menu_clear" msgid="6264454531553418124">"Borrar de la lista"</string>
-    <string name="download_menu_delete" msgid="8815502136393894148">"Eliminar"</string>
-    <string name="download_menu_cancel" msgid="2545333007601851574">"Cancelar descarga"</string>
-    <string name="download_menu_cancel_all" msgid="2136550823151999166">"Cancelar todas las descargas"</string>
-    <string name="download_cancel_dlg_title" msgid="8909108500262799748">"Cancelar descargas"</string>
-    <string name="download_cancel_dlg_msg" msgid="2546124668173027248">"¿Deseas cancelar y borrar las <xliff:g id="DOWNLOAD_COUNT">%d</xliff:g> descargas del historial de descargas?"</string>
-    <string name="download_delete_file" msgid="8941963362686617405">"Borrar"</string>
-    <string name="download_file_error_dlg_title" msgid="2693630283595384874">"Sin espacio"</string>
-    <string name="download_file_error_dlg_msg" msgid="5904538987107408124">"<xliff:g id="FILENAME">%s</xliff:g> no se pudo descargar."\n"Libera espacio e inténtalo de nuevo."</string>
-    <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"La descarga no se ha realizado correctamente"</string>
     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"Almacenamiento USB no disponible"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"No hay tarjeta SD"</string>
     <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"Se requiere el almacenamiento USB para descargar <xliff:g id="FILENAME">%s</xliff:g>."</string>
@@ -330,25 +312,11 @@
     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="8412543086906716875">"El almacenamiento USB está ocupado. Para permitir descargas, toca \"Desactivar almacenamiento USB\" en la notificación."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"La tarjeta SD está ocupada. Para permitir descargas, selecciona \"Desactivar almacenamiento USB\" en la notificación."</string>
     <string name="cannot_download" msgid="8150552478556798780">"Solo se pueden descargar URL de \"http\" o de \"https\"."</string>
-    <string name="download_no_application_title" msgid="4809479884191068159">"No se puede abrir el archivo"</string>
-    <string name="retry" msgid="1835923075542266721">"Intentar nuevamente"</string>
-    <string name="no_downloads" msgid="8031648287973400156">"No hay historial de descargas."</string>
-    <string name="download_error" msgid="21835634921715697">"No se pudo descargar."</string>
-    <string name="download_success" msgid="1651605015937749469">"Descarga completa de <xliff:g id="FILE">%s</xliff:g>"</string>
-    <string name="download_running" msgid="2622942231322015059">"Descargando…"</string>
     <string name="download_pending" msgid="2599683668575349559">"Iniciando descarga..."</string>
-    <string name="download_pending_network" msgid="6548714525679461053">"Esperando la conexión de datos..."</string>
-    <string name="download_running_paused" msgid="6418029352085656495">"Esperando la conexión de datos..."</string>
-    <string name="download_canceled" msgid="6057083743144492515">"Descarga cancelada."</string>
-    <string name="download_not_acceptable" msgid="5415339992984899924">"No es posible realizar la descarga porque este teléfono no admite el contenido."</string>
-    <string name="download_file_error" msgid="7702971488793861815">"No se puede finalizar la descarga porque no hay suficiente espacio."</string>
-    <string name="download_length_required" msgid="1240338682223054142">"No se puede realizar la descarga porque no se ha podido determinar el tamaño del elemento."</string>
-    <string name="download_precondition_failed" msgid="6264432738865797635">"Descarga interrumpida y no se puede reanudar."</string>
     <string name="search_the_web" msgid="6046130189241962337">"Buscar en Internet"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Almacenamiento del navegador lleno"</string>
     <string name="webstorage_outofspace_notification_text" msgid="47273584426988640">"Toca para liberar espacio."</string>
     <string name="webstorage_clear_data_title" msgid="689484577124333977">"Borrar datos almacenados"</string>
-    <string name="webstorage_clear_data_dialog_title" msgid="345457466368974706">"Borrar datos almacenados"</string>
     <string name="webstorage_clear_data_dialog_message" msgid="6200681632891775881">"¿Deseas eliminar todos los datos almacenados por este sitio web?"</string>
     <string name="webstorage_clear_data_dialog_ok_button" msgid="6682570951259237542">"Aceptar"</string>
     <string name="webstorage_clear_data_dialog_cancel_button" msgid="2028867751958942762">"Cancelar"</string>
@@ -363,12 +331,10 @@
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Borrar acceso a la ubicación"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Este sitio puede acceder a tu ubicación actualmente"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="7941769772784366199">"Este sitio no puede acceder actualmente a tu ubicación."</string>
-    <string name="geolocation_settings_page_dialog_title" msgid="1549842043381347668">"Borrar acceso a la ubicación"</string>
     <string name="geolocation_settings_page_dialog_message" msgid="8772923416296868537">"¿Deseas borrar el acceso a la ubicación para este sitio web?"</string>
     <string name="geolocation_settings_page_dialog_ok_button" msgid="2113465477131017852">"Aceptar"</string>
     <string name="geolocation_settings_page_dialog_cancel_button" msgid="7941036504673409747">"Cancelar"</string>
     <string name="website_settings_clear_all" msgid="8739804325997655980">"Eliminar todos"</string>
-    <string name="website_settings_clear_all_dialog_title" msgid="5746255931965842184">"Borrar todos"</string>
     <string name="website_settings_clear_all_dialog_message" msgid="1551164275687475061">"¿Deseas eliminar todos los datos del sitio web y los permisos de ubicación?"</string>
     <string name="website_settings_clear_all_dialog_ok_button" msgid="7858504776529106243">"Aceptar"</string>
     <string name="website_settings_clear_all_dialog_cancel_button" msgid="1896757051856611674">"Cancelar"</string>
