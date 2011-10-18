@@ -183,8 +183,8 @@
     <string name="autofill_profile_successful_delete" msgid="1790262652460723127">"Texte de saisie automatique supprimé."</string>
     <string name="autofill_profile_editor_delete_profile" msgid="3098369314558164153">"Supprimer"</string>
     <string name="autofill_setup_dialog_title" msgid="3564907335366130582">"Saisie automatique"</string>
-    <string name="autofill_setup_dialog_message" msgid="1096164985825394616">"Le navigateur peut remplir automatiquement les formulaires Web tels que celui-ci. Voulez-vous créer un texte de saisie automatique ?"</string>
-    <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"Vous pourrez définir un texte de saisie automatique en accédant à Navigateur &gt; Paramètres &gt; Paramètres généraux écran."</string>
+    <string name="autofill_setup_dialog_message" msgid="1096164985825394616">"Le navigateur peut remplir automatiquement les formulaires Web similaires à celui-ci. Voulez-vous créer un texte de saisie automatique ?"</string>
+    <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"Vous pourrez définir un texte de saisie automatique en accédant à Navigateur &gt; Paramètres &gt; Général."</string>
     <string name="disable_autofill" msgid="8305901059849400354">"Désactiver la saisie automatique"</string>
     <string name="pref_privacy_security_title" msgid="3480313968942160914">"Confidentialité et sécurité"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Vider le cache"</string>
@@ -209,7 +209,7 @@
     <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"Autoriser les sites à demander l\'accès à vos données de localisation"</string>
     <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"Supprimer l\'accès"</string>
     <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"Supprimer l\'accès aux données de localisation pour tous les sites Web"</string>
-    <string name="pref_privacy_clear_geolocation_access_dlg" msgid="3190928760598034346">"Supprimer l\'accès aux données de localisation du site Web ?"</string>
+    <string name="pref_privacy_clear_geolocation_access_dlg" msgid="3190928760598034346">"Supprimer l\'accès du site Web aux données de localisation ?"</string>
     <string name="pref_security_passwords_title" msgid="5734190542383756711">"Mots de passe"</string>
     <string name="pref_security_remember_passwords" msgid="6492957683454529549">"Mém. mots de passe"</string>
     <string name="pref_security_remember_passwords_summary" msgid="256388703356349137">"Enregistrer les noms d\'utilisateur et les mots de passe pour les sites Web"</string>
@@ -228,11 +228,10 @@
   </string-array>
     <string name="pref_min_font_size" msgid="8811125835817449131">"Taille de police minimale"</string>
     <string name="pref_min_font_size_value" msgid="2924708480509060209">"<xliff:g id="FONT_SIZE">%d</xliff:g> pt"</string>
-    <!-- outdated translation 8387229123479610157 -->     <string name="pref_text_zoom" msgid="5171056101805125497">"Zoom sur le texte"</string>
-    <!-- no translation found for pref_zoom_on_double_tap (902786475250741795) -->
-    <skip />
+    <string name="pref_text_zoom" msgid="5171056101805125497">"Mise à l\'échelle du texte"</string>
+    <string name="pref_zoom_on_double_tap" msgid="902786475250741795">"Appuyer deux fois pour zoomer"</string>
     <string name="pref_force_userscalable" msgid="5641500562399892621">"Forcer l\'activation du zoom"</string>
-    <string name="pref_force_userscalable_summary" msgid="3613242300617172230">"Ignorer demande contrôle zoom par site Web"</string>
+    <string name="pref_force_userscalable_summary" msgid="3613242300617172230">"Ignorer la demande du site Web de contrôler le zoom"</string>
     <string name="pref_inverted_category" msgid="1280639705117152207">"Rendu de l\'écran inversé"</string>
     <string name="pref_inverted" msgid="7613556986776824112">"Rendu inversé"</string>
     <string name="pref_inverted_summary" msgid="7357225897413923085">"Le noir devient blanc, et inversement."</string>
@@ -268,10 +267,10 @@
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Codage du texte"</string>
     <string name="pref_accessibility_title" msgid="5127836981587423215">"Accessibilité"</string>
-    <!-- outdated translation 6288925476811083551 -->     <string name="pref_font_size_category" msgid="6683754355084218254">"Taille de police"</string>
+    <string name="pref_font_size_category" msgid="6683754355084218254">"Taille de la police"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"Labs"</string>
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Commandes rapides"</string>
-    <string name="pref_lab_quick_controls_summary" msgid="3149664132600968775">"Faire glisser pouce vers droite ou gauche pour ouvrir commandes rapides et masquer barres des applis/URL"</string>
+    <string name="pref_lab_quick_controls_summary" msgid="3149664132600968775">"Faites glisser votre pouce vers droite ou gauche pour ouvrir les commandes rapides et masquer les barres des applis/URL."</string>
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Recherche instantanée Google"</string>
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Affichez plus de résultats lors de la saisie avec la recherche instantanée Google. Peut utiliser plus de données."</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"Plein écran"</string>
@@ -280,7 +279,7 @@
     <string name="pref_data_preload_title" msgid="4479320472980292873">"Préchargement résultats de recherche…"</string>
   <string-array name="pref_data_preload_choices">
     <item msgid="5180466923190095508">"Jamais"</item>
-    <item msgid="3514802063791531888">"Uniquement via WiFi"</item>
+    <item msgid="3514802063791531888">"Uniquement en WiFi"</item>
     <item msgid="3944061253437827617">"Toujours"</item>
   </string-array>
     <string name="pref_data_preload_summary" msgid="3809168910751382727">"Autoriser le préchargement des résultats de recherche fiables en arrière-plan"</string>
@@ -353,7 +352,7 @@
     <string name="webstorage_clear_data_dialog_ok_button" msgid="6682570951259237542">"OK"</string>
     <string name="webstorage_clear_data_dialog_cancel_button" msgid="2028867751958942762">"Annuler"</string>
     <string name="webstorage_origin_summary_mb_stored" msgid="1985885826292236210">"Mo stockés sur votre téléphone"</string>
-    <string name="loading_video" msgid="7886324933131962321">"Chargement de la vidéo en cours…"</string>
+    <string name="loading_video" msgid="7886324933131962321">"Chargement de la vidéo..."</string>
     <string name="geolocation_permissions_prompt_message" msgid="356796102004052471">"<xliff:g id="WEBSITE_ORIGIN">%s</xliff:g> souhaite connaître votre position géographique."</string>
     <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"Partager ma position"</string>
     <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"Refuser"</string>
@@ -362,7 +361,7 @@
     <string name="geolocation_permissions_prompt_toast_disallowed" msgid="156443445797377409">"Ce site ne peut pas accéder à vos données de localisation. Modifiez ceci dans Paramètres &gt; Avancés &gt; Paramètres du site Web."</string>
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Supprimer l\'accès"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Ce site a actuellement accès à vos données de localisation."</string>
-    <string name="geolocation_settings_page_summary_not_allowed" msgid="7941769772784366199">"Impossible pour ce site d\'accéder actuellement à vos données de localisation."</string>
+    <string name="geolocation_settings_page_summary_not_allowed" msgid="7941769772784366199">"Ce site n\'a actuellement pas accès à vos données de localisation."</string>
     <string name="geolocation_settings_page_dialog_title" msgid="1549842043381347668">"Supprimer l\'accès"</string>
     <string name="geolocation_settings_page_dialog_message" msgid="8772923416296868537">"Supprimer l\'accès aux données de localisation pour ce site Web ?"</string>
     <string name="geolocation_settings_page_dialog_ok_button" msgid="2113465477131017852">"OK"</string>

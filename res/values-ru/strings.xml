@@ -303,7 +303,7 @@
     <string name="popup_window_attempt" msgid="31565781154067629">"Открыть всплывающее окно с этого сайта?"</string>
     <string name="allow" msgid="1157313689171991335">"Разрешить"</string>
     <string name="block" msgid="9172175889884707800">"Заблокировать"</string>
-    <string name="too_many_windows_dialog_title" msgid="5709782301477380438">"Открыто максимальное количество вкладок"</string>
+    <string name="too_many_windows_dialog_title" msgid="5709782301477380438">"Открыто макс. число вкладок"</string>
     <string name="too_many_windows_dialog_message" msgid="3644234634638290304">"Невозможно открыть новую вкладку: закройте хотя бы одну."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Всплывающее окно уже открыто"</string>
     <string name="too_many_subwindows_dialog_message" msgid="2164725447981195556">"Можно открыть только одно всплывающее окно."</string>

@@ -228,11 +228,10 @@
   </string-array>
     <string name="pref_min_font_size" msgid="8811125835817449131">"Minimalny rozmiar czcionki"</string>
     <string name="pref_min_font_size_value" msgid="2924708480509060209">"<xliff:g id="FONT_SIZE">%d</xliff:g> pkt"</string>
-    <!-- outdated translation 8387229123479610157 -->     <string name="pref_text_zoom" msgid="5171056101805125497">"Powiększenie tekstu"</string>
-    <!-- no translation found for pref_zoom_on_double_tap (902786475250741795) -->
-    <skip />
+    <string name="pref_text_zoom" msgid="5171056101805125497">"Skalowanie tekstu"</string>
+    <string name="pref_zoom_on_double_tap" msgid="902786475250741795">"Powiększ po dwukrotnym dotknięciu"</string>
     <string name="pref_force_userscalable" msgid="5641500562399892621">"Wymuś włączenie powiększenia"</string>
-    <string name="pref_force_userscalable_summary" msgid="3613242300617172230">"Zabroń witrynie sterować powiększeniem"</string>
+    <string name="pref_force_userscalable_summary" msgid="3613242300617172230">"Nie zezwalaj witrynie sterować powiększeniem"</string>
     <string name="pref_inverted_category" msgid="1280639705117152207">"Negatyw ekranu"</string>
     <string name="pref_inverted" msgid="7613556986776824112">"Negatyw"</string>
     <string name="pref_inverted_summary" msgid="7357225897413923085">"Czarny zmieni się w biały i odwrotnie"</string>
@@ -268,7 +267,7 @@
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Kodowanie tekstu"</string>
     <string name="pref_accessibility_title" msgid="5127836981587423215">"Ułatwienia dostępu"</string>
-    <!-- outdated translation 6288925476811083551 -->     <string name="pref_font_size_category" msgid="6683754355084218254">"Rozmiar czcionki"</string>
+    <string name="pref_font_size_category" msgid="6683754355084218254">"Rozmiar tekstu"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"Laboratorium"</string>
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Szybkie sterowanie"</string>
     <string name="pref_lab_quick_controls_summary" msgid="3149664132600968775">"Przesuń palcem od bocznej krawędzi, aby w opcjach ukryć paski aplikacji i URL"</string>
@@ -359,7 +358,7 @@
     <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"Odrzuć"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"Zapamiętaj ustawienie"</string>
     <string name="geolocation_permissions_prompt_toast_allowed" msgid="7201417941112726112">"Ta witryna może uzyskać dostęp do informacji o Twojej lokalizacji. Zmień to ustawienie na ekranie Ustawienia &gt; Zaawansowane &gt; Witryna."</string>
-    <string name="geolocation_permissions_prompt_toast_disallowed" msgid="156443445797377409">"Ta witryna nie może uzyskać dostępu do informacji o Twojej lokalizacji. Zmień to ustawienie na ekranie Ustawienia &gt; Zaawansowane &gt; Witryna."</string>
+    <string name="geolocation_permissions_prompt_toast_disallowed" msgid="156443445797377409">"Ta witryna nie może uzyskać dostępu do informacji o Twojej lokalizacji. Zmień to ustawienie w menu Ustawienia &gt; Zaawansowane &gt; Witryna."</string>
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Wyczyść dostęp do lokalizacji"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Ta witryna ma obecnie dostęp do informacji o Twojej lokalizacji"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="7941769772784366199">"Ta witryna nie ma obecnie dostępu do informacji o Twojej lokalizacji."</string>
