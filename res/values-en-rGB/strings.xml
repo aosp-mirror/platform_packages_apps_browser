@@ -69,7 +69,7 @@
     <string name="add_to_other_folder_menu_option" msgid="5947586525822134105">"Other folder"</string>
     <string name="name" msgid="5462672162695365387">"Label"</string>
     <string name="http" msgid="2163722670597250102">"http://"</string>
-    <string name="save_to_bookmarks" msgid="1679286010089780932">"Saved to bookmarks"</string>
+    <string name="save_to_bookmarks" msgid="1679286010089780932">"Save to bookmarks"</string>
     <string name="bookmark_this_page" msgid="7530739804320811054">"Bookmark this page"</string>
     <string name="remove" msgid="7820112494467011374">"Remove"</string>
     <string name="edit_bookmark" msgid="5024089053490231905">"Edit bookmark"</string>
@@ -86,7 +86,6 @@
     <string name="bookmark_needs_url" msgid="7809876865972755158">"Bookmark must have a location."</string>
     <string name="bookmark_url_not_valid" msgid="4917440933384496211">"This URL isn\'t valid."</string>
     <string name="bookmark_cannot_save_url" msgid="7836064647943671126">"This URL can\'t be bookmarked."</string>
-    <string name="delete_bookmark" msgid="2422989994934201992">"Delete"</string>
     <string name="bookmark_page" msgid="6845189305130307274">"Bookmark last viewed page"</string>
     <string name="bookmark_thumbnail_view" msgid="3164068314718522138">"Thumbnails"</string>
     <string name="bookmark_list_view" msgid="7848510619500937839">"List"</string>
@@ -182,7 +181,6 @@
     <string name="autofill_profile_successful_save" msgid="5691459703493331983">"Auto-fill text saved."</string>
     <string name="autofill_profile_successful_delete" msgid="1790262652460723127">"Auto-fill text deleted."</string>
     <string name="autofill_profile_editor_delete_profile" msgid="3098369314558164153">"Delete"</string>
-    <string name="autofill_setup_dialog_title" msgid="3564907335366130582">"Auto-fill"</string>
     <string name="autofill_setup_dialog_message" msgid="1096164985825394616">"The browser can automatically complete web forms like this one. Would you like to set up your auto-fill text?"</string>
     <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"You can always set up your auto-fill text from the Browser &gt; Settings &gt; General screen."</string>
     <string name="disable_autofill" msgid="8305901059849400354">"Disable auto-fill"</string>
@@ -252,7 +250,6 @@
     <string name="pref_extras_reset_default" msgid="8904000515846202110">"Reset to default"</string>
     <string name="pref_extras_reset_default_summary" msgid="4247870778270414501">"Restore default settings"</string>
     <string name="pref_extras_reset_default_dlg" msgid="7922814420184322450">"Revert settings to default values?"</string>
-    <string name="pref_extras_reset_default_dlg_title" msgid="2250334970728938936">"Reset to default"</string>
     <string name="pref_development_title" msgid="3263854204533056480">"Debug"</string>
     <string name="pref_default_text_encoding" msgid="5742965543955558478">"Text encoding"</string>
   <string-array name="pref_default_text_encoding_choices">
@@ -279,7 +276,7 @@
     <string name="pref_data_preload_title" msgid="4479320472980292873">"Search result preloading"</string>
   <string-array name="pref_data_preload_choices">
     <item msgid="5180466923190095508">"Never"</item>
-    <item msgid="3514802063791531888">"Only on Wi-Fi"</item>
+    <item msgid="1791664748778640002">"Only on Wi-Fi"</item>
     <item msgid="3944061253437827617">"Always"</item>
   </string-array>
     <string name="pref_data_preload_summary" msgid="3809168910751382727">"Allow the browser to preload high-confidence search results in the background"</string>
@@ -299,7 +296,6 @@
     <string name="search_hint" msgid="4647356319916631820">"Search or type URL"</string>
     <string name="search_button_text" msgid="5235226933877634410">"Go"</string>
     <string name="search_settings_description" msgid="1422401062529014107">"Bookmarks and web history"</string>
-    <string name="attention" msgid="3473639060042811244">"Attention"</string>
     <string name="popup_window_attempt" msgid="31565781154067629">"Allow this site to open a pop-up window?"</string>
     <string name="allow" msgid="1157313689171991335">"Allow"</string>
     <string name="block" msgid="9172175889884707800">"Block"</string>
@@ -307,19 +303,6 @@
     <string name="too_many_windows_dialog_message" msgid="3644234634638290304">"Can\'t open a new tab until you close one."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Pop-up already open"</string>
     <string name="too_many_subwindows_dialog_message" msgid="2164725447981195556">"Only one pop-up can be open at a time."</string>
-    <string name="download_title" msgid="2122874021047565594">"Download history"</string>
-    <string name="download_unknown_filename" msgid="4013465542563652175">"&lt;Unknown&gt;"</string>
-    <string name="download_menu_open" msgid="4888327480367757513">"Open"</string>
-    <string name="download_menu_clear" msgid="6264454531553418124">"Clear from list"</string>
-    <string name="download_menu_delete" msgid="8815502136393894148">"Delete"</string>
-    <string name="download_menu_cancel" msgid="2545333007601851574">"Cancel download"</string>
-    <string name="download_menu_cancel_all" msgid="2136550823151999166">"Cancel all downloads"</string>
-    <string name="download_cancel_dlg_title" msgid="8909108500262799748">"Cancel downloads"</string>
-    <string name="download_cancel_dlg_msg" msgid="2546124668173027248">"Cancel and clear all <xliff:g id="DOWNLOAD_COUNT">%d</xliff:g> downloads from the download history?"</string>
-    <string name="download_delete_file" msgid="8941963362686617405">"Delete"</string>
-    <string name="download_file_error_dlg_title" msgid="2693630283595384874">"Out of space"</string>
-    <string name="download_file_error_dlg_msg" msgid="5904538987107408124">"<xliff:g id="FILENAME">%s</xliff:g> couldn\'t be downloaded."\n"Free up some space and try again."</string>
-    <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"Download unsuccessful"</string>
     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"USB storage unavailable"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"No SD card"</string>
     <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"USB storage is required to download <xliff:g id="FILENAME">%s</xliff:g>."</string>
@@ -329,25 +312,11 @@
     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="8412543086906716875">"The USB storage is busy. To allow downloads, touch Turn Off USB Storage in the notification."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"The SD card is busy. To allow downloads, select \"Turn off USB storage\" in the notification."</string>
     <string name="cannot_download" msgid="8150552478556798780">"Can only download \"http\" or \"https\" URLs."</string>
-    <string name="download_no_application_title" msgid="4809479884191068159">"Cannot open file"</string>
-    <string name="retry" msgid="1835923075542266721">"Retry"</string>
-    <string name="no_downloads" msgid="8031648287973400156">"No download history."</string>
-    <string name="download_error" msgid="21835634921715697">"Couldn\'t download."</string>
-    <string name="download_success" msgid="1651605015937749469">"<xliff:g id="FILE">%s</xliff:g> download complete."</string>
-    <string name="download_running" msgid="2622942231322015059">"Downloading…"</string>
     <string name="download_pending" msgid="2599683668575349559">"Starting download…"</string>
-    <string name="download_pending_network" msgid="6548714525679461053">"Waiting for data connection…"</string>
-    <string name="download_running_paused" msgid="6418029352085656495">"Waiting for data connection…"</string>
-    <string name="download_canceled" msgid="6057083743144492515">"Download cancelled."</string>
-    <string name="download_not_acceptable" msgid="5415339992984899924">"Can\'t download, because the content isn\'t supported on this phone."</string>
-    <string name="download_file_error" msgid="7702971488793861815">"Can\'t finish download, because there isn\'t enough space."</string>
-    <string name="download_length_required" msgid="1240338682223054142">"Can\'t download, because the size of the item can\'t be determined."</string>
-    <string name="download_precondition_failed" msgid="6264432738865797635">"Download interrupted and can\'t be resumed."</string>
     <string name="search_the_web" msgid="6046130189241962337">"Search the web"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Browser storage full"</string>
     <string name="webstorage_outofspace_notification_text" msgid="47273584426988640">"Touch to free up space."</string>
     <string name="webstorage_clear_data_title" msgid="689484577124333977">"Clear stored data"</string>
-    <string name="webstorage_clear_data_dialog_title" msgid="345457466368974706">"Clear stored data"</string>
     <string name="webstorage_clear_data_dialog_message" msgid="6200681632891775881">"Delete all data stored by this website?"</string>
     <string name="webstorage_clear_data_dialog_ok_button" msgid="6682570951259237542">"OK"</string>
     <string name="webstorage_clear_data_dialog_cancel_button" msgid="2028867751958942762">"Cancel"</string>
@@ -362,12 +331,10 @@
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Clear location access"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"This site can currently access your location"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="7941769772784366199">"This site can\'t currently access your location"</string>
-    <string name="geolocation_settings_page_dialog_title" msgid="1549842043381347668">"Clear location access"</string>
     <string name="geolocation_settings_page_dialog_message" msgid="8772923416296868537">"Clear location access for this website?"</string>
     <string name="geolocation_settings_page_dialog_ok_button" msgid="2113465477131017852">"OK"</string>
     <string name="geolocation_settings_page_dialog_cancel_button" msgid="7941036504673409747">"Cancel"</string>
     <string name="website_settings_clear_all" msgid="8739804325997655980">"Clear all"</string>
-    <string name="website_settings_clear_all_dialog_title" msgid="5746255931965842184">"Clear all"</string>
     <string name="website_settings_clear_all_dialog_message" msgid="1551164275687475061">"Delete all website data and location permission?"</string>
     <string name="website_settings_clear_all_dialog_ok_button" msgid="7858504776529106243">"OK"</string>
     <string name="website_settings_clear_all_dialog_cancel_button" msgid="1896757051856611674">"Cancel"</string>

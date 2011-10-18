@@ -86,7 +86,6 @@
     <string name="bookmark_needs_url" msgid="7809876865972755158">"場所を指定してください。"</string>
     <string name="bookmark_url_not_valid" msgid="4917440933384496211">"このURLは無効です。"</string>
     <string name="bookmark_cannot_save_url" msgid="7836064647943671126">"このURLはブックマークに追加できません。"</string>
-    <string name="delete_bookmark" msgid="2422989994934201992">"削除"</string>
     <string name="bookmark_page" msgid="6845189305130307274">"最後に表示したページをブックマークする"</string>
     <string name="bookmark_thumbnail_view" msgid="3164068314718522138">"サムネイル"</string>
     <string name="bookmark_list_view" msgid="7848510619500937839">"リスト"</string>
@@ -182,7 +181,6 @@
     <string name="autofill_profile_successful_save" msgid="5691459703493331983">"自動入力テキストを保存しました。"</string>
     <string name="autofill_profile_successful_delete" msgid="1790262652460723127">"自動入力テキストを削除しました。"</string>
     <string name="autofill_profile_editor_delete_profile" msgid="3098369314558164153">"削除"</string>
-    <string name="autofill_setup_dialog_title" msgid="3564907335366130582">"自動入力"</string>
     <string name="autofill_setup_dialog_message" msgid="1096164985825394616">"このようにウェブフォームのデータを自動的に入力できます。自動入力テキストを設定しますか？"</string>
     <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"自動入力テキストは[ブラウザ] &gt; [設定] &gt; [全般]でいつでも設定できます。"</string>
     <string name="disable_autofill" msgid="8305901059849400354">"自動入力を無効にする"</string>
@@ -228,9 +226,8 @@
   </string-array>
     <string name="pref_min_font_size" msgid="8811125835817449131">"最小フォントサイズ"</string>
     <string name="pref_min_font_size_value" msgid="2924708480509060209">"<xliff:g id="FONT_SIZE">%d</xliff:g>pt"</string>
-    <!-- outdated translation 8387229123479610157 -->     <string name="pref_text_zoom" msgid="5171056101805125497">"テキストの倍率"</string>
-    <!-- no translation found for pref_zoom_on_double_tap (902786475250741795) -->
-    <skip />
+    <string name="pref_text_zoom" msgid="5171056101805125497">"テキストの拡大縮小"</string>
+    <string name="pref_zoom_on_double_tap" msgid="902786475250741795">"ダブルタップでズーム"</string>
     <string name="pref_force_userscalable" msgid="5641500562399892621">"拡大縮小設定の上書き"</string>
     <string name="pref_force_userscalable_summary" msgid="3613242300617172230">"サイトの拡大縮小設定を上書き"</string>
     <string name="pref_inverted_category" msgid="1280639705117152207">"画面の反転レンダリング"</string>
@@ -253,7 +250,6 @@
     <string name="pref_extras_reset_default" msgid="8904000515846202110">"初期設定にリセット"</string>
     <string name="pref_extras_reset_default_summary" msgid="4247870778270414501">"初期設定に戻す"</string>
     <string name="pref_extras_reset_default_dlg" msgid="7922814420184322450">"設定をデフォルト値に戻しますか？"</string>
-    <string name="pref_extras_reset_default_dlg_title" msgid="2250334970728938936">"初期設定にリセット"</string>
     <string name="pref_development_title" msgid="3263854204533056480">"デバッグ"</string>
     <string name="pref_default_text_encoding" msgid="5742965543955558478">"テキストエンコード"</string>
   <string-array name="pref_default_text_encoding_choices">
@@ -268,7 +264,7 @@
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"テキストエンコード"</string>
     <string name="pref_accessibility_title" msgid="5127836981587423215">"ユーザー補助"</string>
-    <!-- outdated translation 6288925476811083551 -->     <string name="pref_font_size_category" msgid="6683754355084218254">"フォントサイズ"</string>
+    <string name="pref_font_size_category" msgid="6683754355084218254">"文字サイズ"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"Labs"</string>
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"クイックコントロール"</string>
     <string name="pref_lab_quick_controls_summary" msgid="3149664132600968775">"クイックコントロールを開くには左端または右端から親指をスライドさせます"</string>
@@ -280,7 +276,7 @@
     <string name="pref_data_preload_title" msgid="4479320472980292873">"検索結果のプリロード"</string>
   <string-array name="pref_data_preload_choices">
     <item msgid="5180466923190095508">"行わない"</item>
-    <item msgid="3514802063791531888">"Wi-Fi使用時のみ"</item>
+    <item msgid="1791664748778640002">"Wi-Fi使用時のみ"</item>
     <item msgid="3944061253437827617">"常時"</item>
   </string-array>
     <string name="pref_data_preload_summary" msgid="3809168910751382727">"ブラウザが信頼度の高い検索結果をバックグラウンドでプリロードできるようにします"</string>
@@ -300,7 +296,6 @@
     <string name="search_hint" msgid="4647356319916631820">"検索またはURLを入力"</string>
     <string name="search_button_text" msgid="5235226933877634410">"移動"</string>
     <string name="search_settings_description" msgid="1422401062529014107">"ブックマークとウェブ履歴"</string>
-    <string name="attention" msgid="3473639060042811244">"注意"</string>
     <string name="popup_window_attempt" msgid="31565781154067629">"このサイトにポップアップウィンドウを開くことを許可しますか？"</string>
     <string name="allow" msgid="1157313689171991335">"許可"</string>
     <string name="block" msgid="9172175889884707800">"ブロック"</string>
@@ -308,19 +303,6 @@
     <string name="too_many_windows_dialog_message" msgid="3644234634638290304">"新しいタブを開くには1つ閉じる必要があります。"</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"ポップアップが既に開いています"</string>
     <string name="too_many_subwindows_dialog_message" msgid="2164725447981195556">"同時に開くことのできるポップアップは1つのみです。"</string>
-    <string name="download_title" msgid="2122874021047565594">"ダウンロード履歴"</string>
-    <string name="download_unknown_filename" msgid="4013465542563652175">"&lt;不明&gt;"</string>
-    <string name="download_menu_open" msgid="4888327480367757513">"開く"</string>
-    <string name="download_menu_clear" msgid="6264454531553418124">"リストから消去"</string>
-    <string name="download_menu_delete" msgid="8815502136393894148">"削除"</string>
-    <string name="download_menu_cancel" msgid="2545333007601851574">"ダウンロードをキャンセル"</string>
-    <string name="download_menu_cancel_all" msgid="2136550823151999166">"全ダウンロードをキャンセル"</string>
-    <string name="download_cancel_dlg_title" msgid="8909108500262799748">"ダウンロードをキャンセル"</string>
-    <string name="download_cancel_dlg_msg" msgid="2546124668173027248">"<xliff:g id="DOWNLOAD_COUNT">%d</xliff:g>個のダウンロードをすべてダウンロード履歴から削除しますか？"</string>
-    <string name="download_delete_file" msgid="8941963362686617405">"削除"</string>
-    <string name="download_file_error_dlg_title" msgid="2693630283595384874">"容量不足です"</string>
-    <string name="download_file_error_dlg_msg" msgid="5904538987107408124">"<xliff:g id="FILENAME">%s</xliff:g>をダウンロードできませんでした。"\n"空き領域を増やしてからもう一度お試しください。"</string>
-    <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"ダウンロードに失敗しました"</string>
     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"USBストレージ使用不可"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"SDカードがありません"</string>
     <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"<xliff:g id="FILENAME">%s</xliff:g>をダウンロードするにはUSBストレージが必要です。"</string>
@@ -330,25 +312,11 @@
     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="8412543086906716875">"USBストレージが使用中です。ダウンロードするには通知の[USBストレージをOFFにする]をタップしてください。"</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"SDカードは使用中です。[USBストレージをOFFにする]をタップしてからダウンロードしてください。"</string>
     <string name="cannot_download" msgid="8150552478556798780">"ダウンロードできるのは「http」または「https」のURLのみです。"</string>
-    <string name="download_no_application_title" msgid="4809479884191068159">"ファイルを開くことができません"</string>
-    <string name="retry" msgid="1835923075542266721">"やり直す"</string>
-    <string name="no_downloads" msgid="8031648287973400156">"ダウンロード履歴はありません。"</string>
-    <string name="download_error" msgid="21835634921715697">"ダウンロードできませんでした。"</string>
-    <string name="download_success" msgid="1651605015937749469">"<xliff:g id="FILE">%s</xliff:g>のダウンロードが完了しました。"</string>
-    <string name="download_running" msgid="2622942231322015059">"ダウンロード中..."</string>
     <string name="download_pending" msgid="2599683668575349559">"ダウンロードを開始します..."</string>
-    <string name="download_pending_network" msgid="6548714525679461053">"ネットワークに接続しています..."</string>
-    <string name="download_running_paused" msgid="6418029352085656495">"ネットワークに接続しています..."</string>
-    <string name="download_canceled" msgid="6057083743144492515">"ダウンロードをキャンセルしました。"</string>
-    <string name="download_not_acceptable" msgid="5415339992984899924">"ダウンロードできません。このコンテンツはお使いの端末ではサポートされていません。"</string>
-    <string name="download_file_error" msgid="7702971488793861815">"空き容量が不足しているためダウンロードを完了できません。"</string>
-    <string name="download_length_required" msgid="1240338682223054142">"アイテムのサイズを特定できないためダウンロードできません。"</string>
-    <string name="download_precondition_failed" msgid="6264432738865797635">"ダウンロードが中断されました。再開はできません。"</string>
     <string name="search_the_web" msgid="6046130189241962337">"ウェブを検索します"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"ブラウザのメモリがいっぱいです"</string>
     <string name="webstorage_outofspace_notification_text" msgid="47273584426988640">"タップして空き領域を増やします。"</string>
     <string name="webstorage_clear_data_title" msgid="689484577124333977">"保存したデータを消去"</string>
-    <string name="webstorage_clear_data_dialog_title" msgid="345457466368974706">"保存したデータを消去"</string>
     <string name="webstorage_clear_data_dialog_message" msgid="6200681632891775881">"このウェブサイトによって保存されたデータをすべて削除しますか？"</string>
     <string name="webstorage_clear_data_dialog_ok_button" msgid="6682570951259237542">"OK"</string>
     <string name="webstorage_clear_data_dialog_cancel_button" msgid="2028867751958942762">"キャンセル"</string>
@@ -363,12 +331,10 @@
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"位置情報アクセスをクリア"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"このサイトは現在地情報にアクセスできます"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="7941769772784366199">"このサイトは現在地情報にアクセスできません"</string>
-    <string name="geolocation_settings_page_dialog_title" msgid="1549842043381347668">"位置情報アクセスをクリア"</string>
     <string name="geolocation_settings_page_dialog_message" msgid="8772923416296868537">"このウェブサイトの現在地情報へのアクセスをクリアしますか？"</string>
     <string name="geolocation_settings_page_dialog_ok_button" msgid="2113465477131017852">"OK"</string>
     <string name="geolocation_settings_page_dialog_cancel_button" msgid="7941036504673409747">"キャンセル"</string>
     <string name="website_settings_clear_all" msgid="8739804325997655980">"すべて消去"</string>
-    <string name="website_settings_clear_all_dialog_title" msgid="5746255931965842184">"すべて消去"</string>
     <string name="website_settings_clear_all_dialog_message" msgid="1551164275687475061">"すべてのウェブサイトデータと現在地情報へのアクセス権を削除しますか？"</string>
     <string name="website_settings_clear_all_dialog_ok_button" msgid="7858504776529106243">"OK"</string>
     <string name="website_settings_clear_all_dialog_cancel_button" msgid="1896757051856611674">"キャンセル"</string>

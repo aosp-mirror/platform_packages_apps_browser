@@ -102,7 +102,6 @@
     <string name="bookmark_needs_url" msgid="7809876865972755158">"Il segnapagina sto avair in lieu da memorisaziun."</string>
     <!-- outdated translation 6719785633980202419 -->     <string name="bookmark_url_not_valid" msgid="4917440933384496211">"La URL è nuncorrecta."</string>
     <!-- outdated translation 791722768778386941 -->     <string name="bookmark_cannot_save_url" msgid="7836064647943671126">"Impussibel d\'agiuntar questa URL a Voss segnapaginas."</string>
-    <string name="delete_bookmark" msgid="2422989994934201992">"Stizzar"</string>
     <string name="bookmark_page" msgid="6845189305130307274">"Segnapagina per l\'ultima pagina visitada"</string>
     <!-- no translation found for bookmark_thumbnail_view (3164068314718522138) -->
     <skip />
@@ -240,8 +239,6 @@
     <skip />
     <!-- no translation found for autofill_profile_editor_delete_profile (3098369314558164153) -->
     <skip />
-    <!-- no translation found for autofill_setup_dialog_title (3564907335366130582) -->
-    <skip />
     <!-- no translation found for autofill_setup_dialog_message (1096164985825394616) -->
     <skip />
     <!-- no translation found for autofill_setup_dialog_negative_toast (3288881675232206984) -->
@@ -330,7 +327,6 @@
     <string name="pref_extras_reset_default" msgid="8904000515846202110">"Reinizialisar il standard"</string>
     <string name="pref_extras_reset_default_summary" msgid="4247870778270414501">"Restaurar ils parameters predefinids"</string>
     <!-- outdated translation 6640261575874704022 -->     <string name="pref_extras_reset_default_dlg" msgid="7922814420184322450">"Ils parameters da standard vegnan restituids."</string>
-    <string name="pref_extras_reset_default_dlg_title" msgid="2250334970728938936">"Restituir las valurs predefinidas"</string>
     <string name="pref_development_title" msgid="3263854204533056480">"Debugar"</string>
     <string name="pref_default_text_encoding" msgid="5742965543955558478">"Codaziun dal text"</string>
   <string-array name="pref_default_text_encoding_choices">
@@ -367,7 +363,7 @@
     <!-- no translation found for pref_data_preload_title (4479320472980292873) -->
     <skip />
     <!-- no translation found for pref_data_preload_choices:0 (5180466923190095508) -->
-    <!-- no translation found for pref_data_preload_choices:1 (3514802063791531888) -->
+    <!-- no translation found for pref_data_preload_choices:1 (1791664748778640002) -->
     <!-- no translation found for pref_data_preload_choices:2 (3944061253437827617) -->
     <!-- no translation found for pref_data_preload_summary (3809168910751382727) -->
     <skip />
@@ -389,7 +385,6 @@
     <string name="search_hint" msgid="4647356319916631820">"Tschertgar u endatar ina URL"</string>
     <string name="search_button_text" msgid="5235226933877634410">"Dai"</string>
     <string name="search_settings_description" msgid="1422401062529014107">"Segnapaginas e cronologia web"</string>
-    <string name="attention" msgid="3473639060042811244">"Attenziun"</string>
     <!-- outdated translation 2673111696288657989 -->     <string name="popup_window_attempt" msgid="31565781154067629">"Questa website emprova dad avrir ina fanestra pop-up."</string>
     <string name="allow" msgid="1157313689171991335">"Permetter"</string>
     <string name="block" msgid="9172175889884707800">"Bloccar"</string>
@@ -397,21 +392,6 @@
     <!-- outdated translation 1398571800233959583 -->     <string name="too_many_windows_dialog_message" msgid="3644234634638290304">"Impussibel dad avrir ina nova fanestra. Il dumber maximal da fanestras avertas è cuntanschì."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"La fanestra pop-up è gia averta"</string>
     <!-- outdated translation 5827289829907966657 -->     <string name="too_many_subwindows_dialog_message" msgid="2164725447981195556">"Impussibel d\'avrir ina nova fanestra. Ina unica fanestra po esser averta a la giada."</string>
-    <string name="download_title" msgid="2122874021047565594">"Cronologia da telechargiadas"</string>
-    <string name="download_unknown_filename" msgid="4013465542563652175">"&lt;Nunenconuschent&gt;"</string>
-    <string name="download_menu_open" msgid="4888327480367757513">"Avrir"</string>
-    <string name="download_menu_clear" msgid="6264454531553418124">"Stizzar da la glista"</string>
-    <string name="download_menu_delete" msgid="8815502136393894148">"Stizzar"</string>
-    <string name="download_menu_cancel" msgid="2545333007601851574">"Interrumper la telechargiada"</string>
-    <string name="download_menu_cancel_all" msgid="2136550823151999166">"Interrumper tut las telechargiadas"</string>
-    <string name="download_cancel_dlg_title" msgid="8909108500262799748">"Interrumper las telechargiadas"</string>
-    <!-- no translation found for download_cancel_dlg_msg (2546124668173027248) -->
-    <skip />
-    <!-- outdated translation 5330036497843073249 -->     <string name="download_delete_file" msgid="8941963362686617405">"La datoteca vegn stizzada."</string>
-    <string name="download_file_error_dlg_title" msgid="2693630283595384874">"Capacitad da memorisar nunsuffizienta"</string>
-    <!-- no translation found for download_file_error_dlg_msg (5904538987107408124) -->
-    <skip />
-    <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"Telechargiada betg reussida"</string>
     <!-- outdated translation 605904452159416792 -->     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"Nagina carta SD"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"Nagina carta SD"</string>
     <!-- no translation found for download_no_sdcard_dlg_msg (3144652102051031721) -->
@@ -423,26 +403,11 @@
     <!-- outdated translation 3473883538192835204 -->     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"La carta SD è occupada. Tscherni «Deactivar la memoria USB» en l\'avis per permetter telechargiadas."</string>
     <!-- no translation found for cannot_download (8150552478556798780) -->
     <skip />
-    <!-- outdated translation 1286056729168874295 -->     <string name="download_no_application_title" msgid="4809479884191068159">"Impussibel dad avrir la datoteca"</string>
-    <string name="retry" msgid="1835923075542266721">"Repeter"</string>
-    <!-- outdated translation 3947445710685021498 -->     <string name="no_downloads" msgid="8031648287973400156">"La cronologia da telechargiadas è vida."</string>
-    <!-- outdated translation 413496839831257187 -->     <string name="download_error" msgid="21835634921715697">"La telechargiada n\'è betg reussida."</string>
-    <!-- no translation found for download_success (1651605015937749469) -->
-    <skip />
-    <string name="download_running" msgid="2622942231322015059">"Telechargiada en process…"</string>
     <string name="download_pending" msgid="2599683668575349559">"Cumenzar la telechargiada…"</string>
-    <string name="download_pending_network" msgid="6548714525679461053">"Spetgar ina connexiun da datas…"</string>
-    <string name="download_running_paused" msgid="6418029352085656495">"Spetgar la connexiun da datas…"</string>
-    <string name="download_canceled" msgid="6057083743144492515">"Telechargiada interrutta."</string>
-    <!-- outdated translation 313769696131563652 -->     <string name="download_not_acceptable" msgid="5415339992984899924">"Impussibel da telechargiar. Il cuntegn na vegn betg sustegnì da quest telefon."</string>
-    <!-- outdated translation 1206648050615176113 -->     <string name="download_file_error" msgid="7702971488793861815">"Impussibel da terminar la telechargiada. La capacitad da memorisar è nunsuffizienta."</string>
-    <!-- outdated translation 9038605488460437406 -->     <string name="download_length_required" msgid="1240338682223054142">"Impussibel da cumenzar a telechargiar. La grondezza da l\'element na po betg vegnir distinguida."</string>
-    <!-- outdated translation 8327584102874295580 -->     <string name="download_precondition_failed" msgid="6264432738865797635">"La telechargiada è vegnida interrutta e na po betg vegnir cuntinuada."</string>
     <string name="search_the_web" msgid="6046130189241962337">"Tschertgar en il web"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Memoria dal navigatur plaina"</string>
     <!-- outdated translation 7341075135051829692 -->     <string name="webstorage_outofspace_notification_text" msgid="47273584426988640">"Cliccai qua per gudagnar capacitad da memorisar."</string>
     <string name="webstorage_clear_data_title" msgid="689484577124333977">"Stizzar las datas memorisadas"</string>
-    <string name="webstorage_clear_data_dialog_title" msgid="345457466368974706">"Stizzar las datas memorisadas"</string>
     <!-- outdated translation 6678281256970470125 -->     <string name="webstorage_clear_data_dialog_message" msgid="6200681632891775881">"Tut las datas memorisadas da questa website vegnan stizzadas."</string>
     <!-- outdated translation 2516563534211898636 -->     <string name="webstorage_clear_data_dialog_ok_button" msgid="6682570951259237542">"Stizzar tut"</string>
     <string name="webstorage_clear_data_dialog_cancel_button" msgid="2028867751958942762">"Interrumper"</string>
@@ -457,12 +422,10 @@
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Stizzar l\'access a la posiziun"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Questa website ha actualmain access a Vossa posiziun"</string>
     <!-- outdated translation 4589649082203102544 -->     <string name="geolocation_settings_page_summary_not_allowed" msgid="7941769772784366199">"Questa website n\'ha per il mument betg access a Vossa posiziun."</string>
-    <string name="geolocation_settings_page_dialog_title" msgid="1549842043381347668">"Stizzar l\'access a datas da posiziun"</string>
     <!-- outdated translation 7586671987576403993 -->     <string name="geolocation_settings_page_dialog_message" msgid="8772923416296868537">"L\'access da questa website a datas da posiziun vegn stizzà."</string>
     <!-- outdated translation 4789434178048077287 -->     <string name="geolocation_settings_page_dialog_ok_button" msgid="2113465477131017852">"Stizzar l\'access"</string>
     <string name="geolocation_settings_page_dialog_cancel_button" msgid="7941036504673409747">"Interrumper"</string>
     <string name="website_settings_clear_all" msgid="8739804325997655980">"Stizzar tut"</string>
-    <!-- outdated translation 7791826325122461718 -->     <string name="website_settings_clear_all_dialog_title" msgid="5746255931965842184">"Stizzar tut ils parameters da la website?"</string>
     <!-- outdated translation 6150502090601476333 -->     <string name="website_settings_clear_all_dialog_message" msgid="1551164275687475061">"Tut las datas da la website e las autorisaziuns da posiziun vegnan stizzadas."</string>
     <!-- outdated translation 6401582240627669431 -->     <string name="website_settings_clear_all_dialog_ok_button" msgid="7858504776529106243">"Stizzar tut las datas"</string>
     <string name="website_settings_clear_all_dialog_cancel_button" msgid="1896757051856611674">"Interrumper"</string>
