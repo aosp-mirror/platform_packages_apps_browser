@@ -19,16 +19,18 @@ package com.android.browser.widget;
 import android.app.ListActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.appwidget.AppWidgetManager;
+import android.content.Context;
+import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.provider.BrowserContract.Accounts;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.android.browser.AddBookmarkPage.AccountsLoader;
 import com.android.browser.AddBookmarkPage.BookmarkAccount;
 import com.android.browser.R;
 import com.android.browser.provider.BrowserProvider2;
@@ -91,10 +93,12 @@ public class BookmarkWidgetConfigure extends ListActivity
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-        if (cursor == null || cursor.getCount() <= 1) {
-            // We always have the local account, so if count == 1 it must
-            // be the local account
+        if (cursor == null || cursor.getCount() < 1) {
+            // We always have the local account, so fall back to that
             pickAccount(BrowserProvider2.FIXED_ID_ROOT);
+        } else if (cursor.getCount() == 1) {
+            cursor.moveToFirst();
+            pickAccount(cursor.getLong(AccountsLoader.COLUMN_INDEX_ROOT_ID));
         } else {
             mAccountAdapter.clear();
             while (cursor.moveToNext()) {
@@ -108,6 +112,27 @@ public class BookmarkWidgetConfigure extends ListActivity
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         // Don't care
+    }
+
+    static class AccountsLoader extends CursorLoader {
+
+        static final String[] PROJECTION = new String[] {
+            Accounts.ACCOUNT_NAME,
+            Accounts.ACCOUNT_TYPE,
+            Accounts.ROOT_ID,
+        };
+
+        static final int COLUMN_INDEX_ACCOUNT_NAME = 0;
+        static final int COLUMN_INDEX_ACCOUNT_TYPE = 1;
+        static final int COLUMN_INDEX_ROOT_ID = 2;
+
+        public AccountsLoader(Context context) {
+            super(context, Accounts.CONTENT_URI
+                    .buildUpon()
+                    .appendQueryParameter(BrowserProvider2.PARAM_ALLOW_EMPTY_ACCOUNTS, "false")
+                    .build(), PROJECTION, null, null, null);
+        }
+
     }
 
 }
