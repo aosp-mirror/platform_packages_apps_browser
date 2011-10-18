@@ -189,7 +189,7 @@
     <string name="pref_privacy_security_title" msgid="3480313968942160914">"Privasi &amp; keamanan"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Hapus tembolok"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Hapus konten dan basis data yang disimpan dalam tembolok secara lokal"</string>
-    <string name="pref_privacy_clear_cache_dlg" msgid="4344512581716422465">"Hapus basis data dan konten dalam tembolok secara lokal?"</string>
+    <string name="pref_privacy_clear_cache_dlg" msgid="4344512581716422465">"Hapus basis data dan konten dalam tembolok lokal?"</string>
     <string name="pref_privacy_cookies_title" msgid="6763274282214830526">"Kuki"</string>
     <string name="pref_privacy_clear_cookies" msgid="3095583579133780331">"Hapus semua data kuki"</string>
     <string name="pref_privacy_clear_cookies_summary" msgid="6962742063990677520">"Hapus semua kuki peramban"</string>
@@ -228,13 +228,12 @@
   </string-array>
     <string name="pref_min_font_size" msgid="8811125835817449131">"Ukuran fon minimal"</string>
     <string name="pref_min_font_size_value" msgid="2924708480509060209">"<xliff:g id="FONT_SIZE">%d</xliff:g> pn"</string>
-    <!-- outdated translation 8387229123479610157 -->     <string name="pref_text_zoom" msgid="5171056101805125497">"Pembesaran/pengecilan teks"</string>
-    <!-- no translation found for pref_zoom_on_double_tap (902786475250741795) -->
-    <skip />
+    <string name="pref_text_zoom" msgid="5171056101805125497">"Penskalaan teks"</string>
+    <string name="pref_zoom_on_double_tap" msgid="902786475250741795">"Prbesar/prkecil dg ktk dua kali"</string>
     <string name="pref_force_userscalable" msgid="5641500562399892621">"Paksa aktifkan zum"</string>
     <string name="pref_force_userscalable_summary" msgid="3613242300617172230">"Kesampingkan permintaan situs web untuk mengontrol perilaku perbesar/perkecil"</string>
-    <string name="pref_inverted_category" msgid="1280639705117152207">"Penguraian layar terbalik"</string>
-    <string name="pref_inverted" msgid="7613556986776824112">"Penguraian terbalik"</string>
+    <string name="pref_inverted_category" msgid="1280639705117152207">"Penampilan layar terinversi"</string>
+    <string name="pref_inverted" msgid="7613556986776824112">"Penampilan terinversi"</string>
     <string name="pref_inverted_summary" msgid="7357225897413923085">"Hitam menjadi putih dan sebaliknya"</string>
     <string name="pref_inverted_contrast" msgid="8527441236225288169">"Kontras"</string>
     <string name="pref_default_zoom" msgid="8076142259097187395">"Zoom bawaan"</string>
@@ -245,7 +244,7 @@
   </string-array>
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"Zoom bawaan"</string>
     <string name="pref_content_load_page" msgid="2219810141690955452">"Buka laman di ikhtisar"</string>
-    <string name="pref_content_load_page_summary" msgid="9168803276420332955">"Tampilkan ikhtisar laman yang baru dibuka"</string>
+    <string name="pref_content_load_page_summary" msgid="9168803276420332955">"Menampilkan ikhtisar laman yang baru dibuka"</string>
     <string name="pref_extras_title" msgid="7075456173747370647">"Lanjutan"</string>
     <string name="pref_extras_website_settings" msgid="67866640052455549">"Setelan situs web"</string>
     <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"Setelan lanjutan untuk masing-masing situs web"</string>
@@ -268,10 +267,10 @@
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Penyandiaksaraan teks"</string>
     <string name="pref_accessibility_title" msgid="5127836981587423215">"Aksesibilitas"</string>
-    <!-- outdated translation 6288925476811083551 -->     <string name="pref_font_size_category" msgid="6683754355084218254">"Ukuran fon"</string>
+    <string name="pref_font_size_category" msgid="6683754355084218254">"Ukuran teks"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"Labs"</string>
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Kontrol cepat"</string>
-    <string name="pref_lab_quick_controls_summary" msgid="3149664132600968775">"Gsr ibu jari dr sdt kiri/knn utk mmbuka ktrl cpt dan mnymbunyikn apl dan blh URL"</string>
+    <string name="pref_lab_quick_controls_summary" msgid="3149664132600968775">"Geser ibu jari dari ujung kiri atau kanan untuk membuka kontrol cepat dan menyembunyikan apl dan bilah URL"</string>
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Google Sekejap"</string>
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Gunakan Google Sekejap di Google Penelusuran agar hasilnya tampil selagi mengetik (ini dapat menambah pemakaian data)."</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"Layar penuh"</string>
@@ -280,7 +279,7 @@
     <string name="pref_data_preload_title" msgid="4479320472980292873">"Pramuat hasil penelusuran"</string>
   <string-array name="pref_data_preload_choices">
     <item msgid="5180466923190095508">"Tidak Pernah"</item>
-    <item msgid="3514802063791531888">"Hanya ketika di WiFi"</item>
+    <item msgid="3514802063791531888">"Hanya pada WiFi"</item>
     <item msgid="3944061253437827617">"Selalu"</item>
   </string-array>
     <string name="pref_data_preload_summary" msgid="3809168910751382727">"Mengizinkan peramban mem-pramuat hasil penelusuran pasti di latar belakang"</string>
@@ -359,7 +358,7 @@
     <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"Tolak"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"Ingat preferensi"</string>
     <string name="geolocation_permissions_prompt_toast_allowed" msgid="7201417941112726112">"Situs ini dapat mengakses lokasi Anda. Ubah melalui layar Setelan &gt; Lanjutan &gt; Situs web."</string>
-    <string name="geolocation_permissions_prompt_toast_disallowed" msgid="156443445797377409">"Situs ini tidak dapat mengakses lokasi Anda. Ubah melalui Setelan &gt; Lanjutan &gt; Layar situs web."</string>
+    <string name="geolocation_permissions_prompt_toast_disallowed" msgid="156443445797377409">"Situs ini tidak dapat mengakses lokasi Anda. Ubah melalui layar Setelan &gt; Lanjutan &gt; Situs web."</string>
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Hapus akses lokasi"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Saat ini situs ini dapat mengakses lokasi Anda"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="7941769772784366199">"Saat ini situs ini tidak dapat mengakses lokasi Anda"</string>

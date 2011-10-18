@@ -140,7 +140,7 @@
     <string name="pref_content_open_in_background_summary" msgid="955411158407739504">"Отварање нових картица иза тренутне картице"</string>
     <string name="pref_content_homepage" msgid="3324574611613105696">"Подеси почетну страницу"</string>
     <string name="pref_content_search_engine" msgid="1620101310821644144">"Подешавање претраживача"</string>
-    <string name="pref_content_search_engine_summary" msgid="304003941861818133">"Бирање претраживача"</string>
+    <string name="pref_content_search_engine_summary" msgid="304003941861818133">"Избор претраживача"</string>
     <string name="pref_set_homepage_to" msgid="7838684355145561242">"Подеси на"</string>
   <string-array name="pref_homepage_choices">
     <item msgid="844041670142910837">"Тренутна страница"</item>
@@ -228,9 +228,8 @@
   </string-array>
     <string name="pref_min_font_size" msgid="8811125835817449131">"Минимална величина фонта"</string>
     <string name="pref_min_font_size_value" msgid="2924708480509060209">"<xliff:g id="FONT_SIZE">%d</xliff:g>pt"</string>
-    <!-- outdated translation 8387229123479610157 -->     <string name="pref_text_zoom" msgid="5171056101805125497">"Зумирање текста"</string>
-    <!-- no translation found for pref_zoom_on_double_tap (902786475250741795) -->
-    <skip />
+    <string name="pref_text_zoom" msgid="5171056101805125497">"Промена величине текста"</string>
+    <string name="pref_zoom_on_double_tap" msgid="902786475250741795">"Зумирање при двоструком додиру"</string>
     <string name="pref_force_userscalable" msgid="5641500562399892621">"Принудно омогући зум"</string>
     <string name="pref_force_userscalable_summary" msgid="3613242300617172230">"Одбијање захтева веб сајта за контролу понашања зума"</string>
     <string name="pref_inverted_category" msgid="1280639705117152207">"Приказивање екрана са замењеним бојама"</string>
@@ -268,7 +267,7 @@
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Кодирање текста"</string>
     <string name="pref_accessibility_title" msgid="5127836981587423215">"Приступачност"</string>
-    <!-- outdated translation 6288925476811083551 -->     <string name="pref_font_size_category" msgid="6683754355084218254">"Величина фонта"</string>
+    <string name="pref_font_size_category" msgid="6683754355084218254">"Величина текста"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"Labs"</string>
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Брзе контроле"</string>
     <string name="pref_lab_quick_controls_summary" msgid="3149664132600968775">"Превлачење с леве или десне ивице отвара брзе контроле и крије апликације и URL адресе"</string>
@@ -333,7 +332,7 @@
     <string name="download_no_application_title" msgid="4809479884191068159">"Није могуће отворити датотеку"</string>
     <string name="retry" msgid="1835923075542266721">"Покушај поново"</string>
     <string name="no_downloads" msgid="8031648287973400156">"Нема историје преузимања."</string>
-    <string name="download_error" msgid="21835634921715697">"Преузимање није било могуће."</string>
+    <string name="download_error" msgid="21835634921715697">"Преузимање није могуће."</string>
     <string name="download_success" msgid="1651605015937749469">"Преузимање датотеке <xliff:g id="FILE">%s</xliff:g> је завршено."</string>
     <string name="download_running" msgid="2622942231322015059">"Преузимање…"</string>
     <string name="download_pending" msgid="2599683668575349559">"Покретање преузимања…"</string>

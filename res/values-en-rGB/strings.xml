@@ -69,7 +69,7 @@
     <string name="add_to_other_folder_menu_option" msgid="5947586525822134105">"Other folder"</string>
     <string name="name" msgid="5462672162695365387">"Label"</string>
     <string name="http" msgid="2163722670597250102">"http://"</string>
-    <string name="save_to_bookmarks" msgid="1679286010089780932">"Saved to bookmarks"</string>
+    <string name="save_to_bookmarks" msgid="1679286010089780932">"Save to bookmarks"</string>
     <string name="bookmark_this_page" msgid="7530739804320811054">"Bookmark this page"</string>
     <string name="remove" msgid="7820112494467011374">"Remove"</string>
     <string name="edit_bookmark" msgid="5024089053490231905">"Edit bookmark"</string>
