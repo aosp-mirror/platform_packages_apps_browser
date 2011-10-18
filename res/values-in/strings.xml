@@ -86,7 +86,6 @@
     <string name="bookmark_needs_url" msgid="7809876865972755158">"Bookmark harus memiliki lokasi."</string>
     <string name="bookmark_url_not_valid" msgid="4917440933384496211">"URL ini tidak valid."</string>
     <string name="bookmark_cannot_save_url" msgid="7836064647943671126">"URL ini tidak dapat di-bookmark."</string>
-    <string name="delete_bookmark" msgid="2422989994934201992">"Hapus"</string>
     <string name="bookmark_page" msgid="6845189305130307274">"Bookmark laman yang terakhir dilihat."</string>
     <string name="bookmark_thumbnail_view" msgid="3164068314718522138">"Thumbnail"</string>
     <string name="bookmark_list_view" msgid="7848510619500937839">"Daftar"</string>
@@ -182,14 +181,13 @@
     <string name="autofill_profile_successful_save" msgid="5691459703493331983">"Teks isi-otomatis disimpan."</string>
     <string name="autofill_profile_successful_delete" msgid="1790262652460723127">"Teks isi-otomatis dihapus."</string>
     <string name="autofill_profile_editor_delete_profile" msgid="3098369314558164153">"Hapus"</string>
-    <string name="autofill_setup_dialog_title" msgid="3564907335366130582">"Isi-otomatis"</string>
     <string name="autofill_setup_dialog_message" msgid="1096164985825394616">"Peramban dapat melengkapi formulir web seperti ini secara otomatis. Apakah Anda ingin menyiapkan teks isi-otomatis?"</string>
     <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"Anda selalu dapat menyiapkan teks isi-otomatis dari layar Peramban &gt; Setelan &gt; Umum."</string>
     <string name="disable_autofill" msgid="8305901059849400354">"Nonaktifkan isi-otomatis"</string>
     <string name="pref_privacy_security_title" msgid="3480313968942160914">"Privasi &amp; keamanan"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Hapus tembolok"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Hapus konten dan basis data yang disimpan dalam tembolok secara lokal"</string>
-    <string name="pref_privacy_clear_cache_dlg" msgid="4344512581716422465">"Hapus basis data dan konten dalam tembolok secara lokal?"</string>
+    <string name="pref_privacy_clear_cache_dlg" msgid="4344512581716422465">"Hapus basis data dan konten dalam tembolok lokal?"</string>
     <string name="pref_privacy_cookies_title" msgid="6763274282214830526">"Kuki"</string>
     <string name="pref_privacy_clear_cookies" msgid="3095583579133780331">"Hapus semua data kuki"</string>
     <string name="pref_privacy_clear_cookies_summary" msgid="6962742063990677520">"Hapus semua kuki peramban"</string>
@@ -228,13 +226,12 @@
   </string-array>
     <string name="pref_min_font_size" msgid="8811125835817449131">"Ukuran fon minimal"</string>
     <string name="pref_min_font_size_value" msgid="2924708480509060209">"<xliff:g id="FONT_SIZE">%d</xliff:g> pn"</string>
-    <!-- outdated translation 8387229123479610157 -->     <string name="pref_text_zoom" msgid="5171056101805125497">"Pembesaran/pengecilan teks"</string>
-    <!-- no translation found for pref_zoom_on_double_tap (902786475250741795) -->
-    <skip />
+    <string name="pref_text_zoom" msgid="5171056101805125497">"Penskalaan teks"</string>
+    <string name="pref_zoom_on_double_tap" msgid="902786475250741795">"Prbesar/prkecil dg ktk dua kali"</string>
     <string name="pref_force_userscalable" msgid="5641500562399892621">"Paksa aktifkan zum"</string>
     <string name="pref_force_userscalable_summary" msgid="3613242300617172230">"Kesampingkan permintaan situs web untuk mengontrol perilaku perbesar/perkecil"</string>
-    <string name="pref_inverted_category" msgid="1280639705117152207">"Penguraian layar terbalik"</string>
-    <string name="pref_inverted" msgid="7613556986776824112">"Penguraian terbalik"</string>
+    <string name="pref_inverted_category" msgid="1280639705117152207">"Penampilan layar terinversi"</string>
+    <string name="pref_inverted" msgid="7613556986776824112">"Penampilan terinversi"</string>
     <string name="pref_inverted_summary" msgid="7357225897413923085">"Hitam menjadi putih dan sebaliknya"</string>
     <string name="pref_inverted_contrast" msgid="8527441236225288169">"Kontras"</string>
     <string name="pref_default_zoom" msgid="8076142259097187395">"Zoom bawaan"</string>
@@ -245,7 +242,7 @@
   </string-array>
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"Zoom bawaan"</string>
     <string name="pref_content_load_page" msgid="2219810141690955452">"Buka laman di ikhtisar"</string>
-    <string name="pref_content_load_page_summary" msgid="9168803276420332955">"Tampilkan ikhtisar laman yang baru dibuka"</string>
+    <string name="pref_content_load_page_summary" msgid="9168803276420332955">"Menampilkan ikhtisar laman yang baru dibuka"</string>
     <string name="pref_extras_title" msgid="7075456173747370647">"Lanjutan"</string>
     <string name="pref_extras_website_settings" msgid="67866640052455549">"Setelan situs web"</string>
     <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"Setelan lanjutan untuk masing-masing situs web"</string>
@@ -253,7 +250,6 @@
     <string name="pref_extras_reset_default" msgid="8904000515846202110">"Setel ulang ke bawaan"</string>
     <string name="pref_extras_reset_default_summary" msgid="4247870778270414501">"Pulihkan setelan bawaan"</string>
     <string name="pref_extras_reset_default_dlg" msgid="7922814420184322450">"Kembalikan setelan ke nilai bawaan?"</string>
-    <string name="pref_extras_reset_default_dlg_title" msgid="2250334970728938936">"Setel ulang ke bawaan"</string>
     <string name="pref_development_title" msgid="3263854204533056480">"Debug"</string>
     <string name="pref_default_text_encoding" msgid="5742965543955558478">"Penyandiaksaraan teks"</string>
   <string-array name="pref_default_text_encoding_choices">
@@ -268,10 +264,10 @@
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Penyandiaksaraan teks"</string>
     <string name="pref_accessibility_title" msgid="5127836981587423215">"Aksesibilitas"</string>
-    <!-- outdated translation 6288925476811083551 -->     <string name="pref_font_size_category" msgid="6683754355084218254">"Ukuran fon"</string>
+    <string name="pref_font_size_category" msgid="6683754355084218254">"Ukuran teks"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"Labs"</string>
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Kontrol cepat"</string>
-    <string name="pref_lab_quick_controls_summary" msgid="3149664132600968775">"Gsr ibu jari dr sdt kiri/knn utk mmbuka ktrl cpt dan mnymbunyikn apl dan blh URL"</string>
+    <string name="pref_lab_quick_controls_summary" msgid="3149664132600968775">"Geser ibu jari dari ujung kiri atau kanan untuk membuka kontrol cepat dan menyembunyikan apl dan bilah URL"</string>
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Google Sekejap"</string>
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Gunakan Google Sekejap di Google Penelusuran agar hasilnya tampil selagi mengetik (ini dapat menambah pemakaian data)."</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"Layar penuh"</string>
@@ -280,7 +276,7 @@
     <string name="pref_data_preload_title" msgid="4479320472980292873">"Pramuat hasil penelusuran"</string>
   <string-array name="pref_data_preload_choices">
     <item msgid="5180466923190095508">"Tidak Pernah"</item>
-    <item msgid="3514802063791531888">"Hanya ketika di WiFi"</item>
+    <item msgid="1791664748778640002">"Hanya pada Wi-Fi"</item>
     <item msgid="3944061253437827617">"Selalu"</item>
   </string-array>
     <string name="pref_data_preload_summary" msgid="3809168910751382727">"Mengizinkan peramban mem-pramuat hasil penelusuran pasti di latar belakang"</string>
@@ -300,7 +296,6 @@
     <string name="search_hint" msgid="4647356319916631820">"Telusuri atau ketik URL"</string>
     <string name="search_button_text" msgid="5235226933877634410">"Buka"</string>
     <string name="search_settings_description" msgid="1422401062529014107">"Bookmark dan riwayat web"</string>
-    <string name="attention" msgid="3473639060042811244">"Perhatian"</string>
     <string name="popup_window_attempt" msgid="31565781154067629">"Izinkan situs ini membuka jendela munculan?"</string>
     <string name="allow" msgid="1157313689171991335">"Izinkan"</string>
     <string name="block" msgid="9172175889884707800">"Cekal"</string>
@@ -308,19 +303,6 @@
     <string name="too_many_windows_dialog_message" msgid="3644234634638290304">"Tidak dapat membuka tab baru sampai Anda menutup satu tab."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Munculan sudah terbuka"</string>
     <string name="too_many_subwindows_dialog_message" msgid="2164725447981195556">"Hanya satu munculan yang dapat dibuka sekaligus."</string>
-    <string name="download_title" msgid="2122874021047565594">"Riwayat unduhan"</string>
-    <string name="download_unknown_filename" msgid="4013465542563652175">"&lt;Tidak diketahui&gt;"</string>
-    <string name="download_menu_open" msgid="4888327480367757513">"Buka"</string>
-    <string name="download_menu_clear" msgid="6264454531553418124">"Hapus dari daftar"</string>
-    <string name="download_menu_delete" msgid="8815502136393894148">"Hapus"</string>
-    <string name="download_menu_cancel" msgid="2545333007601851574">"Batalkan unduhan"</string>
-    <string name="download_menu_cancel_all" msgid="2136550823151999166">"Batalkan semua unduhan"</string>
-    <string name="download_cancel_dlg_title" msgid="8909108500262799748">"Batalkan unduhan"</string>
-    <string name="download_cancel_dlg_msg" msgid="2546124668173027248">"Batalkan dan hapus semua <xliff:g id="DOWNLOAD_COUNT">%d</xliff:g> unduhan dari riwayat unduhan?"</string>
-    <string name="download_delete_file" msgid="8941963362686617405">"Hapus"</string>
-    <string name="download_file_error_dlg_title" msgid="2693630283595384874">"Kehabisan ruang penyimpanan"</string>
-    <string name="download_file_error_dlg_msg" msgid="5904538987107408124">"<xliff:g id="FILENAME">%s</xliff:g> tidak dapat diunduh."\n"Kosongkan beberapa ruang dan coba lagi."</string>
-    <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"Unduh gagal"</string>
     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"Penyimpanan USB tidak tersedia"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"Tidak ada kartu SD"</string>
     <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"Penyimpanan USB diperlukan untuk mengunduh <xliff:g id="FILENAME">%s</xliff:g>."</string>
@@ -330,25 +312,11 @@
     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="8412543086906716875">"Penyimpanan USB sibuk. Untuk mengizinkan pengunduhan, sentuh Matikan penyimpanan USB pada pemberitahuan."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"Kartu SD sibuk. Untuk mengizinkan unduhan, sentuh Matikan penyimpanan USB pada pemberitahuan."</string>
     <string name="cannot_download" msgid="8150552478556798780">"Hanya dapat mengunduh URL \"http\" atau \"https\"."</string>
-    <string name="download_no_application_title" msgid="4809479884191068159">"Tidak dapat membuka berkas"</string>
-    <string name="retry" msgid="1835923075542266721">"Coba Lagi"</string>
-    <string name="no_downloads" msgid="8031648287973400156">"Tidak ada riwayat unduhan."</string>
-    <string name="download_error" msgid="21835634921715697">"Tidak dapat mengunduh."</string>
-    <string name="download_success" msgid="1651605015937749469">"Unduhan <xliff:g id="FILE">%s</xliff:g> selesai."</string>
-    <string name="download_running" msgid="2622942231322015059">"Mengunduh..."</string>
     <string name="download_pending" msgid="2599683668575349559">"Memulai unduhan..."</string>
-    <string name="download_pending_network" msgid="6548714525679461053">"Menunggu sambungan data..."</string>
-    <string name="download_running_paused" msgid="6418029352085656495">"Menunggu sambungan data..."</string>
-    <string name="download_canceled" msgid="6057083743144492515">"Unduhan dibatalkan."</string>
-    <string name="download_not_acceptable" msgid="5415339992984899924">"Tidak dapat mengunduh karena konten tersebut tidak didukung di ponsel ini."</string>
-    <string name="download_file_error" msgid="7702971488793861815">"Tidak dapat menyelesaikan unduhan karena ruang tidak mencukupi."</string>
-    <string name="download_length_required" msgid="1240338682223054142">"Tidak dapat mengunduh karena ukuran item tidak dapat ditentukan."</string>
-    <string name="download_precondition_failed" msgid="6264432738865797635">"Unduhan terputus dan tidak dapat dilanjutkan."</string>
     <string name="search_the_web" msgid="6046130189241962337">"Telusuri web"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Penyimpanan peramban penuh"</string>
     <string name="webstorage_outofspace_notification_text" msgid="47273584426988640">"Sentuh untuk mengosongkan ruang."</string>
     <string name="webstorage_clear_data_title" msgid="689484577124333977">"Hapus data tersimpan"</string>
-    <string name="webstorage_clear_data_dialog_title" msgid="345457466368974706">"Hapus data tersimpan"</string>
     <string name="webstorage_clear_data_dialog_message" msgid="6200681632891775881">"Hapus semua data yang disimpan situs web ini?"</string>
     <string name="webstorage_clear_data_dialog_ok_button" msgid="6682570951259237542">"OK"</string>
     <string name="webstorage_clear_data_dialog_cancel_button" msgid="2028867751958942762">"Batal"</string>
@@ -359,16 +327,14 @@
     <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"Tolak"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"Ingat preferensi"</string>
     <string name="geolocation_permissions_prompt_toast_allowed" msgid="7201417941112726112">"Situs ini dapat mengakses lokasi Anda. Ubah melalui layar Setelan &gt; Lanjutan &gt; Situs web."</string>
-    <string name="geolocation_permissions_prompt_toast_disallowed" msgid="156443445797377409">"Situs ini tidak dapat mengakses lokasi Anda. Ubah melalui Setelan &gt; Lanjutan &gt; Layar situs web."</string>
+    <string name="geolocation_permissions_prompt_toast_disallowed" msgid="156443445797377409">"Situs ini tidak dapat mengakses lokasi Anda. Ubah melalui layar Setelan &gt; Lanjutan &gt; Situs web."</string>
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Hapus akses lokasi"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Saat ini situs ini dapat mengakses lokasi Anda"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="7941769772784366199">"Saat ini situs ini tidak dapat mengakses lokasi Anda"</string>
-    <string name="geolocation_settings_page_dialog_title" msgid="1549842043381347668">"Hapus akses lokasi"</string>
     <string name="geolocation_settings_page_dialog_message" msgid="8772923416296868537">"Hapus akses lokasi untuk situs web ini?"</string>
     <string name="geolocation_settings_page_dialog_ok_button" msgid="2113465477131017852">"OK"</string>
     <string name="geolocation_settings_page_dialog_cancel_button" msgid="7941036504673409747">"Batal"</string>
     <string name="website_settings_clear_all" msgid="8739804325997655980">"Hapus semua"</string>
-    <string name="website_settings_clear_all_dialog_title" msgid="5746255931965842184">"Hapus semua"</string>
     <string name="website_settings_clear_all_dialog_message" msgid="1551164275687475061">"Hapus semua data situs web dan izin lokasi?"</string>
     <string name="website_settings_clear_all_dialog_ok_button" msgid="7858504776529106243">"OK"</string>
     <string name="website_settings_clear_all_dialog_cancel_button" msgid="1896757051856611674">"Batal"</string>

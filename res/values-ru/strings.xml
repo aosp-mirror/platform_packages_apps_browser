@@ -86,7 +86,6 @@
     <string name="bookmark_needs_url" msgid="7809876865972755158">"Необходимо указать место закладки."</string>
     <string name="bookmark_url_not_valid" msgid="4917440933384496211">"Неправильный URL."</string>
     <string name="bookmark_cannot_save_url" msgid="7836064647943671126">"Невозможно добавить в закладки эту страницу."</string>
-    <string name="delete_bookmark" msgid="2422989994934201992">"Удалить"</string>
     <string name="bookmark_page" msgid="6845189305130307274">"Добавить в закладки последнюю просмотренную страницу"</string>
     <string name="bookmark_thumbnail_view" msgid="3164068314718522138">"Изображения"</string>
     <string name="bookmark_list_view" msgid="7848510619500937839">"Список"</string>
@@ -182,7 +181,6 @@
     <string name="autofill_profile_successful_save" msgid="5691459703493331983">"Текст автозаполнения сохранен."</string>
     <string name="autofill_profile_successful_delete" msgid="1790262652460723127">"Текст автозаполнения удален."</string>
     <string name="autofill_profile_editor_delete_profile" msgid="3098369314558164153">"Удалить"</string>
-    <string name="autofill_setup_dialog_title" msgid="3564907335366130582">"Автозаполнение"</string>
     <string name="autofill_setup_dialog_message" msgid="1096164985825394616">"Браузер может автоматически заполнять такие веб-формы. Включить автозаполнение?"</string>
     <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"Автозаполнение можно настроить в общих настройках браузера."</string>
     <string name="disable_autofill" msgid="8305901059849400354">"Отключить автозаполнение"</string>
@@ -252,7 +250,6 @@
     <string name="pref_extras_reset_default" msgid="8904000515846202110">"Сброс настроек"</string>
     <string name="pref_extras_reset_default_summary" msgid="4247870778270414501">"Восстановить значения по умолчанию"</string>
     <string name="pref_extras_reset_default_dlg" msgid="7922814420184322450">"Восстановить настройки по умолчанию?"</string>
-    <string name="pref_extras_reset_default_dlg_title" msgid="2250334970728938936">"Сброс настроек"</string>
     <string name="pref_development_title" msgid="3263854204533056480">"Выполнить отладку"</string>
     <string name="pref_default_text_encoding" msgid="5742965543955558478">"Кодировка текста"</string>
   <string-array name="pref_default_text_encoding_choices">
@@ -279,7 +276,7 @@
     <string name="pref_data_preload_title" msgid="4479320472980292873">"Загрузка результатов поиска"</string>
   <string-array name="pref_data_preload_choices">
     <item msgid="5180466923190095508">"Никогда"</item>
-    <item msgid="3514802063791531888">"Только по Wi-Fi"</item>
+    <item msgid="1791664748778640002">"Только по Wi-Fi"</item>
     <item msgid="3944061253437827617">"Всегда"</item>
   </string-array>
     <string name="pref_data_preload_summary" msgid="3809168910751382727">"Разрешить браузеру предварительно загружать результаты поиска в фоновом режиме"</string>
@@ -299,27 +296,13 @@
     <string name="search_hint" msgid="4647356319916631820">"Введите условия поиска или URL-адрес"</string>
     <string name="search_button_text" msgid="5235226933877634410">"Поиск"</string>
     <string name="search_settings_description" msgid="1422401062529014107">"Закладки и история поиска"</string>
-    <string name="attention" msgid="3473639060042811244">"Внимание!"</string>
     <string name="popup_window_attempt" msgid="31565781154067629">"Открыть всплывающее окно с этого сайта?"</string>
     <string name="allow" msgid="1157313689171991335">"Разрешить"</string>
     <string name="block" msgid="9172175889884707800">"Заблокировать"</string>
-    <string name="too_many_windows_dialog_title" msgid="5709782301477380438">"Открыто максимальное количество вкладок"</string>
+    <string name="too_many_windows_dialog_title" msgid="5709782301477380438">"Открыто макс. число вкладок"</string>
     <string name="too_many_windows_dialog_message" msgid="3644234634638290304">"Невозможно открыть новую вкладку: закройте хотя бы одну."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Всплывающее окно уже открыто"</string>
     <string name="too_many_subwindows_dialog_message" msgid="2164725447981195556">"Можно открыть только одно всплывающее окно."</string>
-    <string name="download_title" msgid="2122874021047565594">"История загрузок"</string>
-    <string name="download_unknown_filename" msgid="4013465542563652175">"&lt;неизвестно&gt;"</string>
-    <string name="download_menu_open" msgid="4888327480367757513">"Открыть"</string>
-    <string name="download_menu_clear" msgid="6264454531553418124">"Удалить из списка"</string>
-    <string name="download_menu_delete" msgid="8815502136393894148">"Удалить"</string>
-    <string name="download_menu_cancel" msgid="2545333007601851574">"Отменить загрузку"</string>
-    <string name="download_menu_cancel_all" msgid="2136550823151999166">"Отменить все загрузки"</string>
-    <string name="download_cancel_dlg_title" msgid="8909108500262799748">"Отменить загрузки"</string>
-    <string name="download_cancel_dlg_msg" msgid="2546124668173027248">"Отменить и удалить все загрузки (<xliff:g id="DOWNLOAD_COUNT">%d</xliff:g>) из истории?"</string>
-    <string name="download_delete_file" msgid="8941963362686617405">"Удаление"</string>
-    <string name="download_file_error_dlg_title" msgid="2693630283595384874">"Недостаточно места"</string>
-    <string name="download_file_error_dlg_msg" msgid="5904538987107408124">"Невозможно загрузить файл <xliff:g id="FILENAME">%s</xliff:g>."\n"Освободите место и повторите попытку."</string>
-    <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"Ошибка загрузки"</string>
     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"USB-накопитель недоступен"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"SD-карта отсутствует"</string>
     <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"Для загрузки файла <xliff:g id="FILENAME">%s</xliff:g> требуется USB-накопитель."</string>
@@ -329,25 +312,11 @@
     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="8412543086906716875">"USB-накопитель занят. Чтобы разрешить загрузки, выберите \"Отключить USB-накопитель\" в уведомлении."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"SD-карта занята. Чтобы разрешить загрузки, выберите \"Отключить USB-накопитель\" в уведомлении."</string>
     <string name="cannot_download" msgid="8150552478556798780">"Загрузка возможна только с URL, начинающихся с \"http\" или \"https\"."</string>
-    <string name="download_no_application_title" msgid="4809479884191068159">"Невозможно открыть файл"</string>
-    <string name="retry" msgid="1835923075542266721">"Повторить попытку"</string>
-    <string name="no_downloads" msgid="8031648287973400156">"Нет данных"</string>
-    <string name="download_error" msgid="21835634921715697">"Ошибка при загрузке."</string>
-    <string name="download_success" msgid="1651605015937749469">"<xliff:g id="FILE">%s</xliff:g> – загружено."</string>
-    <string name="download_running" msgid="2622942231322015059">"Загрузка..."</string>
     <string name="download_pending" msgid="2599683668575349559">"Начинается загрузка…"</string>
-    <string name="download_pending_network" msgid="6548714525679461053">"Ожидание подключения для передачи данных…"</string>
-    <string name="download_running_paused" msgid="6418029352085656495">"Ожидание подключения для передачи данных…"</string>
-    <string name="download_canceled" msgid="6057083743144492515">"Загрузка отменена."</string>
-    <string name="download_not_acceptable" msgid="5415339992984899924">"Загрузка невозможна: контент не поддерживается телефоном."</string>
-    <string name="download_file_error" msgid="7702971488793861815">"Невозможно завершить загрузку: недостаточно места."</string>
-    <string name="download_length_required" msgid="1240338682223054142">"Загрузка невозможна: размер файла не определен."</string>
-    <string name="download_precondition_failed" msgid="6264432738865797635">"Загрузка прервана и не может быть возобновлена."</string>
     <string name="search_the_web" msgid="6046130189241962337">"Поиск в Интернете"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Память браузера переполнена"</string>
     <string name="webstorage_outofspace_notification_text" msgid="47273584426988640">"Нажмите, чтобы освободить место."</string>
     <string name="webstorage_clear_data_title" msgid="689484577124333977">"Удалить сохраненные данные"</string>
-    <string name="webstorage_clear_data_dialog_title" msgid="345457466368974706">"Удалить сохраненные данные"</string>
     <string name="webstorage_clear_data_dialog_message" msgid="6200681632891775881">"Удалить все данные, сохраненные этим веб-сайтом?"</string>
     <string name="webstorage_clear_data_dialog_ok_button" msgid="6682570951259237542">"ОК"</string>
     <string name="webstorage_clear_data_dialog_cancel_button" msgid="2028867751958942762">"Отмена"</string>
@@ -362,12 +331,10 @@
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Закрыть геоданные"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Этот сайт сейчас имеет доступ к вашему местоположению"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="7941769772784366199">"У этого сайта сейчас нет доступа к данным о вашем местоположении"</string>
-    <string name="geolocation_settings_page_dialog_title" msgid="1549842043381347668">"Закрыть геоданные"</string>
     <string name="geolocation_settings_page_dialog_message" msgid="8772923416296868537">"Закрыть этому сайту доступ к данным о вашем местоположении?"</string>
     <string name="geolocation_settings_page_dialog_ok_button" msgid="2113465477131017852">"ОК"</string>
     <string name="geolocation_settings_page_dialog_cancel_button" msgid="7941036504673409747">"Отмена"</string>
     <string name="website_settings_clear_all" msgid="8739804325997655980">"Удалить все"</string>
-    <string name="website_settings_clear_all_dialog_title" msgid="5746255931965842184">"Очистить все"</string>
     <string name="website_settings_clear_all_dialog_message" msgid="1551164275687475061">"Удалить все данные веб-сайта и разрешения на доступ к сведениям о вашем местоположении?"</string>
     <string name="website_settings_clear_all_dialog_ok_button" msgid="7858504776529106243">"ОК"</string>
     <string name="website_settings_clear_all_dialog_cancel_button" msgid="1896757051856611674">"Отмена"</string>

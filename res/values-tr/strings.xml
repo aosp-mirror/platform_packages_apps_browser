@@ -86,7 +86,6 @@
     <string name="bookmark_needs_url" msgid="7809876865972755158">"Favorinin bir konumu olmalıdır."</string>
     <string name="bookmark_url_not_valid" msgid="4917440933384496211">"Bu URL geçersiz."</string>
     <string name="bookmark_cannot_save_url" msgid="7836064647943671126">"Bu URL yer işareti olarak eklenemez."</string>
-    <string name="delete_bookmark" msgid="2422989994934201992">"Sil"</string>
     <string name="bookmark_page" msgid="6845189305130307274">"Son görüntülenen sayfayı favori olarak işaretle"</string>
     <string name="bookmark_thumbnail_view" msgid="3164068314718522138">"Küçük resimler"</string>
     <string name="bookmark_list_view" msgid="7848510619500937839">"Liste"</string>
@@ -182,7 +181,6 @@
     <string name="autofill_profile_successful_save" msgid="5691459703493331983">"Otomatik doldurma metni kaydedildi."</string>
     <string name="autofill_profile_successful_delete" msgid="1790262652460723127">"Otomatik doldurma metni silindi."</string>
     <string name="autofill_profile_editor_delete_profile" msgid="3098369314558164153">"Sil"</string>
-    <string name="autofill_setup_dialog_title" msgid="3564907335366130582">"Otomatik doldurma"</string>
     <string name="autofill_setup_dialog_message" msgid="1096164985825394616">"Tarayıcı, bunun gibi web formlarını otomatik olarak doldurabilir. Otomatik doldurma metninizi ayarlamak ister misiniz?"</string>
     <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"Otomatik doldurma metninizi istediğiniz zaman Tarayıcı &gt; Ayarlar &gt; Genel ekranından ayarlayabilirsiniz."</string>
     <string name="disable_autofill" msgid="8305901059849400354">"Otomatik doldurmayı devre dışı bırak"</string>
@@ -228,9 +226,8 @@
   </string-array>
     <string name="pref_min_font_size" msgid="8811125835817449131">"Minimum yazı tipi boyutu"</string>
     <string name="pref_min_font_size_value" msgid="2924708480509060209">"<xliff:g id="FONT_SIZE">%d</xliff:g>pt"</string>
-    <!-- outdated translation 8387229123479610157 -->     <string name="pref_text_zoom" msgid="5171056101805125497">"Metni yaklaştır"</string>
-    <!-- no translation found for pref_zoom_on_double_tap (902786475250741795) -->
-    <skip />
+    <string name="pref_text_zoom" msgid="5171056101805125497">"Metin ölçekleme"</string>
+    <string name="pref_zoom_on_double_tap" msgid="902786475250741795">"Hafifçe çift vurulduğunda zum yap"</string>
     <string name="pref_force_userscalable" msgid="5641500562399892621">"Yakınlştrmyı etknlştrmye zorla"</string>
     <string name="pref_force_userscalable_summary" msgid="3613242300617172230">"Web sitesinin yakınlaştırmayı denetleme isteğini geçersiz kıl"</string>
     <string name="pref_inverted_category" msgid="1280639705117152207">"Ters renklerle ekran oluşturma"</string>
@@ -253,7 +250,6 @@
     <string name="pref_extras_reset_default" msgid="8904000515846202110">"Varsayılana sıfırla"</string>
     <string name="pref_extras_reset_default_summary" msgid="4247870778270414501">"Varsayılan ayarları geri yükle"</string>
     <string name="pref_extras_reset_default_dlg" msgid="7922814420184322450">"Ayarlar, varsayılan değerlere geri döndürülsün mü?"</string>
-    <string name="pref_extras_reset_default_dlg_title" msgid="2250334970728938936">"Varsayılana sıfırla"</string>
     <string name="pref_development_title" msgid="3263854204533056480">"Hata Ayıklama"</string>
     <string name="pref_default_text_encoding" msgid="5742965543955558478">"Metin kodlama"</string>
   <string-array name="pref_default_text_encoding_choices">
@@ -268,7 +264,7 @@
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Metin kodlama"</string>
     <string name="pref_accessibility_title" msgid="5127836981587423215">"Erişilebilirlik"</string>
-    <!-- outdated translation 6288925476811083551 -->     <string name="pref_font_size_category" msgid="6683754355084218254">"Yazı tipi boyutu"</string>
+    <string name="pref_font_size_category" msgid="6683754355084218254">"Metin boyutu"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"Labs"</string>
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Hızlı denetimler"</string>
     <string name="pref_lab_quick_controls_summary" msgid="3149664132600968775">"Hızlı denetimleri açmak, uygulama ve URL çubuklarını gizlemek için baş parmağınızı sol veya sağ kenara kaydırın."</string>
@@ -280,7 +276,7 @@
     <string name="pref_data_preload_title" msgid="4479320472980292873">"Arama sonucunu önyükleme"</string>
   <string-array name="pref_data_preload_choices">
     <item msgid="5180466923190095508">"Hiçbir zaman"</item>
-    <item msgid="3514802063791531888">"Yalnızca Kablosuz\'da"</item>
+    <item msgid="1791664748778640002">"Yalnızca Kablosuzda"</item>
     <item msgid="3944061253437827617">"Her zaman"</item>
   </string-array>
     <string name="pref_data_preload_summary" msgid="3809168910751382727">"Tarayıcının yüksek güvenli arama sonuçlarını arka planda önyüklemesine izin ver"</string>
@@ -300,7 +296,6 @@
     <string name="search_hint" msgid="4647356319916631820">"Arayın veya URL\'yi yazın"</string>
     <string name="search_button_text" msgid="5235226933877634410">"Git"</string>
     <string name="search_settings_description" msgid="1422401062529014107">"Favoriler ve web geçmişi"</string>
-    <string name="attention" msgid="3473639060042811244">"Dikkat"</string>
     <string name="popup_window_attempt" msgid="31565781154067629">"Bu sitenin pop-up pencere açmasına izin verilsin mi?"</string>
     <string name="allow" msgid="1157313689171991335">"İzin Ver"</string>
     <string name="block" msgid="9172175889884707800">"Engelle"</string>
@@ -308,19 +303,6 @@
     <string name="too_many_windows_dialog_message" msgid="3644234634638290304">"Mevcut sekmelerden birini kapatmadan yeni bir sekme açılamaz."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Pop-up pencere zaten açık"</string>
     <string name="too_many_subwindows_dialog_message" msgid="2164725447981195556">"Aynı anda yalnızca bir tane pop-up açık olabilir."</string>
-    <string name="download_title" msgid="2122874021047565594">"İndirme geçmişi"</string>
-    <string name="download_unknown_filename" msgid="4013465542563652175">"&lt;Bilinmiyor&gt;"</string>
-    <string name="download_menu_open" msgid="4888327480367757513">"Aç"</string>
-    <string name="download_menu_clear" msgid="6264454531553418124">"Listeden temizle"</string>
-    <string name="download_menu_delete" msgid="8815502136393894148">"Sil"</string>
-    <string name="download_menu_cancel" msgid="2545333007601851574">"İndirme işlemini iptal et"</string>
-    <string name="download_menu_cancel_all" msgid="2136550823151999166">"Tüm indirme işlemlerini iptal et"</string>
-    <string name="download_cancel_dlg_title" msgid="8909108500262799748">"İndirme işlemlerini iptal et"</string>
-    <string name="download_cancel_dlg_msg" msgid="2546124668173027248">"<xliff:g id="DOWNLOAD_COUNT">%d</xliff:g> indirme işleminin tümü iptal edilip indirme geçmişinden temizlensin mi?"</string>
-    <string name="download_delete_file" msgid="8941963362686617405">"Sil"</string>
-    <string name="download_file_error_dlg_title" msgid="2693630283595384874">"Alan yetersiz"</string>
-    <string name="download_file_error_dlg_msg" msgid="5904538987107408124">"<xliff:g id="FILENAME">%s</xliff:g> indirilemedi."\n"Bir miktar alan boşaltın ve tekrar deneyin."</string>
-    <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"İndirme işlemi başarısız"</string>
     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"USB dep br kullanılamıyor"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"SD kart yok"</string>
     <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"<xliff:g id="FILENAME">%s</xliff:g> adlı dosyanın indirilebilmesi için USB depolama birimi gerekiyor."</string>
@@ -330,25 +312,11 @@
     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="8412543086906716875">"USB depolama birimi meşgul. İndirme işlemlerine izin vermek için bildirim alanında USB Depolama Birimini Kapat seçeneğini dokunun."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"SD kart meşgul. İndirme işlemlerine izin vermek için bildirim alanında USB Depolama Birimini Kapat seçeneğine dokunun."</string>
     <string name="cannot_download" msgid="8150552478556798780">"Yalnızca \"http\" veya \"https\" URL\'leri indirilebilir."</string>
-    <string name="download_no_application_title" msgid="4809479884191068159">"Dosya açılamıyor"</string>
-    <string name="retry" msgid="1835923075542266721">"Tekrar Dene"</string>
-    <string name="no_downloads" msgid="8031648287973400156">"İndirme geçmişi yok."</string>
-    <string name="download_error" msgid="21835634921715697">"İndirilemedi."</string>
-    <string name="download_success" msgid="1651605015937749469">"<xliff:g id="FILE">%s</xliff:g> indirme işlemi tamamlandı."</string>
-    <string name="download_running" msgid="2622942231322015059">"İndiriliyor…"</string>
     <string name="download_pending" msgid="2599683668575349559">"İndirme işlemi başlatılıyor…"</string>
-    <string name="download_pending_network" msgid="6548714525679461053">"Veri bağlantısı için bekleniyor…"</string>
-    <string name="download_running_paused" msgid="6418029352085656495">"Veri bağlantısı için bekleniyor…"</string>
-    <string name="download_canceled" msgid="6057083743144492515">"İndirme işlemi iptal edildi."</string>
-    <string name="download_not_acceptable" msgid="5415339992984899924">"Söz konusu içerik bu telefonda desteklenmediğinden indirilemiyor."</string>
-    <string name="download_file_error" msgid="7702971488793861815">"Yeterli alan olmadığından indirme işlemi tamamlanamıyor."</string>
-    <string name="download_length_required" msgid="1240338682223054142">"Öğenin boyutu belirlenemediğinden indirilemiyor."</string>
-    <string name="download_precondition_failed" msgid="6264432738865797635">"İndirme işlemi kesintiye uğradı ve sürdürülemiyor."</string>
     <string name="search_the_web" msgid="6046130189241962337">"Web\'de ara"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Tarayıcı deposu dolu"</string>
     <string name="webstorage_outofspace_notification_text" msgid="47273584426988640">"Yer boşaltmak için dokunun."</string>
     <string name="webstorage_clear_data_title" msgid="689484577124333977">"Depolanmış verileri temizle"</string>
-    <string name="webstorage_clear_data_dialog_title" msgid="345457466368974706">"Depolanmış verileri temizle"</string>
     <string name="webstorage_clear_data_dialog_message" msgid="6200681632891775881">"Bu web sitesi tarafından depolanan tüm veriler silinsin mi?"</string>
     <string name="webstorage_clear_data_dialog_ok_button" msgid="6682570951259237542">"Tamam"</string>
     <string name="webstorage_clear_data_dialog_cancel_button" msgid="2028867751958942762">"İptal"</string>
@@ -363,12 +331,10 @@
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Konum erişimini temizle"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Bu site şu anda konumunuza erişebilir"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="7941769772784366199">"Bu site şu anda konumunuza erişemiyor"</string>
-    <string name="geolocation_settings_page_dialog_title" msgid="1549842043381347668">"Konum erişimini temizle"</string>
     <string name="geolocation_settings_page_dialog_message" msgid="8772923416296868537">"Bu web sitesi için konum erişimi temizlensin mi?"</string>
     <string name="geolocation_settings_page_dialog_ok_button" msgid="2113465477131017852">"Tamam"</string>
     <string name="geolocation_settings_page_dialog_cancel_button" msgid="7941036504673409747">"İptal"</string>
     <string name="website_settings_clear_all" msgid="8739804325997655980">"Tümünü temizle"</string>
-    <string name="website_settings_clear_all_dialog_title" msgid="5746255931965842184">"Tümünü temizle"</string>
     <string name="website_settings_clear_all_dialog_message" msgid="1551164275687475061">"Tüm web sitesi verileri ve konum izinleri silinsin mi?"</string>
     <string name="website_settings_clear_all_dialog_ok_button" msgid="7858504776529106243">"Tamam"</string>
     <string name="website_settings_clear_all_dialog_cancel_button" msgid="1896757051856611674">"İptal"</string>

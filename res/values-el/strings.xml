@@ -86,7 +86,6 @@
     <string name="bookmark_needs_url" msgid="7809876865972755158">"Ο σελιδοδείκτης πρέπει να έχει μια τοποθεσία."</string>
     <string name="bookmark_url_not_valid" msgid="4917440933384496211">"Αυτή η διεύθυνση URL δεν είναι έγκυρη."</string>
     <string name="bookmark_cannot_save_url" msgid="7836064647943671126">"Η διεύθυνση URL δεν είναι δυνατό να προστεθεί στους σελιδοδείκτες."</string>
-    <string name="delete_bookmark" msgid="2422989994934201992">"Διαγραφή"</string>
     <string name="bookmark_page" msgid="6845189305130307274">"Προσθήκη της τελευταίας σελίδας που προβλήθηκε στους σελιδοδείκτες"</string>
     <string name="bookmark_thumbnail_view" msgid="3164068314718522138">"Μικρογραφίες"</string>
     <string name="bookmark_list_view" msgid="7848510619500937839">"Λίστα"</string>
@@ -182,7 +181,6 @@
     <string name="autofill_profile_successful_save" msgid="5691459703493331983">"Το κείμενο αυτόματης συμπλήρωσης αποθηκεύτηκε."</string>
     <string name="autofill_profile_successful_delete" msgid="1790262652460723127">"Το κείμενο αυτόματης συμπλήρωσης διαγράφηκε."</string>
     <string name="autofill_profile_editor_delete_profile" msgid="3098369314558164153">"Διαγραφή"</string>
-    <string name="autofill_setup_dialog_title" msgid="3564907335366130582">"Αυτόματη συμπλήρωση"</string>
     <string name="autofill_setup_dialog_message" msgid="1096164985825394616">"Το πρόγραμμα περιήγησης μπορεί να συμπληρώσει αυτόματα φόρμες ιστού όπως αυτή. Θέλετε να ρυθμίσετε το κείμενο αυτόματης συμπλήρωσης;"</string>
     <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"Μπορείτε πάντα να ρυθμίσετε το κείμενο αυτόματης συμπλήρωσης από το στοιχείο Πρόγραμμα περιήγησης &gt; Ρυθμίσεις &gt; Γενική οθόνη."</string>
     <string name="disable_autofill" msgid="8305901059849400354">"Απενεργοποιήστε τη λειτουργία αυτόματης συμπλήρωσης"</string>
@@ -228,9 +226,8 @@
   </string-array>
     <string name="pref_min_font_size" msgid="8811125835817449131">"Ελάχιστο μέγ. γραμματοσειράς"</string>
     <string name="pref_min_font_size_value" msgid="2924708480509060209">"<xliff:g id="FONT_SIZE">%d</xliff:g>pt"</string>
-    <!-- outdated translation 8387229123479610157 -->     <string name="pref_text_zoom" msgid="5171056101805125497">"Μεγέθυνση κειμένου"</string>
-    <!-- no translation found for pref_zoom_on_double_tap (902786475250741795) -->
-    <skip />
+    <string name="pref_text_zoom" msgid="5171056101805125497">"Κλιμάκωση κειμένου"</string>
+    <string name="pref_zoom_on_double_tap" msgid="902786475250741795">"Ζουμ με διπλό πάτημα"</string>
     <string name="pref_force_userscalable" msgid="5641500562399892621">"Αναγκ. ενεργοπ. εστίασης"</string>
     <string name="pref_force_userscalable_summary" msgid="3613242300617172230">"Παράκαμψη αιτήματος ιστότοπου για έλεγχο συμπεριφοράς εστίασης"</string>
     <string name="pref_inverted_category" msgid="1280639705117152207">"Ανεστραμμένη απόδοση οθόνης"</string>
@@ -253,7 +250,6 @@
     <string name="pref_extras_reset_default" msgid="8904000515846202110">"Επαναφορά προεπιλογών"</string>
     <string name="pref_extras_reset_default_summary" msgid="4247870778270414501">"Επαναφορά προεπιλεγμένων ρυθμίσεων"</string>
     <string name="pref_extras_reset_default_dlg" msgid="7922814420184322450">"Να γίνει επαναφορά των ρυθμίσεων στις προεπιλεγμένες τιμές;"</string>
-    <string name="pref_extras_reset_default_dlg_title" msgid="2250334970728938936">"Επαναφορά προεπιλογών"</string>
     <string name="pref_development_title" msgid="3263854204533056480">"Εντοπισμός σφαλμάτων"</string>
     <string name="pref_default_text_encoding" msgid="5742965543955558478">"Κωδικοποίηση κειμένου"</string>
   <string-array name="pref_default_text_encoding_choices">
@@ -268,7 +264,7 @@
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Κωδικοποίηση κειμένου"</string>
     <string name="pref_accessibility_title" msgid="5127836981587423215">"Προσβασιμότητα"</string>
-    <!-- outdated translation 6288925476811083551 -->     <string name="pref_font_size_category" msgid="6683754355084218254">"Μέγεθος γραμματοσειράς"</string>
+    <string name="pref_font_size_category" msgid="6683754355084218254">"Μέγεθος κειμένου"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"Εργαστήρια"</string>
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Στοιχεία γρήγορου ελέγχου"</string>
     <string name="pref_lab_quick_controls_summary" msgid="3149664132600968775">"Σύρ. το δείκ. από δεξ. ή αρ. για άν. των γρ. στ. ελ. και απόκ. εφαρ. και γρ. URL"</string>
@@ -280,7 +276,7 @@
     <string name="pref_data_preload_title" msgid="4479320472980292873">"Προφόρτωση αποτελεσμάτων αναζήτησης"</string>
   <string-array name="pref_data_preload_choices">
     <item msgid="5180466923190095508">"Ποτέ"</item>
-    <item msgid="3514802063791531888">"Μόνο σε WiFi"</item>
+    <item msgid="1791664748778640002">"Μόνο σε Wi-Fi"</item>
     <item msgid="3944061253437827617">"Πάντα"</item>
   </string-array>
     <string name="pref_data_preload_summary" msgid="3809168910751382727">"Να επιτρέπεται η προφόρτωση αποτελεσμάτων αναζήτησης υψηλής αξιοπιστίας στο φόντο"</string>
@@ -300,7 +296,6 @@
     <string name="search_hint" msgid="4647356319916631820">"Αναζήτηση ή πληκτρολόγηση διεύθυνσης URL"</string>
     <string name="search_button_text" msgid="5235226933877634410">"Μετάβαση"</string>
     <string name="search_settings_description" msgid="1422401062529014107">"Σελιδοδείκτες και ιστορικό ιστού"</string>
-    <string name="attention" msgid="3473639060042811244">"Προσοχή"</string>
     <string name="popup_window_attempt" msgid="31565781154067629">"Να επιτραπεί σε αυτόν τον ιστότοπο να ανοίξει ένα αναδυόμενο παράθυρο;"</string>
     <string name="allow" msgid="1157313689171991335">"Να επιτρέπεται"</string>
     <string name="block" msgid="9172175889884707800">"Αποκλεισμός"</string>
@@ -308,19 +303,6 @@
     <string name="too_many_windows_dialog_message" msgid="3644234634638290304">"Δεν είναι δυνατό το άνοιγμα νέας καρτέλας μέχρι να κλείσετε μια άλλη."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Το αναδυόμενο παράθυρο είναι ήδη ανοιχτό"</string>
     <string name="too_many_subwindows_dialog_message" msgid="2164725447981195556">"Μόνο ένα αναδυόμενο παράθυρο μπορεί να ανοίγει κάθε φορά."</string>
-    <string name="download_title" msgid="2122874021047565594">"Ιστορικό λήψης"</string>
-    <string name="download_unknown_filename" msgid="4013465542563652175">"&lt;Άγνωστο&gt;"</string>
-    <string name="download_menu_open" msgid="4888327480367757513">"Άνοιγμα"</string>
-    <string name="download_menu_clear" msgid="6264454531553418124">"Εκκαθάριση από τη λίστα"</string>
-    <string name="download_menu_delete" msgid="8815502136393894148">"Διαγραφή"</string>
-    <string name="download_menu_cancel" msgid="2545333007601851574">"Ακύρωση λήψης"</string>
-    <string name="download_menu_cancel_all" msgid="2136550823151999166">"Ακύρωση όλων των λήψεων"</string>
-    <string name="download_cancel_dlg_title" msgid="8909108500262799748">"Ακύρωση λήψεων"</string>
-    <string name="download_cancel_dlg_msg" msgid="2546124668173027248">"Να γίνει ακύρωση και διαγραφή και των <xliff:g id="DOWNLOAD_COUNT">%d</xliff:g> λήψεων από το ιστορικό λήψεων;"</string>
-    <string name="download_delete_file" msgid="8941963362686617405">"Διαγραφή"</string>
-    <string name="download_file_error_dlg_title" msgid="2693630283595384874">"Εξαντλήθηκε ο χώρος"</string>
-    <string name="download_file_error_dlg_msg" msgid="5904538987107408124">"Δεν ήταν δυνατή η λήψη του <xliff:g id="FILENAME">%s</xliff:g>."\n"Αποδεσμεύστε λίγο χώρο και δοκιμάστε ξανά."</string>
-    <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"Ανεπιτυχής λήψη"</string>
     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"Μη διαθ. χώρος αποθ. USB"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"Δεν υπάρχει κάρτα SD"</string>
     <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"Απαιτείται χώρος αποθήκευσης USB για τη λήψη του <xliff:g id="FILENAME">%s</xliff:g>."</string>
@@ -330,25 +312,11 @@
     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="8412543086906716875">"Ο χώρος αποθήκευσης USB είναι απασχολημένος. Για να επιτρέψετε τις λήψεις, αγγίξτε την επιλογή \"Απενεργοποίηση χώρου αποθήκευσης USB\" στην ειδοποίηση."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"Η κάρτα SD είναι απασχολημένη. Για να επιτρέψετε τις λήψεις, αγγίξτε την επιλογή \"Απενεργοποίηση χώρου αποθήκευσης USB\" στην ειδοποίηση."</string>
     <string name="cannot_download" msgid="8150552478556798780">"Είναι δυνατή η λήψη μόνο διευθύνσεων URL \"http\" ή \"https\"."</string>
-    <string name="download_no_application_title" msgid="4809479884191068159">"Δεν είναι δυνατό το άνοιγμα του αρχείου"</string>
-    <string name="retry" msgid="1835923075542266721">"Επανάληψη"</string>
-    <string name="no_downloads" msgid="8031648287973400156">"Δεν υπάρχει ιστορικό λήψης."</string>
-    <string name="download_error" msgid="21835634921715697">"Δεν ήταν δυνατή η λήψη."</string>
-    <string name="download_success" msgid="1651605015937749469">"Η λήψη του <xliff:g id="FILE">%s</xliff:g> ολοκληρώθηκε."</string>
-    <string name="download_running" msgid="2622942231322015059">"Λήψη..."</string>
     <string name="download_pending" msgid="2599683668575349559">"Έναρξη λήψης..."</string>
-    <string name="download_pending_network" msgid="6548714525679461053">"Αναμονή για σύνδεση δεδομένων…"</string>
-    <string name="download_running_paused" msgid="6418029352085656495">"Αναμονή για σύνδεση δεδομένων…"</string>
-    <string name="download_canceled" msgid="6057083743144492515">"Η λήψη ακυρώθηκε."</string>
-    <string name="download_not_acceptable" msgid="5415339992984899924">"Δεν είναι δυνατή η λήψη, επειδή το περιεχόμενο δεν υποστηρίζεται από αυτό το τηλέφωνο."</string>
-    <string name="download_file_error" msgid="7702971488793861815">"Δεν είναι δυνατή η ολοκλήρωση της λήψης, επειδή δεν υπάρχει αρκετός χώρος."</string>
-    <string name="download_length_required" msgid="1240338682223054142">"Δεν είναι δυνατή η λήψη, επειδή δεν είναι δυνατό να προσδιοριστεί το μέγεθος του αντικειμένου."</string>
-    <string name="download_precondition_failed" msgid="6264432738865797635">"Η λήψη διακόπηκε και δεν είναι δυνατή η συνέχισή της."</string>
     <string name="search_the_web" msgid="6046130189241962337">"Αναζήτηση στον ιστό"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Χώρος αποθήκευσης προγράμματος περιήγησης πλήρης"</string>
     <string name="webstorage_outofspace_notification_text" msgid="47273584426988640">"Αγγίξτε για να αποδεσμεύσετε χώρο."</string>
     <string name="webstorage_clear_data_title" msgid="689484577124333977">"Εκκαθάριση αποθηκευμένων δεδομένων"</string>
-    <string name="webstorage_clear_data_dialog_title" msgid="345457466368974706">"Εκκαθάριση αποθηκευμένων δεδομένων"</string>
     <string name="webstorage_clear_data_dialog_message" msgid="6200681632891775881">"Να διαγραφούν όλα τα δεδομένα που έχουν αποθηκευτεί σε αυτόν τον ιστότοπο;"</string>
     <string name="webstorage_clear_data_dialog_ok_button" msgid="6682570951259237542">"OK"</string>
     <string name="webstorage_clear_data_dialog_cancel_button" msgid="2028867751958942762">"Ακύρωση"</string>
@@ -363,12 +331,10 @@
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Εκκαθάριση πρόσβασης τοποθεσίας"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Αυτήν τη στιγμή, αυτός ο ιστότοπος έχει πρόσβαση στην τοποθεσία σας"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="7941769772784366199">"Δεν είναι δυνατή η πρόσβαση στην τοποθεσία σας από αυτόν τον ιστότοπο"</string>
-    <string name="geolocation_settings_page_dialog_title" msgid="1549842043381347668">"Εκκαθάριση πρόσβασης τοποθεσίας"</string>
     <string name="geolocation_settings_page_dialog_message" msgid="8772923416296868537">"Να διαγραφεί η πρόσβαση στην τοποθεσία για αυτόν τον ιστότοπο;"</string>
     <string name="geolocation_settings_page_dialog_ok_button" msgid="2113465477131017852">"OK"</string>
     <string name="geolocation_settings_page_dialog_cancel_button" msgid="7941036504673409747">"Ακύρωση"</string>
     <string name="website_settings_clear_all" msgid="8739804325997655980">"Εκκαθάριση όλων"</string>
-    <string name="website_settings_clear_all_dialog_title" msgid="5746255931965842184">"Διαγραφή όλων"</string>
     <string name="website_settings_clear_all_dialog_message" msgid="1551164275687475061">"Να διαγραφούν όλα τα δεδομένα ιστότοπου και τα δικαιώματα τοποθεσίας;"</string>
     <string name="website_settings_clear_all_dialog_ok_button" msgid="7858504776529106243">"OK"</string>
     <string name="website_settings_clear_all_dialog_cancel_button" msgid="1896757051856611674">"Ακύρωση"</string>

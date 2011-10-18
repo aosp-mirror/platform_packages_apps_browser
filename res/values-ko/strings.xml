@@ -86,7 +86,6 @@
     <string name="bookmark_needs_url" msgid="7809876865972755158">"북마크의 위치를 입력해야 합니다."</string>
     <string name="bookmark_url_not_valid" msgid="4917440933384496211">"잘못된 URL입니다."</string>
     <string name="bookmark_cannot_save_url" msgid="7836064647943671126">"URL을 북마크에 추가할 수 없습니다."</string>
-    <string name="delete_bookmark" msgid="2422989994934201992">"삭제"</string>
     <string name="bookmark_page" msgid="6845189305130307274">"마지막으로 본 페이지를 북마크 설정"</string>
     <string name="bookmark_thumbnail_view" msgid="3164068314718522138">"미리보기 이미지"</string>
     <string name="bookmark_list_view" msgid="7848510619500937839">"목록"</string>
@@ -182,7 +181,6 @@
     <string name="autofill_profile_successful_save" msgid="5691459703493331983">"자동 입력 텍스트를 저장했습니다."</string>
     <string name="autofill_profile_successful_delete" msgid="1790262652460723127">"자동 입력 텍스트가 삭제되었습니다."</string>
     <string name="autofill_profile_editor_delete_profile" msgid="3098369314558164153">"삭제"</string>
-    <string name="autofill_setup_dialog_title" msgid="3564907335366130582">"자동 입력"</string>
     <string name="autofill_setup_dialog_message" msgid="1096164985825394616">"브라우저에서 이 양식과 같은 웹 양식을 자동으로 완성할 수 있습니다. 자동 입력 텍스트를 설정하시겠습니까?"</string>
     <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"브라우저 &gt; 설정 &gt; 일반 화면에서 언제든지 자동 입력 텍스트를 설정할 수 있습니다."</string>
     <string name="disable_autofill" msgid="8305901059849400354">"자동 입력 사용중지"</string>
@@ -228,9 +226,8 @@
   </string-array>
     <string name="pref_min_font_size" msgid="8811125835817449131">"최소 글꼴 크기"</string>
     <string name="pref_min_font_size_value" msgid="2924708480509060209">"<xliff:g id="FONT_SIZE">%d</xliff:g>pt"</string>
-    <!-- outdated translation 8387229123479610157 -->     <string name="pref_text_zoom" msgid="5171056101805125497">"글꼴 크기"</string>
-    <!-- no translation found for pref_zoom_on_double_tap (902786475250741795) -->
-    <skip />
+    <string name="pref_text_zoom" msgid="5171056101805125497">"텍스트 크기 조정"</string>
+    <string name="pref_zoom_on_double_tap" msgid="902786475250741795">"두 번 탭하면 확대/축소"</string>
     <string name="pref_force_userscalable" msgid="5641500562399892621">"확대/축소 강제 사용"</string>
     <string name="pref_force_userscalable_summary" msgid="3613242300617172230">"웹사이트의 확대/축소 콘트롤 요청 무시"</string>
     <string name="pref_inverted_category" msgid="1280639705117152207">"화면 반전 렌더링"</string>
@@ -253,7 +250,6 @@
     <string name="pref_extras_reset_default" msgid="8904000515846202110">"초기화"</string>
     <string name="pref_extras_reset_default_summary" msgid="4247870778270414501">"기본 설정값 복원"</string>
     <string name="pref_extras_reset_default_dlg" msgid="7922814420184322450">"기본 설정으로 복원하시겠습니까?"</string>
-    <string name="pref_extras_reset_default_dlg_title" msgid="2250334970728938936">"초기화"</string>
     <string name="pref_development_title" msgid="3263854204533056480">"디버그"</string>
     <string name="pref_default_text_encoding" msgid="5742965543955558478">"텍스트 인코딩"</string>
   <string-array name="pref_default_text_encoding_choices">
@@ -268,7 +264,7 @@
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"텍스트 인코딩"</string>
     <string name="pref_accessibility_title" msgid="5127836981587423215">"접근성"</string>
-    <!-- outdated translation 6288925476811083551 -->     <string name="pref_font_size_category" msgid="6683754355084218254">"글꼴 크기"</string>
+    <string name="pref_font_size_category" msgid="6683754355084218254">"텍스트 크기"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"실험실"</string>
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"빠른 컨트롤"</string>
     <string name="pref_lab_quick_controls_summary" msgid="3149664132600968775">"빠른 컨트롤을 열어 앱과 URL 표시줄을 숨기려면 왼쪽이나 오른쪽 끝에서 엄지로 슬라이드하세요."</string>
@@ -280,7 +276,7 @@
     <string name="pref_data_preload_title" msgid="4479320472980292873">"검색결과 미리 로드"</string>
   <string-array name="pref_data_preload_choices">
     <item msgid="5180466923190095508">"안함"</item>
-    <item msgid="3514802063791531888">"WiFi에서만"</item>
+    <item msgid="1791664748778640002">"Wi-Fi 전용"</item>
     <item msgid="3944061253437827617">"항상"</item>
   </string-array>
     <string name="pref_data_preload_summary" msgid="3809168910751382727">"브라우저가 신뢰도 높은 검색결과를 백그라운드에서 미리 로드하도록 허용"</string>
@@ -300,7 +296,6 @@
     <string name="search_hint" msgid="4647356319916631820">"검색어 또는 URL 입력"</string>
     <string name="search_button_text" msgid="5235226933877634410">"이동"</string>
     <string name="search_settings_description" msgid="1422401062529014107">"북마크 및 웹 기록"</string>
-    <string name="attention" msgid="3473639060042811244">"주의"</string>
     <string name="popup_window_attempt" msgid="31565781154067629">"이 사이트에서 팝업 창을 열도록 허용하시겠습니까?"</string>
     <string name="allow" msgid="1157313689171991335">"허용"</string>
     <string name="block" msgid="9172175889884707800">"차단"</string>
@@ -308,19 +303,6 @@
     <string name="too_many_windows_dialog_message" msgid="3644234634638290304">"새 탭을 열려면 탭 하나를 닫아야 합니다."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"팝업이 이미 열려 있음"</string>
     <string name="too_many_subwindows_dialog_message" msgid="2164725447981195556">"한 번에 한 개의 팝업만 열 수 있습니다."</string>
-    <string name="download_title" msgid="2122874021047565594">"다운로드 기록"</string>
-    <string name="download_unknown_filename" msgid="4013465542563652175">"&lt;알 수 없음&gt;"</string>
-    <string name="download_menu_open" msgid="4888327480367757513">"열기"</string>
-    <string name="download_menu_clear" msgid="6264454531553418124">"목록에서 지우기"</string>
-    <string name="download_menu_delete" msgid="8815502136393894148">"삭제"</string>
-    <string name="download_menu_cancel" msgid="2545333007601851574">"다운로드 취소"</string>
-    <string name="download_menu_cancel_all" msgid="2136550823151999166">"모든 다운로드 취소"</string>
-    <string name="download_cancel_dlg_title" msgid="8909108500262799748">"다운로드 취소"</string>
-    <string name="download_cancel_dlg_msg" msgid="2546124668173027248">"다운로드 기록에서 다운로드 <xliff:g id="DOWNLOAD_COUNT">%d</xliff:g>개를 취소하고 삭제하시겠습니까?"</string>
-    <string name="download_delete_file" msgid="8941963362686617405">"삭제"</string>
-    <string name="download_file_error_dlg_title" msgid="2693630283595384874">"여유 공간이 없음"</string>
-    <string name="download_file_error_dlg_msg" msgid="5904538987107408124">"<xliff:g id="FILENAME">%s</xliff:g>을(를) 다운로드할 수 없습니다."\n"여유 공간을 늘린 후에 다시 시도하세요."</string>
-    <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"다운로드 실패"</string>
     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"USB 저장소를 사용할 수 없음"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"SD 카드 없음"</string>
     <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"<xliff:g id="FILENAME">%s</xliff:g>을(를) 다운로드하려면 USB 저장소가 필요합니다."</string>
@@ -330,25 +312,11 @@
     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="8412543086906716875">"USB 저장소가 사용 중입니다. 다운로드를 허용하려면 알림에서 \'USB 저장소 사용 안함\'을 터치하세요."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"SD 카드가 사용 중입니다. 다운로드를 허용하려면 알림에서 \'USB 저장소 끄기\'를 터치하세요."</string>
     <string name="cannot_download" msgid="8150552478556798780">"\'http\' 또는 \'https\' URL만 다운로드할 수 있습니다."</string>
-    <string name="download_no_application_title" msgid="4809479884191068159">"파일을 열 수 없음"</string>
-    <string name="retry" msgid="1835923075542266721">"다시 시도"</string>
-    <string name="no_downloads" msgid="8031648287973400156">"다운로드 기록이 없습니다."</string>
-    <string name="download_error" msgid="21835634921715697">"다운로드하지 못했습니다."</string>
-    <string name="download_success" msgid="1651605015937749469">"<xliff:g id="FILE">%s</xliff:g> 다운로드가 완료되었습니다."</string>
-    <string name="download_running" msgid="2622942231322015059">"다운로드 중..."</string>
     <string name="download_pending" msgid="2599683668575349559">"다운로드 시작 중..."</string>
-    <string name="download_pending_network" msgid="6548714525679461053">"데이터 연결 대기 중..."</string>
-    <string name="download_running_paused" msgid="6418029352085656495">"데이터 연결 대기 중..."</string>
-    <string name="download_canceled" msgid="6057083743144492515">"다운로드가 취소되었습니다."</string>
-    <string name="download_not_acceptable" msgid="5415339992984899924">"휴대전화에서 지원하지 않는 콘텐츠이므로 다운로드할 수 없습니다."</string>
-    <string name="download_file_error" msgid="7702971488793861815">"저장 공간이 부족하여 다운로드를 완료할 수 없습니다."</string>
-    <string name="download_length_required" msgid="1240338682223054142">"항목의 크기를 확인할 수 없으므로 다운로드할 수 없습니다."</string>
-    <string name="download_precondition_failed" msgid="6264432738865797635">"다운로드가 중단되었으며 다시 시작할 수 없습니다."</string>
     <string name="search_the_web" msgid="6046130189241962337">"웹 검색"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"브라우저 저장용량 가득 참"</string>
     <string name="webstorage_outofspace_notification_text" msgid="47273584426988640">"여유 공간을 확보하려면 터치하세요."</string>
     <string name="webstorage_clear_data_title" msgid="689484577124333977">"저장된 데이터 삭제"</string>
-    <string name="webstorage_clear_data_dialog_title" msgid="345457466368974706">"저장된 데이터 삭제"</string>
     <string name="webstorage_clear_data_dialog_message" msgid="6200681632891775881">"웹사이트에 저장된 모든 데이터를 삭제하시겠습니까?"</string>
     <string name="webstorage_clear_data_dialog_ok_button" msgid="6682570951259237542">"확인"</string>
     <string name="webstorage_clear_data_dialog_cancel_button" msgid="2028867751958942762">"취소"</string>
@@ -363,12 +331,10 @@
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"위치 정보 액세스 삭제"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"사이트에서 사용자의 위치에 현재 액세스할 수 있음"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="7941769772784366199">"사이트에서 사용자의 위치에 현재 액세스할 수 없음"</string>
-    <string name="geolocation_settings_page_dialog_title" msgid="1549842043381347668">"위치 정보 액세스 삭제"</string>
     <string name="geolocation_settings_page_dialog_message" msgid="8772923416296868537">"이 웹사이트의 위치 정보 액세스를 삭제하시겠습니까?"</string>
     <string name="geolocation_settings_page_dialog_ok_button" msgid="2113465477131017852">"확인"</string>
     <string name="geolocation_settings_page_dialog_cancel_button" msgid="7941036504673409747">"취소"</string>
     <string name="website_settings_clear_all" msgid="8739804325997655980">"모두 지우기"</string>
-    <string name="website_settings_clear_all_dialog_title" msgid="5746255931965842184">"모두 지우기"</string>
     <string name="website_settings_clear_all_dialog_message" msgid="1551164275687475061">"모든 웹사이트 데이터와 위치 권한을 삭제하시겠습니까?"</string>
     <string name="website_settings_clear_all_dialog_ok_button" msgid="7858504776529106243">"확인"</string>
     <string name="website_settings_clear_all_dialog_cancel_button" msgid="1896757051856611674">"취소"</string>

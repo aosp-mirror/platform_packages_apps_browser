@@ -86,7 +86,6 @@
     <string name="bookmark_needs_url" msgid="7809876865972755158">"Jānorāda grāmatzīmes atrašanās vieta."</string>
     <string name="bookmark_url_not_valid" msgid="4917440933384496211">"Šis vietrādis URL nav derīgs."</string>
     <string name="bookmark_cannot_save_url" msgid="7836064647943671126">"Šo vietrādi URL nevar pievienot grāmatzīmēm."</string>
-    <string name="delete_bookmark" msgid="2422989994934201992">"Dzēst"</string>
     <string name="bookmark_page" msgid="6845189305130307274">"Atzīmēt ar grāmatzīmi pēdējo skatīto lapu"</string>
     <string name="bookmark_thumbnail_view" msgid="3164068314718522138">"Sīktēli"</string>
     <string name="bookmark_list_view" msgid="7848510619500937839">"Saraksts"</string>
@@ -182,7 +181,6 @@
     <string name="autofill_profile_successful_save" msgid="5691459703493331983">"Automātiskās aizpildes teksts saglabāts."</string>
     <string name="autofill_profile_successful_delete" msgid="1790262652460723127">"Automātiskās aizpildes teksts ir izdzēsts."</string>
     <string name="autofill_profile_editor_delete_profile" msgid="3098369314558164153">"Dzēst"</string>
-    <string name="autofill_setup_dialog_title" msgid="3564907335366130582">"Automātiskā aizpilde"</string>
     <string name="autofill_setup_dialog_message" msgid="1096164985825394616">"Pārlūkprogramma var automātiski aizpildīt šādas tīmekļa veidlapas. Vai vēlaties iestatīt automātiskās aizpildes tekstu?"</string>
     <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"Jebkurā laikā varat iestatīt automātiskās aizpildes tekstu, atverot šādus ekrānus:  Pārlūkprogramma &gt; Iestatījumi &gt; Vispārīgi."</string>
     <string name="disable_autofill" msgid="8305901059849400354">"Atspējot automātisko aizpildi"</string>
@@ -228,9 +226,8 @@
   </string-array>
     <string name="pref_min_font_size" msgid="8811125835817449131">"Minimālais fonta lielums"</string>
     <string name="pref_min_font_size_value" msgid="2924708480509060209">"<xliff:g id="FONT_SIZE">%d</xliff:g> pt"</string>
-    <!-- outdated translation 8387229123479610157 -->     <string name="pref_text_zoom" msgid="5171056101805125497">"Teksta tālummaiņa"</string>
-    <!-- no translation found for pref_zoom_on_double_tap (902786475250741795) -->
-    <skip />
+    <string name="pref_text_zoom" msgid="5171056101805125497">"Teksta mērogošana"</string>
+    <string name="pref_zoom_on_double_tap" msgid="902786475250741795">"Tālummaiņa ar dubultskārienu"</string>
     <string name="pref_force_userscalable" msgid="5641500562399892621">"Pieprasīt tālummaiņas iespēj."</string>
     <string name="pref_force_userscalable_summary" msgid="3613242300617172230">"Ignorēt vietnes pieprasījumu kontrolēt tālummaiņu"</string>
     <string name="pref_inverted_category" msgid="1280639705117152207">"Inversais ekrāns"</string>
@@ -253,7 +250,6 @@
     <string name="pref_extras_reset_default" msgid="8904000515846202110">"Atiestatīt noklusējuma vērtības"</string>
     <string name="pref_extras_reset_default_summary" msgid="4247870778270414501">"Atjaunot noklusējuma iestatījumus"</string>
     <string name="pref_extras_reset_default_dlg" msgid="7922814420184322450">"Vai atjaunot iestatījumu noklusējuma vērtības?"</string>
-    <string name="pref_extras_reset_default_dlg_title" msgid="2250334970728938936">"Noklusējuma vērtību atiestatīšana"</string>
     <string name="pref_development_title" msgid="3263854204533056480">"Atkļūdot"</string>
     <string name="pref_default_text_encoding" msgid="5742965543955558478">"Teksta kodējums"</string>
   <string-array name="pref_default_text_encoding_choices">
@@ -268,7 +264,7 @@
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Teksta kodējums"</string>
     <string name="pref_accessibility_title" msgid="5127836981587423215">"Pieejamība"</string>
-    <!-- outdated translation 6288925476811083551 -->     <string name="pref_font_size_category" msgid="6683754355084218254">"Fonta lielums"</string>
+    <string name="pref_font_size_category" msgid="6683754355084218254">"Teksta lielums"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"Laboratorijas"</string>
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Ātrās piekļuves vadīklas"</string>
     <string name="pref_lab_quick_controls_summary" msgid="3149664132600968775">"Velciet ar īkšķi no kreisās vai labās malas, lai atvērtu ātrās vadīklas un paslēptu lietotņu un URL joslas"</string>
@@ -280,7 +276,7 @@
     <string name="pref_data_preload_title" msgid="4479320472980292873">"Meklēšanas rezultātu pirmsielāde"</string>
   <string-array name="pref_data_preload_choices">
     <item msgid="5180466923190095508">"Nekad"</item>
-    <item msgid="3514802063791531888">"Tikai WiFi tīklā"</item>
+    <item msgid="1791664748778640002">"Tikai Wi-Fi tīklā"</item>
     <item msgid="3944061253437827617">"Vienmēr"</item>
   </string-array>
     <string name="pref_data_preload_summary" msgid="3809168910751382727">"Atļaut pārlūkprogrammai fonā veikt ticamu meklēšanas rezultātu pirmsielādi"</string>
@@ -300,7 +296,6 @@
     <string name="search_hint" msgid="4647356319916631820">"Meklējiet vai ievadiet URL"</string>
     <string name="search_button_text" msgid="5235226933877634410">"Doties uz"</string>
     <string name="search_settings_description" msgid="1422401062529014107">"Grāmatzīmes un tīmekļa vēsture"</string>
-    <string name="attention" msgid="3473639060042811244">"Uzmanību!"</string>
     <string name="popup_window_attempt" msgid="31565781154067629">"Vai atļaut šajā vietnē atvērt uznirstošo logu?"</string>
     <string name="allow" msgid="1157313689171991335">"Atļaut"</string>
     <string name="block" msgid="9172175889884707800">"Bloķēt"</string>
@@ -308,19 +303,6 @@
     <string name="too_many_windows_dialog_message" msgid="3644234634638290304">"Nevar atvērt jaunu cilni, kamēr nav aizvērta kāda no atvērtajām."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Uznirstošais logs jau ir atvērts."</string>
     <string name="too_many_subwindows_dialog_message" msgid="2164725447981195556">"Vienlaikus var atvērt tikai vienu uznirstošo logu."</string>
-    <string name="download_title" msgid="2122874021047565594">"Lejupielāžu vēsture"</string>
-    <string name="download_unknown_filename" msgid="4013465542563652175">"&lt;Nezināms&gt;"</string>
-    <string name="download_menu_open" msgid="4888327480367757513">"Atvērt"</string>
-    <string name="download_menu_clear" msgid="6264454531553418124">"Notīrīt no saraksta"</string>
-    <string name="download_menu_delete" msgid="8815502136393894148">"Dzēst"</string>
-    <string name="download_menu_cancel" msgid="2545333007601851574">"Atcelt lejupielādi"</string>
-    <string name="download_menu_cancel_all" msgid="2136550823151999166">"Atcelt visas lejupielādes"</string>
-    <string name="download_cancel_dlg_title" msgid="8909108500262799748">"Atcelt lejupielādes"</string>
-    <string name="download_cancel_dlg_msg" msgid="2546124668173027248">"Vai atcelt un notīrīt visas <xliff:g id="DOWNLOAD_COUNT">%d</xliff:g> lejupielādes no lejupielāžu vēstures?"</string>
-    <string name="download_delete_file" msgid="8941963362686617405">"Dzēšana"</string>
-    <string name="download_file_error_dlg_title" msgid="2693630283595384874">"Nav brīvas vietas"</string>
-    <string name="download_file_error_dlg_msg" msgid="5904538987107408124">"Failu <xliff:g id="FILENAME">%s</xliff:g> nevarēja lejupielādēt."\n"Atbrīvojiet vietu un mēģiniet vēlreiz."</string>
-    <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"Lejupielāde nebija veiksmīga."</string>
     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"USB atmiņa nav pieejama"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"Nav SD kartes"</string>
     <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"USB atmiņā nepieciešams lejupielādēt failu <xliff:g id="FILENAME">%s</xliff:g>."</string>
@@ -330,25 +312,11 @@
     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="8412543086906716875">"USB atmiņa ir aizņemta. Lai atļautu lejupielādes, paziņojumā pieskarieties iespējai Izslēgt USB atmiņu."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"SD karte ir aizņemta. Lai atļautu lejupielādes, paziņojumā pieskarieties iespējai Izslēgt USB atmiņu."</string>
     <string name="cannot_download" msgid="8150552478556798780">"Var lejupielādēt tikai tādus vietrāžus URL, kuri sākas ar “http” vai “https”."</string>
-    <string name="download_no_application_title" msgid="4809479884191068159">"Nevar atvērt failu"</string>
-    <string name="retry" msgid="1835923075542266721">"Mēģināt vēlreiz"</string>
-    <string name="no_downloads" msgid="8031648287973400156">"Nav lejupielāžu vēstures."</string>
-    <string name="download_error" msgid="21835634921715697">"Nevarēja veikt lejupielādi."</string>
-    <string name="download_success" msgid="1651605015937749469">"Faila <xliff:g id="FILE">%s</xliff:g> lejupielāde ir pabeigta."</string>
-    <string name="download_running" msgid="2622942231322015059">"Notiek lejupielāde..."</string>
     <string name="download_pending" msgid="2599683668575349559">"Notiek lejupielādes sākšana..."</string>
-    <string name="download_pending_network" msgid="6548714525679461053">"Notiek datu savienojuma gaidīšana..."</string>
-    <string name="download_running_paused" msgid="6418029352085656495">"Notiek datu savienojuma gaidīšana..."</string>
-    <string name="download_canceled" msgid="6057083743144492515">"Lejupielāde tika atcelta."</string>
-    <string name="download_not_acceptable" msgid="5415339992984899924">"Nevar lejupielādēt, jo saturs šajā tālrunī netiek atbalstīts."</string>
-    <string name="download_file_error" msgid="7702971488793861815">"Nevar pabeigt lejupielādi, jo nepietiek vietas."</string>
-    <string name="download_length_required" msgid="1240338682223054142">"Nevar lejupielādēt, jo nav nevar noteikt vienuma lielumu."</string>
-    <string name="download_precondition_failed" msgid="6264432738865797635">"Lejupielāde tika pārtraukta, un to nevar atsākt."</string>
     <string name="search_the_web" msgid="6046130189241962337">"Meklēšana tīmeklī"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Pārlūkprogrammas krātuve ir pilna."</string>
     <string name="webstorage_outofspace_notification_text" msgid="47273584426988640">"Pieskarieties, lai atbrīvotu vietu."</string>
     <string name="webstorage_clear_data_title" msgid="689484577124333977">"Notīrīt saglabātos datus"</string>
-    <string name="webstorage_clear_data_dialog_title" msgid="345457466368974706">"Saglabāto datu notīrīšana"</string>
     <string name="webstorage_clear_data_dialog_message" msgid="6200681632891775881">"Vai dzēst visus šajā vietnē saglabātos datus?"</string>
     <string name="webstorage_clear_data_dialog_ok_button" msgid="6682570951259237542">"Labi"</string>
     <string name="webstorage_clear_data_dialog_cancel_button" msgid="2028867751958942762">"Atcelt"</string>
@@ -363,12 +331,10 @@
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Atrašanās vietas piekļuves atļaujas notīrīšana"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Vietne pašlaik var piekļūt jūsu atrašanās vietai."</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="7941769772784366199">"Vietne pašlaik nevar piekļūt jūsu atrašanās vietai"</string>
-    <string name="geolocation_settings_page_dialog_title" msgid="1549842043381347668">"Atrašanās vietas piekļuves atļaujas notīrīšana"</string>
     <string name="geolocation_settings_page_dialog_message" msgid="8772923416296868537">"Vai dzēst šīs vietnes atļauju piekļūt jūsu atrašanās vietai?"</string>
     <string name="geolocation_settings_page_dialog_ok_button" msgid="2113465477131017852">"Labi"</string>
     <string name="geolocation_settings_page_dialog_cancel_button" msgid="7941036504673409747">"Atcelt"</string>
     <string name="website_settings_clear_all" msgid="8739804325997655980">"Notīrīt visu"</string>
-    <string name="website_settings_clear_all_dialog_title" msgid="5746255931965842184">"Notīrīt visu"</string>
     <string name="website_settings_clear_all_dialog_message" msgid="1551164275687475061">"Vai dzēst visus vietnes datus un atrašanās vietu atļaujas?"</string>
     <string name="website_settings_clear_all_dialog_ok_button" msgid="7858504776529106243">"Labi"</string>
     <string name="website_settings_clear_all_dialog_cancel_button" msgid="1896757051856611674">"Atcelt"</string>

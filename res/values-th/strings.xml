@@ -86,7 +86,6 @@
     <string name="bookmark_needs_url" msgid="7809876865972755158">"บุ๊กมาร์กต้องมีตำแหน่ง"</string>
     <string name="bookmark_url_not_valid" msgid="4917440933384496211">"URL นี้ไม่ถูกต้อง"</string>
     <string name="bookmark_cannot_save_url" msgid="7836064647943671126">"ไม่สามารถบุ๊กมาร์ก URL นี้ได้"</string>
-    <string name="delete_bookmark" msgid="2422989994934201992">"ลบ"</string>
     <string name="bookmark_page" msgid="6845189305130307274">"บุ๊กมาร์กหน้าที่เพิ่งดูล่าสุด"</string>
     <string name="bookmark_thumbnail_view" msgid="3164068314718522138">"ภาพขนาดย่อ"</string>
     <string name="bookmark_list_view" msgid="7848510619500937839">"รายการ"</string>
@@ -182,7 +181,6 @@
     <string name="autofill_profile_successful_save" msgid="5691459703493331983">"บันทึกการป้อนข้อความอัตโนมัติแล้ว"</string>
     <string name="autofill_profile_successful_delete" msgid="1790262652460723127">"ลบการป้อนข้อความอัตโนมัติแล้ว"</string>
     <string name="autofill_profile_editor_delete_profile" msgid="3098369314558164153">"ลบ"</string>
-    <string name="autofill_setup_dialog_title" msgid="3564907335366130582">"ป้อนอัตโนมัติ"</string>
     <string name="autofill_setup_dialog_message" msgid="1096164985825394616">"เบราว์เซอร์สามารถกรอกเว็บฟอร์มโดยอัตโนมัติได้เหมือนกับฟอร์มนี้ คุณต้องการตั้งค่าการป้อนข้อความอัตโนมัติหรือไม่"</string>
     <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"คุณสามารถตั้งค่าการป้อนข้อความอัตโนมัติจากหน้าจอเบราว์เซอร์ &gt; การตั้งค่า &gt; ทั่วไป ได้เสมอ"</string>
     <string name="disable_autofill" msgid="8305901059849400354">"ปิดใช้งานการป้อนอัตโนมัติ"</string>
@@ -228,9 +226,8 @@
   </string-array>
     <string name="pref_min_font_size" msgid="8811125835817449131">"ขนาดแบบอักษรขั้นต่ำ"</string>
     <string name="pref_min_font_size_value" msgid="2924708480509060209">"<xliff:g id="FONT_SIZE">%d</xliff:g> pt"</string>
-    <!-- outdated translation 8387229123479610157 -->     <string name="pref_text_zoom" msgid="5171056101805125497">"ขยายข้อความ"</string>
-    <!-- no translation found for pref_zoom_on_double_tap (902786475250741795) -->
-    <skip />
+    <string name="pref_text_zoom" msgid="5171056101805125497">"อัตราส่วนข้อความ"</string>
+    <string name="pref_zoom_on_double_tap" msgid="902786475250741795">"ย่อ/ขยายเมื่อแตะสองครั้ง"</string>
     <string name="pref_force_userscalable" msgid="5641500562399892621">"บังคับเปิดใช้งานการขยาย"</string>
     <string name="pref_force_userscalable_summary" msgid="3613242300617172230">"แทนที่คำขอควบคุมการซูมของไซต์"</string>
     <string name="pref_inverted_category" msgid="1280639705117152207">"การแสดงผลหน้าจอกลับสี"</string>
@@ -253,7 +250,6 @@
     <string name="pref_extras_reset_default" msgid="8904000515846202110">"รีเซ็ตเป็นค่าเริ่มต้น"</string>
     <string name="pref_extras_reset_default_summary" msgid="4247870778270414501">"คืนค่าเริ่มต้น"</string>
     <string name="pref_extras_reset_default_dlg" msgid="7922814420184322450">"ย้อนกลับไปยังการตั้งค่าเริ่มต้นหรือไม่"</string>
-    <string name="pref_extras_reset_default_dlg_title" msgid="2250334970728938936">"รีเซ็ตเป็นค่าเริ่มต้น"</string>
     <string name="pref_development_title" msgid="3263854204533056480">"แก้ไขข้อบกพร่อง"</string>
     <string name="pref_default_text_encoding" msgid="5742965543955558478">"การเข้ารหัสข้อความ"</string>
   <string-array name="pref_default_text_encoding_choices">
@@ -268,7 +264,7 @@
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"การเข้ารหัสข้อความ"</string>
     <string name="pref_accessibility_title" msgid="5127836981587423215">"การเข้าถึง"</string>
-    <!-- outdated translation 6288925476811083551 -->     <string name="pref_font_size_category" msgid="6683754355084218254">"ขนาดแบบอักษร"</string>
+    <string name="pref_font_size_category" msgid="6683754355084218254">"ขนาดข้อความ"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"Labs"</string>
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"การควบคุมอย่างรวดเร็ว"</string>
     <string name="pref_lab_quick_controls_summary" msgid="3149664132600968775">"เลื่อนนิ้วจากขอบซ้ายหรือขวาเพื่อเปิดการควบคุมอย่างรวดเร็วและซ่อนแถบแอปฯ และ URL"</string>
@@ -280,7 +276,7 @@
     <string name="pref_data_preload_title" msgid="4479320472980292873">"การโหลดผลการค้นหาล่วงหน้า"</string>
   <string-array name="pref_data_preload_choices">
     <item msgid="5180466923190095508">"ไม่เลย"</item>
-    <item msgid="3514802063791531888">"เฉพาะ Wi-Fi เท่านั้น"</item>
+    <item msgid="1791664748778640002">"Wi-Fi เท่านั้น"</item>
     <item msgid="3944061253437827617">"ทุกครั้ง"</item>
   </string-array>
     <string name="pref_data_preload_summary" msgid="3809168910751382727">"อนุญาตให้เบราว์เซอร์โหลดผลการค้นหาที่เชื่อถือได้สูงก่อนล่วงหน้าในเบื้องหลัง"</string>
@@ -300,7 +296,6 @@
     <string name="search_hint" msgid="4647356319916631820">"ค้นหาหรือพิมพ์ URL"</string>
     <string name="search_button_text" msgid="5235226933877634410">"ไป"</string>
     <string name="search_settings_description" msgid="1422401062529014107">"บุ๊กมาร์กและประวัติเว็บ"</string>
-    <string name="attention" msgid="3473639060042811244">"โปรดทราบ"</string>
     <string name="popup_window_attempt" msgid="31565781154067629">"อนุญาตให้ไซต์นี้เปิดหน้าต่างป๊อปอัปหรือไม่"</string>
     <string name="allow" msgid="1157313689171991335">"อนุญาต"</string>
     <string name="block" msgid="9172175889884707800">"ปิดกั้น"</string>
@@ -308,19 +303,6 @@
     <string name="too_many_windows_dialog_message" msgid="3644234634638290304">"ไม่สามารถเปิดแท็บใหม่จนกว่าคุณจะปิดแท็บหนึ่งก่อน"</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"ป๊อปอัปเปิดอยู่แล้ว"</string>
     <string name="too_many_subwindows_dialog_message" msgid="2164725447981195556">"เปิดได้ครั้งละหนึ่งป๊อปอัปเท่านั้น"</string>
-    <string name="download_title" msgid="2122874021047565594">"ประวัติการดาวน์โหลด"</string>
-    <string name="download_unknown_filename" msgid="4013465542563652175">"&lt;ไม่รู้จัก&gt;"</string>
-    <string name="download_menu_open" msgid="4888327480367757513">"เปิด"</string>
-    <string name="download_menu_clear" msgid="6264454531553418124">"ล้างจากรายการ"</string>
-    <string name="download_menu_delete" msgid="8815502136393894148">"ลบ"</string>
-    <string name="download_menu_cancel" msgid="2545333007601851574">"ยกเลิกการดาวน์โหลด"</string>
-    <string name="download_menu_cancel_all" msgid="2136550823151999166">"ยกเลิกการดาวน์โหลดทั้งหมด"</string>
-    <string name="download_cancel_dlg_title" msgid="8909108500262799748">"ยกเลิกการดาวน์โหลด"</string>
-    <string name="download_cancel_dlg_msg" msgid="2546124668173027248">"ยกเลิกและล้างการดาวน์โหลดทั้งหมด <xliff:g id="DOWNLOAD_COUNT">%d</xliff:g> รายการจากประวัติการดาวน์โหลดหรือไม่"</string>
-    <string name="download_delete_file" msgid="8941963362686617405">"ลบ"</string>
-    <string name="download_file_error_dlg_title" msgid="2693630283595384874">"ไม่มีพื้นที่"</string>
-    <string name="download_file_error_dlg_msg" msgid="5904538987107408124">"ไม่สามารถดาวน์โหลด <xliff:g id="FILENAME">%s</xliff:g>"\n"เพิ่มพื้นที่ว่างบนโทรศัพท์ของคุณ แล้วลองอีกครั้ง"</string>
-    <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"การดาวน์โหลดไม่สำเร็จ"</string>
     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"ที่เก็บข้อมูล USB ใช้งานไม่ได้"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"ไม่มีการ์ด SD"</string>
     <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"จำเป็นต้องใช้ที่เก็บข้อมูล USB ในการดาวน์โหลด <xliff:g id="FILENAME">%s</xliff:g>"</string>
@@ -330,25 +312,11 @@
     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="8412543086906716875">"ที่จัดเก็บข้อมูล USB ถูกใช้งานอยู่ หากต้องการอนุญาตให้ดาวน์โหลด ให้แตะ \"ปิดที่จัดเก็บข้อมูล USB\" ในการแจ้งเตือน"</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"การ์ด SD ถูกใช้งานอยู่ หากต้องการอนุญาตให้ดาวน์โหลด ให้แตะ \"ปิดที่จัดเก็บข้อมูล USB\" ในการแจ้งเตือน"</string>
     <string name="cannot_download" msgid="8150552478556798780">"ดาวน์โหลดได้เฉพาะ URL \"http\" หรือ \"https\""</string>
-    <string name="download_no_application_title" msgid="4809479884191068159">"ไม่สามารถเปิดไฟล์ได้"</string>
-    <string name="retry" msgid="1835923075542266721">"ลองอีกครั้ง"</string>
-    <string name="no_downloads" msgid="8031648287973400156">"ไม่มีประวัติการดาวน์โหลด"</string>
-    <string name="download_error" msgid="21835634921715697">"ไม่สามารถดาวน์โหลดได้"</string>
-    <string name="download_success" msgid="1651605015937749469">"ดาวน์โหลด <xliff:g id="FILE">%s</xliff:g> เสร็จสมบูรณ์"</string>
-    <string name="download_running" msgid="2622942231322015059">"กำลังดาวน์โหลด..."</string>
     <string name="download_pending" msgid="2599683668575349559">"เริ่มต้นดาวน์โหลด…"</string>
-    <string name="download_pending_network" msgid="6548714525679461053">"กำลังรอการเชื่อมต่อข้อมูล..."</string>
-    <string name="download_running_paused" msgid="6418029352085656495">"กำลังรอการเชื่อมต่อข้อมูล..."</string>
-    <string name="download_canceled" msgid="6057083743144492515">"การดาวน์โหลดถูกยกเลิก"</string>
-    <string name="download_not_acceptable" msgid="5415339992984899924">"ไม่สามารถดาวน์โหลดได้เนื่องจากเนื้อหาไม่ได้รับการสนับสนุนบนโทรศัพท์นี้"</string>
-    <string name="download_file_error" msgid="7702971488793861815">"ไม่สามารถดาวน์โหลดได้เสร็จสิ้นเนื่องจากมีพื้นที่ไม่พอ"</string>
-    <string name="download_length_required" msgid="1240338682223054142">"ไม่สามารถดาวน์โหลดได้เนื่องจากไม่ทราบขนาดรายการ"</string>
-    <string name="download_precondition_failed" msgid="6264432738865797635">"การดาวน์โหลดขัดข้องและไม่สามารถดำเนินการต่อได้"</string>
     <string name="search_the_web" msgid="6046130189241962337">"ค้นหาเว็บ"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"พื้นที่จัดเก็บของเบราว์เซอร์เต็ม"</string>
     <string name="webstorage_outofspace_notification_text" msgid="47273584426988640">"แตะเพื่อเพิ่มพื้นที่ว่าง"</string>
     <string name="webstorage_clear_data_title" msgid="689484577124333977">"ล้างข้อมูลที่เก็บไว้"</string>
-    <string name="webstorage_clear_data_dialog_title" msgid="345457466368974706">"ล้างข้อมูลที่เก็บไว้"</string>
     <string name="webstorage_clear_data_dialog_message" msgid="6200681632891775881">"ลบข้อมูลทั้งหมดที่เก็บไว้โดยเว็บไซต์นี้หรือไม่"</string>
     <string name="webstorage_clear_data_dialog_ok_button" msgid="6682570951259237542">"ตกลง"</string>
     <string name="webstorage_clear_data_dialog_cancel_button" msgid="2028867751958942762">"ยกเลิก"</string>
@@ -363,12 +331,10 @@
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"ล้างการเข้าถึงตำแหน่ง"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"ปัจจุบันไซต์นี้สามารถเข้าถึงตำแหน่งของคุณได้"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="7941769772784366199">"ไซต์นี้ไม่สามารถเข้าถึงตำแหน่งของคุณได้ในขณะนี้"</string>
-    <string name="geolocation_settings_page_dialog_title" msgid="1549842043381347668">"ล้างการเข้าถึงตำแหน่ง"</string>
     <string name="geolocation_settings_page_dialog_message" msgid="8772923416296868537">"ล้างการเข้าถึงตำแหน่งสำหรับเว็บไซต์นี้หรือไม่"</string>
     <string name="geolocation_settings_page_dialog_ok_button" msgid="2113465477131017852">"ตกลง"</string>
     <string name="geolocation_settings_page_dialog_cancel_button" msgid="7941036504673409747">"ยกเลิก"</string>
     <string name="website_settings_clear_all" msgid="8739804325997655980">"ล้างทั้งหมด"</string>
-    <string name="website_settings_clear_all_dialog_title" msgid="5746255931965842184">"ล้างทั้งหมด"</string>
     <string name="website_settings_clear_all_dialog_message" msgid="1551164275687475061">"ลบข้อมูลเว็บไซต์และการอนุญาตให้เข้าถึงตำแหน่งทั้งหมดหรือไม่"</string>
     <string name="website_settings_clear_all_dialog_ok_button" msgid="7858504776529106243">"ตกลง"</string>
     <string name="website_settings_clear_all_dialog_cancel_button" msgid="1896757051856611674">"ยกเลิก"</string>
