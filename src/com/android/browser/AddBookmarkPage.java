@@ -999,7 +999,7 @@ public class AddBookmarkPage extends Activity
         }
     }
 
-    public static class AccountsLoader extends CursorLoader {
+    static class AccountsLoader extends CursorLoader {
 
         static final String[] PROJECTION = new String[] {
             Accounts.ACCOUNT_NAME,
