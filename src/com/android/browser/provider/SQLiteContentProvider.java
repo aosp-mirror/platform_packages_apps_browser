@@ -239,7 +239,12 @@ public abstract class SQLiteContentProvider extends ContentProvider {
         }
         ContentResolver resolver = getContext().getContentResolver();
         for (Uri uri : changed) {
-            resolver.notifyChange(uri, null, !callerIsSyncAdapter);
+            boolean syncToNetwork = !callerIsSyncAdapter && syncToNetwork(uri);
+            resolver.notifyChange(uri, null, syncToNetwork);
         }
+    }
+
+    protected boolean syncToNetwork(Uri uri) {
+        return false;
     }
 }
