@@ -162,7 +162,6 @@ public class NavScreen extends RelativeLayout
             } else {
                 mUiController.closeTab(tab);
             }
-            mScroller.handleDataChanged();
         }
     }
 
