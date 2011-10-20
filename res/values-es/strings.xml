@@ -35,7 +35,7 @@
     <string name="cancel" msgid="3017274947407233702">"Cancelar"</string>
     <string name="ok" msgid="1509280796718850364">"Aceptar"</string>
     <string name="title_bar_loading" msgid="7438217780834640678">"Cargando..."</string>
-    <string name="page_info" msgid="4048529256302257195">"Información de página"</string>
+    <string name="page_info" msgid="4048529256302257195">"Información de la página"</string>
     <string name="page_info_view" msgid="5303490449842635158">"Ver información de página"</string>
     <string name="page_info_address" msgid="2222306609532903254">"Dirección:"</string>
     <string name="ssl_warnings_header" msgid="79744901983636370">"Hay algunos problemas con el certificado de seguridad de este sitio."</string>
@@ -67,7 +67,7 @@
     <string name="add_to_bookmarks_menu_option" msgid="4449323955122214389">"Marcadores"</string>
     <string name="add_to_homescreen_menu_option" msgid="1461447829242963790">"Escritorio"</string>
     <string name="add_to_other_folder_menu_option" msgid="5947586525822134105">"Otra carpeta"</string>
-    <string name="name" msgid="5462672162695365387">"Etiqueta"</string>
+    <string name="name" msgid="5462672162695365387">"Nombre"</string>
     <string name="http" msgid="2163722670597250102">"http://"</string>
     <string name="save_to_bookmarks" msgid="1679286010089780932">"Guardar en marcadores"</string>
     <string name="bookmark_this_page" msgid="7530739804320811054">"Añadir esta página a marcadores"</string>
@@ -102,7 +102,7 @@
     <string name="menu_view_download" msgid="2124570321712995120">"Descargas"</string>
     <string name="copy_page_url" msgid="1188679152608889555">"Copiar URL de página"</string>
     <string name="share_page" msgid="593756995297268343">"Compartir página"</string>
-    <string name="menu_save_snapshot" msgid="6935080344031126139">"Guardar para leer sin conexión"</string>
+    <string name="menu_save_snapshot" msgid="6935080344031126139">"Disponible sin conexión"</string>
     <string name="snapshot_failed" msgid="4584580873565876033">"No se ha podido guardar para leer sin conexión."</string>
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"<xliff:g id="BOOKMARK_COUNT">%d</xliff:g> marcadores"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Carpeta vacía"</string>
@@ -353,8 +353,8 @@
     <string name="webstorage_clear_data_dialog_cancel_button" msgid="2028867751958942762">"Cancelar"</string>
     <string name="webstorage_origin_summary_mb_stored" msgid="1985885826292236210">"MB almacenados en tu teléfono"</string>
     <string name="loading_video" msgid="7886324933131962321">"Cargando vídeo..."</string>
-    <string name="geolocation_permissions_prompt_message" msgid="356796102004052471">"<xliff:g id="WEBSITE_ORIGIN">%s</xliff:g> quiere conocer tu ubicación."</string>
-    <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"Compartir ubicación"</string>
+    <string name="geolocation_permissions_prompt_message" msgid="356796102004052471">"<xliff:g id="WEBSITE_ORIGIN">%s</xliff:g> quiere saber tu ubicación."</string>
+    <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"Aceptar"</string>
     <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"Rechazar"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"Recordar preferencia"</string>
     <string name="geolocation_permissions_prompt_toast_allowed" msgid="7201417941112726112">"Este sitio puede acceder a tu ubicación. Para modificar esta opción, accede a la pantalla Ajustes &gt; Avanzados &gt; Sitio web."</string>
@@ -393,8 +393,8 @@
     <string name="max_tabs_warning" msgid="4122034303809457570">"No hay más pestañas disponibles."</string>
     <string name="instant_search_label" msgid="8769284297650716935">"Google con Instant (experimental)"</string>
     <string name="preview" msgid="6450823514561689038">"Vista previa"</string>
-    <string name="local_bookmarks" msgid="533816851415228520">"Locales"</string>
-    <string name="ua_switcher_desktop" msgid="220097077327558435">"Ver sitio como en un ordenador"</string>
+    <string name="local_bookmarks" msgid="533816851415228520">"Marcadores locales"</string>
+    <string name="ua_switcher_desktop" msgid="220097077327558435">"Ver como en ordenador"</string>
     <string name="permission_preload_label" msgid="4856971662337877316">"Precargar resultados"</string>
     <string name="empty_snapshots_folder" msgid="7675378008107026013">"No hay páginas guardadas."</string>
     <string name="remove_snapshot" msgid="1624447424544976849">"Eliminar página guardada"</string>

@@ -229,7 +229,7 @@
     <string name="pref_min_font_size" msgid="8811125835817449131">"Minimálna veľkosť písma"</string>
     <string name="pref_min_font_size_value" msgid="2924708480509060209">"<xliff:g id="FONT_SIZE">%d</xliff:g> bodov"</string>
     <string name="pref_text_zoom" msgid="5171056101805125497">"Mierka písma"</string>
-    <string name="pref_zoom_on_double_tap" msgid="902786475250741795">"Dvojitým klepnutím priblížite"</string>
+    <string name="pref_zoom_on_double_tap" msgid="902786475250741795">"Priblížite dvojitým klepnutím"</string>
     <string name="pref_force_userscalable" msgid="5641500562399892621">"Vynút. povolenie priblíženia"</string>
     <string name="pref_force_userscalable_summary" msgid="3613242300617172230">"Prekonať žiadosť webových stránok o ovládanie priblíženia"</string>
     <string name="pref_inverted_category" msgid="1280639705117152207">"Invertované vykresľovanie na obrazovke"</string>
