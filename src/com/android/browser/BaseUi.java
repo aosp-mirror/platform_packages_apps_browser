@@ -42,6 +42,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebChromeClient;
@@ -523,6 +524,7 @@ public abstract class BaseUi implements UI {
         mFullscreenContainer.addView(view, COVER_SCREEN_PARAMS);
         decor.addView(mFullscreenContainer, COVER_SCREEN_PARAMS);
         mCustomView = view;
+        setFullscreen(true);
         mCustomViewCallback = callback;
         mActivity.setRequestedOrientation(requestedOrientation);
     }
@@ -531,6 +533,7 @@ public abstract class BaseUi implements UI {
     public void onHideCustomView() {
         if (mCustomView == null)
             return;
+        setFullscreen(false);
         FrameLayout decor = (FrameLayout) mActivity.getWindow().getDecorView();
         decor.removeView(mFullscreenContainer);
         mFullscreenContainer = null;
@@ -749,14 +752,25 @@ public abstract class BaseUi implements UI {
     }
 
     public void setFullscreen(boolean enabled) {
+        Window win = mActivity.getWindow();
+        WindowManager.LayoutParams winParams = win.getAttributes();
+        final int bits = WindowManager.LayoutParams.FLAG_FULLSCREEN;
         if (enabled) {
-            mActivity.getWindow().setFlags(
-                    WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            winParams.flags |=  bits;
+            if (mCustomView != null) {
+                mCustomView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
+            } else {
+                mContentView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
+            }
         } else {
-            mActivity.getWindow().clearFlags(
-                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            winParams.flags &= ~bits;
+            if (mCustomView != null) {
+                mCustomView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
+            } else {
+                mContentView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
+            }
         }
+        win.setAttributes(winParams);
     }
 
     public Drawable getFaviconDrawable(Bitmap icon) {
