@@ -78,10 +78,10 @@
     <string name="remove_bookmark" msgid="8407495852801410891">"Eliminar marcador"</string>
     <string name="remove_from_bookmarks" msgid="4374080666576982775">"Eliminar de marcadores"</string>
     <string name="remove_history_item" msgid="5021424935726728618">"Elliminar del historial"</string>
-    <string name="set_as_homepage" msgid="4752937379414905560">"Establecer como página principal"</string>
+    <string name="set_as_homepage" msgid="4752937379414905560">"Establecer como página de inicio"</string>
     <string name="bookmark_saved" msgid="2766434679871317557">"Guardar en marcadores"</string>
     <string name="bookmark_not_saved" msgid="1077732557310662080">"No se puede guardar el marcador."</string>
-    <string name="homepage_set" msgid="8768087280310966395">"Página principal establecida"</string>
+    <string name="homepage_set" msgid="8768087280310966395">"Página de inicio establecida"</string>
     <string name="bookmark_needs_title" msgid="6245900436119218187">"El marcador debe tener un nombre."</string>
     <string name="bookmark_needs_url" msgid="7809876865972755158">"El marcador debe tener una ubicación."</string>
     <string name="bookmark_url_not_valid" msgid="4917440933384496211">"URL no válida"</string>
@@ -127,21 +127,21 @@
     <string name="menu_preferences" msgid="6709237687234102240">"Ajustes"</string>
     <string name="pref_content_title" msgid="3834107397725342174">"Contenido de la página"</string>
     <string name="pref_content_load_images" msgid="2125616852957377561">"Cargar imágenes"</string>
-    <string name="pref_content_load_images_summary" msgid="5055874125248398584">"Mostrar imágenes en páginas web"</string>
-    <string name="pref_content_block_popups" msgid="4158524847764470895">"Bloquear ventanas emergentes"</string>
+    <string name="pref_content_load_images_summary" msgid="5055874125248398584">"Mostrar imágenes en las páginas web"</string>
+    <string name="pref_content_block_popups" msgid="4158524847764470895">"Bloquear pop-ups"</string>
     <string name="pref_content_javascript" msgid="4570972030299516843">"Habilitar JavaScript"</string>
     <string name="pref_content_open_in_background" msgid="824123779725118663">"Abrir en segundo plano"</string>
     <string name="pref_content_plugins" msgid="7231944644794301582">"Habilitar complementos"</string>
   <string-array name="pref_content_plugins_choices">
     <item msgid="6745108155096660725">"Siempre activado"</item>
-    <item msgid="2484126708670016519">"A petición"</item>
+    <item msgid="2484126708670016519">"Bajo demanda"</item>
     <item msgid="8547442717307793863">"Desactivado"</item>
   </string-array>
     <string name="pref_content_open_in_background_summary" msgid="955411158407739504">"Abrir nuevas pestañas detrás de la actual"</string>
-    <string name="pref_content_homepage" msgid="3324574611613105696">"Establecer página principal"</string>
+    <string name="pref_content_homepage" msgid="3324574611613105696">"Establecer página de inicio"</string>
     <string name="pref_content_search_engine" msgid="1620101310821644144">"Establecer motor de búsqueda"</string>
     <string name="pref_content_search_engine_summary" msgid="304003941861818133">"Elige un motor de búsqueda."</string>
-    <string name="pref_set_homepage_to" msgid="7838684355145561242">"Establecer en"</string>
+    <string name="pref_set_homepage_to" msgid="7838684355145561242">"Establecer en:"</string>
   <string-array name="pref_homepage_choices">
     <item msgid="844041670142910837">"Página actual"</item>
     <item msgid="4430498748295169195">"Página en blanco"</item>
@@ -151,12 +151,12 @@
   </string-array>
     <string name="pref_content_autofit" msgid="8260474534053660809">"Ajustar páginas automát."</string>
     <string name="pref_content_autofit_summary" msgid="324810555822572112">"Configurar las páginas web para ajustarlas a la pantalla"</string>
-    <string name="pref_general_title" msgid="1946872771219249323">"General"</string>
+    <string name="pref_general_title" msgid="1946872771219249323">"Generales"</string>
     <string name="pref_general_sync_title" msgid="3138637035975860324">"Sincronización"</string>
     <string name="pref_general_autofill_title" msgid="547881256865816858">"Autocompletar"</string>
-    <string name="pref_autofill_enabled" msgid="1015751713312396713">"Autocompletado de formulario"</string>
+    <string name="pref_autofill_enabled" msgid="1015751713312396713">"Formularios"</string>
     <string name="pref_autofill_enabled_summary" msgid="7659954073892471496">"Rellenar formularios web con un solo toque"</string>
-    <string name="pref_autofill_profile_editor" msgid="8934844472922113166">"Texto de la función Autocompletar"</string>
+    <string name="pref_autofill_profile_editor" msgid="8934844472922113166">"Texto para autocompletar"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="4864447251676856190">"Configurar texto con el que quieres completar automáticamente los formularios web"</string>
     <string name="pref_autologin_title" msgid="4421187193809267096">"Acceso de Google automático"</string>
     <string name="pref_autologin_progress" msgid="8333244467048833461">"Accediendo a Google Sites mediante <xliff:g id="ID_1">%s</xliff:g>"</string>
@@ -169,7 +169,7 @@
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"Correo:"</string>
     <string name="autofill_profile_editor_company_name" msgid="2813443159949210417">"Nombre de la empresa:"</string>
     <string name="autofill_profile_editor_address_line_1" msgid="836433242509243081">"Línea 1 de la dirección:"</string>
-    <string name="autofill_profile_editor_address_line_1_hint" msgid="5965659598509327172">"Dirección postal, apartado postal, c/o"</string>
+    <string name="autofill_profile_editor_address_line_1_hint" msgid="5965659598509327172">"Calle, dirección postal"</string>
     <string name="autofill_profile_editor_address_line_2" msgid="8194745202893822479">"Línea 2 de la dirección:"</string>
     <string name="autofill_profile_editor_address_line_2_hint" msgid="8529642768127569254">"Apartamento, piso, bloque, edificio, planta, etc."</string>
     <string name="autofill_profile_editor_city" msgid="7306716145784997135">"Ciudad:"</string>
@@ -184,7 +184,7 @@
     <string name="autofill_profile_editor_delete_profile" msgid="3098369314558164153">"Eliminar"</string>
     <string name="autofill_setup_dialog_title" msgid="3564907335366130582">"Autocompletar"</string>
     <string name="autofill_setup_dialog_message" msgid="1096164985825394616">"El navegador puede completar automáticamente formularios web como el que aparece a continuación. ¿Quieres configurar la función Autocompletar?"</string>
-    <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"Siempre puedes configurar la opción Autocompletar desde la pantalla Navegador &gt; Ajustes &gt; General."</string>
+    <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"Siempre puedes configurar la opción Autocompletar desde la pantalla Navegador &gt; Ajustes &gt; Generales."</string>
     <string name="disable_autofill" msgid="8305901059849400354">"Inhabilitar autocompletar"</string>
     <string name="pref_privacy_security_title" msgid="3480313968942160914">"Seguridad y privacidad"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Borrar caché"</string>
@@ -197,8 +197,8 @@
     <string name="pref_privacy_clear_history" msgid="8723795508825198477">"Borrar historial"</string>
     <string name="pref_privacy_clear_history_summary" msgid="6868501330708940734">"Borrar el historial de exploración del navegador"</string>
     <string name="pref_privacy_clear_history_dlg" msgid="6934317391642846227">"¿Eliminar el historial de exploración del navegador?"</string>
-    <string name="pref_privacy_formdata_title" msgid="6549813837982050424">"Datos de formulario"</string>
-    <string name="pref_privacy_clear_form_data" msgid="4232668196344383987">"Borrar datos formulario"</string>
+    <string name="pref_privacy_formdata_title" msgid="6549813837982050424">"Datos de formularios"</string>
+    <string name="pref_privacy_clear_form_data" msgid="4232668196344383987">"Borrar datos de formularios"</string>
     <string name="pref_privacy_clear_form_data_summary" msgid="7702091143640546200">"Borrar todos los datos de formulario guardados"</string>
     <string name="pref_privacy_clear_form_data_dlg" msgid="8205626042241338983">"¿Eliminar todos los datos de formulario guardados?"</string>
     <string name="pref_privacy_clear_passwords" msgid="4750234112289277480">"Borrar contraseñas"</string>
@@ -209,7 +209,7 @@
     <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"Permitir que los sitios soliciten acceso a tu ubicación"</string>
     <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"Deshabilitar ubicación"</string>
     <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"Deshabilitar acceso a la ubicación para todos los sitios web"</string>
-    <string name="pref_privacy_clear_geolocation_access_dlg" msgid="3190928760598034346">"¿Borrar el acceso a la ubicación del sitio web?"</string>
+    <string name="pref_privacy_clear_geolocation_access_dlg" msgid="3190928760598034346">"¿Deshabilitar el acceso a la ubicación del sitio web?"</string>
     <string name="pref_security_passwords_title" msgid="5734190542383756711">"Contraseñas"</string>
     <string name="pref_security_remember_passwords" msgid="6492957683454529549">"Recordar contraseñas"</string>
     <string name="pref_security_remember_passwords_summary" msgid="256388703356349137">"Guardar nombres de usuario y contraseñas de sitios web"</string>
@@ -227,14 +227,14 @@
     <item msgid="7201512237890458902">"Enorme"</item>
   </string-array>
     <string name="pref_min_font_size" msgid="8811125835817449131">"Tamaño mínimo de fuente"</string>
-    <string name="pref_min_font_size_value" msgid="2924708480509060209">"<xliff:g id="FONT_SIZE">%d</xliff:g> ptos"</string>
+    <string name="pref_min_font_size_value" msgid="2924708480509060209">"<xliff:g id="FONT_SIZE">%d</xliff:g>"</string>
     <string name="pref_text_zoom" msgid="5171056101805125497">"Ajuste de texto"</string>
     <string name="pref_zoom_on_double_tap" msgid="902786475250741795">"Zoom al tocar dos veces"</string>
-    <string name="pref_force_userscalable" msgid="5641500562399892621">"Forzar habilitación de zoom"</string>
-    <string name="pref_force_userscalable_summary" msgid="3613242300617172230">"Anular control del zoom"</string>
+    <string name="pref_force_userscalable" msgid="5641500562399892621">"Forzar zoom"</string>
+    <string name="pref_force_userscalable_summary" msgid="3613242300617172230">"Evitar que un sitio web pueda cambiar el zoom"</string>
     <string name="pref_inverted_category" msgid="1280639705117152207">"Invertir colores"</string>
     <string name="pref_inverted" msgid="7613556986776824112">"Invertir colores"</string>
-    <string name="pref_inverted_summary" msgid="7357225897413923085">"El negro se convierte en blanco y viceversa."</string>
+    <string name="pref_inverted_summary" msgid="7357225897413923085">"El negro se convertirá en blanco y viceversa."</string>
     <string name="pref_inverted_contrast" msgid="8527441236225288169">"Contraste"</string>
     <string name="pref_default_zoom" msgid="8076142259097187395">"Zoom predeterminado"</string>
   <string-array name="pref_default_zoom_choices">
@@ -243,9 +243,9 @@
     <item msgid="3840999588443167001">"Cerca"</item>
   </string-array>
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"Zoom predeterminado"</string>
-    <string name="pref_content_load_page" msgid="2219810141690955452">"Abrir en visión general"</string>
+    <string name="pref_content_load_page" msgid="2219810141690955452">"Ver información general"</string>
     <string name="pref_content_load_page_summary" msgid="9168803276420332955">"Mostrar información general de las páginas abiertas recientemente"</string>
-    <string name="pref_extras_title" msgid="7075456173747370647">"Ajustes avanzados"</string>
+    <string name="pref_extras_title" msgid="7075456173747370647">"Avanzados"</string>
     <string name="pref_extras_website_settings" msgid="67866640052455549">"Ajustes del sitio web"</string>
     <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"Ajustes avanzados de sitios web individuales"</string>
     <string name="pref_extras_reset_default_title" msgid="3579760449455761762">"Restablecer valores predeterminados"</string>
@@ -270,20 +270,20 @@
     <string name="pref_font_size_category" msgid="6683754355084218254">"Tamaño de la letra"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"Labs"</string>
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Controles rápidos"</string>
-    <string name="pref_lab_quick_controls_summary" msgid="3149664132600968775">"Desliza el dedo a la izquierda o la derecha para abrir controles rápidos y ocultar barras de aplicaciones y URL"</string>
+    <string name="pref_lab_quick_controls_summary" msgid="3149664132600968775">"Deslizar el dedo a la izquierda o la derecha para abrir controles rápidos y ocultar barras de aplicaciones y URL"</string>
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Google Instant"</string>
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Con Google Instant, aparecerán resultados de búsqueda de Google a medida que escribas (puede aumentar el uso de datos)."</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"Pantalla completa"</string>
     <string name="pref_lab_fullscreen_summary" msgid="7694738112219376740">"Usar el modo de pantalla completa para ocultar la barra de estado"</string>
     <string name="pref_data_title" msgid="7255058703417796578">"Gestión de ancho de banda"</string>
-    <string name="pref_data_preload_title" msgid="4479320472980292873">"Carga previa de resultados de búsqueda"</string>
+    <string name="pref_data_preload_title" msgid="4479320472980292873">"Carga previa de búsquedas"</string>
   <string-array name="pref_data_preload_choices">
     <item msgid="5180466923190095508">"Nunca"</item>
     <item msgid="3514802063791531888">"Solo en Wi-Fi"</item>
     <item msgid="3944061253437827617">"Siempre"</item>
   </string-array>
-    <string name="pref_data_preload_summary" msgid="3809168910751382727">"Permitir que el navegador cargue resultados en segundo plano"</string>
-    <string name="pref_data_preload_dialogtitle" msgid="8421297746110796536">"Carga previa de resultados de búsqueda"</string>
+    <string name="pref_data_preload_summary" msgid="3809168910751382727">"Permitir que el navegador cargue resultados de búsqueda en segundo plano"</string>
+    <string name="pref_data_preload_dialogtitle" msgid="8421297746110796536">"Carga previa de búsquedas"</string>
     <string name="browserFrameNetworkErrorLabel" msgid="8102515020625680714">"Error de conexión"</string>
     <string name="browserFrameFileErrorLabel" msgid="4703792279852977350">"Incidencia relacionada con el archivo"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2385512101948178841"></string>
