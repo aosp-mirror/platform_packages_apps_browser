@@ -25,11 +25,10 @@ import android.webkit.WebView;
 
 import com.android.browser.BrowserSettings;
 import com.android.browser.R;
-import com.android.browser.WebViewProperties;
 
 public class FontSizePreview extends WebViewPreview {
 
-    static final String HTML_FORMAT = "<html><head><style type=\"text/css\">p { margin: 2px auto;}</style><body><p style=\"font-size: 4pt\">%s</p><p style=\"font-size: 8pt\">%s</p><p style=\"font-size: 10pt\">%s</p><p style=\"font-size: 14pt\">%s</p><p style=\"font-size: 18pt\">%s</p></body></html>";
+    static final String HTML_FORMAT = "<!DOCTYPE html><html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><style type=\"text/css\">p { margin: 2px auto;}</style><body><p style=\"font-size: 4pt\">%s</p><p style=\"font-size: 8pt\">%s</p><p style=\"font-size: 10pt\">%s</p><p style=\"font-size: 14pt\">%s</p><p style=\"font-size: 18pt\">%s</p></body></html>";
 
     String mHtml;
 
@@ -62,7 +61,7 @@ public class FontSizePreview extends WebViewPreview {
         BrowserSettings bs = BrowserSettings.getInstance();
         ws.setMinimumFontSize(bs.getMinimumFontSize());
         ws.setTextZoom(bs.getTextZoom());
-        mWebView.loadData(mHtml, "text/html", "utf-8");
+        mWebView.loadDataWithBaseURL(null, mHtml, "text/html", "utf-8", null);
     }
 
     @Override
