@@ -20,6 +20,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
+import android.webkit.WebView;
 
 import com.android.browser.BrowserSettings;
 import com.android.browser.PreferenceKeys;
@@ -31,10 +32,13 @@ public class AccessibilityPreferencesFragment extends PreferenceFragment
         implements Preference.OnPreferenceChangeListener {
 
     NumberFormat mFormat;
+    // Used to pause/resume timers, which are required for WebViewPreview
+    WebView mControlWebView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mControlWebView = new WebView(getActivity());
         addPreferencesFromResource(R.xml.accessibility_preferences);
         BrowserSettings settings = BrowserSettings.getInstance();
         mFormat = NumberFormat.getPercentInstance();
@@ -51,6 +55,25 @@ public class AccessibilityPreferencesFragment extends PreferenceFragment
         e = findPreference(PreferenceKeys.PREF_INVERTED_CONTRAST);
         e.setOnPreferenceChangeListener(this);
         updateInvertedContrastSummary(e, (int) (settings.getInvertedContrast() * 100));
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mControlWebView.resumeTimers();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mControlWebView.pauseTimers();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mControlWebView.destroy();
+        mControlWebView = null;
     }
 
     void updateMinFontSummary(Preference pref, int minFontSize) {
