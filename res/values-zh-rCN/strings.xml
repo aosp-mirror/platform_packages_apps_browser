@@ -115,7 +115,7 @@
     <string name="contextmenu_copylink" msgid="5153657160294534270">"复制链接网址"</string>
     <string name="contextmenu_download_image" msgid="4243829645180686912">"保存图片"</string>
     <string name="contextmenu_view_image" msgid="3870625602053600905">"查看图片"</string>
-    <string name="contextmenu_set_wallpaper" msgid="3691902960115350686">"设置为壁纸"</string>
+    <string name="contextmenu_set_wallpaper" msgid="3691902960115350686">"设为壁纸"</string>
     <string name="contextmenu_dial_dot" msgid="5856550683415933806">"拨打…"</string>
     <string name="contextmenu_add_contact" msgid="3183511922223645716">"添加联系人"</string>
     <string name="contextmenu_send_mail" msgid="1014513374828775660">"发送电子邮件"</string>

@@ -186,7 +186,7 @@
     <string name="autofill_setup_dialog_message" msgid="1096164985825394616">"Webformulare dieser Art können vom Browser automatisch ausgefüllt werden. Möchten Sie Formulare automatisch ausfüllen?"</string>
     <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"Den AutoFill-Text können Sie jederzeit im Browser unter &gt; \"Einstellungen\" &gt; \"Allgemein\" einrichten."</string>
     <string name="disable_autofill" msgid="8305901059849400354">"AutoFill deaktivieren"</string>
-    <string name="pref_privacy_security_title" msgid="3480313968942160914">"Datenschutz und Sicherheit"</string>
+    <string name="pref_privacy_security_title" msgid="3480313968942160914">"Datenschutz &amp; Sicherheit"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Cache löschen"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Inhalte und Datenbanken aus dem lokalen Cache löschen"</string>
     <string name="pref_privacy_clear_cache_dlg" msgid="4344512581716422465">"Inhalte und Datenbanken aus dem lokalen Cache löschen?"</string>
@@ -252,7 +252,7 @@
     <string name="pref_extras_reset_default" msgid="8904000515846202110">"Zurück auf Standard"</string>
     <string name="pref_extras_reset_default_summary" msgid="4247870778270414501">"Standardeinstellungen wiederherstellen"</string>
     <string name="pref_extras_reset_default_dlg" msgid="7922814420184322450">"Standardeinstellungen wiederherstellen?"</string>
-    <string name="pref_extras_reset_default_dlg_title" msgid="2250334970728938936">"Auf Standardeinstellung zurücksetzen"</string>
+    <string name="pref_extras_reset_default_dlg_title" msgid="2250334970728938936">"Auf Standard zurücksetzen"</string>
     <string name="pref_development_title" msgid="3263854204533056480">"Debuggen"</string>
     <string name="pref_default_text_encoding" msgid="5742965543955558478">"Textcodierung"</string>
   <string-array name="pref_default_text_encoding_choices">
