@@ -184,7 +184,7 @@
     <string name="autofill_setup_dialog_message" msgid="1096164985825394616">"Webformulare dieser Art können vom Browser automatisch ausgefüllt werden. Möchten Sie Formulare automatisch ausfüllen?"</string>
     <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"Den AutoFill-Text können Sie jederzeit im Browser unter &gt; \"Einstellungen\" &gt; \"Allgemein\" einrichten."</string>
     <string name="disable_autofill" msgid="8305901059849400354">"AutoFill deaktivieren"</string>
-    <string name="pref_privacy_security_title" msgid="3480313968942160914">"Datenschutz und Sicherheit"</string>
+    <string name="pref_privacy_security_title" msgid="3480313968942160914">"Datenschutz &amp; Sicherheit"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Cache löschen"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Inhalte und Datenbanken aus dem lokalen Cache löschen"</string>
     <string name="pref_privacy_clear_cache_dlg" msgid="4344512581716422465">"Inhalte und Datenbanken aus dem lokalen Cache löschen?"</string>
