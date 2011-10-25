@@ -77,7 +77,7 @@
     <string name="open_bookmark" msgid="8473581305759935790">"열기"</string>
     <string name="remove_bookmark" msgid="8407495852801410891">"북마크 삭제"</string>
     <string name="remove_from_bookmarks" msgid="4374080666576982775">"북마크에서 삭제"</string>
-    <string name="remove_history_item" msgid="5021424935726728618">"기록에서 삭제"</string>
+    <string name="remove_history_item" msgid="5021424935726728618">"방문기록에서 삭제"</string>
     <string name="set_as_homepage" msgid="4752937379414905560">"홈페이지로 설정"</string>
     <string name="bookmark_saved" msgid="2766434679871317557">"북마크에 저장되었습니다."</string>
     <string name="bookmark_not_saved" msgid="1077732557310662080">"북마크를 저장하지 못했습니다."</string>
@@ -97,11 +97,11 @@
     <string name="bookmarks" msgid="1961279134885867815">"북마크"</string>
     <string name="shortcut_bookmark" msgid="3974876480401135895">"북마크"</string>
     <string name="shortcut_bookmark_title" msgid="7570786275916681296">"북마크 선택"</string>
-    <string name="history" msgid="2451240511251410032">"기록"</string>
+    <string name="history" msgid="2451240511251410032">"방문 기록"</string>
     <string name="menu_view_download" msgid="2124570321712995120">"다운로드"</string>
     <string name="copy_page_url" msgid="1188679152608889555">"페이지 URL 복사"</string>
     <string name="share_page" msgid="593756995297268343">"페이지 공유"</string>
-    <string name="menu_save_snapshot" msgid="6935080344031126139">"오프라인 읽기용으로 저장"</string>
+    <string name="menu_save_snapshot" msgid="6935080344031126139">"오프라인 보기로 저장"</string>
     <string name="snapshot_failed" msgid="4584580873565876033">"오프라인 읽기용으로 저장하지 못했습니다."</string>
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"북마크 <xliff:g id="BOOKMARK_COUNT">%d</xliff:g>개"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"빈 폴더"</string>
@@ -145,7 +145,7 @@
     <item msgid="844041670142910837">"현재 페이지"</item>
     <item msgid="4430498748295169195">"빈 페이지"</item>
     <item msgid="5747608191946904074">"기본 페이지"</item>
-    <item msgid="6092441301001006473">"자주 방문한 사이트"</item>
+    <item msgid="6092441301001006473">"자주 방문한 페이지"</item>
     <item msgid="6569304572171444894">"기타"</item>
   </string-array>
     <string name="pref_content_autofit" msgid="8260474534053660809">"페이지 자동 맞춤"</string>
@@ -168,7 +168,7 @@
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"이메일:"</string>
     <string name="autofill_profile_editor_company_name" msgid="2813443159949210417">"회사 이름:"</string>
     <string name="autofill_profile_editor_address_line_1" msgid="836433242509243081">"주소 입력란 1:"</string>
-    <string name="autofill_profile_editor_address_line_1_hint" msgid="5965659598509327172">"번지, 사서함, c/o"</string>
+    <string name="autofill_profile_editor_address_line_1_hint" msgid="5965659598509327172">"번지, 사서함"</string>
     <string name="autofill_profile_editor_address_line_2" msgid="8194745202893822479">"주소 입력란 2:"</string>
     <string name="autofill_profile_editor_address_line_2_hint" msgid="8529642768127569254">"아파트, 동, 호수, 층 등"</string>
     <string name="autofill_profile_editor_city" msgid="7306716145784997135">"구/군/시:"</string>
@@ -206,7 +206,7 @@
     <string name="pref_privacy_enable_geolocation" msgid="1395040170290765686">"위치 정보 사용"</string>
     <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"사이트의 위치 정보 액세스 요청 허용"</string>
     <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"위치 정보 액세스 삭제"</string>
-    <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"모든 웹사이트의 위치 정보 액세스 삭제"</string>
+    <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"모든 웹사이트에서 위치 정보 액세스가 삭제됩니다."</string>
     <string name="pref_privacy_clear_geolocation_access_dlg" msgid="3190928760598034346">"웹사이트의 위치 정보 액세스를 삭제하시겠습니까?"</string>
     <string name="pref_security_passwords_title" msgid="5734190542383756711">"비밀번호"</string>
     <string name="pref_security_remember_passwords" msgid="6492957683454529549">"비밀번호 저장"</string>
@@ -271,7 +271,7 @@
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Google 순간 검색"</string>
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Google 검색을 사용할 때 Google 순간 검색을 사용하면 입력하는 동안 결과가 표시됩니다(데이터 사용이 증가될 수 있음)."</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"전체화면"</string>
-    <string name="pref_lab_fullscreen_summary" msgid="7694738112219376740">"전체화면 모드를 사용하여 상태 표시줄을 숨깁니다."</string>
+    <string name="pref_lab_fullscreen_summary" msgid="7694738112219376740">"전체화면 모드를 사용하여 상태 표시줄 숨김"</string>
     <string name="pref_data_title" msgid="7255058703417796578">"대역폭 관리"</string>
     <string name="pref_data_preload_title" msgid="4479320472980292873">"검색결과 미리 로드"</string>
   <string-array name="pref_data_preload_choices">
@@ -320,7 +320,7 @@
     <string name="webstorage_clear_data_dialog_message" msgid="6200681632891775881">"웹사이트에 저장된 모든 데이터를 삭제하시겠습니까?"</string>
     <string name="webstorage_clear_data_dialog_ok_button" msgid="6682570951259237542">"확인"</string>
     <string name="webstorage_clear_data_dialog_cancel_button" msgid="2028867751958942762">"취소"</string>
-    <string name="webstorage_origin_summary_mb_stored" msgid="1985885826292236210">"휴대전화에 저장된 용량(MB)"</string>
+    <string name="webstorage_origin_summary_mb_stored" msgid="1985885826292236210">"MB 저장됨"</string>
     <string name="loading_video" msgid="7886324933131962321">"동영상 로드 중…"</string>
     <string name="geolocation_permissions_prompt_message" msgid="356796102004052471">"<xliff:g id="WEBSITE_ORIGIN">%s</xliff:g>에서 사용자의 위치를 확인하려고 합니다."</string>
     <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"위치 공유"</string>
@@ -360,8 +360,8 @@
     <string name="max_tabs_warning" msgid="4122034303809457570">"탭이 더 이상 없습니다."</string>
     <string name="instant_search_label" msgid="8769284297650716935">"Google 순간 검색(실험실)"</string>
     <string name="preview" msgid="6450823514561689038">"미리보기"</string>
-    <string name="local_bookmarks" msgid="533816851415228520">"로컬"</string>
-    <string name="ua_switcher_desktop" msgid="220097077327558435">"데스크톱 사이트 요청"</string>
+    <string name="local_bookmarks" msgid="533816851415228520">"로컬 기기"</string>
+    <string name="ua_switcher_desktop" msgid="220097077327558435">"데스크톱 버전으로 보기"</string>
     <string name="permission_preload_label" msgid="4856971662337877316">"결과 미리 로드"</string>
     <string name="empty_snapshots_folder" msgid="7675378008107026013">"저장된 페이지가 없습니다."</string>
     <string name="remove_snapshot" msgid="1624447424544976849">"저장된 페이지 삭제"</string>
