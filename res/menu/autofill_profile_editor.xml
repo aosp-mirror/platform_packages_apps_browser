@@ -15,6 +15,11 @@
 -->
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/autofill_profile_editor_save_profile_menu_id"
+        android:title="@string/autofill_profile_editor_save_profile"
+        android:icon="@android:drawable/ic_menu_save"
+        android:showAsAction="ifRoom|withText" />
+
     <item android:id="@+id/autofill_profile_editor_delete_profile_menu_id"
         android:title="@string/autofill_profile_editor_delete_profile"
         android:icon="@android:drawable/ic_menu_delete"
