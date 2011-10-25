@@ -52,7 +52,7 @@ public class AutoFillSettingsFragment extends Fragment {
     private EditText mCountryEdit;
     private EditText mPhoneEdit;
 
-    private Button mSaveButton;
+    private MenuItem mSaveMenuItem;
 
     // Used to display toast after DB interactions complete.
     private Handler mHandler;
@@ -87,7 +87,7 @@ public class AutoFillSettingsFragment extends Fragment {
                 mPhoneEdit.setError(null);
             }
 
-            updateButtonState();
+            updateSaveMenuItemState();
         }
 
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -99,7 +99,7 @@ public class AutoFillSettingsFragment extends Fragment {
 
     private class FieldChangedListener implements TextWatcher {
         public void afterTextChanged(Editable s) {
-            updateButtonState();
+            updateSaveMenuItemState();
         }
 
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -147,11 +147,14 @@ public class AutoFillSettingsFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.autofill_profile_editor, menu);
+        mSaveMenuItem = menu.findItem(R.id.autofill_profile_editor_save_profile_menu_id);
+        updateSaveMenuItemState();
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.autofill_profile_editor_delete_profile_menu_id) {
+        switch (item.getItemId()) {
+        case R.id.autofill_profile_editor_delete_profile_menu_id:
             // Clear the UI.
             mFullNameEdit.setText("");
             mEmailEdit.setText("");
@@ -168,10 +171,30 @@ public class AutoFillSettingsFragment extends Fragment {
             // trigger the current profile to get deleted from the DB.
             mSettings.setAutoFillProfile(null,
                     mHandler.obtainMessage(PROFILE_DELETED_MSG));
-            updateButtonState();
+            updateSaveMenuItemState();
             return true;
+
+        case R.id.autofill_profile_editor_save_profile_menu_id:
+            AutoFillProfile newProfile = new AutoFillProfile(
+                    mUniqueId,
+                    mFullNameEdit.getText().toString(),
+                    mEmailEdit.getText().toString(),
+                    mCompanyEdit.getText().toString(),
+                    mAddressLine1Edit.getText().toString(),
+                    mAddressLine2Edit.getText().toString(),
+                    mCityEdit.getText().toString(),
+                    mStateEdit.getText().toString(),
+                    mZipEdit.getText().toString(),
+                    mCountryEdit.getText().toString(),
+                    mPhoneEdit.getText().toString());
+
+            mSettings.setAutoFillProfile(newProfile,
+                    mHandler.obtainMessage(PROFILE_SAVED_MSG));
+            return true;
+
+        default:
+            return false;
         }
-        return false;
     }
 
     @Override
@@ -203,27 +226,6 @@ public class AutoFillSettingsFragment extends Fragment {
         mCountryEdit.addTextChangedListener(mFieldChangedListener);
         mPhoneEdit.addTextChangedListener(new PhoneNumberValidator());
 
-        mSaveButton = (Button)v.findViewById(R.id.autofill_profile_editor_save_button);
-        mSaveButton.setOnClickListener(new OnClickListener() {
-            public void onClick(View button) {
-                AutoFillProfile newProfile = new AutoFillProfile(
-                        mUniqueId,
-                        mFullNameEdit.getText().toString(),
-                        mEmailEdit.getText().toString(),
-                        mCompanyEdit.getText().toString(),
-                        mAddressLine1Edit.getText().toString(),
-                        mAddressLine2Edit.getText().toString(),
-                        mCityEdit.getText().toString(),
-                        mStateEdit.getText().toString(),
-                        mZipEdit.getText().toString(),
-                        mCountryEdit.getText().toString(),
-                        mPhoneEdit.getText().toString());
-
-                mSettings.setAutoFillProfile(newProfile,
-                        mHandler.obtainMessage(PROFILE_SAVED_MSG));
-            }
-        });
-
         // Populate the text boxes with any pre existing AutoFill data.
         AutoFillProfile activeProfile = mSettings.getAutoFillProfile();
         if (activeProfile != null) {
@@ -239,14 +241,18 @@ public class AutoFillSettingsFragment extends Fragment {
             mPhoneEdit.setText(activeProfile.getPhoneNumber());
         }
 
-        updateButtonState();
+        updateSaveMenuItemState();
 
         return v;
     }
 
-    public void updateButtonState() {
+    private void updateSaveMenuItemState() {
+        if (mSaveMenuItem == null) {
+            return;
+        }
 
-        boolean valid = (mFullNameEdit.getText().toString().length() > 0 ||
+        boolean currentState = mSaveMenuItem.isEnabled();
+        boolean newState = (mFullNameEdit.getText().toString().length() > 0 ||
             mEmailEdit.getText().toString().length() > 0 ||
             mCompanyEdit.getText().toString().length() > 0 ||
             mAddressLine1Edit.getText().toString().length() > 0 ||
@@ -257,9 +263,9 @@ public class AutoFillSettingsFragment extends Fragment {
             mCountryEdit.getText().toString().length() > 0) &&
             mPhoneEdit.getError() == null;
 
-        // Only enable the save buttons if we have at least one field completed
-        // and the phone number (if present is valid).
-        mSaveButton.setEnabled(valid);
+        if (currentState != newState) {
+            mSaveMenuItem.setEnabled(newState);
+        }
     }
 
     private void closeEditor() {
