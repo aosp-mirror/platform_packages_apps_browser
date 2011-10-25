@@ -205,7 +205,7 @@
     <string name="pref_privacy_location_title" msgid="7458378016606081067">"Posizione"</string>
     <string name="pref_privacy_enable_geolocation" msgid="1395040170290765686">"Attiva posizione"</string>
     <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"Consenti ai siti di richiedere l\'accesso alla tua posizione"</string>
-    <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"Cancella accesso a posiz."</string>
+    <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"Cancella accesso a posizione"</string>
     <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"Cancella l\'accesso alla posizione per tutti i siti web"</string>
     <string name="pref_privacy_clear_geolocation_access_dlg" msgid="3190928760598034346">"Cancellare l\'accesso del sito web alla posizione?"</string>
     <string name="pref_security_passwords_title" msgid="5734190542383756711">"Password"</string>
@@ -328,7 +328,7 @@
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"Ricorda la preferenza"</string>
     <string name="geolocation_permissions_prompt_toast_allowed" msgid="7201417941112726112">"Questo sito può accedere alla tua posizione. Modifica questa impostazione nella schermata Impostazioni &gt; Avanzate &gt; Sito web."</string>
     <string name="geolocation_permissions_prompt_toast_disallowed" msgid="156443445797377409">"Questo sito non può accedere alla tua posizione. Modifica questa impostazione nella schermata Impostazioni &gt; Avanzate &gt; Sito web."</string>
-    <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Cancella accesso a posiz."</string>
+    <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Cancella accesso a posizione"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Al momento questo sito può accedere alla tua posizione"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="7941769772784366199">"Al momento questo sito non può accedere alla tua posizione"</string>
     <string name="geolocation_settings_page_dialog_message" msgid="8772923416296868537">"Cancellare l\'accesso di questo sito web alla posizione?"</string>
