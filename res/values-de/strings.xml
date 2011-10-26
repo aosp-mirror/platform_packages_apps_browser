@@ -232,8 +232,8 @@
     <string name="pref_zoom_on_double_tap" msgid="902786475250741795">"Zoomen mit zweimaligem Tippen"</string>
     <string name="pref_force_userscalable" msgid="5641500562399892621">"Zoom zwingend aktivieren"</string>
     <string name="pref_force_userscalable_summary" msgid="3613242300617172230">"Anfrage zur Steuerung des Zoomverhaltens überschreiben"</string>
-    <string name="pref_inverted_category" msgid="1280639705117152207">"Umgekehrte Bildschirmanzeige"</string>
-    <string name="pref_inverted" msgid="7613556986776824112">"Umgekehrte Anzeige"</string>
+    <string name="pref_inverted_category" msgid="1280639705117152207">"Negativkontrast"</string>
+    <string name="pref_inverted" msgid="7613556986776824112">"Negativkontrast"</string>
     <string name="pref_inverted_summary" msgid="7357225897413923085">"Schwarz wird zu Weiß und umgekehrt"</string>
     <string name="pref_inverted_contrast" msgid="8527441236225288169">"Kontrast"</string>
     <string name="pref_default_zoom" msgid="8076142259097187395">"Standard-Zoom"</string>
@@ -266,7 +266,7 @@
     <item msgid="2193955365569270096">"Koreanisch (EUC-KR)"</item>
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Textcodierung"</string>
-    <string name="pref_accessibility_title" msgid="5127836981587423215">"Eingabehilfen"</string>
+    <string name="pref_accessibility_title" msgid="5127836981587423215">"Bedienungshilfen"</string>
     <string name="pref_font_size_category" msgid="6683754355084218254">"Textgröße"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"Labs"</string>
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Schnellsteuerung"</string>

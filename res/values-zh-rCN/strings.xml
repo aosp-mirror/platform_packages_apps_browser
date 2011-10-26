@@ -37,7 +37,7 @@
     <string name="title_bar_loading" msgid="7438217780834640678">"正在载入..."</string>
     <string name="page_info" msgid="4048529256302257195">"网页信息"</string>
     <string name="page_info_view" msgid="5303490449842635158">"查看网页信息"</string>
-    <string name="page_info_address" msgid="2222306609532903254">"地址:"</string>
+    <string name="page_info_address" msgid="2222306609532903254">"网址："</string>
     <string name="ssl_warnings_header" msgid="79744901983636370">"该网站的安全证书有问题。"</string>
     <string name="ssl_continue" msgid="8031515015829358457">"继续"</string>
     <string name="security_warning" msgid="6607795404322797541">"安全警告"</string>
@@ -57,7 +57,7 @@
     <string name="forward" msgid="4288210890526641577">"前进"</string>
     <string name="save" msgid="5922311934992468496">"确定"</string>
     <string name="do_not_save" msgid="6777633870113477714">"取消"</string>
-    <string name="location" msgid="3411848697912600125">"地址"</string>
+    <string name="location" msgid="3411848697912600125">"网址"</string>
     <string name="account" msgid="5179824606448077042">"帐户"</string>
     <string name="containing_folder" msgid="6771180232953030479">"添加到"</string>
     <string name="new_folder" msgid="7743540149088867917">"新建文件夹"</string>
@@ -133,9 +133,9 @@
     <string name="pref_content_open_in_background" msgid="824123779725118663">"在后方打开"</string>
     <string name="pref_content_plugins" msgid="7231944644794301582">"启用插件"</string>
   <string-array name="pref_content_plugins_choices">
-    <item msgid="6745108155096660725">"始终打开"</item>
+    <item msgid="6745108155096660725">"始终启用（打开）"</item>
     <item msgid="2484126708670016519">"在需要时打开"</item>
-    <item msgid="8547442717307793863">"关"</item>
+    <item msgid="8547442717307793863">"关闭"</item>
   </string-array>
     <string name="pref_content_open_in_background_summary" msgid="955411158407739504">"在当前标签后方打开新标签"</string>
     <string name="pref_content_homepage" msgid="3324574611613105696">"设置主页"</string>
@@ -206,10 +206,10 @@
     <string name="pref_privacy_clear_passwords_dlg" msgid="5836576259947160045">"要删除所有保存的密码吗？"</string>
     <string name="pref_privacy_location_title" msgid="7458378016606081067">"位置"</string>
     <string name="pref_privacy_enable_geolocation" msgid="1395040170290765686">"启用位置信息功能"</string>
-    <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"允许网站访问您的位置信息"</string>
-    <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"取消位置信息访问权限"</string>
-    <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"取消所有网站访问位置信息的权限"</string>
-    <string name="pref_privacy_clear_geolocation_access_dlg" msgid="3190928760598034346">"要清除网站位置信息访问权限吗？"</string>
+    <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"允许网站请求获取您的位置信息"</string>
+    <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"取消获取位置信息的权限"</string>
+    <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"取消所有网站获取您位置信息的权限"</string>
+    <string name="pref_privacy_clear_geolocation_access_dlg" msgid="3190928760598034346">"要清除网站获取位置信息的权限吗？"</string>
     <string name="pref_security_passwords_title" msgid="5734190542383756711">"密码"</string>
     <string name="pref_security_remember_passwords" msgid="6492957683454529549">"记住密码"</string>
     <string name="pref_security_remember_passwords_summary" msgid="256388703356349137">"保存网站的用户名和密码"</string>
@@ -296,7 +296,7 @@
     <string name="go_home" msgid="109129207276086793">"首页"</string>
     <string name="add_new_bookmark" msgid="3158497555612337238">"添加书签"</string>
     <string name="add_bookmark_short" msgid="3783984330998103735">"添加"</string>
-    <string name="search_hint" msgid="4647356319916631820">"搜索或键入网址"</string>
+    <string name="search_hint" msgid="4647356319916631820">"搜索或输入网址"</string>
     <string name="search_button_text" msgid="5235226933877634410">"开始"</string>
     <string name="search_settings_description" msgid="1422401062529014107">"书签和网络历史记录"</string>
     <string name="attention" msgid="3473639060042811244">"注意"</string>
@@ -357,18 +357,18 @@
     <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"共享位置信息"</string>
     <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"拒绝"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"记住偏好设置"</string>
-    <string name="geolocation_permissions_prompt_toast_allowed" msgid="7201417941112726112">"此网站可以访问您的位置信息。您可以在“设置”&gt;“高级”&gt;“网站设置”屏幕中更改此设置。"</string>
-    <string name="geolocation_permissions_prompt_toast_disallowed" msgid="156443445797377409">"此网站无法访问您的位置信息。您可以在“设置”&gt;“高级”&gt;“网站设置”屏幕中更改此设置。"</string>
-    <string name="geolocation_settings_page_title" msgid="1745477985097536528">"取消位置信息访问权限"</string>
-    <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"此网站目前可访问您的位置信息"</string>
-    <string name="geolocation_settings_page_summary_not_allowed" msgid="7941769772784366199">"此网站目前不能访问您的位置信息"</string>
-    <string name="geolocation_settings_page_dialog_title" msgid="1549842043381347668">"取消位置信息访问权限"</string>
-    <string name="geolocation_settings_page_dialog_message" msgid="8772923416296868537">"要清除此网站的位置信息访问权限吗？"</string>
+    <string name="geolocation_permissions_prompt_toast_allowed" msgid="7201417941112726112">"此网站可以获取您的位置信息。您可以在“设置”&gt;“高级”&gt;“网站设置”屏幕中更改此设置。"</string>
+    <string name="geolocation_permissions_prompt_toast_disallowed" msgid="156443445797377409">"此网站无法获取您的位置信息。您可以在“设置”&gt;“高级”&gt;“网站设置”屏幕中更改此设置。"</string>
+    <string name="geolocation_settings_page_title" msgid="1745477985097536528">"取消获取位置信息的权限"</string>
+    <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"此网站目前可获取您的位置信息"</string>
+    <string name="geolocation_settings_page_summary_not_allowed" msgid="7941769772784366199">"此网站目前不能获取您的位置信息"</string>
+    <string name="geolocation_settings_page_dialog_title" msgid="1549842043381347668">"取消获取位置信息的权限"</string>
+    <string name="geolocation_settings_page_dialog_message" msgid="8772923416296868537">"要取消此网站获取位置信息的权限吗？"</string>
     <string name="geolocation_settings_page_dialog_ok_button" msgid="2113465477131017852">"确定"</string>
     <string name="geolocation_settings_page_dialog_cancel_button" msgid="7941036504673409747">"取消"</string>
     <string name="website_settings_clear_all" msgid="8739804325997655980">"全部清除"</string>
     <string name="website_settings_clear_all_dialog_title" msgid="5746255931965842184">"全部清除"</string>
-    <string name="website_settings_clear_all_dialog_message" msgid="1551164275687475061">"要删除所有网站数据和位置信息权限吗？"</string>
+    <string name="website_settings_clear_all_dialog_message" msgid="1551164275687475061">"要取消所有网站对数据和位置信息的权限？"</string>
     <string name="website_settings_clear_all_dialog_ok_button" msgid="7858504776529106243">"确定"</string>
     <string name="website_settings_clear_all_dialog_cancel_button" msgid="1896757051856611674">"取消"</string>
     <string name="progress_dialog_setting_wallpaper" msgid="2031391201442335889">"正在设置壁纸..."</string>

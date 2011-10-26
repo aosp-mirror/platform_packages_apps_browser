@@ -102,8 +102,8 @@
     <string name="menu_view_download" msgid="2124570321712995120">"สิ่งที่ดาวน์โหลด"</string>
     <string name="copy_page_url" msgid="1188679152608889555">"คัดลอก URL ของหน้าเว็บ"</string>
     <string name="share_page" msgid="593756995297268343">"แบ่งปันหน้าเว็บ"</string>
-    <string name="menu_save_snapshot" msgid="6935080344031126139">"บันทึกเพื่ออ่านแบบออฟไลน์"</string>
-    <string name="snapshot_failed" msgid="4584580873565876033">"ไม่สามารถบันทึกสำหรับการอ่านแบบออฟไลน์"</string>
+    <string name="menu_save_snapshot" msgid="6935080344031126139">"บันทึกไว้อ่านออฟไลน์"</string>
+    <string name="snapshot_failed" msgid="4584580873565876033">"ไม่สามารถบันทึกไว้อ่านแบบออฟไลน์ได้"</string>
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"บุ๊กมาร์ก <xliff:g id="BOOKMARK_COUNT">%d</xliff:g> รายการ"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"โฟลเดอร์ว่าง"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"เปิด"</string>
@@ -120,7 +120,7 @@
     <string name="contextmenu_add_contact" msgid="3183511922223645716">"เพิ่มรายการในสมุดที่อยู่"</string>
     <string name="contextmenu_send_mail" msgid="1014513374828775660">"ส่งอีเมล"</string>
     <string name="contextmenu_map" msgid="7471390435434034912">"แผนที่"</string>
-    <string name="choosertitle_sharevia" msgid="4600490613341909086">"แบ่งปันทาง"</string>
+    <string name="choosertitle_sharevia" msgid="4600490613341909086">"แบ่งปันผ่าน"</string>
     <string name="clear" msgid="7070043081700011461">"ล้าง"</string>
     <string name="replace" msgid="4843033491070384047">"แทนที่"</string>
     <string name="browser_bookmarks_page_bookmarks_text" msgid="6787605028726162673">"บุ๊กมาร์ก"</string>
@@ -268,7 +268,7 @@
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"การเข้ารหัสข้อความ"</string>
     <string name="pref_accessibility_title" msgid="5127836981587423215">"การเข้าถึง"</string>
     <string name="pref_font_size_category" msgid="6683754355084218254">"ขนาดข้อความ"</string>
-    <string name="pref_lab_title" msgid="5571091610359629423">"Labs"</string>
+    <string name="pref_lab_title" msgid="5571091610359629423">"ห้องทดลอง"</string>
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"การควบคุมอย่างรวดเร็ว"</string>
     <string name="pref_lab_quick_controls_summary" msgid="3149664132600968775">"เลื่อนนิ้วจากขอบซ้ายหรือขวาเพื่อเปิดการควบคุมอย่างรวดเร็วและซ่อนแถบแอปฯ และ URL"</string>
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Google ค้นหาทันใจ"</string>
@@ -394,7 +394,7 @@
     <string name="instant_search_label" msgid="8769284297650716935">"Google พร้อมการค้นหาทันใจ (Labs)"</string>
     <string name="preview" msgid="6450823514561689038">"แสดงตัวอย่าง"</string>
     <string name="local_bookmarks" msgid="533816851415228520">"ในตัวเครื่อง"</string>
-    <string name="ua_switcher_desktop" msgid="220097077327558435">"ขอเว็บไซต์รุ่นสำหรับเดสก์ท็อป"</string>
+    <string name="ua_switcher_desktop" msgid="220097077327558435">"ขอหน้าเว็บแบบเดสก์ท็อป"</string>
     <string name="permission_preload_label" msgid="4856971662337877316">"โหลดผลลัพธ์ล่วงหน้า"</string>
     <string name="empty_snapshots_folder" msgid="7675378008107026013">"ไม่มีหน้าเว็บที่บันทึกไว้"</string>
     <string name="remove_snapshot" msgid="1624447424544976849">"ลบหน้าที่บันทึกไว้"</string>

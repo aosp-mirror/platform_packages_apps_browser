@@ -282,7 +282,7 @@
     <item msgid="3514802063791531888">"Wi-Fi使用時のみ"</item>
     <item msgid="3944061253437827617">"常時"</item>
   </string-array>
-    <string name="pref_data_preload_summary" msgid="3809168910751382727">"ブラウザが信頼度の高い検索結果をバックグラウンドでプリロードできるようにします"</string>
+    <string name="pref_data_preload_summary" msgid="3809168910751382727">"ブラウザが信頼度の高い検索結果をバックグラウンドでプリロードできるようにする"</string>
     <string name="pref_data_preload_dialogtitle" msgid="8421297746110796536">"検索結果のプリロード"</string>
     <string name="browserFrameNetworkErrorLabel" msgid="8102515020625680714">"接続エラー"</string>
     <string name="browserFrameFileErrorLabel" msgid="4703792279852977350">"ファイルの問題"</string>
