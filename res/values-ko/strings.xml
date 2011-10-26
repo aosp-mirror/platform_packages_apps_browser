@@ -276,7 +276,7 @@
     <string name="pref_data_preload_title" msgid="4479320472980292873">"검색결과 미리 로드"</string>
   <string-array name="pref_data_preload_choices">
     <item msgid="5180466923190095508">"안함"</item>
-    <item msgid="1791664748778640002">"Wi-Fi 전용"</item>
+    <item msgid="1791664748778640002">"Wi-Fi 연결 시"</item>
     <item msgid="3944061253437827617">"항상"</item>
   </string-array>
     <string name="pref_data_preload_summary" msgid="3809168910751382727">"브라우저가 신뢰도 높은 검색결과를 백그라운드에서 미리 로드하도록 허용"</string>
