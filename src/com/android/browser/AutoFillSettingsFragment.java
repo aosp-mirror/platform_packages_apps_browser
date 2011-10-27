@@ -54,6 +54,8 @@ public class AutoFillSettingsFragment extends Fragment {
 
     private MenuItem mSaveMenuItem;
 
+    private boolean mInitialised;
+
     // Used to display toast after DB interactions complete.
     private Handler mHandler;
     private BrowserSettings mSettings;
@@ -241,6 +243,8 @@ public class AutoFillSettingsFragment extends Fragment {
             mPhoneEdit.setText(activeProfile.getPhoneNumber());
         }
 
+        mInitialised = true;
+
         updateSaveMenuItemState();
 
         return v;
@@ -248,6 +252,11 @@ public class AutoFillSettingsFragment extends Fragment {
 
     private void updateSaveMenuItemState() {
         if (mSaveMenuItem == null) {
+            return;
+        }
+
+        if (!mInitialised) {
+            mSaveMenuItem.setEnabled(false);
             return;
         }
 
