@@ -95,7 +95,7 @@
     <string name="goto_dot" msgid="3895839050522602723">"Поиск"</string>
     <string name="select_dot" msgid="6299170761900561967">"Выбрать текст"</string>
     <string name="bookmarks" msgid="1961279134885867815">"Закладки"</string>
-    <string name="shortcut_bookmark" msgid="3974876480401135895">"Добавить в закладки"</string>
+    <string name="shortcut_bookmark" msgid="3974876480401135895">"Закладка"</string>
     <string name="shortcut_bookmark_title" msgid="7570786275916681296">"Выберите закладку"</string>
     <string name="history" msgid="2451240511251410032">"История"</string>
     <string name="menu_view_download" msgid="2124570321712995120">"Загрузки"</string>
