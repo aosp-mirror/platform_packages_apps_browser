@@ -411,7 +411,7 @@
     <string name="accessibility_button_newtab" msgid="4116986240706315748">"باز کردن برگه جدید"</string>
     <string name="accessibility_button_newincognitotab" msgid="5254901889040012964">"باز کردن برگه حالت ناشناس جدید"</string>
     <string name="accessibility_button_clear" msgid="6943152307986161598">"پاک کردن ورودی"</string>
-    <string name="accessibility_button_uaswitch" msgid="6286804719724282339">"تغییر عامل کاربر"</string>
+    <string name="accessibility_button_uaswitch" msgid="6286804719724282339">"تغییر نماینده کاربر"</string>
     <string name="accessibility_button_go" msgid="1182818872083055958">"رفتن"</string>
     <string name="accessibility_button_navscreen" msgid="9142904748728713075">"مدیر صفحه"</string>
     <string name="accessibility_button_more" msgid="3054251446394224216">"گزینه‌های بیشتر"</string>
