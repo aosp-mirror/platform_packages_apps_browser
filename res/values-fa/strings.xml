@@ -313,6 +313,8 @@
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"کارت SD مشغول است. برای انجام دانلودها، خاموش کردن حافظه USB را در اعلان لمس کنید."</string>
     <string name="cannot_download" msgid="8150552478556798780">"فقط می تواند URL های \"http\" یا \"https\" را دانلود کند."</string>
     <string name="download_pending" msgid="2599683668575349559">"شروع دانلود..."</string>
+    <!-- no translation found for help_page (2906208423557552540) -->
+    <skip />
     <string name="search_the_web" msgid="6046130189241962337">"جستجوی وب"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"حافظه مرورگر پر است"</string>
     <string name="webstorage_outofspace_notification_text" msgid="47273584426988640">"برای آزاد کردن فضا لمس کنید."</string>
@@ -378,7 +380,7 @@
     <string name="accessibility_button_newtab" msgid="4116986240706315748">"باز کردن برگه جدید"</string>
     <string name="accessibility_button_newincognitotab" msgid="5254901889040012964">"باز کردن برگه حالت ناشناس جدید"</string>
     <string name="accessibility_button_clear" msgid="6943152307986161598">"پاک کردن ورودی"</string>
-    <string name="accessibility_button_uaswitch" msgid="6286804719724282339">"تغییر عامل کاربر"</string>
+    <string name="accessibility_button_uaswitch" msgid="6286804719724282339">"تغییر نماینده کاربر"</string>
     <string name="accessibility_button_go" msgid="1182818872083055958">"رفتن"</string>
     <string name="accessibility_button_navscreen" msgid="9142904748728713075">"مدیر صفحه"</string>
     <string name="accessibility_button_more" msgid="3054251446394224216">"گزینه‌های بیشتر"</string>

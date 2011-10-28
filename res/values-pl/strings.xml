@@ -73,7 +73,7 @@
     <string name="bookmark_this_page" msgid="7530739804320811054">"Dodaj tę stronę do zakładek"</string>
     <string name="remove" msgid="7820112494467011374">"Usuń"</string>
     <string name="edit_bookmark" msgid="5024089053490231905">"Edytuj zakładkę"</string>
-    <string name="create_shortcut_bookmark" msgid="1995095662095484289">"Dodaj skrót do ekranu głównego"</string>
+    <string name="create_shortcut_bookmark" msgid="1995095662095484289">"Dodaj skrót do strony głównej"</string>
     <string name="open_bookmark" msgid="8473581305759935790">"Otwórz"</string>
     <string name="remove_bookmark" msgid="8407495852801410891">"Usuń zakładkę"</string>
     <string name="remove_from_bookmarks" msgid="4374080666576982775">"Usuń z zakładek"</string>
@@ -127,7 +127,7 @@
     <string name="pref_content_title" msgid="3834107397725342174">"Treść strony"</string>
     <string name="pref_content_load_images" msgid="2125616852957377561">"Wczytuj obrazy"</string>
     <string name="pref_content_load_images_summary" msgid="5055874125248398584">"Wyświetlaj obrazy na stronach internetowych"</string>
-    <string name="pref_content_block_popups" msgid="4158524847764470895">"Blokuj wyskakujące okienka"</string>
+    <string name="pref_content_block_popups" msgid="4158524847764470895">"Blokuj wyskakujące okna"</string>
     <string name="pref_content_javascript" msgid="4570972030299516843">"Włącz skrypty JavaScript"</string>
     <string name="pref_content_open_in_background" msgid="824123779725118663">"Otwieraj w tle"</string>
     <string name="pref_content_plugins" msgid="7231944644794301582">"Obsługa wtyczek"</string>
@@ -145,7 +145,7 @@
     <item msgid="844041670142910837">"Bieżąca strona"</item>
     <item msgid="4430498748295169195">"Pusta strona"</item>
     <item msgid="5747608191946904074">"Strona domyślna"</item>
-    <item msgid="6092441301001006473">"Najczęściej odwiedzane witryny"</item>
+    <item msgid="6092441301001006473">"Najczęstsze strony"</item>
     <item msgid="6569304572171444894">"Inna"</item>
   </string-array>
     <string name="pref_content_autofit" msgid="8260474534053660809">"Autodopasowanie stron"</string>
@@ -153,7 +153,7 @@
     <string name="pref_general_title" msgid="1946872771219249323">"Ogólne"</string>
     <string name="pref_general_sync_title" msgid="3138637035975860324">"Synchronizacja"</string>
     <string name="pref_general_autofill_title" msgid="547881256865816858">"Autouzupełnianie"</string>
-    <string name="pref_autofill_enabled" msgid="1015751713312396713">"Autouzupełnianie formularzy"</string>
+    <string name="pref_autofill_enabled" msgid="1015751713312396713">"Uzupełniaj formularze"</string>
     <string name="pref_autofill_enabled_summary" msgid="7659954073892471496">"Wypełniaj formularze internetowe za pomocą jednego dotknięcia."</string>
     <string name="pref_autofill_profile_editor" msgid="8934844472922113166">"Autouzupełniany tekst"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="4864447251676856190">"Skonfiguruj tekst autouzupełniany w formularzach internetowych"</string>
@@ -205,8 +205,8 @@
     <string name="pref_privacy_location_title" msgid="7458378016606081067">"Lokalizacja"</string>
     <string name="pref_privacy_enable_geolocation" msgid="1395040170290765686">"Włącz obsługę lokalizacji"</string>
     <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"Zezwalaj witrynom na żądanie dostępu do informacji o lokalizacji"</string>
-    <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"Wyczyść dostęp do lokalizacji"</string>
-    <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"Anuluj ustawienia dostępu do lokalizacji dla witryn"</string>
+    <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"Anuluj dostęp do lokalizacji"</string>
+    <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"Wyczyść bieżące ustawienia dostępu do lokalizacji dla witryn"</string>
     <string name="pref_privacy_clear_geolocation_access_dlg" msgid="3190928760598034346">"Anulować dostęp witryny do informacji o lokalizacji?"</string>
     <string name="pref_security_passwords_title" msgid="5734190542383756711">"Hasła"</string>
     <string name="pref_security_remember_passwords" msgid="6492957683454529549">"Pamiętaj hasła"</string>
@@ -228,7 +228,7 @@
     <string name="pref_min_font_size_value" msgid="2924708480509060209">"<xliff:g id="FONT_SIZE">%d</xliff:g> pkt"</string>
     <string name="pref_text_zoom" msgid="5171056101805125497">"Skalowanie tekstu"</string>
     <string name="pref_zoom_on_double_tap" msgid="902786475250741795">"Powiększ po dwukrotnym dotknięciu"</string>
-    <string name="pref_force_userscalable" msgid="5641500562399892621">"Wymuś włączenie powiększenia"</string>
+    <string name="pref_force_userscalable" msgid="5641500562399892621">"Wymuś powiększenie"</string>
     <string name="pref_force_userscalable_summary" msgid="3613242300617172230">"Nie zezwalaj witrynie sterować powiększeniem"</string>
     <string name="pref_inverted_category" msgid="1280639705117152207">"Negatyw ekranu"</string>
     <string name="pref_inverted" msgid="7613556986776824112">"Negatyw"</string>
@@ -248,7 +248,7 @@
     <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"Ustawienia zaawansowane dla poszczególnych witryn"</string>
     <string name="pref_extras_reset_default_title" msgid="3579760449455761762">"Ustawienia domyślne"</string>
     <string name="pref_extras_reset_default" msgid="8904000515846202110">"Przywróć wartości domyślne"</string>
-    <string name="pref_extras_reset_default_summary" msgid="4247870778270414501">"Przywróć ustawienia domyślne"</string>
+    <string name="pref_extras_reset_default_summary" msgid="4247870778270414501">"Przywróć domyślne"</string>
     <string name="pref_extras_reset_default_dlg" msgid="7922814420184322450">"Przywrócić domyślne wartości ustawień?"</string>
     <string name="pref_development_title" msgid="3263854204533056480">"Debugowanie"</string>
     <string name="pref_default_text_encoding" msgid="5742965543955558478">"Kodowanie tekstu"</string>
@@ -272,15 +272,15 @@
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Użyj wyszukiwania dynamicznego Google, aby uzyskiwać wyniki podczas pisania (może być pobierana większa ilość danych)."</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"Pełny ekran"</string>
     <string name="pref_lab_fullscreen_summary" msgid="7694738112219376740">"Użyj trybu pełnoekranowego, aby ukryć pasek stanu"</string>
-    <string name="pref_data_title" msgid="7255058703417796578">"Zarządzanie przepustowością"</string>
-    <string name="pref_data_preload_title" msgid="4479320472980292873">"Wstępne wczytywanie wyników wyszukiwania"</string>
+    <string name="pref_data_title" msgid="7255058703417796578">"Zarządzanie transferem"</string>
+    <string name="pref_data_preload_title" msgid="4479320472980292873">"Wstępne wczytywanie wyników"</string>
   <string-array name="pref_data_preload_choices">
     <item msgid="5180466923190095508">"Nigdy"</item>
     <item msgid="1791664748778640002">"Tylko przy Wi-Fi"</item>
     <item msgid="3944061253437827617">"Zawsze"</item>
   </string-array>
-    <string name="pref_data_preload_summary" msgid="3809168910751382727">"Zezwalaj przeglądarce na wstępne wczytywanie w tle trafnych wyników wyszukiwania"</string>
-    <string name="pref_data_preload_dialogtitle" msgid="8421297746110796536">"Wstępne wczytywanie wyników wyszukiwania"</string>
+    <string name="pref_data_preload_summary" msgid="3809168910751382727">"Zezwalaj przeglądarce na wstępne wczytywanie wyników wyszukiwania w tle"</string>
+    <string name="pref_data_preload_dialogtitle" msgid="8421297746110796536">"Wstępne wczytywanie wyników"</string>
     <string name="browserFrameNetworkErrorLabel" msgid="8102515020625680714">"Problem z połączeniem"</string>
     <string name="browserFrameFileErrorLabel" msgid="4703792279852977350">"Problem z plikiem"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2385512101948178841"></string>
@@ -313,6 +313,8 @@
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"Karta SD jest zajęta. Aby umożliwić pobieranie, w powiadomieniu dotknij Wyłącz nośnik USB."</string>
     <string name="cannot_download" msgid="8150552478556798780">"Pobieranie jest możliwe tylko z adresów „http” lub „https”."</string>
     <string name="download_pending" msgid="2599683668575349559">"Rozpoczynanie pobierania"</string>
+    <!-- no translation found for help_page (2906208423557552540) -->
+    <skip />
     <string name="search_the_web" msgid="6046130189241962337">"Szukaj w internecie"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Pamięć przeglądarki jest pełna"</string>
     <string name="webstorage_outofspace_notification_text" msgid="47273584426988640">"Dotknij, aby zwolnić miejsce."</string>
@@ -322,15 +324,15 @@
     <string name="webstorage_clear_data_dialog_cancel_button" msgid="2028867751958942762">"Anuluj"</string>
     <string name="webstorage_origin_summary_mb_stored" msgid="1985885826292236210">"Liczba MB danych zapisanych w telefonie"</string>
     <string name="loading_video" msgid="7886324933131962321">"Wczytywanie filmu…"</string>
-    <string name="geolocation_permissions_prompt_message" msgid="356796102004052471">"Witryna <xliff:g id="WEBSITE_ORIGIN">%s</xliff:g> chce uzyskać informacje o Twojej lokalizacji"</string>
-    <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"Udostępnij informacje o lokalizacji"</string>
+    <string name="geolocation_permissions_prompt_message" msgid="356796102004052471">"<xliff:g id="WEBSITE_ORIGIN">%s</xliff:g> chce znać Twoją lokalizację"</string>
+    <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"Udostępnij lokalizację"</string>
     <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"Odrzuć"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"Zapamiętaj ustawienie"</string>
     <string name="geolocation_permissions_prompt_toast_allowed" msgid="7201417941112726112">"Ta witryna może uzyskać dostęp do informacji o Twojej lokalizacji. Zmień to ustawienie na ekranie Ustawienia &gt; Zaawansowane &gt; Witryna."</string>
     <string name="geolocation_permissions_prompt_toast_disallowed" msgid="156443445797377409">"Ta witryna nie może uzyskać dostępu do informacji o Twojej lokalizacji. Zmień to ustawienie w menu Ustawienia &gt; Zaawansowane &gt; Witryna."</string>
-    <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Wyczyść dostęp do lokalizacji"</string>
-    <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Ta witryna ma obecnie dostęp do informacji o Twojej lokalizacji"</string>
-    <string name="geolocation_settings_page_summary_not_allowed" msgid="7941769772784366199">"Ta witryna nie ma obecnie dostępu do informacji o Twojej lokalizacji."</string>
+    <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Anuluj dostęp do lokalizacji"</string>
+    <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Witryna ma dostęp do Twojej lokalizacji"</string>
+    <string name="geolocation_settings_page_summary_not_allowed" msgid="7941769772784366199">"Witryna nie ma dostępu do Twojej lokalizacji"</string>
     <string name="geolocation_settings_page_dialog_message" msgid="8772923416296868537">"Anulować dostęp tej witryny do informacji o lokalizacji?"</string>
     <string name="geolocation_settings_page_dialog_ok_button" msgid="2113465477131017852">"OK"</string>
     <string name="geolocation_settings_page_dialog_cancel_button" msgid="7941036504673409747">"Anuluj"</string>
@@ -361,7 +363,7 @@
     <string name="instant_search_label" msgid="8769284297650716935">"Google z wyszukiwaniem dynamicznym (Laboratorium)"</string>
     <string name="preview" msgid="6450823514561689038">"Podgląd"</string>
     <string name="local_bookmarks" msgid="533816851415228520">"Lokalne"</string>
-    <string name="ua_switcher_desktop" msgid="220097077327558435">"Wybierz wersję dla komputerów"</string>
+    <string name="ua_switcher_desktop" msgid="220097077327558435">"Wersja komputerowa"</string>
     <string name="permission_preload_label" msgid="4856971662337877316">"Wstępnie wczytaj wyniki"</string>
     <string name="empty_snapshots_folder" msgid="7675378008107026013">"Brak zapisanych stron"</string>
     <string name="remove_snapshot" msgid="1624447424544976849">"Usuń zapisaną stronę"</string>
