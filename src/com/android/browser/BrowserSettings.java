@@ -271,14 +271,18 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
             settings.setUserAgentString(USER_AGENTS[getUserAgent()]);
         }
 
+        boolean useInverted = useInvertedRendering();
         settings.setProperty(WebViewProperties.gfxInvertedScreen,
-                useInvertedRendering() ? "true" : "false");
+                useInverted ? "true" : "false");
+        if (useInverted) {
+            settings.setProperty(WebViewProperties.gfxInvertedScreenContrast,
+                    Float.toString(getInvertedContrast()));
+        }
 
-        settings.setProperty(WebViewProperties.gfxInvertedScreenContrast,
-                Float.toString(getInvertedContrast()));
-
-        settings.setProperty(WebViewProperties.gfxEnableCpuUploadPath,
-                enableCpuUploadPath() ? "true" : "false");
+        if (isDebugEnabled()) {
+            settings.setProperty(WebViewProperties.gfxEnableCpuUploadPath,
+                    enableCpuUploadPath() ? "true" : "false");
+        }
     }
 
     /**
