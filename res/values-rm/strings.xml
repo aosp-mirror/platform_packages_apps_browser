@@ -404,6 +404,8 @@
     <!-- no translation found for cannot_download (8150552478556798780) -->
     <skip />
     <string name="download_pending" msgid="2599683668575349559">"Cumenzar la telechargiada…"</string>
+    <!-- no translation found for help_page (2906208423557552540) -->
+    <skip />
     <string name="search_the_web" msgid="6046130189241962337">"Tschertgar en il web"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Memoria dal navigatur plaina"</string>
     <!-- outdated translation 7341075135051829692 -->     <string name="webstorage_outofspace_notification_text" msgid="47273584426988640">"Cliccai qua per gudagnar capacitad da memorisar."</string>
