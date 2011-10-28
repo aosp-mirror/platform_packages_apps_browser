@@ -21,9 +21,11 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Message;
 import android.preference.PreferenceManager;
+import android.provider.ContactsContract;
 import android.webkit.WebSettings.AutoFillProfile;
 
 import java.util.concurrent.CountDownLatch;
@@ -114,7 +116,57 @@ public class AutofillHandler {
             c.close();
             autoFillDb.close();
 
+            if (mAutoFillProfile == null) {
+                // We did not load a profile from disk. Try to populate one with the user's
+                // "me" contact.
+                final Uri profileUri = Uri.withAppendedPath(ContactsContract.Profile.CONTENT_URI,
+                        ContactsContract.Contacts.Data.CONTENT_DIRECTORY);
+
+                String name = getContactField(profileUri,
+                        ContactsContract.CommonDataKinds.StructuredName.DISPLAY_NAME,
+                        ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE);
+                // Only attempt to read other data and set a profile if we could successfully
+                // get a name.
+                if (name != null) {
+                    String email = getContactField(profileUri,
+                            ContactsContract.CommonDataKinds.Email.ADDRESS,
+                            ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE);
+                    String phone = getContactField(profileUri,
+                            ContactsContract.CommonDataKinds.Phone.NUMBER,
+                            ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE);
+                    String company = getContactField(profileUri,
+                            ContactsContract.CommonDataKinds.Organization.COMPANY,
+                            ContactsContract.CommonDataKinds.Organization.CONTENT_ITEM_TYPE);
+
+                    // Can't easily get structured postal address information (even using
+                    // CommonDataKinds.StructuredPostal) so omit prepopulating that for now.
+                    // When querying structured postal data, it often all comes back as a string
+                    // inside the "street" field.
+
+                    mAutoFillProfile = new AutoFillProfile(
+                            1, name, email, company, null, null, null, null,
+                            null, null, phone);
+                }
+            }
+
             mLoaded.countDown();
+        }
+
+        private String getContactField(Uri uri, String field, String itemType) {
+            String result = null;
+
+            Cursor c = mContext.getContentResolver().query(uri, new String[] { field },
+                    ContactsContract.Data.MIMETYPE + "=?", new String[] { itemType }, null);
+
+            try {
+                // Just use the first returned value if we get more than one.
+                if (c.moveToFirst()) {
+                    result = c.getString(0);
+                }
+            } finally {
+                c.close();
+            }
+            return result;
         }
     }
 
