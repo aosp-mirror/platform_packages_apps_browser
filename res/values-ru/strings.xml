@@ -138,7 +138,7 @@
     <item msgid="8547442717307793863">"Нет"</item>
   </string-array>
     <string name="pref_content_open_in_background_summary" msgid="955411158407739504">"Открывать новые вкладки позади текущей"</string>
-    <string name="pref_content_homepage" msgid="3324574611613105696">"Настроить стартовую страницу"</string>
+    <string name="pref_content_homepage" msgid="3324574611613105696">"Стартовая страница"</string>
     <string name="pref_content_search_engine" msgid="1620101310821644144">"Поисковая система"</string>
     <string name="pref_content_search_engine_summary" msgid="304003941861818133">"Выберите поисковую систему"</string>
     <string name="pref_set_homepage_to" msgid="7838684355145561242">"Сохранить"</string>
