@@ -20,13 +20,11 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.ContentResolver;
-import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
@@ -73,7 +71,6 @@ import android.widget.Toast;
 
 import com.android.browser.TabControl.OnThumbnailUpdatedListener;
 import com.android.browser.homepages.HomeProvider;
-import com.android.browser.provider.BrowserProvider2.Thumbnails;
 import com.android.browser.provider.SnapshotProvider.Snapshots;
 import com.android.common.speech.LoggingEvents;
 
@@ -2013,7 +2010,7 @@ class Tab implements PictureListener {
         mCurrentState.mTitle = title;
         synchronized (Tab.this) {
             if (mCapture != null) {
-                BackgroundHandler.execute(mLoadThumbnail);
+                DataController.getInstance(mContext).loadThumbnail(this);
             }
         }
     }
@@ -2093,6 +2090,9 @@ class Tab implements PictureListener {
 
     protected void capture() {
         if (mMainView == null || mCapture == null) return;
+        if (mMainView.getContentWidth() <= 0 || mMainView.getContentHeight() <= 0) {
+            return;
+        }
         Canvas c = new Canvas(mCapture);
         final int left = mMainView.getScrollX();
         final int top = mMainView.getScrollY() + mMainView.getVisibleTitleHeight();
@@ -2170,14 +2170,14 @@ class Tab implements PictureListener {
     }
 
     protected void persistThumbnail() {
-        BackgroundHandler.execute(mSaveThumbnail);
+        DataController.getInstance(mContext).saveThumbnail(this);
     }
 
     protected void deleteThumbnail() {
-        BackgroundHandler.execute(mDeleteThumbnail);
+        DataController.getInstance(mContext).deleteThumbnail(this);
     }
 
-    private void updateCaptureFromBlob(byte[] blob) {
+    void updateCaptureFromBlob(byte[] blob) {
         synchronized (Tab.this) {
             if (mCapture == null) {
                 return;
@@ -2193,76 +2193,6 @@ class Tab implements PictureListener {
             }
         }
     }
-
-    private static final ThreadLocal<ByteBuffer> sBuffer = new ThreadLocal<ByteBuffer>();
-
-    private byte[] getCaptureBlob() {
-        synchronized (Tab.this) {
-            if (mCapture == null) {
-                return null;
-            }
-            ByteBuffer buffer = sBuffer.get();
-            if (buffer == null || buffer.limit() < mCapture.getByteCount()) {
-                buffer = ByteBuffer.allocate(mCapture.getByteCount());
-                sBuffer.set(buffer);
-            }
-            mCapture.copyPixelsToBuffer(buffer);
-            buffer.rewind();
-            return buffer.array();
-        }
-    }
-
-    private Runnable mSaveThumbnail = new Runnable() {
-
-        @Override
-        public void run() {
-            byte[] blob = getCaptureBlob();
-            if (blob == null) {
-                return;
-            }
-            ContentResolver cr = mContext.getContentResolver();
-            ContentValues values = new ContentValues();
-            values.put(Thumbnails._ID, mId);
-            values.put(Thumbnails.THUMBNAIL, blob);
-            cr.insert(Thumbnails.CONTENT_URI, values);
-        }
-    };
-
-    private Runnable mDeleteThumbnail = new Runnable() {
-
-        @Override
-        public void run() {
-            ContentResolver cr = mContext.getContentResolver();
-            try {
-                cr.delete(ContentUris.withAppendedId(Thumbnails.CONTENT_URI, mId),
-                        null, null);
-            } catch (Throwable t) {}
-        }
-    };
-
-    private Runnable mLoadThumbnail = new Runnable() {
-
-        @Override
-        public void run() {
-            ContentResolver cr = mContext.getContentResolver();
-            Cursor c = null;
-            try {
-                Uri uri = ContentUris.withAppendedId(Thumbnails.CONTENT_URI, mId);
-                c = cr.query(uri, new String[] {Thumbnails._ID,
-                        Thumbnails.THUMBNAIL}, null, null, null);
-                if (c.moveToFirst()) {
-                    byte[] data = c.getBlob(1);
-                    if (data != null && data.length > 0) {
-                        updateCaptureFromBlob(data);
-                    }
-                }
-            } finally {
-                if (c != null) {
-                    c.close();
-                }
-            }
-        }
-    };
 
     @Override
     public String toString() {
