@@ -23,12 +23,17 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteException;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.BrowserContract;
 import android.provider.BrowserContract.History;
 import android.util.Log;
 
+import com.android.browser.provider.BrowserProvider2.Thumbnails;
+
+import java.nio.ByteBuffer;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -37,12 +42,16 @@ public class DataController {
     // Message IDs
     private static final int HISTORY_UPDATE_VISITED = 100;
     private static final int HISTORY_UPDATE_TITLE = 101;
-    public static final int QUERY_URL_IS_BOOKMARK = 200;
+    private static final int QUERY_URL_IS_BOOKMARK = 200;
+    private static final int TAB_LOAD_THUMBNAIL = 201;
+    private static final int TAB_SAVE_THUMBNAIL = 202;
+    private static final int TAB_DELETE_THUMBNAIL = 203;
     private static DataController sInstance;
 
     private Context mContext;
     private DataControllerHandler mDataHandler;
     private Handler mCbHandler; // To respond on the UI thread
+    private ByteBuffer mBuffer; // to capture thumbnails
 
     /* package */ static interface OnQueryUrlIsBookmark {
         void onQueryUrlIsBookmark(String url, boolean isBookmark);
@@ -72,7 +81,6 @@ public class DataController {
     private DataController(Context c) {
         mContext = c.getApplicationContext();
         mDataHandler = new DataControllerHandler();
-        mDataHandler.setDaemon(true);
         mDataHandler.start();
         mCbHandler = new Handler() {
             @Override
@@ -108,15 +116,31 @@ public class DataController {
         mDataHandler.sendMessage(QUERY_URL_IS_BOOKMARK, url.trim(), replyTo);
     }
 
+    public void loadThumbnail(Tab tab) {
+        mDataHandler.sendMessage(TAB_LOAD_THUMBNAIL, tab);
+    }
+
+    public void deleteThumbnail(Tab tab) {
+        mDataHandler.sendMessage(TAB_DELETE_THUMBNAIL, tab.getId());
+    }
+
+    public void saveThumbnail(Tab tab) {
+        mDataHandler.sendMessage(TAB_SAVE_THUMBNAIL, tab);
+    }
+
     // The standard Handler and Message classes don't allow the queue manipulation
     // we want (such as peeking). So we use our own queue.
     class DataControllerHandler extends Thread {
         private BlockingQueue<DCMessage> mMessageQueue
                 = new LinkedBlockingQueue<DCMessage>();
 
+        public DataControllerHandler() {
+            super("DataControllerHandler");
+        }
+
         @Override
         public void run() {
-            super.run();
+            setPriority(Thread.MIN_PRIORITY);
             while (true) {
                 try {
                     handleMessage(mMessageQueue.take());
@@ -152,6 +176,67 @@ public class DataController {
                 //       multiple callbacks querying the same URL)
                 doQueryBookmarkStatus((String) msg.obj, msg.replyTo);
                 break;
+            case TAB_LOAD_THUMBNAIL:
+                doLoadThumbnail((Tab) msg.obj);
+                break;
+            case TAB_DELETE_THUMBNAIL:
+                ContentResolver cr = mContext.getContentResolver();
+                try {
+                    cr.delete(ContentUris.withAppendedId(
+                            Thumbnails.CONTENT_URI, (Long)msg.obj),
+                            null, null);
+                } catch (Throwable t) {}
+                break;
+            case TAB_SAVE_THUMBNAIL:
+                doSaveThumbnail((Tab)msg.obj);
+                break;
+            }
+        }
+
+        private byte[] getCaptureBlob(Tab tab) {
+            synchronized (tab) {
+                Bitmap capture = tab.getScreenshot();
+                if (capture == null) {
+                    return null;
+                }
+                if (mBuffer == null || mBuffer.limit() < capture.getByteCount()) {
+                    mBuffer = ByteBuffer.allocate(capture.getByteCount());
+                }
+                capture.copyPixelsToBuffer(mBuffer);
+                mBuffer.rewind();
+                return mBuffer.array();
+            }
+        }
+
+        private void doSaveThumbnail(Tab tab) {
+            byte[] blob = getCaptureBlob(tab);
+            if (blob == null) {
+                return;
+            }
+            ContentResolver cr = mContext.getContentResolver();
+            ContentValues values = new ContentValues();
+            values.put(Thumbnails._ID, tab.getId());
+            values.put(Thumbnails.THUMBNAIL, blob);
+            cr.insert(Thumbnails.CONTENT_URI, values);
+        }
+
+        private void doLoadThumbnail(Tab tab) {
+            ContentResolver cr = mContext.getContentResolver();
+            Cursor c = null;
+            try {
+                Uri uri = ContentUris.withAppendedId(Thumbnails.CONTENT_URI, tab.getId());
+                c = cr.query(uri, new String[] {Thumbnails._ID,
+                        Thumbnails.THUMBNAIL}, null, null, null);
+                if (c.moveToFirst()) {
+                    byte[] data = c.getBlob(1);
+                    if (data != null && data.length > 0) {
+                        tab.updateCaptureFromBlob(data);
+                    }
+                }
+            } finally {
+                if (c != null) {
+                    c.close();
+                }
             }
         }
 
@@ -184,7 +269,6 @@ public class DataController {
         }
 
         private void doQueryBookmarkStatus(String url, Object replyTo) {
-            ContentResolver cr = mContext.getContentResolver();
             // Check to see if the site is bookmarked
             Cursor cursor = null;
             boolean isBookmark = false;
