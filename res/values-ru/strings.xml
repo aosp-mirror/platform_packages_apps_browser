@@ -186,7 +186,7 @@
     <string name="autofill_setup_dialog_message" msgid="1096164985825394616">"Браузер может автоматически заполнять такие веб-формы. Включить автозаполнение?"</string>
     <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"Автозаполнение можно настроить в общих настройках браузера."</string>
     <string name="disable_autofill" msgid="8305901059849400354">"Отключить автозаполнение"</string>
-    <string name="pref_privacy_security_title" msgid="3480313968942160914">"Конфиденциальность и безопасность"</string>
+    <string name="pref_privacy_security_title" msgid="3480313968942160914">"Личные данные"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Очистить кэш"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Удалить контент и данные, сохраненные браузером"</string>
     <string name="pref_privacy_clear_cache_dlg" msgid="4344512581716422465">"Удалить контент и базы данных, сохраненные локально?"</string>
@@ -215,7 +215,7 @@
     <string name="pref_security_remember_passwords_summary" msgid="256388703356349137">"Сохранять имена пользователей и пароли веб-сайтов"</string>
     <string name="pref_security_save_form_data" msgid="1213669802810198893">"Сохранять данные форм"</string>
     <string name="pref_security_save_form_data_summary" msgid="4994074685153708026">"Запоминать введенные в формы данные для дальнейшего использования"</string>
-    <string name="pref_security_show_security_warning" msgid="8901135676266754559">"Предупреждать об опасности"</string>
+    <string name="pref_security_show_security_warning" msgid="8901135676266754559">"Сообщать об опасности"</string>
     <string name="pref_security_show_security_warning_summary" msgid="5260098316025397525">"Сообщать о проблемах с безопасностью сайтов"</string>
     <string name="pref_security_accept_cookies" msgid="3201367661925047989">"Разрешить cookie"</string>
     <string name="pref_security_accept_cookies_summary" msgid="1907951236154433751">"Разрешить сайтам сохранять и читать файлы cookie"</string>
