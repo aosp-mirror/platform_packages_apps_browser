@@ -301,6 +301,13 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         // enable smooth transition for better performance during panning or
         // zooming
         settings.setEnableSmoothTransition(true);
+        // WebView should be preserving the memory as much as possible.
+        // However, apps like browser wish to turn on the performance mode which
+        // would require more memory.
+        // TODO: We need to dynamically allocate/deallocate temporary memory for
+        // apps which are trying to use minimal memory. Currently, double
+        // buffering is always turned on, which is unnecessary.
+        settings.setProperty(WebViewProperties.gfxUseMinimalMemory, "false");
         // disable content url access
         settings.setAllowContentAccess(false);
 
