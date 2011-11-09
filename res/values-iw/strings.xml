@@ -69,7 +69,7 @@
     <string name="add_to_other_folder_menu_option" msgid="5947586525822134105">"תיקיה אחרת"</string>
     <string name="name" msgid="5462672162695365387">"תווית"</string>
     <string name="http" msgid="2163722670597250102">"http://‎"</string>
-    <string name="save_to_bookmarks" msgid="1679286010089780932">"שמור בסימניות."</string>
+    <string name="save_to_bookmarks" msgid="1679286010089780932">"שמור בסימניות"</string>
     <string name="bookmark_this_page" msgid="7530739804320811054">"הוסף דף זה לסימניות"</string>
     <string name="remove" msgid="7820112494467011374">"הסר"</string>
     <string name="edit_bookmark" msgid="5024089053490231905">"ערוך סימניה"</string>
@@ -320,14 +320,14 @@
     <string name="download_file_error_dlg_title" msgid="2693630283595384874">"אין מספיק שטח"</string>
     <string name="download_file_error_dlg_msg" msgid="5904538987107408124">"לא הייתה אפשרות להוריד את <xliff:g id="FILENAME">%s</xliff:g>."\n"פנה מקום ונסה שוב."</string>
     <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"ההורדה נכשלה"</string>
-    <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"אמצעי אחסון מסוג USB אינו זמין"</string>
+    <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"אחסון USB אינו זמין"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"אין כרטיס SD"</string>
-    <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"דרוש אמצעי אחסון מסוג USB להורדה של <xliff:g id="FILENAME">%s</xliff:g>."</string>
+    <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"דרוש אחסון USB להורדה של <xliff:g id="FILENAME">%s</xliff:g>."</string>
     <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"דרוש כרטיס SD כדי להוריד את <xliff:g id="FILENAME">%s</xliff:g>."</string>
-    <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"אמצעי אחסון מסוג USB אינו זמין"</string>
+    <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"אחסון USB אינו זמין"</string>
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"כרטיס SD לא זמין"</string>
-    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="8412543086906716875">"אחסון ה-USB אינו פנוי. כדי לאפשר הורדות, גע ב\"כבה אמצעי אחסון מסוג USB\" בהתראה."</string>
-    <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"כרטיס ה-SD אינו פנוי. כדי לאפשר הורדות, גע ב\"כבה אמצעי אחסון מסוג USB\" בהתראה."</string>
+    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="8412543086906716875">"אחסון ה-USB אינו פנוי. כדי לאפשר הורדות, גע ב\"כבה אחסון USB\" בהתראה."</string>
+    <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"כרטיס ה-SD אינו פנוי. כדי לאפשר הורדות, גע ב\"כבה אחסון USB\" בהתראה."</string>
     <string name="cannot_download" msgid="8150552478556798780">"ניתן להוריד רק כתובות אתר המתחילות ב-\"http\" או \"https\"."</string>
     <string name="download_no_application_title" msgid="4809479884191068159">"אין אפשרות לפתוח את הקובץ"</string>
     <string name="retry" msgid="1835923075542266721">"נסה שוב"</string>
