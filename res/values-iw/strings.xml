@@ -69,7 +69,7 @@
     <string name="add_to_other_folder_menu_option" msgid="5947586525822134105">"תיקיה אחרת"</string>
     <string name="name" msgid="5462672162695365387">"תווית"</string>
     <string name="http" msgid="2163722670597250102">"http://‎"</string>
-    <string name="save_to_bookmarks" msgid="1679286010089780932">"שמור בסימניות."</string>
+    <string name="save_to_bookmarks" msgid="1679286010089780932">"שמור בסימניות"</string>
     <string name="bookmark_this_page" msgid="7530739804320811054">"הוסף דף זה לסימניות"</string>
     <string name="remove" msgid="7820112494467011374">"הסר"</string>
     <string name="edit_bookmark" msgid="5024089053490231905">"ערוך סימניה"</string>
@@ -145,7 +145,7 @@
     <item msgid="844041670142910837">"דף נוכחי"</item>
     <item msgid="4430498748295169195">"דף ריק"</item>
     <item msgid="5747608191946904074">"דף ברירת מחדל"</item>
-    <item msgid="6092441301001006473">"האתרים שבהם ביקרת בתדירות גבוהה"</item>
+    <item msgid="6092441301001006473">"האתרים הפופולריים ביותר"</item>
     <item msgid="6569304572171444894">"אחר"</item>
   </string-array>
     <string name="pref_content_autofit" msgid="8260474534053660809">"התאם דפים באופן אוטומטי"</string>
@@ -238,7 +238,7 @@
   <string-array name="pref_default_zoom_choices">
     <item msgid="549583171195154919">"רחוק"</item>
     <item msgid="5619034257768161024">"בינוני"</item>
-    <item msgid="3840999588443167001">"סגור"</item>
+    <item msgid="3840999588443167001">"קרוב"</item>
   </string-array>
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"ברירת מחדל של מרחק מתצוגה"</string>
     <string name="pref_content_load_page" msgid="2219810141690955452">"פתח דפים בסקירה"</string>
@@ -303,14 +303,14 @@
     <string name="too_many_windows_dialog_message" msgid="3644234634638290304">"לא ניתן לפתוח כרטיסיה חדשה עד לסגירת אחת הכרטיסיות."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"חלון קופץ כבר פתוח"</string>
     <string name="too_many_subwindows_dialog_message" msgid="2164725447981195556">"רק חלון קופץ אחד יכול להיות פתוח בכל פעם."</string>
-    <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"אמצעי אחסון מסוג USB אינו זמין"</string>
+    <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"אחסון USB אינו זמין"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"אין כרטיס SD"</string>
-    <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"דרוש אמצעי אחסון מסוג USB להורדה של <xliff:g id="FILENAME">%s</xliff:g>."</string>
+    <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"דרוש אחסון USB להורדה של <xliff:g id="FILENAME">%s</xliff:g>."</string>
     <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"דרוש כרטיס SD כדי להוריד את <xliff:g id="FILENAME">%s</xliff:g>."</string>
-    <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"אמצעי אחסון מסוג USB אינו זמין"</string>
+    <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"אחסון USB אינו זמין"</string>
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"כרטיס SD לא זמין"</string>
-    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="8412543086906716875">"אחסון ה-USB אינו פנוי. כדי לאפשר הורדות, גע ב\"כבה אמצעי אחסון מסוג USB\" בהתראה."</string>
-    <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"כרטיס ה-SD אינו פנוי. כדי לאפשר הורדות, גע ב\"כבה אמצעי אחסון מסוג USB\" בהתראה."</string>
+    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="8412543086906716875">"אחסון ה-USB אינו פנוי. כדי לאפשר הורדות, גע ב\"כבה אחסון USB\" בהתראה."</string>
+    <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"כרטיס ה-SD אינו פנוי. כדי לאפשר הורדות, גע ב\"כבה אחסון USB\" בהתראה."</string>
     <string name="cannot_download" msgid="8150552478556798780">"ניתן להוריד רק כתובות אתר המתחילות ב-\"http\" או \"https\"."</string>
     <string name="download_pending" msgid="2599683668575349559">"מתחיל בהורדה..."</string>
     <string name="help_page" msgid="2906208423557552540">"עזרה"</string>
