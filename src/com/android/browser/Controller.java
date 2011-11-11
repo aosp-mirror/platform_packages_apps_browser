@@ -1624,12 +1624,20 @@ public class Controller
                         @Override
                         protected Long doInBackground(Tab... params) {
                             Uri result = cr.insert(Snapshots.CONTENT_URI, values);
+                            if (result == null) {
+                                return null;
+                            }
                             long id = ContentUris.parseId(result);
                             return id;
                         }
 
                         @Override
                         protected void onPostExecute(Long id) {
+                            if (id == null) {
+                                Toast.makeText(mActivity, R.string.snapshot_failed,
+                                        Toast.LENGTH_SHORT).show();
+                                return;
+                            }
                             Bundle b = new Bundle();
                             b.putLong(BrowserSnapshotPage.EXTRA_ANIMATE_ID, id);
                             mUi.showComboView(ComboViews.Snapshots, b);
