@@ -63,6 +63,7 @@ public class ComboViewActivity extends Activity implements CombinedBookmarksCall
         if (BrowserActivity.isTablet(this)) {
             bar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME
                     | ActionBar.DISPLAY_USE_LOGO);
+            bar.setHomeButtonEnabled(true);
         } else {
             bar.setDisplayOptions(0);
         }
