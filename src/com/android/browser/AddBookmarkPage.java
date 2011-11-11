@@ -145,6 +145,13 @@ public class AddBookmarkPage extends Activity
     }
 
     private Uri getUriForFolder(long folder) {
+        BookmarkAccount account =
+                (BookmarkAccount) mAccountSpinner.getSelectedItem();
+        if (folder == mRootFolder && account != null) {
+            return BookmarksLoader.addAccount(
+                    BrowserContract.Bookmarks.CONTENT_URI_DEFAULT_FOLDER,
+                    account.accountType, account.accountName);
+        }
         return BrowserContract.Bookmarks.buildFolderUri(folder);
     }
 
@@ -437,8 +444,8 @@ public class AddBookmarkPage extends Activity
             BookmarkAccount account = mAccountAdapter.getItem(i);
             if (TextUtils.equals(account.accountName, accountName)
                     && TextUtils.equals(account.accountType, accountType)) {
-                onRootFolderFound(account.rootFolderId);
                 mAccountSpinner.setSelection(i);
+                onRootFolderFound(account.rootFolderId);
                 return;
             }
         }
