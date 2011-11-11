@@ -762,8 +762,6 @@
 
     <!-- Do not translate.  Testing only -->
     <string name="dump_nav" translatable="false">Dump navigation cache</string>
-    <!-- Do not translate.  Testing only -->
-    <string name="dump_counters" translatable="false">Dump V8 counters</string>
 
     <!-- The default homepage. If it starts with "http://www.google" and the
             user signs up the device with a Google sites account, the site's
