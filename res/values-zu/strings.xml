@@ -42,7 +42,7 @@
     <string name="ssl_continue" msgid="8031515015829358457">"Qhubeka"</string>
     <string name="security_warning" msgid="6607795404322797541">"Isexwayiso sokuvikeleka"</string>
     <string name="view_certificate" msgid="1472768887529093862">"Buka isitifiketi"</string>
-    <string name="ssl_go_back" msgid="4598951822061593819">"Phindela emuva"</string>
+    <string name="ssl_go_back" msgid="4598951822061593819">"Emuva"</string>
     <string name="ssl_untrusted" msgid="7754507359360636447">"Lesi sitifiketi asiphumi embusweni othembekile."</string>
     <string name="ssl_mismatch" msgid="3809794439740523641">"Igama lale ngosi alifani negama elikusitifiketi."</string>
     <string name="ssl_expired" msgid="5739349389499575559">"Lesi sitifiketi siphelelwe yisikhathi"</string>
@@ -399,7 +399,7 @@
     <string name="empty_snapshots_folder" msgid="7675378008107026013">"Awekho amakhasi alondoloziwe."</string>
     <string name="remove_snapshot" msgid="1624447424544976849">"Susa ikhasi elilondiwe"</string>
     <string name="snapshot_go_live" msgid="1209542802541168497">"Iya bukhoma"</string>
-    <string name="accessibility_button_back" msgid="6194680634245279407">"Phindela emuva"</string>
+    <string name="accessibility_button_back" msgid="6194680634245279407">"Emuva"</string>
     <string name="accessibility_button_forward" msgid="1236827218480658168">"Iya phambili"</string>
     <string name="accessibility_button_refresh" msgid="1023441396241841313">"Vuselela ikhasi"</string>
     <string name="accessibility_button_stop" msgid="6793644120043222148">"Misa ukulayisha ikhasi"</string>

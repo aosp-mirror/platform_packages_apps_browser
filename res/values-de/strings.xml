@@ -318,7 +318,7 @@
     <string name="download_cancel_dlg_msg" msgid="2546124668173027248">"Alle <xliff:g id="DOWNLOAD_COUNT">%d</xliff:g> Downloads abbrechen und aus dem Downloadverlauf löschen?"</string>
     <string name="download_delete_file" msgid="8941963362686617405">"Löschen"</string>
     <string name="download_file_error_dlg_title" msgid="2693630283595384874">"Kein freier Speicher vorhanden"</string>
-    <string name="download_file_error_dlg_msg" msgid="5904538987107408124">"<xliff:g id="FILENAME">%s</xliff:g> konnte nicht heruntergeladen werden."\n"Geben Sie Speicherplatz frei und versuchen Sie es noch einmal."</string>
+    <string name="download_file_error_dlg_msg" msgid="5904538987107408124">"<xliff:g id="FILENAME">%s</xliff:g> konnte nicht heruntergeladen werden."\n"Geben Sie Speicherplatz frei und versuchen Sie es erneut."</string>
     <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"Download fehlgeschlagen"</string>
     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"Kein USB-Speicher"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"Keine SD-Karte"</string>

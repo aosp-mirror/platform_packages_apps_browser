@@ -146,7 +146,7 @@
     <item msgid="844041670142910837">"דף נוכחי"</item>
     <item msgid="4430498748295169195">"דף ריק"</item>
     <item msgid="5747608191946904074">"דף ברירת מחדל"</item>
-    <item msgid="6092441301001006473">"האתרים שבהם ביקרת בתדירות גבוהה"</item>
+    <item msgid="6092441301001006473">"האתרים הפופולריים ביותר"</item>
     <item msgid="6569304572171444894">"אחר"</item>
   </string-array>
     <string name="pref_content_autofit" msgid="8260474534053660809">"התאם דפים באופן אוטומטי"</string>
@@ -240,7 +240,7 @@
   <string-array name="pref_default_zoom_choices">
     <item msgid="549583171195154919">"רחוק"</item>
     <item msgid="5619034257768161024">"בינוני"</item>
-    <item msgid="3840999588443167001">"סגור"</item>
+    <item msgid="3840999588443167001">"קרוב"</item>
   </string-array>
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"ברירת מחדל של מרחק מתצוגה"</string>
     <string name="pref_content_load_page" msgid="2219810141690955452">"פתח דפים בסקירה"</string>

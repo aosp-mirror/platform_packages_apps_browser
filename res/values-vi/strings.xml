@@ -69,7 +69,7 @@
     <string name="add_to_other_folder_menu_option" msgid="5947586525822134105">"Thư mục khác"</string>
     <string name="name" msgid="5462672162695365387">"Nhãn"</string>
     <string name="http" msgid="2163722670597250102">"http://"</string>
-    <string name="save_to_bookmarks" msgid="1679286010089780932">"Đã lưu vào dấu trang"</string>
+    <string name="save_to_bookmarks" msgid="1679286010089780932">"Lưu vào dấu trang"</string>
     <string name="bookmark_this_page" msgid="7530739804320811054">"Đánh dấu trang này"</string>
     <string name="remove" msgid="7820112494467011374">"Xóa"</string>
     <string name="edit_bookmark" msgid="5024089053490231905">"Chỉnh sửa dấu trang"</string>
