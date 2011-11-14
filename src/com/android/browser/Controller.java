@@ -1512,9 +1512,6 @@ public class Controller
         nav.setEnabled(isNavDump);
 
         boolean showDebugSettings = mSettings.isDebugEnabled();
-        final MenuItem counter = menu.findItem(R.id.dump_counters_menu_id);
-        counter.setVisible(showDebugSettings);
-        counter.setEnabled(showDebugSettings);
         final MenuItem uaSwitcher = menu.findItem(R.id.ua_desktop_menu_id);
         uaSwitcher.setChecked(isDesktopUa);
         menu.setGroupVisible(R.id.LIVE_MENU, isLive);
@@ -1667,10 +1664,6 @@ public class Controller
 
             case R.id.dump_nav_menu_id:
                 getCurrentTopWebView().debugDump();
-                break;
-
-            case R.id.dump_counters_menu_id:
-                getCurrentTopWebView().dumpV8Counters();
                 break;
 
             case R.id.zoom_in_menu_id:
