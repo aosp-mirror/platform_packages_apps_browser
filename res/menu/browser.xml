@@ -91,10 +91,6 @@
             android:id="@+id/dump_nav_menu_id"
             android:title="@string/dump_nav"
             android:visible="false" />
-        <item
-            android:id="@+id/dump_counters_menu_id"
-            android:title="@string/dump_counters"
-            android:visible="false" />
     </group>
     <group android:id="@+id/MAIN_SHORTCUT_MENU" android:visible="false">
         <item android:id="@+id/view_downloads_menu_id"
