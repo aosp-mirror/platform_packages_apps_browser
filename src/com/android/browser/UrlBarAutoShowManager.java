@@ -71,19 +71,17 @@ public class UrlBarAutoShowManager implements OnTouchListener,
     @Override
     public void onScrollChanged(int l, int t, int oldl, int oldt) {
         mLastScrollTime = SystemClock.uptimeMillis();
-        if (t != oldt) {
-            mIsScrolling = true;
-            if (t != 0) {
-                // If it is showing, extend it
-                if (mUi.isTitleBarShowing()) {
-                    long remaining = mLastScrollTime - mTriggeredTime;
-                    remaining = Math.max(BaseUi.HIDE_TITLEBAR_DELAY - remaining,
-                            SCROLL_TIMEOUT_DURATION);
-                    mUi.showTitleBarForDuration(remaining);
-                }
-            } else {
-                mUi.suggestHideTitleBar();
+        mIsScrolling = true;
+        if (t != 0) {
+            // If it is showing, extend it
+            if (mUi.isTitleBarShowing()) {
+                long remaining = mLastScrollTime - mTriggeredTime;
+                remaining = Math.max(BaseUi.HIDE_TITLEBAR_DELAY - remaining,
+                        SCROLL_TIMEOUT_DURATION);
+                mUi.showTitleBarForDuration(remaining);
             }
+        } else {
+            mUi.suggestHideTitleBar();
         }
     }
 
