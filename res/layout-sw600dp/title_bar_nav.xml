@@ -58,12 +58,12 @@
         android:background="@drawable/url_background">
         <ImageView
             android:id="@+id/url_icon"
-            android:layout_width="48dp"
-            android:layout_height="match_parent"
+            android:layout_width="48dip"
+            android:layout_height="20dip"
+            android:paddingLeft="14dip"
+            android:paddingRight="14dip"
             android:src="@drawable/ic_web_holo_dark"
-            android:contentDescription="@string/accessibility_button_uaswitch"
-            android:scaleType="center"
-            style="@style/HoloButton" />
+            android:layout_gravity="center" />
         <ImageView
             android:id="@+id/lock"
             android:layout_width="wrap_content"
