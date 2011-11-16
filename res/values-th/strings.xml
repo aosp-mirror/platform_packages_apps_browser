@@ -22,7 +22,7 @@
     <string name="new_tab" msgid="7971857320679510529">"แท็บใหม่"</string>
     <string name="new_incognito_tab" msgid="3606197964239039478">"แท็บใหม่ที่ไม่ระบุตัวตน"</string>
     <string name="tab_bookmarks" msgid="2305793036003473653">"บุ๊กมาร์ก"</string>
-    <string name="tab_most_visited" msgid="1077402532455000703">"เข้าชมมากที่สุด"</string>
+    <string name="tab_most_visited" msgid="1077402532455000703">"เข้าชมบ่อยที่สุด"</string>
     <string name="tab_history" msgid="1979267558744613746">"ประวัติ"</string>
     <string name="tab_snapshots" msgid="1449241204980265186">"หน้าที่บันทึกไว้"</string>
     <string name="added_to_bookmarks" msgid="4028710765672851635">"เพิ่มลงในบุ๊กมาร์กแล้ว"</string>
