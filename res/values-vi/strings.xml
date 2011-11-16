@@ -25,8 +25,8 @@
     <string name="tab_most_visited" msgid="1077402532455000703">"Truy cập nhiều nhất"</string>
     <string name="tab_history" msgid="1979267558744613746">"Lịch sử"</string>
     <string name="tab_snapshots" msgid="1449241204980265186">"Trang đã lưu"</string>
-    <string name="added_to_bookmarks" msgid="4028710765672851635">"Đã thêm vào dấu trang."</string>
-    <string name="removed_from_bookmarks" msgid="546648923924996722">"Đã xóa khỏi dấu trang."</string>
+    <string name="added_to_bookmarks" msgid="4028710765672851635">"Đã thêm vào dấu trang."</string>
+    <string name="removed_from_bookmarks" msgid="546648923924996722">"Đã xóa khỏi dấu trang."</string>
     <string name="sign_in_to" msgid="5939425800148759165">"Đăng nhập vào <xliff:g id="HOSTNAME">%s1</xliff:g> \"<xliff:g id="REALM">%s2</xliff:g>\""</string>
     <string name="username" msgid="5057566336518215922">"Tên"</string>
     <string name="password" msgid="1177138552305184404">"Mật khẩu"</string>
@@ -34,12 +34,12 @@
     <string name="bookmarks_search" msgid="5229596268214362873">"Trình duyệt"</string>
     <string name="cancel" msgid="3017274947407233702">"Hủy"</string>
     <string name="ok" msgid="1509280796718850364">"OK"</string>
-    <string name="title_bar_loading" msgid="7438217780834640678">"Đang tải…"</string>
+    <string name="title_bar_loading" msgid="7438217780834640678">"Đang tải…"</string>
     <string name="page_info" msgid="4048529256302257195">"Thông tin trang"</string>
     <string name="page_info_view" msgid="5303490449842635158">"Xem thông tin trang"</string>
     <string name="page_info_address" msgid="2222306609532903254">"Địa chỉ:"</string>
     <string name="ssl_warnings_header" msgid="79744901983636370">"Có sự cố với chứng chỉ bảo mật cho trang web này."</string>
-    <string name="ssl_continue" msgid="8031515015829358457">"Tiếp tục"</string>
+    <string name="ssl_continue" msgid="8031515015829358457">"Tiếp tục"</string>
     <string name="security_warning" msgid="6607795404322797541">"Cảnh báo bảo mật"</string>
     <string name="view_certificate" msgid="1472768887529093862">"Xem chứng chỉ"</string>
     <string name="ssl_go_back" msgid="4598951822061593819">"Quay lại"</string>
@@ -69,17 +69,17 @@
     <string name="add_to_other_folder_menu_option" msgid="5947586525822134105">"Thư mục khác"</string>
     <string name="name" msgid="5462672162695365387">"Nhãn"</string>
     <string name="http" msgid="2163722670597250102">"http://"</string>
-    <string name="save_to_bookmarks" msgid="1679286010089780932">"Đã lưu vào dấu trang"</string>
+    <string name="save_to_bookmarks" msgid="1679286010089780932">"Lưu vào dấu trang"</string>
     <string name="bookmark_this_page" msgid="7530739804320811054">"Đánh dấu trang này"</string>
     <string name="remove" msgid="7820112494467011374">"Xóa"</string>
-    <string name="edit_bookmark" msgid="5024089053490231905">"Chỉnh sửa dấu trang"</string>
+    <string name="edit_bookmark" msgid="5024089053490231905">"Chỉnh sửa dấu trang"</string>
     <string name="create_shortcut_bookmark" msgid="1995095662095484289">"Thêm lối tắt tới màn hình trang chủ"</string>
-    <string name="open_bookmark" msgid="8473581305759935790">"Mở"</string>
+    <string name="open_bookmark" msgid="8473581305759935790">"Mở"</string>
     <string name="remove_bookmark" msgid="8407495852801410891">"Xoá dấu trang"</string>
-    <string name="remove_from_bookmarks" msgid="4374080666576982775">"Xoá khỏi dấu trang"</string>
+    <string name="remove_from_bookmarks" msgid="4374080666576982775">"Xoá khỏi dấu trang"</string>
     <string name="remove_history_item" msgid="5021424935726728618">"Xoá khỏi lịch sử"</string>
     <string name="set_as_homepage" msgid="4752937379414905560">"Đặt làm trang chủ"</string>
-    <string name="bookmark_saved" msgid="2766434679871317557">"Đã lưu vào dấu trang."</string>
+    <string name="bookmark_saved" msgid="2766434679871317557">"Đã lưu vào dấu trang."</string>
     <string name="bookmark_not_saved" msgid="1077732557310662080">"Không thể lưu dấu trang."</string>
     <string name="homepage_set" msgid="8768087280310966395">"Đã đặt trang chủ."</string>
     <string name="bookmark_needs_title" msgid="6245900436119218187">"Dấu trang phải có tên."</string>
@@ -99,26 +99,26 @@
     <string name="shortcut_bookmark_title" msgid="7570786275916681296">"Chọn dấu trang"</string>
     <string name="history" msgid="2451240511251410032">"Lịch sử"</string>
     <string name="menu_view_download" msgid="2124570321712995120">"Nội dung tải xuống"</string>
-    <string name="copy_page_url" msgid="1188679152608889555">"Sao chép url của trang"</string>
+    <string name="copy_page_url" msgid="1188679152608889555">"Sao chép url của trang"</string>
     <string name="share_page" msgid="593756995297268343">"Chia sẻ trang"</string>
     <string name="menu_save_snapshot" msgid="6935080344031126139">"Lưu để đọc ngoại tuyến"</string>
     <string name="snapshot_failed" msgid="4584580873565876033">"Không thể lưu để đọc ngoại tuyến."</string>
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"<xliff:g id="BOOKMARK_COUNT">%d</xliff:g> dấu trang"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Thư mục trống"</string>
-    <string name="contextmenu_openlink" msgid="7237961252214188935">"Mở"</string>
-    <string name="contextmenu_openlink_newwindow" msgid="1205313604181761403">"Mở trong tab mới"</string>
+    <string name="contextmenu_openlink" msgid="7237961252214188935">"Mở"</string>
+    <string name="contextmenu_openlink_newwindow" msgid="1205313604181761403">"Mở trong tab mới"</string>
     <string name="contextmenu_openlink_newwindow_background" msgid="4690381019116746687">"Mở trong tab nền mới"</string>
     <string name="contextmenu_savelink" msgid="5508554930832538184">"Lưu liên kết"</string>
     <string name="contextmenu_sharelink" msgid="5392275392280130331">"Chia sẻ liên kết"</string>
-    <string name="contextmenu_copy" msgid="398860586635404030">"Sao chép"</string>
-    <string name="contextmenu_copylink" msgid="5153657160294534270">"Sao chép URL liên kết"</string>
+    <string name="contextmenu_copy" msgid="398860586635404030">"Sao chép"</string>
+    <string name="contextmenu_copylink" msgid="5153657160294534270">"Sao chép URL liên kết"</string>
     <string name="contextmenu_download_image" msgid="4243829645180686912">"Lưu hình ảnh"</string>
     <string name="contextmenu_view_image" msgid="3870625602053600905">"Xem hình ảnh"</string>
     <string name="contextmenu_set_wallpaper" msgid="3691902960115350686">"Đặt làm hình nền"</string>
     <string name="contextmenu_dial_dot" msgid="5856550683415933806">"Quay số…"</string>
     <string name="contextmenu_add_contact" msgid="3183511922223645716">"Thêm liên hệ"</string>
     <string name="contextmenu_send_mail" msgid="1014513374828775660">"Gửi email"</string>
-    <string name="contextmenu_map" msgid="7471390435434034912">"Bản đồ"</string>
+    <string name="contextmenu_map" msgid="7471390435434034912">"Bản đồ"</string>
     <string name="choosertitle_sharevia" msgid="4600490613341909086">"Chia sẻ qua"</string>
     <string name="clear" msgid="7070043081700011461">"Xoá"</string>
     <string name="replace" msgid="4843033491070384047">"Thay thế"</string>
@@ -129,7 +129,7 @@
     <string name="pref_content_load_images_summary" msgid="5055874125248398584">"Hiển thị hình ảnh trên trang web"</string>
     <string name="pref_content_block_popups" msgid="4158524847764470895">"Chặn cửa sổ bật lên"</string>
     <string name="pref_content_javascript" msgid="4570972030299516843">"Bật JavaScript"</string>
-    <string name="pref_content_open_in_background" msgid="824123779725118663">"Mở dưới nền"</string>
+    <string name="pref_content_open_in_background" msgid="824123779725118663">"Mở dưới nền"</string>
     <string name="pref_content_plugins" msgid="7231944644794301582">"Bật trình cắm"</string>
   <string-array name="pref_content_plugins_choices">
     <item msgid="6745108155096660725">"Luôn bật"</item>
@@ -175,7 +175,7 @@
     <string name="autofill_profile_editor_state" msgid="2150403366835080407">"Tiểu bang/Tỉnh/Vùng:"</string>
     <string name="autofill_profile_editor_zip_code" msgid="283668573295656671">"Mã zip:"</string>
     <string name="autofill_profile_editor_country" msgid="7234470301239156656">"Quốc gia:"</string>
-    <string name="autofill_profile_editor_phone_number" msgid="4938852821413729276">"Điện thoại:"</string>
+    <string name="autofill_profile_editor_phone_number" msgid="4938852821413729276">"Điện thoại:"</string>
     <string name="autofill_profile_editor_phone_number_invalid" msgid="6795411298467068957">"Số điện thoại không hợp lệ."</string>
     <string name="autofill_profile_editor_save_profile" msgid="3230301454458581157">"Lưu"</string>
     <string name="autofill_profile_successful_save" msgid="5691459703493331983">"Đã lưu văn bản tự động điền."</string>
@@ -219,9 +219,9 @@
     <string name="pref_security_accept_cookies_summary" msgid="1907951236154433751">"Cho phép trang web lưu và đọc dữ liệu cookie"</string>
   <string-array name="pref_text_size_choices">
     <item msgid="4952686548944739548">"Rất nhỏ"</item>
-    <item msgid="1950030433642671460">"Nhỏ"</item>
+    <item msgid="1950030433642671460">"Nhỏ"</item>
     <item msgid="4338347520133294584">"Thường"</item>
-    <item msgid="5043128215356351184">"Lớn"</item>
+    <item msgid="5043128215356351184">"Lớn"</item>
     <item msgid="7201512237890458902">"Rất lớn"</item>
   </string-array>
     <string name="pref_min_font_size" msgid="8811125835817449131">"Kích thước phông chữ tối thiểu"</string>
@@ -238,10 +238,10 @@
   <string-array name="pref_default_zoom_choices">
     <item msgid="549583171195154919">"Xa"</item>
     <item msgid="5619034257768161024">"Trung bình"</item>
-    <item msgid="3840999588443167001">"Đóng"</item>
+    <item msgid="3840999588443167001">"Đóng"</item>
   </string-array>
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"Thu phóng mặc định"</string>
-    <string name="pref_content_load_page" msgid="2219810141690955452">"Mở các trang trong chế độ xem tổng quan"</string>
+    <string name="pref_content_load_page" msgid="2219810141690955452">"Mở các trang trong chế độ xem tổng quan"</string>
     <string name="pref_content_load_page_summary" msgid="9168803276420332955">"Hiển thị tổng quan về các trang mới mở"</string>
     <string name="pref_extras_title" msgid="7075456173747370647">"Nâng cao"</string>
     <string name="pref_extras_website_settings" msgid="67866640052455549">"Cài đặt trang web"</string>
@@ -260,7 +260,7 @@
     <item msgid="891615911084608570">"Tiếng Nhật (ISO-2022-JP)"</item>
     <item msgid="5589150448475151241">"Tiếng Nhật (SHIFT_JIS)"</item>
     <item msgid="7356792686950371843">"Tiếng Nhật (EUC-JP)"</item>
-    <item msgid="2193955365569270096">"Tiếng Hàn (EUC-KR)"</item>
+    <item msgid="2193955365569270096">"Tiếng Hàn (EUC-KR)"</item>
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Mã hoá văn bản"</string>
     <string name="pref_accessibility_title" msgid="5127836981587423215">"Khả năng truy cập"</string>
@@ -360,7 +360,7 @@
     <string name="menu_share_url" msgid="5851814357333739700">"Chia sẻ"</string>
     <string name="max_tabs_warning" msgid="4122034303809457570">"Không có thêm tab nào"</string>
     <string name="instant_search_label" msgid="8769284297650716935">"Google với tính năng Instant (Labs)"</string>
-    <string name="preview" msgid="6450823514561689038">"Xem trước"</string>
+    <string name="preview" msgid="6450823514561689038">"Xem trước"</string>
     <string name="local_bookmarks" msgid="533816851415228520">"Địa phương"</string>
     <string name="ua_switcher_desktop" msgid="220097077327558435">"Yêu cầu trang web dành cho máy tính"</string>
     <string name="permission_preload_label" msgid="4856971662337877316">"Tải trước kết quả"</string>
