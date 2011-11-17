@@ -241,6 +241,7 @@ public class NavTabScroller extends ScrollerView {
     void snapToSelected(int pos, boolean smooth) {
         if (pos < 0) return;
         View v = mContentView.getChildAt(pos);
+        if (v == null) return;
         int sx = 0;
         int sy = 0;
         if (mHorizontal) {
