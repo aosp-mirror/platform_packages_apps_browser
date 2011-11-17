@@ -74,11 +74,6 @@ public class NavTabView extends LinearLayout {
         return v == mImage;
     }
 
-    protected void setHighlighted(boolean highlighted) {
-        if (highlighted == mHighlighted) return;
-        mHighlighted = highlighted;
-    }
-
     private void setTitle() {
         if (mTab == null) return;
         if (mHighlighted) {
@@ -112,21 +107,16 @@ public class NavTabView extends LinearLayout {
         return mHighlighted;
     }
 
-    protected void setWebView(WebView w) {
-        mContent.addView(w, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-    }
-
     protected void setWebView(Tab tab) {
         mTab = tab;
         setTitle();
         Bitmap image = tab.getScreenshot();
         if (image != null) {
             mImage.setImageBitmap(image);
+            if (tab != null) {
+                mImage.setContentDescription(tab.getTitle());
+            }
         }
-    }
-
-    protected void hideTitle() {
-        mTitleBar.setVisibility(View.INVISIBLE);
     }
 
     @Override
