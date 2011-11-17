@@ -27,6 +27,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -177,7 +178,10 @@ public class NavigationBarBase extends LinearLayout implements
      */
     @Override
     public void onAction(String text, String extra, String source) {
-        mUiController.getCurrentTopWebView().requestFocus();
+        WebView currentTopWebView = mUiController.getCurrentTopWebView();
+        if (currentTopWebView != null) {
+            currentTopWebView.requestFocus();
+        }
         if (UrlInputView.TYPED.equals(source)) {
             String url = UrlUtils.smartUrlFilter(text, false);
             Tab t = mBaseUi.getActiveTab();
