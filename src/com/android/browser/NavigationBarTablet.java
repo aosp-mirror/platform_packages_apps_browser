@@ -195,7 +195,7 @@ public class NavigationBarTablet extends NavigationBarBase {
     }
 
     private void clearOrClose() {
-        if (TextUtils.isEmpty(mUrlInput.getUserText())) {
+        if (TextUtils.isEmpty(mUrlInput.getText())) {
             // close
             mUrlInput.clearFocus();
         } else {
@@ -278,7 +278,7 @@ public class NavigationBarTablet extends NavigationBarBase {
     }
 
     protected void updateSearchMode(boolean userEdited) {
-        setSearchMode(!userEdited || TextUtils.isEmpty(mUrlInput.getUserText()));
+        setSearchMode(!userEdited || TextUtils.isEmpty(mUrlInput.getText()));
     }
 
     @Override

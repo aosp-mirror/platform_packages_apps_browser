@@ -563,10 +563,6 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable,
 
     }
 
-    private boolean useInstant() {
-        return mSettings.useInstantSearch();
-    }
-
     public void clearCache() {
         mFilterResults = null;
         mSuggestResults = null;

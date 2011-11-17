@@ -26,35 +26,11 @@ import com.android.browser.R;
 import com.android.browser.search.SearchEngine;
 
 public class LabPreferencesFragment extends PreferenceFragment {
-    private BrowserSettings mBrowserSettings;
-    private Preference useInstantPref;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        mBrowserSettings = BrowserSettings.getInstance();
-
         // Load the XML preferences file
         addPreferencesFromResource(R.xml.lab_preferences);
-        useInstantPref = findPreference(PreferenceKeys.PREF_USE_INSTANT_SEARCH);
     }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (useInstantPref != null) {
-            useInstantPref.setEnabled(false);
-
-            // Enable the "use instant" preference only if the selected
-            // search engine is google.
-            if (mBrowserSettings.getSearchEngine() != null) {
-                final String currentName = mBrowserSettings.getSearchEngine().getName();
-                if (SearchEngine.GOOGLE.equals(currentName)) {
-                    useInstantPref.setEnabled(true);
-                }
-            }
-        }
-    }
-
 }
