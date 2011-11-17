@@ -2102,7 +2102,7 @@ public class Controller
                  manager.addCompletedDownload(target.getName(),
                         mActivity.getTitle().toString(), false,
                         uri.getMimeType(), target.getAbsolutePath(),
-                        (long)uri.getData().length, false);
+                        (long)uri.getData().length, true);
             } catch (IOException e) {
                 Log.e(LOGTAG, "Could not save data URL");
             } finally {
