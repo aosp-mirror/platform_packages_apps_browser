@@ -493,11 +493,6 @@ public abstract class BaseUi implements UI {
     }
 
     @Override
-    public void registerDropdownChangeListener(DropdownChangeListener d) {
-        mNavigationBar.registerDropdownChangeListener(d);
-    }
-
-    @Override
     public void showComboView(ComboViews startingView, Bundle extras) {
         Intent intent = new Intent(mActivity, ComboViewActivity.class);
         intent.putExtra(ComboViewActivity.EXTRA_INITIAL_VIEW, startingView.name());

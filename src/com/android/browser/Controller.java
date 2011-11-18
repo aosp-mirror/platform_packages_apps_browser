@@ -80,7 +80,6 @@ import android.widget.Toast;
 
 import com.android.browser.IntentHandler.UrlData;
 import com.android.browser.UI.ComboViews;
-import com.android.browser.UI.DropdownChangeListener;
 import com.android.browser.provider.BrowserProvider;
 import com.android.browser.provider.BrowserProvider2.Thumbnails;
 import com.android.browser.provider.SnapshotProvider.Snapshots;
@@ -2735,11 +2734,6 @@ public class Controller
                 AutoFillSettingsFragment.class.getName());
         mAutoFillSetupMessage = message;
         mActivity.startActivityForResult(intent, AUTOFILL_SETUP);
-    }
-
-    @Override
-    public void registerDropdownChangeListener(DropdownChangeListener d) {
-        mUi.registerDropdownChangeListener(d);
     }
 
     public boolean onSearchRequested() {
