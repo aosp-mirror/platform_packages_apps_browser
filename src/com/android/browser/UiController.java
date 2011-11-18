@@ -23,7 +23,6 @@ import android.view.MenuItem;
 import android.webkit.WebView;
 
 import com.android.browser.UI.ComboViews;
-import com.android.browser.UI.DropdownChangeListener;
 
 import java.util.List;
 
@@ -91,8 +90,6 @@ public interface UiController {
     void shareCurrentPage();
 
     void updateMenuState(Tab tab, Menu menu);
-
-    void registerDropdownChangeListener(DropdownChangeListener d);
 
     boolean onOptionsItemSelected(MenuItem item);
 
