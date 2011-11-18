@@ -130,9 +130,7 @@ public class XLargeUi extends BaseUi {
     @Override
     public void onResume() {
         super.onResume();
-        if (!BrowserSettings.getInstance().useInstantSearch()) {
-            mNavBar.clearCompletions();
-        }
+        mNavBar.clearCompletions();
     }
 
     @Override

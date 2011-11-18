@@ -21,9 +21,4 @@
         android:defaultValue="false"
         android:title="@string/pref_lab_quick_controls"
         android:summary="@string/pref_lab_quick_controls_summary" />
-    <CheckBoxPreference
-        android:key="use_instant_search"
-        android:defaultValue="false"
-        android:title="@string/pref_use_instant_search"
-        android:summary="@string/pref_use_instant_search_summary" />
 </PreferenceScreen>

@@ -15,8 +15,6 @@
  */
 package com.android.browser.search;
 
-import com.android.browser.BrowserSettings;
-import com.android.browser.InstantSearchEngine;
 import com.android.browser.R;
 
 import android.content.Context;
@@ -32,10 +30,6 @@ public class SearchEngines {
     private static final String TAG = "SearchEngines";
 
     public static SearchEngine getDefaultSearchEngine(Context context) {
-        if (BrowserSettings.getInstance().useInstantSearch()) {
-            return new InstantSearchEngine(context, DefaultSearchEngine.create(context));
-        }
-
         return DefaultSearchEngine.create(context);
     }
 

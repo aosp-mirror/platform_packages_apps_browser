@@ -146,10 +146,6 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         if (sInitialized) {
             syncSharedSettings();
         }
-
-        if (mController != null && (mSearchEngine instanceof InstantSearchEngine)) {
-             ((InstantSearchEngine) mSearchEngine).setController(mController);
-        }
     }
 
     public void startManagingSettings(WebSettings settings) {
@@ -355,9 +351,6 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         if (PREF_SEARCH_ENGINE.equals(key)) {
             updateSearchEngine(false);
         }
-        if (PREF_USE_INSTANT_SEARCH.equals(key)) {
-            updateSearchEngine(true);
-        }
         if (PREF_FULLSCREEN.equals(key)) {
             if (mController.getUi() != null) {
                 mController.getUi().setFullscreen(useFullscreen());
@@ -426,10 +419,6 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
                 mSearchEngine.close();
              }
             mSearchEngine = SearchEngines.get(mContext, searchEngineName);
-
-             if (mController != null && (mSearchEngine instanceof InstantSearchEngine)) {
-                 ((InstantSearchEngine) mSearchEngine).setController(mController);
-             }
          }
     }
 
@@ -792,10 +781,6 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
 
     public boolean useMostVisitedHomepage() {
         return HomeProvider.MOST_VISITED.equals(getHomePage());
-    }
-
-    public boolean useInstantSearch() {
-        return mPrefs.getBoolean(PREF_USE_INSTANT_SEARCH, false);
     }
 
     public boolean useFullscreen() {
