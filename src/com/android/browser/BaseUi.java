@@ -758,7 +758,12 @@ public abstract class BaseUi implements UI {
         if (enabled) {
             winParams.flags |=  bits;
             if (mCustomView != null) {
-                mCustomView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
+                // HTML5 Video can ask for the HIDE_NAVIGATION specifically,
+                // and we want to differentiate it from the flash.
+                if ((mCustomView.getSystemUiVisibility()
+                        & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0) {
+                    mCustomView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
+                }
             } else {
                 mContentView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
             }
