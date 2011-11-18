@@ -22,6 +22,8 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.speech.RecognizerResultsIntent;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.View;
@@ -31,15 +33,13 @@ import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.android.browser.UI.DropdownChangeListener;
 import com.android.browser.UrlInputView.UrlInputListener;
-import com.android.browser.autocomplete.SuggestedTextController.TextChangeWatcher;
 
 import java.util.List;
 
 public class NavigationBarBase extends LinearLayout implements
         OnClickListener, UrlInputListener, OnFocusChangeListener,
-        TextChangeWatcher {
+        TextWatcher {
 
     protected BaseUi mBaseUi;
     protected TitleBar mTitleBar;
@@ -71,7 +71,7 @@ public class NavigationBarBase extends LinearLayout implements
         mUrlInput.setUrlInputListener(this);
         mUrlInput.setOnFocusChangeListener(this);
         mUrlInput.setSelectAllOnFocus(true);
-        mUrlInput.addQueryTextWatcher(this);
+        mUrlInput.addTextChangedListener(this);
     }
 
     public void setTitleBar(TitleBar titleBar) {
@@ -145,16 +145,6 @@ public class NavigationBarBase extends LinearLayout implements
         }
     }
 
-    // UrlInput text watcher
-
-    @Override
-    public void onTextChanged(String newText) {
-        if (mUrlInput.hasFocus()) {
-            // clear voice mode when user types
-            setInVoiceMode(false, null);
-        }
-    }
-
     // voicesearch
 
     public void setInVoiceMode(boolean voicemode, List<String> voiceResults) {
@@ -167,7 +157,7 @@ public class NavigationBarBase extends LinearLayout implements
     }
 
     void clearCompletions() {
-        mUrlInput.setSuggestedText(null);
+        mUrlInput.dismissDropDown();
     }
 
  // UrlInputListener implementation
@@ -254,10 +244,6 @@ public class NavigationBarBase extends LinearLayout implements
         return super.dispatchKeyEventPreIme(evt);
     }
 
-    void registerDropdownChangeListener(DropdownChangeListener d) {
-        mUrlInput.registerDropdownChangeListener(d);
-    }
-
     /**
      * called from the Ui when the user wants to edit
      * @param clearInput clear the input field
@@ -291,4 +277,17 @@ public class NavigationBarBase extends LinearLayout implements
     public void onTabDataChanged(Tab tab) {
     }
 
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        if (mUrlInput.hasFocus()) {
+            // clear voice mode when user types
+            setInVoiceMode(false, null);
+        }
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) { }
 }

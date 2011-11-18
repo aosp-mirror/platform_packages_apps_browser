@@ -19,27 +19,25 @@ package com.android.browser;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
-import android.database.DataSetObserver;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.Patterns;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
 import com.android.browser.SuggestionsAdapter.CompletionListener;
 import com.android.browser.SuggestionsAdapter.SuggestItem;
-import com.android.browser.UI.DropdownChangeListener;
-import com.android.browser.autocomplete.SuggestedTextController.TextChangeWatcher;
-import com.android.browser.autocomplete.SuggestiveAutoCompleteTextView;
 import com.android.browser.search.SearchEngine;
 import com.android.browser.search.SearchEngineInfo;
 import com.android.browser.search.SearchEngines;
@@ -51,9 +49,9 @@ import java.util.List;
  * url/search input view
  * handling suggestions
  */
-public class UrlInputView extends SuggestiveAutoCompleteTextView
+public class UrlInputView extends AutoCompleteTextView
         implements OnEditorActionListener,
-        CompletionListener, OnItemClickListener, TextChangeWatcher {
+        CompletionListener, OnItemClickListener, TextWatcher {
 
     static final String TYPED = "browser-type";
     static final String SUGGESTED = "browser-suggest";
@@ -76,7 +74,6 @@ public class UrlInputView extends SuggestiveAutoCompleteTextView
     private boolean mLandscape;
     private boolean mIncognitoMode;
     private boolean mNeedsUpdate;
-    private DropdownChangeListener mDropdownListener;
 
     private int mState;
     private StateListener mStateListener;
@@ -113,23 +110,8 @@ public class UrlInputView extends SuggestiveAutoCompleteTextView
         setThreshold(1);
         setOnItemClickListener(this);
         mNeedsUpdate = false;
-        mDropdownListener = null;
-        addQueryTextWatcher(this);
+        addTextChangedListener(this);
 
-        mAdapter.registerDataSetObserver(new DataSetObserver() {
-            @Override
-            public void onChanged() {
-                if (!isPopupShowing()) {
-                    return;
-                }
-                dispatchChange();
-            }
-
-            @Override
-            public void onInvalidated() {
-                dispatchChange();
-            }
-        });
         mState = StateListener.STATE_NORMAL;
     }
 
@@ -225,7 +207,7 @@ public class UrlInputView extends SuggestiveAutoCompleteTextView
         mAdapter.setLandscapeMode(mLandscape);
         if (isPopupShowing() && (getVisibility() == View.VISIBLE)) {
             setupDropDown();
-            performFiltering(getUserText(), 0);
+            performFiltering(getText(), 0);
         }
     }
 
@@ -256,21 +238,11 @@ public class UrlInputView extends SuggestiveAutoCompleteTextView
 
     @Override
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-        if (BrowserSettings.getInstance().useInstantSearch() &&
-                (actionId == EditorInfo.IME_ACTION_NEXT)) {
-            // When instant is turned on AND the user chooses to complete
-            // using the tab key, then use the completion rather than the
-            // text that the user has typed.
-            finishInput(getText().toString(), null, TYPED);
-        } else {
-            finishInput(getUserText(), null, TYPED);
-        }
-
+        finishInput(getText().toString(), null, TYPED);
         return true;
     }
 
     void forceFilter() {
-        performForcedFiltering();
         showDropDown();
     }
 
@@ -365,19 +337,6 @@ public class UrlInputView extends SuggestiveAutoCompleteTextView
         return mAdapter;
     }
 
-    private void dispatchChange() {
-        final Rect popupRect = new Rect();
-        getPopupDrawableRect(popupRect);
-
-        if (mDropdownListener != null) {
-            mDropdownListener.onNewDropdownDimensions(popupRect.height());
-        }
-    }
-
-    void registerDropdownChangeListener(DropdownChangeListener d) {
-        mDropdownListener = d;
-    }
-
     /*
      * no-op to prevent scrolling of webview when embedded titlebar
      * gets edited
@@ -388,10 +347,16 @@ public class UrlInputView extends SuggestiveAutoCompleteTextView
     }
 
     @Override
-    public void onTextChanged(String newText) {
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
         if (StateListener.STATE_HIGHLIGHTED == mState) {
             changeState(StateListener.STATE_EDITED);
         }
     }
+
+    @Override
+    public void afterTextChanged(Editable s) { }
 
 }
