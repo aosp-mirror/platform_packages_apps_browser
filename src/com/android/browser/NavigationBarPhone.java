@@ -213,6 +213,7 @@ public class NavigationBarPhone extends NavigationBarBase implements
             if (hasFocus && !mUrlInput.getText().toString().equals(mUrlInput.getTag())) {
                 // only change text if different
                 mUrlInput.setText((String) mUrlInput.getTag(), false);
+                mUrlInput.selectAll();
             } else {
                 setDisplayTitle(mUrlInput.getText().toString());
             }
