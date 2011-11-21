@@ -174,8 +174,6 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
             mWebStorageSizeManager = new WebStorageSizeManager(mContext,
                     new WebStorageSizeManager.StatFsDiskInfo(getAppCachePath()),
                     new WebStorageSizeManager.WebKitAppCacheInfo(getAppCachePath()));
-            // Workaround b/5253777
-            CookieManager.getInstance().acceptCookie();
             // Workaround b/5254577
             mPrefs.registerOnSharedPreferenceChangeListener(BrowserSettings.this);
             if (Build.VERSION.CODENAME.equals("REL")) {
