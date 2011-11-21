@@ -148,7 +148,7 @@
     <item msgid="6092441301001006473">"Situs yang paling sering dikunjungi"</item>
     <item msgid="6569304572171444894">"Lainnya"</item>
   </string-array>
-    <string name="pref_content_autofit" msgid="8260474534053660809">"Sesuaikan dengan laman secara otomatis"</string>
+    <string name="pref_content_autofit" msgid="8260474534053660809">"Sesuaikan otomatis ukuran laman"</string>
     <string name="pref_content_autofit_summary" msgid="324810555822572112">"Format laman web agar sesuai dengan layar"</string>
     <string name="pref_general_title" msgid="1946872771219249323">"Umum"</string>
     <string name="pref_general_sync_title" msgid="3138637035975860324">"Sinkronisasi"</string>

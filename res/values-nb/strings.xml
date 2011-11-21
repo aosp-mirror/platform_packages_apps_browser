@@ -95,7 +95,7 @@
     <string name="goto_dot" msgid="3895839050522602723">"Gå til"</string>
     <string name="select_dot" msgid="6299170761900561967">"Velg tekst"</string>
     <string name="bookmarks" msgid="1961279134885867815">"Bokmerker"</string>
-    <string name="shortcut_bookmark" msgid="3974876480401135895">"Bokmerk"</string>
+    <string name="shortcut_bookmark" msgid="3974876480401135895">"Bokmerke"</string>
     <string name="shortcut_bookmark_title" msgid="7570786275916681296">"Velg et bokmerke"</string>
     <string name="history" msgid="2451240511251410032">"Logg"</string>
     <string name="menu_view_download" msgid="2124570321712995120">"Nedlastinger"</string>

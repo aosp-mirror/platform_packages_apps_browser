@@ -148,7 +148,7 @@
     <item msgid="6092441301001006473">"Dažniausiai lankomos svetainės"</item>
     <item msgid="6569304572171444894">"Kita"</item>
   </string-array>
-    <string name="pref_content_autofit" msgid="8260474534053660809">"Automatiškai talpinti puslapius"</string>
+    <string name="pref_content_autofit" msgid="8260474534053660809">"Automatiškai pritaikyti puslapius"</string>
     <string name="pref_content_autofit_summary" msgid="324810555822572112">"Formatuoti tinklalapius, kad tilptų ekrane"</string>
     <string name="pref_general_title" msgid="1946872771219249323">"Bendra"</string>
     <string name="pref_general_sync_title" msgid="3138637035975860324">"Sinchronizavimas"</string>
