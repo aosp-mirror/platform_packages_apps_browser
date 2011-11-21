@@ -2221,7 +2221,10 @@ public class Controller
         removeSubWindow(tab);
         // dismiss the subwindow. This will destroy the WebView.
         tab.dismissSubWindow();
-        getCurrentTopWebView().requestFocus();
+        WebView wv = getCurrentTopWebView();
+        if (wv != null) {
+            wv.requestFocus();
+        }
     }
 
     @Override
