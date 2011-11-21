@@ -230,8 +230,8 @@
     <string name="pref_zoom_on_double_tap" msgid="902786475250741795">"Zoomen bij dubbeltikken"</string>
     <string name="pref_force_userscalable" msgid="5641500562399892621">"Zoom inschakelen forceren"</string>
     <string name="pref_force_userscalable_summary" msgid="3613242300617172230">"Siteverzoek zoombeheer negeren"</string>
-    <string name="pref_inverted_category" msgid="1280639705117152207">"Omgekeerde opbouwvolgorde van scherm"</string>
-    <string name="pref_inverted" msgid="7613556986776824112">"Omgekeerde opbouwvolgorde"</string>
+    <string name="pref_inverted_category" msgid="1280639705117152207">"Omgekeerde opbouw van scherm"</string>
+    <string name="pref_inverted" msgid="7613556986776824112">"Omgekeerde opbouw"</string>
     <string name="pref_inverted_summary" msgid="7357225897413923085">"Zwart wordt wit en andersom"</string>
     <string name="pref_inverted_contrast" msgid="8527441236225288169">"Contrast"</string>
     <string name="pref_default_zoom" msgid="8076142259097187395">"Standaardzoom"</string>
