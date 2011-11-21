@@ -847,4 +847,47 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         return mPrefs.getString(PREF_DATA_PRELOAD, getDefaultPreloadSetting());
     }
 
+    // -----------------------------
+    // getter/setters for browser recovery
+    // -----------------------------
+    /**
+     * The last time browser was started.
+     * @return The last browser start time as System.currentTimeMillis. This
+     * can be 0 if this is the first time or the last tab was closed.
+     */
+    public long getLastRecovered() {
+        return mPrefs.getLong(KEY_LAST_RECOVERED, 0);
+    }
+
+    /**
+     * Sets the last browser start time.
+     * @param time The last time as System.currentTimeMillis that the browser
+     * was started. This should be set to 0 if the last tab is closed.
+     */
+    public void setLastRecovered(long time) {
+        mPrefs.edit()
+            .putLong(KEY_LAST_RECOVERED, time)
+            .apply();
+    }
+
+    /**
+     * Used to determine whether or not the previous browser run crashed. Once
+     * the previous state has been determined, the value will be set to false
+     * until a pause is received.
+     * @return true if the last browser run was paused or false if it crashed.
+     */
+    public boolean wasLastRunPaused() {
+        return mPrefs.getBoolean(KEY_LAST_RUN_PAUSED, false);
+    }
+
+    /**
+     * Sets whether or not the last run was a pause or crash.
+     * @param isPaused Set to true When a pause is received or false after
+     * resuming.
+     */
+    public void setLastRunPaused(boolean isPaused) {
+        mPrefs.edit()
+            .putBoolean(KEY_LAST_RUN_PAUSED, isPaused)
+            .apply();
+    }
 }
