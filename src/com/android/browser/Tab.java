@@ -619,7 +619,6 @@ class Tab implements PictureListener {
                 LogTag.logPageFinishedLoading(
                         url, SystemClock.uptimeMillis() - mLoadStartTime);
             }
-            mInPageLoad = false;
             syncCurrentState(view, url);
             mWebViewController.onPageFinished(Tab.this);
         }
@@ -1044,6 +1043,9 @@ class Tab implements PictureListener {
         @Override
         public void onProgressChanged(WebView view, int newProgress) {
             mPageLoadProgress = newProgress;
+            if (newProgress == 100) {
+                mInPageLoad = false;
+            }
             mWebViewController.onProgressChanged(Tab.this);
         }
 
