@@ -408,7 +408,7 @@
     <string name="autofill_profile_editor_delete_profile">Delete</string>
 
     <!-- Text on a dialog shown to the user when they are prompted to set up the autofill feature [CHAR-LIMIT=NONE] -->
-    <string name="autofill_setup_dialog_message">The browser can automatically complete web forms like this one. Would you like to set up your auto-fill text?</string>
+    <string name="autofill_setup_dialog_message">The browser can automatically complete web forms like this one. Do you want to set up your auto-fill text?</string>
     <!-- Toast message displayed when the user decides to not set up autofill at this time. We want to remind them that they can configure
          it through the Browser Settings menu. [CHAR-LIMIT=NONE] -->
     <string name="autofill_setup_dialog_negative_toast">You can always set up your auto-fill text from the Browser &gt; Settings &gt; General screen.</string>
