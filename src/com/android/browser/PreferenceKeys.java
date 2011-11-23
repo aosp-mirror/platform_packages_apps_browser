@@ -104,4 +104,17 @@ public interface PreferenceKeys {
     static final String PREF_DATA_PRELOAD = "preload_when";
     static final String PREF_LOAD_IMAGES = "load_images";
 
+    // ----------------------
+    // Keys for browser recovery
+    // ----------------------
+    /**
+     * The last time recovery was started as System.currentTimeMillis.
+     * 0 if not set.
+     */
+    static final String KEY_LAST_RECOVERED = "last_recovered";
+
+    /**
+     * Key for whether or not the last run was paused.
+     */
+    static final String KEY_LAST_RUN_PAUSED = "last_paused";
 }

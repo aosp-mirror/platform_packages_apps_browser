@@ -218,15 +218,13 @@ public class Controller
 
     private boolean mBlockEvents;
 
-    public Controller(Activity browser, boolean preloadCrashState) {
+    public Controller(Activity browser) {
         mActivity = browser;
         mSettings = BrowserSettings.getInstance();
         mTabControl = new TabControl(this);
         mSettings.setController(this);
         mCrashRecoveryHandler = CrashRecoveryHandler.initialize(this);
-        if (preloadCrashState) {
-            mCrashRecoveryHandler.preloadCrashState();
-        }
+        mCrashRecoveryHandler.preloadCrashState();
         mFactory = new BrowserWebViewFactory(browser);
 
         mUrlHandler = new UrlHandler(this);
@@ -256,16 +254,12 @@ public class Controller
         openIconDatabase();
     }
 
-    void start(final Bundle icicle, final Intent intent) {
-        boolean noCrashRecovery = intent.getBooleanExtra(NO_CRASH_RECOVERY, false);
-        if (icicle != null || noCrashRecovery) {
-            doStart(icicle, intent, false);
-        } else {
-            mCrashRecoveryHandler.startRecovery(intent);
-        }
+    void start(final Intent intent) {
+        // mCrashRecoverHandler has any previously saved state.
+        mCrashRecoveryHandler.startRecovery(intent);
     }
 
-    void doStart(final Bundle icicle, final Intent intent, final boolean fromCrash) {
+    void doStart(final Bundle icicle, final Intent intent) {
         // Unless the last browser usage was within 24 hours, destroy any
         // remaining incognito tabs.
 
@@ -293,36 +287,42 @@ public class Controller
         GoogleAccountLogin.startLoginIfNeeded(mActivity,
                 new Runnable() {
                     @Override public void run() {
-                        onPreloginFinished(icicle, intent, currentTabId, restoreIncognitoTabs,
-                                fromCrash);
+                        onPreloginFinished(icicle, intent, currentTabId,
+                                restoreIncognitoTabs);
                     }
                 });
     }
 
     private void onPreloginFinished(Bundle icicle, Intent intent, long currentTabId,
-            boolean restoreIncognitoTabs, boolean fromCrash) {
+            boolean restoreIncognitoTabs) {
         if (currentTabId == -1) {
             BackgroundHandler.execute(new PruneThumbnails(mActivity, null));
-            final Bundle extra = intent.getExtras();
-            // Create an initial tab.
-            // If the intent is ACTION_VIEW and data is not null, the Browser is
-            // invoked to view the content by another application. In this case,
-            // the tab will be close when exit.
-            UrlData urlData = IntentHandler.getUrlDataFromIntent(intent);
-            Tab t = null;
-            if (urlData.isEmpty()) {
-                t = openTabToHomePage();
+            if (intent == null) {
+                // This won't happen under common scenarios. The icicle is
+                // not null, but there aren't any tabs to restore.
+                openTabToHomePage();
             } else {
-                t = openTab(urlData);
-            }
-            if (t != null) {
-                t.setAppId(intent.getStringExtra(Browser.EXTRA_APPLICATION_ID));
-            }
-            WebView webView = t.getWebView();
-            if (extra != null) {
-                int scale = extra.getInt(Browser.INITIAL_ZOOM_LEVEL, 0);
-                if (scale > 0 && scale <= 1000) {
-                    webView.setInitialScale(scale);
+                final Bundle extra = intent.getExtras();
+                // Create an initial tab.
+                // If the intent is ACTION_VIEW and data is not null, the Browser is
+                // invoked to view the content by another application. In this case,
+                // the tab will be close when exit.
+                UrlData urlData = IntentHandler.getUrlDataFromIntent(intent);
+                Tab t = null;
+                if (urlData.isEmpty()) {
+                    t = openTabToHomePage();
+                } else {
+                    t = openTab(urlData);
+                }
+                if (t != null) {
+                    t.setAppId(intent.getStringExtra(Browser.EXTRA_APPLICATION_ID));
+                }
+                WebView webView = t.getWebView();
+                if (extra != null) {
+                    int scale = extra.getInt(Browser.INITIAL_ZOOM_LEVEL, 0);
+                    if (scale > 0 && scale <= 1000) {
+                        webView.setInitialScale(scale);
+                    }
                 }
             }
             mUi.updateTabs(mTabControl.getTabs());
@@ -342,9 +342,9 @@ public class Controller
             // TabControl.restoreState() will create a new tab even if
             // restoring the state fails.
             setActiveTab(mTabControl.getCurrentTab());
-            // Handle the intent if needed. If icicle != null, we are restoring
-            // and the intent will be stale - ignore it.
-            if (icicle == null || fromCrash) {
+            // Intent is non-null when framework thinks the browser should be
+            // launching with a new intent (icicle is null).
+            if (intent != null) {
                 mIntentHandler.onNewIntent(intent);
             }
         }
@@ -353,7 +353,8 @@ public class Controller
         if (jsFlags.trim().length() != 0) {
             getCurrentWebView().setJsFlags(jsFlags);
         }
-        if (BrowserActivity.ACTION_SHOW_BOOKMARKS.equals(intent.getAction())) {
+        if (intent != null
+                && BrowserActivity.ACTION_SHOW_BOOKMARKS.equals(intent.getAction())) {
             bookmarksOrHistoryPicker(ComboViews.Bookmarks);
         }
     }
@@ -651,18 +652,27 @@ public class Controller
     }
 
     void onSaveInstanceState(Bundle outState) {
-        // the default implementation requires each view to have an id. As the
-        // browser handles the state itself and it doesn't use id for the views,
-        // don't call the default implementation. Otherwise it will trigger the
-        // warning like this, "couldn't save which view has focus because the
-        // focused view XXX has no id".
-
         // Save all the tabs
-        mTabControl.saveState(outState);
-        if (!outState.isEmpty()) {
+        Bundle saveState = createSaveState();
+
+        // crash recovery manages all save & restore state
+        mCrashRecoveryHandler.writeState(saveState);
+        mSettings.setLastRunPaused(true);
+    }
+
+    /**
+     * Save the current state to outState. Does not write the state to
+     * disk.
+     * @return Bundle containing the current state of all tabs.
+     */
+    /* package */ Bundle createSaveState() {
+        Bundle saveState = new Bundle();
+        mTabControl.saveState(saveState);
+        if (!saveState.isEmpty()) {
             // Save time so that we know how old incognito tabs (if any) are.
-            outState.putSerializable("lastActiveDate", Calendar.getInstance());
+            saveState.putSerializable("lastActiveDate", Calendar.getInstance());
         }
+        return saveState;
     }
 
     void onResume() {
@@ -670,6 +680,7 @@ public class Controller
             Log.e(LOGTAG, "BrowserActivity is already resumed.");
             return;
         }
+        mSettings.setLastRunPaused(false);
         mActivityPaused = false;
         Tab current = mTabControl.getCurrentTab();
         if (current != null) {
