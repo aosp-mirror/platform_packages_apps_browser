@@ -67,6 +67,7 @@ public class DownloadHandler {
             //     that matches.
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setDataAndType(Uri.parse(url), mimetype);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             ResolveInfo info = activity.getPackageManager().resolveActivity(intent,
                     PackageManager.MATCH_DEFAULT_ONLY);
             if (info != null) {
