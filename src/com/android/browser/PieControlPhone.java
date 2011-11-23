@@ -24,6 +24,7 @@ import android.view.View.OnClickListener;
 import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnMenuItemClickListener;
 
+import com.android.browser.UI.ComboViews;
 import com.android.browser.view.PieItem;
 import com.android.browser.view.PieMenu.PieView.OnLayoutListener;
 import com.android.browser.view.PieStackView;
@@ -40,6 +41,8 @@ public class PieControlPhone extends PieControlBase implements OnClickListener,
     private PieItem mUrl;
     private PieItem mShowTabs;
     private PieItem mOptions;
+    private PieItem mNewTab;
+    private PieItem mBookmarks;
     private TabAdapter mTabAdapter;
     private PopupMenu mPopup;
 
@@ -67,10 +70,14 @@ public class PieControlPhone extends PieControlBase implements OnClickListener,
                 1);
 
         // level 1
+        mNewTab = makeItem(R.drawable.ic_new_window_holo_dark, 1);
+        mBookmarks = makeItem(R.drawable.ic_bookmarks_holo_dark, 1);
+        mPie.addItem(mNewTab);
         mPie.addItem(mShowTabs);
         mPie.addItem(mUrl);
+        mPie.addItem(mBookmarks);
         mPie.addItem(mOptions);
-        setClickListener(this, mUrl, mShowTabs, mOptions);
+        setClickListener(this, mUrl, mShowTabs, mOptions, mNewTab, mBookmarks);
         mPopup = new PopupMenu(mActivity, mUi.getTitleBar());
         Menu menu = mPopup.getMenu();
         mPopup.getMenuInflater().inflate(R.menu.browser, menu);
@@ -105,6 +112,11 @@ public class PieControlPhone extends PieControlBase implements OnClickListener,
             mUi.showNavScreen();
         } else if (mOptions.getView() == v) {
             showMenu();
+        } else if (mNewTab.getView() == v) {
+            mUiController.openTabToHomePage();
+            mUi.editUrl(false);
+        } else if (mBookmarks.getView() == v) {
+            mUiController.bookmarksOrHistoryPicker(ComboViews.Bookmarks);
         }
     }
 
