@@ -62,7 +62,7 @@ public class BrowserActivity extends Activity {
             finish();
             return;
         }
-        mController = new Controller(this, icicle == null);
+        mController = new Controller(this);
         boolean xlarge = isTablet(this);
         if (xlarge) {
             mUi = new XLargeUi(this, mController);
@@ -71,12 +71,8 @@ public class BrowserActivity extends Activity {
         }
         mController.setUi(mUi);
 
-        Bundle state = getIntent().getBundleExtra(EXTRA_STATE);
-        if (state != null && icicle == null) {
-            icicle = state;
-        }
-
-        mController.start(icicle, getIntent());
+        Intent intent = (icicle == null) ? getIntent() : null;
+        mController.start(intent);
     }
 
     public static boolean isTablet(Context context) {
