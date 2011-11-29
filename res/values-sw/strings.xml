@@ -160,7 +160,7 @@
     <string name="pref_autologin_title" msgid="4421187193809267096">"Automatic Google signin"</string>
     <string name="pref_autologin_progress" msgid="8333244467048833461">"Kuingia kwa tovuti za Google kwa kutumia <xliff:g id="ID_1">%s</xliff:g>"</string>
     <string name="autologin_bar_text" msgid="3684581827167173371">"Ingia kama"</string>
-    <string name="autologin_bar_login_text" msgid="3336615320510851879">"Ingia ndani"</string>
+    <string name="autologin_bar_login_text" msgid="3336615320510851879">"Ingia"</string>
     <string name="autologin_bar_hide_text" msgid="3629355974385859580">"Ficha"</string>
     <string name="autologin_bar_error" msgid="7470001207395920811">"Haingeweza kuinga ndani"</string>
     <string name="autofill_profile_editor_heading" msgid="4798644544927738078">"Andika maandishi unataka kujaza-oto katika fomu za wavuti."</string>

@@ -241,7 +241,7 @@
     <item msgid="3840999588443167001">"Uždaryti"</item>
   </string-array>
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"Numatytasis mastelio keitimas"</string>
-    <string name="pref_content_load_page" msgid="2219810141690955452">"Atidaryti puslapius apžvalgai"</string>
+    <string name="pref_content_load_page" msgid="2219810141690955452">"Puslapių atidarymas apžvalgos režimu"</string>
     <string name="pref_content_load_page_summary" msgid="9168803276420332955">"Rodyti naujai atidarytų puslapių apžvalgą"</string>
     <string name="pref_extras_title" msgid="7075456173747370647">"Išplėstinis"</string>
     <string name="pref_extras_website_settings" msgid="67866640052455549">"Svetainės nustatymai"</string>
