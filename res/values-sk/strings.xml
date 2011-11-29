@@ -181,7 +181,7 @@
     <string name="autofill_profile_successful_save" msgid="5691459703493331983">"Automaticky dopĺňaný text bol uložený."</string>
     <string name="autofill_profile_successful_delete" msgid="1790262652460723127">"Automaticky dopĺňaný text bol odstránený."</string>
     <string name="autofill_profile_editor_delete_profile" msgid="3098369314558164153">"Odstrániť"</string>
-    <string name="autofill_setup_dialog_message" msgid="1096164985825394616">"Podobné webové formuláre môže prehliadač vypĺňať automaticky. Chcete nastaviť automatické dopĺňanie textu?"</string>
+    <!-- outdated translation 1096164985825394616 -->     <string name="autofill_setup_dialog_message" msgid="7123905786076456503">"Podobné webové formuláre môže prehliadač vypĺňať automaticky. Chcete nastaviť automatické dopĺňanie textu?"</string>
     <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"Automatické dopĺňanie textu môžete v prehliadači kedykoľvek nastaviť v časti Nastavenia &gt; Hlavná obrazovka."</string>
     <string name="disable_autofill" msgid="8305901059849400354">"Zakázať automatické dopĺňanie"</string>
     <string name="pref_privacy_security_title" msgid="3480313968942160914">"Ochrana osobných údajov a zabezpečenie"</string>
