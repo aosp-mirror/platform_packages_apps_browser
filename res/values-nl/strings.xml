@@ -181,7 +181,7 @@
     <string name="autofill_profile_successful_save" msgid="5691459703493331983">"Tekst voor automatisch aanvullen opgeslagen."</string>
     <string name="autofill_profile_successful_delete" msgid="1790262652460723127">"Tekst voor automatisch aanvullen verwijderd."</string>
     <string name="autofill_profile_editor_delete_profile" msgid="3098369314558164153">"Verwijderen"</string>
-    <string name="autofill_setup_dialog_message" msgid="1096164985825394616">"De browser kan webformulieren zoals deze automatisch invullen. Wilt u uw instellingen voor het automatisch aanvullen van tekst opgeven?"</string>
+    <!-- outdated translation 1096164985825394616 -->     <string name="autofill_setup_dialog_message" msgid="7123905786076456503">"De browser kan webformulieren zoals deze automatisch invullen. Wilt u uw instellingen voor het automatisch aanvullen van tekst opgeven?"</string>
     <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"U kunt de tekst voor automatisch aanvullen altijd instellen via \'Browser\' &gt; \'Instellingen\' &gt; \'Algemeen\'."</string>
     <string name="disable_autofill" msgid="8305901059849400354">"Automatisch aanvullen uitschakelen"</string>
     <string name="pref_privacy_security_title" msgid="3480313968942160914">"Privacy en beveiliging"</string>
@@ -230,8 +230,8 @@
     <string name="pref_zoom_on_double_tap" msgid="902786475250741795">"Zoomen bij dubbeltikken"</string>
     <string name="pref_force_userscalable" msgid="5641500562399892621">"Zoom inschakelen forceren"</string>
     <string name="pref_force_userscalable_summary" msgid="3613242300617172230">"Siteverzoek zoombeheer negeren"</string>
-    <string name="pref_inverted_category" msgid="1280639705117152207">"Omgekeerde opbouwvolgorde van scherm"</string>
-    <string name="pref_inverted" msgid="7613556986776824112">"Omgekeerde opbouwvolgorde"</string>
+    <string name="pref_inverted_category" msgid="1280639705117152207">"Omgekeerde opbouw van scherm"</string>
+    <string name="pref_inverted" msgid="7613556986776824112">"Omgekeerde opbouw"</string>
     <string name="pref_inverted_summary" msgid="7357225897413923085">"Zwart wordt wit en andersom"</string>
     <string name="pref_inverted_contrast" msgid="8527441236225288169">"Contrast"</string>
     <string name="pref_default_zoom" msgid="8076142259097187395">"Standaardzoom"</string>

@@ -127,9 +127,9 @@
     <string name="pref_content_title" msgid="3834107397725342174">"Содержание страницы"</string>
     <string name="pref_content_load_images" msgid="2125616852957377561">"Загружать графику"</string>
     <string name="pref_content_load_images_summary" msgid="5055874125248398584">"Показывать изображения на веб-страницах"</string>
-    <string name="pref_content_block_popups" msgid="4158524847764470895">"Блокировать всплывающие окна"</string>
+    <string name="pref_content_block_popups" msgid="4158524847764470895">"Блокир. всплыв. окна"</string>
     <string name="pref_content_javascript" msgid="4570972030299516843">"Разрешить JavaScript"</string>
-    <string name="pref_content_open_in_background" msgid="824123779725118663">"Открывать в фоновом режиме"</string>
+    <string name="pref_content_open_in_background" msgid="824123779725118663">"Фоновые вкладки"</string>
     <string name="pref_content_plugins" msgid="7231944644794301582">"Разрешить плагины"</string>
   <string-array name="pref_content_plugins_choices">
     <item msgid="6745108155096660725">"Да"</item>
@@ -181,7 +181,7 @@
     <string name="autofill_profile_successful_save" msgid="5691459703493331983">"Текст автозаполнения сохранен."</string>
     <string name="autofill_profile_successful_delete" msgid="1790262652460723127">"Текст автозаполнения удален."</string>
     <string name="autofill_profile_editor_delete_profile" msgid="3098369314558164153">"Удалить"</string>
-    <string name="autofill_setup_dialog_message" msgid="1096164985825394616">"Браузер может автоматически заполнять такие веб-формы. Включить автозаполнение?"</string>
+    <!-- outdated translation 1096164985825394616 -->     <string name="autofill_setup_dialog_message" msgid="7123905786076456503">"Браузер может автоматически заполнять такие веб-формы. Включить автозаполнение?"</string>
     <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"Автозаполнение можно настроить в общих настройках браузера."</string>
     <string name="disable_autofill" msgid="8305901059849400354">"Отключить автозаполнение"</string>
     <string name="pref_privacy_security_title" msgid="3480313968942160914">"Личные данные"</string>
@@ -224,11 +224,11 @@
     <item msgid="5043128215356351184">"Большой"</item>
     <item msgid="7201512237890458902">"Огромный"</item>
   </string-array>
-    <string name="pref_min_font_size" msgid="8811125835817449131">"Минимальный размер шрифта"</string>
+    <string name="pref_min_font_size" msgid="8811125835817449131">"Мин. размер шрифта"</string>
     <string name="pref_min_font_size_value" msgid="2924708480509060209">"<xliff:g id="FONT_SIZE">%d</xliff:g> pt"</string>
     <string name="pref_text_zoom" msgid="5171056101805125497">"Масштабирование текста"</string>
-    <string name="pref_zoom_on_double_tap" msgid="902786475250741795">"Увеличение при двойном нажатии"</string>
-    <string name="pref_force_userscalable" msgid="5641500562399892621">"Менять масштаб принудительно"</string>
+    <string name="pref_zoom_on_double_tap" msgid="902786475250741795">"Зум при двойном нажатии"</string>
+    <string name="pref_force_userscalable" msgid="5641500562399892621">"Фикс. масштаб"</string>
     <string name="pref_force_userscalable_summary" msgid="3613242300617172230">"Использовать заданное масштабирование"</string>
     <string name="pref_inverted_category" msgid="1280639705117152207">"Режим инверсии"</string>
     <string name="pref_inverted" msgid="7613556986776824112">"Инверсия"</string>

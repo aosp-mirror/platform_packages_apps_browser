@@ -181,7 +181,7 @@
     <string name="autofill_profile_successful_save" msgid="5691459703493331983">"Otomatik doldurma metni kaydedildi."</string>
     <string name="autofill_profile_successful_delete" msgid="1790262652460723127">"Otomatik doldurma metni silindi."</string>
     <string name="autofill_profile_editor_delete_profile" msgid="3098369314558164153">"Sil"</string>
-    <string name="autofill_setup_dialog_message" msgid="1096164985825394616">"Tarayıcı, bunun gibi web formlarını otomatik olarak doldurabilir. Otomatik doldurma metninizi ayarlamak ister misiniz?"</string>
+    <!-- outdated translation 1096164985825394616 -->     <string name="autofill_setup_dialog_message" msgid="7123905786076456503">"Tarayıcı, bunun gibi web formlarını otomatik olarak doldurabilir. Otomatik doldurma metninizi ayarlamak ister misiniz?"</string>
     <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"Otomatik doldurma metninizi istediğiniz zaman Tarayıcı &gt; Ayarlar &gt; Genel ekranından ayarlayabilirsiniz."</string>
     <string name="disable_autofill" msgid="8305901059849400354">"Otomatik doldurmayı devre dışı bırak"</string>
     <string name="pref_privacy_security_title" msgid="3480313968942160914">"Gizlilik ve güvenlik"</string>

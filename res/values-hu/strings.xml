@@ -181,7 +181,7 @@
     <string name="autofill_profile_successful_save" msgid="5691459703493331983">"Automatikus kitöltés szövege elmentve."</string>
     <string name="autofill_profile_successful_delete" msgid="1790262652460723127">"Automatikus kitöltés szövege törölve."</string>
     <string name="autofill_profile_editor_delete_profile" msgid="3098369314558164153">"Törlés"</string>
-    <string name="autofill_setup_dialog_message" msgid="1096164985825394616">"A böngésző automatikusan kitölti az ehhez hasonló webes űrlapokat. Szeretné létrehozni az automatikus kitöltés szövegét?"</string>
+    <!-- outdated translation 1096164985825394616 -->     <string name="autofill_setup_dialog_message" msgid="7123905786076456503">"A böngésző automatikusan kitölti az ehhez hasonló webes űrlapokat. Szeretné létrehozni az automatikus kitöltés szövegét?"</string>
     <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"Bármikor beállíthatja az automatikus kitöltése szövegét a Böngésző &gt; Beállítások &gt; Általános képernyőn."</string>
     <string name="disable_autofill" msgid="8305901059849400354">"Automatikus kitöltés letiltása"</string>
     <string name="pref_privacy_security_title" msgid="3480313968942160914">"Adatvédelem és biztonság"</string>

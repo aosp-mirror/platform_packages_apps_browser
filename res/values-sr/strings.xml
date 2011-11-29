@@ -181,7 +181,7 @@
     <string name="autofill_profile_successful_save" msgid="5691459703493331983">"Текст за аутоматско попуњавање је сачуван."</string>
     <string name="autofill_profile_successful_delete" msgid="1790262652460723127">"Текст за аутоматско попуњавање је избрисан."</string>
     <string name="autofill_profile_editor_delete_profile" msgid="3098369314558164153">"Избриши"</string>
-    <string name="autofill_setup_dialog_message" msgid="1096164985825394616">"Прегледач може аутоматски да попуњава веб обрасце попут овог. Желите ли да подесите текст за аутоматско попуњавање?"</string>
+    <!-- outdated translation 1096164985825394616 -->     <string name="autofill_setup_dialog_message" msgid="7123905786076456503">"Прегледач може аутоматски да попуњава веб обрасце попут овог. Желите ли да подесите текст за аутоматско попуњавање?"</string>
     <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"Увек можете да подесите текст за аутоматско попуњавање на екрану Прегледач &gt; Подешавања &gt; Опште."</string>
     <string name="disable_autofill" msgid="8305901059849400354">"Онемогући аутоматско попуњавање"</string>
     <string name="pref_privacy_security_title" msgid="3480313968942160914">"Приватност и безбедност"</string>

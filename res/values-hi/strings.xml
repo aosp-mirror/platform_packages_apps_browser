@@ -52,7 +52,7 @@
     <string name="ssl_unknown" msgid="5679243486524754571">"अज्ञात प्रमाणपत्र त्रुटि."</string>
     <string name="stopping" msgid="4839698519340302982">"रोका जा रहा है…"</string>
     <string name="stop" msgid="5687251076030630074">"रोकें"</string>
-    <string name="reload" msgid="8585220783228408062">"रीफ़्रेश करें"</string>
+    <string name="reload" msgid="8585220783228408062">"रीफ़्रेश करें"</string>
     <string name="back" msgid="8414603107175713668">"वापस जाएं"</string>
     <string name="forward" msgid="4288210890526641577">"अग्रेषित करें"</string>
     <string name="save" msgid="5922311934992468496">"ठीक"</string>
@@ -116,7 +116,7 @@
     <string name="contextmenu_view_image" msgid="3870625602053600905">"छवि देखें"</string>
     <string name="contextmenu_set_wallpaper" msgid="3691902960115350686">"वॉलपेपर के रूप में सेट करें"</string>
     <string name="contextmenu_dial_dot" msgid="5856550683415933806">"डायल करें…"</string>
-    <string name="contextmenu_add_contact" msgid="3183511922223645716">"संपर्क जोड़ें"</string>
+    <string name="contextmenu_add_contact" msgid="3183511922223645716">"संपर्क जोड़ें"</string>
     <string name="contextmenu_send_mail" msgid="1014513374828775660">"ईमेल भेजें"</string>
     <string name="contextmenu_map" msgid="7471390435434034912">"मानचित्र"</string>
     <string name="choosertitle_sharevia" msgid="4600490613341909086">"इसके द्वारा शेयर करें"</string>
@@ -148,7 +148,7 @@
     <item msgid="6092441301001006473">"सर्वाधिक देखी गई साइटें"</item>
     <item msgid="6569304572171444894">"अन्य"</item>
   </string-array>
-    <string name="pref_content_autofit" msgid="8260474534053660809">"स्वतः फ़िट पृष्ठ"</string>
+    <string name="pref_content_autofit" msgid="8260474534053660809">"स्वतः फ़िट पृष्ठ"</string>
     <string name="pref_content_autofit_summary" msgid="324810555822572112">"स्‍क्रीन में फ़िट करने के लिए वेबपृष्ठों को प्रारूपित करें"</string>
     <string name="pref_general_title" msgid="1946872771219249323">"सामान्य"</string>
     <string name="pref_general_sync_title" msgid="3138637035975860324">"समन्वयित करें"</string>
@@ -181,7 +181,7 @@
     <string name="autofill_profile_successful_save" msgid="5691459703493331983">"स्‍वत: भरण पाठ सहेजा गया."</string>
     <string name="autofill_profile_successful_delete" msgid="1790262652460723127">"स्‍वत: भरण पाठ हटाया गया."</string>
     <string name="autofill_profile_editor_delete_profile" msgid="3098369314558164153">"हटाएं"</string>
-    <string name="autofill_setup_dialog_message" msgid="1096164985825394616">"इसी की तरह ब्राउज़र स्‍वचालित रूप से वेब फ़ॉर्म पूर्ण कर सकता है. क्‍या आप अपना स्‍वत: भरण पाठ सेट करना चाहते हैं?"</string>
+    <!-- outdated translation 1096164985825394616 -->     <string name="autofill_setup_dialog_message" msgid="7123905786076456503">"इसी की तरह ब्राउज़र स्‍वचालित रूप से वेब फ़ॉर्म पूर्ण कर सकता है. क्‍या आप अपना स्‍वत: भरण पाठ सेट करना चाहते हैं?"</string>
     <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"आप कभी भी ब्राउज़र &gt; सेटिंग &gt; सामान्‍य स्‍क्रीन से अपना स्‍वत: भरण पाठ सेट कर सकते हैं."</string>
     <string name="disable_autofill" msgid="8305901059849400354">"स्‍वत: भरण अक्षम करें"</string>
     <string name="pref_privacy_security_title" msgid="3480313968942160914">"गोपनीयता और सुरक्षा"</string>
@@ -378,7 +378,7 @@
     <string name="accessibility_button_closetab" msgid="6954807842756927737">"टैब बंद करें"</string>
     <string name="accessibility_button_newtab" msgid="4116986240706315748">"नया टैब खोलें"</string>
     <string name="accessibility_button_newincognitotab" msgid="5254901889040012964">"नया गुप्त टैब खोलें"</string>
-    <string name="accessibility_button_clear" msgid="6943152307986161598">"इनपुट साफ़ करें"</string>
+    <string name="accessibility_button_clear" msgid="6943152307986161598">"इनपुट साफ़ करें"</string>
     <string name="accessibility_button_uaswitch" msgid="6286804719724282339">"उपयोगकर्ता एजेंट स्विच करें"</string>
     <string name="accessibility_button_go" msgid="1182818872083055958">"जाएं"</string>
     <string name="accessibility_button_navscreen" msgid="9142904748728713075">"पृष्ठ प्रबंधक"</string>

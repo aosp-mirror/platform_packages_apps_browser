@@ -66,7 +66,7 @@
     <string name="no_subfolders" msgid="3303645239686962674">"Keine Unterordner"</string>
     <string name="add_to_bookmarks_menu_option" msgid="4449323955122214389">"Lesezeichen"</string>
     <string name="add_to_homescreen_menu_option" msgid="1461447829242963790">"Startbildschirm"</string>
-    <string name="add_to_other_folder_menu_option" msgid="5947586525822134105">"Anderer Ordner"</string>
+    <string name="add_to_other_folder_menu_option" msgid="5947586525822134105">"Sonstiger Ordner"</string>
     <string name="name" msgid="5462672162695365387">"Label"</string>
     <string name="http" msgid="2163722670597250102">"http://"</string>
     <string name="save_to_bookmarks" msgid="1679286010089780932">"Als Lesezeichen speichern"</string>
@@ -79,7 +79,7 @@
     <string name="remove_from_bookmarks" msgid="4374080666576982775">"Aus Lesezeichen entfernen"</string>
     <string name="remove_history_item" msgid="5021424935726728618">"Aus Verlauf entfernen"</string>
     <string name="set_as_homepage" msgid="4752937379414905560">"Als Startseite festlegen"</string>
-    <string name="bookmark_saved" msgid="2766434679871317557">"Gespeichert in Lesezeichen."</string>
+    <string name="bookmark_saved" msgid="2766434679871317557">"Gespeichert in Lesezeichen"</string>
     <string name="bookmark_not_saved" msgid="1077732557310662080">"Lesezeichen konnte nicht gespeichert werden."</string>
     <string name="homepage_set" msgid="8768087280310966395">"Startseite festgelegt."</string>
     <string name="bookmark_needs_title" msgid="6245900436119218187">"Das Lesezeichen muss über einen Namen verfügen."</string>
@@ -145,7 +145,7 @@
     <item msgid="844041670142910837">"Aktuelle Seite"</item>
     <item msgid="4430498748295169195">"Leere Seite"</item>
     <item msgid="5747608191946904074">"Standardseite"</item>
-    <item msgid="6092441301001006473">"Am häufigsten besuchte Websites"</item>
+    <item msgid="6092441301001006473">"Meistbesuchte Websites"</item>
     <item msgid="6569304572171444894">"Andere"</item>
   </string-array>
     <string name="pref_content_autofit" msgid="8260474534053660809">"Autom. Anpassung"</string>
@@ -181,7 +181,7 @@
     <string name="autofill_profile_successful_save" msgid="5691459703493331983">"AutoFill-Text gespeichert"</string>
     <string name="autofill_profile_successful_delete" msgid="1790262652460723127">"AutoFill-Text gelöscht"</string>
     <string name="autofill_profile_editor_delete_profile" msgid="3098369314558164153">"Löschen"</string>
-    <string name="autofill_setup_dialog_message" msgid="1096164985825394616">"Webformulare dieser Art können vom Browser automatisch ausgefüllt werden. Möchten Sie Formulare automatisch ausfüllen?"</string>
+    <!-- outdated translation 1096164985825394616 -->     <string name="autofill_setup_dialog_message" msgid="7123905786076456503">"Webformulare dieser Art können vom Browser automatisch ausgefüllt werden. Möchten Sie Formulare automatisch ausfüllen?"</string>
     <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"Den AutoFill-Text können Sie jederzeit im Browser unter &gt; \"Einstellungen\" &gt; \"Allgemein\" einrichten."</string>
     <string name="disable_autofill" msgid="8305901059849400354">"AutoFill deaktivieren"</string>
     <string name="pref_privacy_security_title" msgid="3480313968942160914">"Datenschutz &amp; Sicherheit"</string>

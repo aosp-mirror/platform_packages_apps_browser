@@ -158,7 +158,7 @@
     <string name="pref_autofill_profile_editor" msgid="8934844472922113166">"Text d\'emplenament automàtic"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="4864447251676856190">"Configura el text per a l\'emplenament automàtic de formularis web"</string>
     <string name="pref_autologin_title" msgid="4421187193809267096">"Inici de sessió autom. de Google"</string>
-    <string name="pref_autologin_progress" msgid="8333244467048833461">"Inici de la sessió a Llocs web de Google amb <xliff:g id="ID_1">%s</xliff:g>"</string>
+    <string name="pref_autologin_progress" msgid="8333244467048833461">"Inici de la sessió a Google Sites amb <xliff:g id="ID_1">%s</xliff:g>"</string>
     <string name="autologin_bar_text" msgid="3684581827167173371">"Inicia la sessió com a"</string>
     <string name="autologin_bar_login_text" msgid="3336615320510851879">"Inic sess"</string>
     <string name="autologin_bar_hide_text" msgid="3629355974385859580">"Amaga"</string>
@@ -181,7 +181,7 @@
     <string name="autofill_profile_successful_save" msgid="5691459703493331983">"S\'ha desat el text d\'emplenament automàtic."</string>
     <string name="autofill_profile_successful_delete" msgid="1790262652460723127">"S\'ha suprimit el text d\'emplenament automàtic."</string>
     <string name="autofill_profile_editor_delete_profile" msgid="3098369314558164153">"Suprimeix"</string>
-    <string name="autofill_setup_dialog_message" msgid="1096164985825394616">"El navegador pot emplenar automàticament formularis web com aquest. Vols configurar el text d\'emplenament automàtic?"</string>
+    <!-- outdated translation 1096164985825394616 -->     <string name="autofill_setup_dialog_message" msgid="7123905786076456503">"El navegador pot emplenar automàticament formularis web com aquest. Vols configurar el text d\'emplenament automàtic?"</string>
     <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"Pots configurar el text d\'emplenament automàtic sempre que vulguis des de la pantalla Navegador &gt; Configuració &gt; General."</string>
     <string name="disable_autofill" msgid="8305901059849400354">"Desactiva l\'emplenament automàtic"</string>
     <string name="pref_privacy_security_title" msgid="3480313968942160914">"Privadesa i seguretat"</string>
