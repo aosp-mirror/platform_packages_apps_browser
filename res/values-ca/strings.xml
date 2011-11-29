@@ -158,7 +158,7 @@
     <string name="pref_autofill_profile_editor" msgid="8934844472922113166">"Text d\'emplenament automàtic"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="4864447251676856190">"Configura el text per a l\'emplenament automàtic de formularis web"</string>
     <string name="pref_autologin_title" msgid="4421187193809267096">"Inici de sessió autom. de Google"</string>
-    <string name="pref_autologin_progress" msgid="8333244467048833461">"Inici de la sessió a Llocs web de Google amb <xliff:g id="ID_1">%s</xliff:g>"</string>
+    <string name="pref_autologin_progress" msgid="8333244467048833461">"Inici de la sessió a Google Sites amb <xliff:g id="ID_1">%s</xliff:g>"</string>
     <string name="autologin_bar_text" msgid="3684581827167173371">"Inicia la sessió com a"</string>
     <string name="autologin_bar_login_text" msgid="3336615320510851879">"Inic sess"</string>
     <string name="autologin_bar_hide_text" msgid="3629355974385859580">"Amaga"</string>

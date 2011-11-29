@@ -18,7 +18,7 @@
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="application_name" msgid="1935869255545976415">"Trình duyệt"</string>
     <string name="choose_upload" msgid="3649366287575002063">"Chọn tệp để tải lên"</string>
-    <string name="uploads_disabled" msgid="463761197575372994">"Nội dung tải lên của tệp bị vô hiệu hóa."</string>
+    <string name="uploads_disabled" msgid="463761197575372994">"Nội dung tải lên của tệp bị tắt."</string>
     <string name="new_tab" msgid="7971857320679510529">"Tab mới"</string>
     <string name="new_incognito_tab" msgid="3606197964239039478">"Tab ẩn danh mới"</string>
     <string name="tab_bookmarks" msgid="2305793036003473653">"Dấu trang"</string>
@@ -148,7 +148,7 @@
     <item msgid="6092441301001006473">"Các trang web được truy cập nhiều nhất"</item>
     <item msgid="6569304572171444894">"Khác"</item>
   </string-array>
-    <string name="pref_content_autofit" msgid="8260474534053660809">"Tự động điều chỉnh kích thước các trang"</string>
+    <string name="pref_content_autofit" msgid="8260474534053660809">"Tự động điều chỉnh kích thước trang"</string>
     <string name="pref_content_autofit_summary" msgid="324810555822572112">"Định dạng trang web để vừa với màn hình"</string>
     <string name="pref_general_title" msgid="1946872771219249323">"Chung"</string>
     <string name="pref_general_sync_title" msgid="3138637035975860324">"Đồng bộ hóa"</string>
@@ -229,7 +229,7 @@
     <string name="pref_text_zoom" msgid="5171056101805125497">"Chia tỷ lệ văn bản"</string>
     <string name="pref_zoom_on_double_tap" msgid="902786475250741795">"Thu phóng bằng nhấn đúp"</string>
     <string name="pref_force_userscalable" msgid="5641500562399892621">"Bắt buộc bật thu phóng"</string>
-    <string name="pref_force_userscalable_summary" msgid="3613242300617172230">"Gh.đè y/c ks t.phóng của t.web"</string>
+    <string name="pref_force_userscalable_summary" msgid="3613242300617172230">"Ghi đè yc của trang web để ksoát zoom"</string>
     <string name="pref_inverted_category" msgid="1280639705117152207">"Hiển thị màn hình đảo ngược"</string>
     <string name="pref_inverted" msgid="7613556986776824112">"Hiển thị màu sắc đảo ngược"</string>
     <string name="pref_inverted_summary" msgid="7357225897413923085">"Màu đen chuyển thành màu trắng và ngược lại"</string>
@@ -238,10 +238,10 @@
   <string-array name="pref_default_zoom_choices">
     <item msgid="549583171195154919">"Xa"</item>
     <item msgid="5619034257768161024">"Trung bình"</item>
-    <item msgid="3840999588443167001">"Đóng"</item>
+    <item msgid="3840999588443167001">"Gần"</item>
   </string-array>
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"Thu phóng mặc định"</string>
-    <string name="pref_content_load_page" msgid="2219810141690955452">"Mở các trang trong chế độ xem tổng quan"</string>
+    <string name="pref_content_load_page" msgid="2219810141690955452">"Mở trang trong tổng quan"</string>
     <string name="pref_content_load_page_summary" msgid="9168803276420332955">"Hiển thị tổng quan về các trang mới mở"</string>
     <string name="pref_extras_title" msgid="7075456173747370647">"Nâng cao"</string>
     <string name="pref_extras_website_settings" msgid="67866640052455549">"Cài đặt trang web"</string>
@@ -366,7 +366,7 @@
     <string name="permission_preload_label" msgid="4856971662337877316">"Tải trước kết quả"</string>
     <string name="empty_snapshots_folder" msgid="7675378008107026013">"Không có trang nào được lưu."</string>
     <string name="remove_snapshot" msgid="1624447424544976849">"Xóa trang đã lưu"</string>
-    <string name="snapshot_go_live" msgid="1209542802541168497">"Phát hành trực tuyến"</string>
+    <string name="snapshot_go_live" msgid="1209542802541168497">"Phát trực tuyến"</string>
     <string name="accessibility_button_back" msgid="6194680634245279407">"Quay lại"</string>
     <string name="accessibility_button_forward" msgid="1236827218480658168">"Đi về phía trước"</string>
     <string name="accessibility_button_refresh" msgid="1023441396241841313">"Làm mới trang"</string>
@@ -380,7 +380,7 @@
     <string name="accessibility_button_newincognitotab" msgid="5254901889040012964">"Mở tab ẩn danh mới"</string>
     <string name="accessibility_button_clear" msgid="6943152307986161598">"Xóa văn bản nhập"</string>
     <string name="accessibility_button_uaswitch" msgid="6286804719724282339">"Chuyển đổi tác nhân của người dùng"</string>
-    <string name="accessibility_button_go" msgid="1182818872083055958">"Bắt đầu"</string>
+    <string name="accessibility_button_go" msgid="1182818872083055958">"Đến"</string>
     <string name="accessibility_button_navscreen" msgid="9142904748728713075">"Trình quản lý trang"</string>
     <string name="accessibility_button_more" msgid="3054251446394224216">"Tùy chọn khác"</string>
     <string name="accessibility_state_incognito" msgid="5786038488425202355">"Trang ẩn danh"</string>
