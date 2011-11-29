@@ -148,7 +148,7 @@
     <item msgid="6092441301001006473">"Situs yang paling sering dikunjungi"</item>
     <item msgid="6569304572171444894">"Lainnya"</item>
   </string-array>
-    <string name="pref_content_autofit" msgid="8260474534053660809">"Sesuaikan dengan laman secara otomatis"</string>
+    <string name="pref_content_autofit" msgid="8260474534053660809">"Sesuaikan otomatis ukuran laman"</string>
     <string name="pref_content_autofit_summary" msgid="324810555822572112">"Format laman web agar sesuai dengan layar"</string>
     <string name="pref_general_title" msgid="1946872771219249323">"Umum"</string>
     <string name="pref_general_sync_title" msgid="3138637035975860324">"Sinkronisasi"</string>
@@ -181,7 +181,7 @@
     <string name="autofill_profile_successful_save" msgid="5691459703493331983">"Teks isi-otomatis disimpan."</string>
     <string name="autofill_profile_successful_delete" msgid="1790262652460723127">"Teks isi-otomatis dihapus."</string>
     <string name="autofill_profile_editor_delete_profile" msgid="3098369314558164153">"Hapus"</string>
-    <string name="autofill_setup_dialog_message" msgid="1096164985825394616">"Peramban dapat melengkapi formulir web seperti ini secara otomatis. Apakah Anda ingin menyiapkan teks isi-otomatis?"</string>
+    <!-- outdated translation 1096164985825394616 -->     <string name="autofill_setup_dialog_message" msgid="7123905786076456503">"Peramban dapat melengkapi formulir web seperti ini secara otomatis. Apakah Anda ingin menyiapkan teks isi-otomatis?"</string>
     <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"Anda selalu dapat menyiapkan teks isi-otomatis dari layar Peramban &gt; Setelan &gt; Umum."</string>
     <string name="disable_autofill" msgid="8305901059849400354">"Nonaktifkan isi-otomatis"</string>
     <string name="pref_privacy_security_title" msgid="3480313968942160914">"Privasi &amp; keamanan"</string>
@@ -190,7 +190,7 @@
     <string name="pref_privacy_clear_cache_dlg" msgid="4344512581716422465">"Hapus basis data dan konten dalam tembolok lokal?"</string>
     <string name="pref_privacy_cookies_title" msgid="6763274282214830526">"Kuki"</string>
     <string name="pref_privacy_clear_cookies" msgid="3095583579133780331">"Hapus semua data kuki"</string>
-    <string name="pref_privacy_clear_cookies_summary" msgid="6962742063990677520">"Hapus semua kuki peramban"</string>
+    <string name="pref_privacy_clear_cookies_summary" msgid="6962742063990677520">"Menghapus semua kuki peramban"</string>
     <string name="pref_privacy_clear_cookies_dlg" msgid="1493252163164621278">"Hapus semua kuki?"</string>
     <string name="pref_privacy_clear_history" msgid="8723795508825198477">"Hapus riwayat"</string>
     <string name="pref_privacy_clear_history_summary" msgid="6868501330708940734">"Hapus riwayat navigasi peramban"</string>

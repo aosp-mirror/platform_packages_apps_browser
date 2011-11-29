@@ -181,7 +181,7 @@
     <string name="autofill_profile_successful_save" msgid="5691459703493331983">"تم حفظ نص الملء التلقائي."</string>
     <string name="autofill_profile_successful_delete" msgid="1790262652460723127">"تم حذف نص الملء التلقائي."</string>
     <string name="autofill_profile_editor_delete_profile" msgid="3098369314558164153">"حذف"</string>
-    <string name="autofill_setup_dialog_message" msgid="1096164985825394616">"يمكن للمتصفح إكمال نماذج الويب مثل هذه تلقائيًا. هل تريد إعداد نص الملء التلقائي؟"</string>
+    <!-- outdated translation 1096164985825394616 -->     <string name="autofill_setup_dialog_message" msgid="7123905786076456503">"يمكن للمتصفح إكمال نماذج الويب مثل هذه تلقائيًا. هل تريد إعداد نص الملء التلقائي؟"</string>
     <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"يمكنك دائمًا إعداد نص الملء التلقائي من المتصفح &gt; الإعدادات &gt; الشاشة العامة."</string>
     <string name="disable_autofill" msgid="8305901059849400354">"تعطيل الملء التلقائي"</string>
     <string name="pref_privacy_security_title" msgid="3480313968942160914">"الخصوصية والأمان"</string>

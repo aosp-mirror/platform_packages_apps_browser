@@ -181,7 +181,7 @@
     <string name="autofill_profile_successful_save" msgid="5691459703493331983">"Se ha guardado el texto de la función Autocompletar."</string>
     <string name="autofill_profile_successful_delete" msgid="1790262652460723127">"Se ha eliminado el texto de la función Autocompletar."</string>
     <string name="autofill_profile_editor_delete_profile" msgid="3098369314558164153">"Eliminar"</string>
-    <string name="autofill_setup_dialog_message" msgid="1096164985825394616">"El navegador puede completar automáticamente formularios web como el que aparece a continuación. ¿Quieres configurar la función Autocompletar?"</string>
+    <!-- outdated translation 1096164985825394616 -->     <string name="autofill_setup_dialog_message" msgid="7123905786076456503">"El navegador puede completar automáticamente formularios web como el que aparece a continuación. ¿Quieres configurar la función Autocompletar?"</string>
     <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"Siempre puedes configurar la opción Autocompletar desde la pantalla Navegador &gt; Ajustes &gt; Generales."</string>
     <string name="disable_autofill" msgid="8305901059849400354">"Inhabilitar autocompletar"</string>
     <string name="pref_privacy_security_title" msgid="3480313968942160914">"Seguridad y privacidad"</string>
@@ -232,7 +232,7 @@
     <string name="pref_force_userscalable_summary" msgid="3613242300617172230">"Evitar que un sitio web pueda cambiar el zoom"</string>
     <string name="pref_inverted_category" msgid="1280639705117152207">"Invertir colores"</string>
     <string name="pref_inverted" msgid="7613556986776824112">"Invertir colores"</string>
-    <string name="pref_inverted_summary" msgid="7357225897413923085">"El negro se convertirá en blanco y viceversa."</string>
+    <string name="pref_inverted_summary" msgid="7357225897413923085">"El negro se convertirá en blanco y viceversa"</string>
     <string name="pref_inverted_contrast" msgid="8527441236225288169">"Contraste"</string>
     <string name="pref_default_zoom" msgid="8076142259097187395">"Zoom predeterminado"</string>
   <string-array name="pref_default_zoom_choices">
@@ -241,8 +241,8 @@
     <item msgid="3840999588443167001">"Cerca"</item>
   </string-array>
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"Zoom predeterminado"</string>
-    <string name="pref_content_load_page" msgid="2219810141690955452">"Ver información general"</string>
-    <string name="pref_content_load_page_summary" msgid="9168803276420332955">"Mostrar información general de las páginas abiertas recientemente"</string>
+    <string name="pref_content_load_page" msgid="2219810141690955452">"Abrir en tamaño reducido"</string>
+    <string name="pref_content_load_page_summary" msgid="9168803276420332955">"Abrir páginas nuevas a tamaño reducido para verlas de un vistazo"</string>
     <string name="pref_extras_title" msgid="7075456173747370647">"Avanzados"</string>
     <string name="pref_extras_website_settings" msgid="67866640052455549">"Ajustes del sitio web"</string>
     <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"Ajustes avanzados de sitios web individuales"</string>

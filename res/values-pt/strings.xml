@@ -181,7 +181,7 @@
     <string name="autofill_profile_successful_save" msgid="5691459703493331983">"Texto de preenchimento automático salvo."</string>
     <string name="autofill_profile_successful_delete" msgid="1790262652460723127">"Texto de preenchimento automático excluído."</string>
     <string name="autofill_profile_editor_delete_profile" msgid="3098369314558164153">"Excluir"</string>
-    <string name="autofill_setup_dialog_message" msgid="1096164985825394616">"O navegador pode preencher automaticamente formulários da web como este. Deseja configurar o preenchimento automático de texto?"</string>
+    <!-- outdated translation 1096164985825394616 -->     <string name="autofill_setup_dialog_message" msgid="7123905786076456503">"O navegador pode preencher automaticamente formulários da web como este. Deseja configurar o preenchimento automático de texto?"</string>
     <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"É possível configurar o preenchimento automático de texto na tela Navegador &gt; Configurações &gt; Geral."</string>
     <string name="disable_autofill" msgid="8305901059849400354">"Desativar o preenchimento automático"</string>
     <string name="pref_privacy_security_title" msgid="3480313968942160914">"Privacidade e segurança"</string>

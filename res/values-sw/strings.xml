@@ -160,7 +160,7 @@
     <string name="pref_autologin_title" msgid="4421187193809267096">"Automatic Google signin"</string>
     <string name="pref_autologin_progress" msgid="8333244467048833461">"Kuingia kwa tovuti za Google kwa kutumia <xliff:g id="ID_1">%s</xliff:g>"</string>
     <string name="autologin_bar_text" msgid="3684581827167173371">"Ingia kama"</string>
-    <string name="autologin_bar_login_text" msgid="3336615320510851879">"Ingia ndani"</string>
+    <string name="autologin_bar_login_text" msgid="3336615320510851879">"Ingia"</string>
     <string name="autologin_bar_hide_text" msgid="3629355974385859580">"Ficha"</string>
     <string name="autologin_bar_error" msgid="7470001207395920811">"Haingeweza kuinga ndani"</string>
     <string name="autofill_profile_editor_heading" msgid="4798644544927738078">"Andika maandishi unataka kujaza-oto katika fomu za wavuti."</string>
@@ -181,7 +181,7 @@
     <string name="autofill_profile_successful_save" msgid="5691459703493331983">"Maandishi kujaza-oto yamehifadhiwa."</string>
     <string name="autofill_profile_successful_delete" msgid="1790262652460723127">"Maandishi ya oto-kujaza imefutwa."</string>
     <string name="autofill_profile_editor_delete_profile" msgid="3098369314558164153">"Futa"</string>
-    <string name="autofill_setup_dialog_message" msgid="1096164985825394616">"Kivinjari inaweza kukamilisha kiotomatiki fomu za wavuti kama hii. Je ungependa kusanidi maandishi ya kujaza-oto?"</string>
+    <!-- outdated translation 1096164985825394616 -->     <string name="autofill_setup_dialog_message" msgid="7123905786076456503">"Kivinjari inaweza kukamilisha kiotomatiki fomu za wavuti kama hii. Je ungependa kusanidi maandishi ya kujaza-oto?"</string>
     <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"Wakati wowote unaweza kusanidi oto-kujaza maandishi kutoka kwa Broswer &gt; Settings &gt; Skrini ya kawaida."</string>
     <string name="disable_autofill" msgid="8305901059849400354">"Zima uwezo wa kujaza kiotomatiki"</string>
     <string name="pref_privacy_security_title" msgid="3480313968942160914">"Faragha na Usalama"</string>
@@ -267,7 +267,7 @@
     <string name="pref_font_size_category" msgid="6683754355084218254">"Ukubwa wa maandishi"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"Maabara"</string>
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Vidhibiti vya Haraka"</string>
-    <string name="pref_lab_quick_controls_summary" msgid="3149664132600968775">"Telea gumba kutoka pambizo ya kushoto au kulia ili kufungua vidhibiti na kuficha prog na mwambaa za URL"</string>
+    <string name="pref_lab_quick_controls_summary" msgid="3149664132600968775">"Telea gumba kutoka pambizo ya kushoto au kulia ili kufungua vidhibiti na kuficha programu na mwambaa za URL"</string>
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Google Instant"</string>
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Tumia Google Instant unapotumia Utafutaji wa Google, ili kuonyesha matokeo unapoendelea kuchapa (hii inaweza kuongeza matumizi ya data)."</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"Skrini nzima"</string>

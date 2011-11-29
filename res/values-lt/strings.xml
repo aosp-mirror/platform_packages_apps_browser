@@ -148,7 +148,7 @@
     <item msgid="6092441301001006473">"Dažniausiai lankomos svetainės"</item>
     <item msgid="6569304572171444894">"Kita"</item>
   </string-array>
-    <string name="pref_content_autofit" msgid="8260474534053660809">"Automatiškai talpinti puslapius"</string>
+    <string name="pref_content_autofit" msgid="8260474534053660809">"Automatiškai pritaikyti puslapius"</string>
     <string name="pref_content_autofit_summary" msgid="324810555822572112">"Formatuoti tinklalapius, kad tilptų ekrane"</string>
     <string name="pref_general_title" msgid="1946872771219249323">"Bendra"</string>
     <string name="pref_general_sync_title" msgid="3138637035975860324">"Sinchronizavimas"</string>
@@ -181,7 +181,7 @@
     <string name="autofill_profile_successful_save" msgid="5691459703493331983">"Automatinio pildymo tekstas išsaugotas."</string>
     <string name="autofill_profile_successful_delete" msgid="1790262652460723127">"Automatinis teksto pildymas ištrintas."</string>
     <string name="autofill_profile_editor_delete_profile" msgid="3098369314558164153">"Ištrinti"</string>
-    <string name="autofill_setup_dialog_message" msgid="1096164985825394616">"Naršyklė gali automatiškai užpildyti tokias žiniatinklio formas kaip ši. Ar norėtumėte nustatyti automatinį teksto pildymą?"</string>
+    <!-- outdated translation 1096164985825394616 -->     <string name="autofill_setup_dialog_message" msgid="7123905786076456503">"Naršyklė gali automatiškai užpildyti tokias žiniatinklio formas kaip ši. Ar norėtumėte nustatyti automatinį teksto pildymą?"</string>
     <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"Automatinį teksto pildymą galite bet kada nustatyti ekrane „Naršyklė“ &gt; „Nustatymai“ &gt; „Bendra“."</string>
     <string name="disable_autofill" msgid="8305901059849400354">"Neleisti automatinio pildymo"</string>
     <string name="pref_privacy_security_title" msgid="3480313968942160914">"Privatumas ir sauga"</string>
@@ -241,7 +241,7 @@
     <item msgid="3840999588443167001">"Uždaryti"</item>
   </string-array>
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"Numatytasis mastelio keitimas"</string>
-    <string name="pref_content_load_page" msgid="2219810141690955452">"Atidaryti puslapius apžvalgai"</string>
+    <string name="pref_content_load_page" msgid="2219810141690955452">"Puslapių atidarymas apžvalgos režimu"</string>
     <string name="pref_content_load_page_summary" msgid="9168803276420332955">"Rodyti naujai atidarytų puslapių apžvalgą"</string>
     <string name="pref_extras_title" msgid="7075456173747370647">"Išplėstinis"</string>
     <string name="pref_extras_website_settings" msgid="67866640052455549">"Svetainės nustatymai"</string>

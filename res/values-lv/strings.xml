@@ -181,7 +181,7 @@
     <string name="autofill_profile_successful_save" msgid="5691459703493331983">"Automātiskās aizpildes teksts saglabāts."</string>
     <string name="autofill_profile_successful_delete" msgid="1790262652460723127">"Automātiskās aizpildes teksts ir izdzēsts."</string>
     <string name="autofill_profile_editor_delete_profile" msgid="3098369314558164153">"Dzēst"</string>
-    <string name="autofill_setup_dialog_message" msgid="1096164985825394616">"Pārlūkprogramma var automātiski aizpildīt šādas tīmekļa veidlapas. Vai vēlaties iestatīt automātiskās aizpildes tekstu?"</string>
+    <!-- outdated translation 1096164985825394616 -->     <string name="autofill_setup_dialog_message" msgid="7123905786076456503">"Pārlūkprogramma var automātiski aizpildīt šādas tīmekļa veidlapas. Vai vēlaties iestatīt automātiskās aizpildes tekstu?"</string>
     <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"Jebkurā laikā varat iestatīt automātiskās aizpildes tekstu, atverot šādus ekrānus:  Pārlūkprogramma &gt; Iestatījumi &gt; Vispārīgi."</string>
     <string name="disable_autofill" msgid="8305901059849400354">"Atspējot automātisko aizpildi"</string>
     <string name="pref_privacy_security_title" msgid="3480313968942160914">"Konfidencialitāte un drošība"</string>
