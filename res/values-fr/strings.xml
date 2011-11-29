@@ -207,7 +207,7 @@
     <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"Autoriser les sites à demander l\'accès à vos données de localisation"</string>
     <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"Supprimer l\'accès"</string>
     <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"Supprimer l\'accès aux données de localisation pour tous les sites Web"</string>
-    <string name="pref_privacy_clear_geolocation_access_dlg" msgid="3190928760598034346">"Supprimer l\'accès du site Web aux données de localisation ?"</string>
+    <string name="pref_privacy_clear_geolocation_access_dlg" msgid="3190928760598034346">"Supprimer l\'accès des sites aux données de localisation ?"</string>
     <string name="pref_security_passwords_title" msgid="5734190542383756711">"Mots de passe"</string>
     <string name="pref_security_remember_passwords" msgid="6492957683454529549">"Mémoriser mots de passe"</string>
     <string name="pref_security_remember_passwords_summary" msgid="256388703356349137">"Enregistrer les noms d\'utilisateur et les mots de passe pour les sites Web"</string>

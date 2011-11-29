@@ -127,9 +127,9 @@
     <string name="pref_content_title" msgid="3834107397725342174">"Содержание страницы"</string>
     <string name="pref_content_load_images" msgid="2125616852957377561">"Загружать графику"</string>
     <string name="pref_content_load_images_summary" msgid="5055874125248398584">"Показывать изображения на веб-страницах"</string>
-    <string name="pref_content_block_popups" msgid="4158524847764470895">"Блокировать всплывающие окна"</string>
+    <string name="pref_content_block_popups" msgid="4158524847764470895">"Блокир. всплыв. окна"</string>
     <string name="pref_content_javascript" msgid="4570972030299516843">"Разрешить JavaScript"</string>
-    <string name="pref_content_open_in_background" msgid="824123779725118663">"Открывать в фоновом режиме"</string>
+    <string name="pref_content_open_in_background" msgid="824123779725118663">"Фоновые вкладки"</string>
     <string name="pref_content_plugins" msgid="7231944644794301582">"Разрешить плагины"</string>
   <string-array name="pref_content_plugins_choices">
     <item msgid="6745108155096660725">"Да"</item>
