@@ -1436,7 +1436,7 @@ public class Controller
             return;
         }
         MenuItem dest = menu.findItem(R.id.stop_reload_menu_id);
-        MenuItem src = tab.inPageLoad() ?
+        MenuItem src = ((tab != null) && tab.inPageLoad()) ?
                 menu.findItem(R.id.stop_menu_id):
                 menu.findItem(R.id.reload_menu_id);
         if (src != null) {
