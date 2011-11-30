@@ -1880,7 +1880,8 @@ public class Controller
     }
 
     boolean isInLoad() {
-        return getCurrentTab().inPageLoad();
+        final Tab tab = getCurrentTab();
+        return (tab != null) && tab.inPageLoad();
     }
 
     // bookmark handling
