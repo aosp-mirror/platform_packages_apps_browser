@@ -518,18 +518,21 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                             null, null, null);
                     if (c != null) {
                         while (c.moveToNext()) {
+                            String url = c.getString(0);
+                            if (TextUtils.isEmpty(url))
+                                continue; // We require a valid URL
                             ContentValues values = new ContentValues();
-                            values.put(Bookmarks.URL, c.getString(0));
+                            values.put(Bookmarks.URL, url);
                             values.put(Bookmarks.TITLE, c.getString(1));
                             values.put(Bookmarks.DATE_CREATED, c.getInt(4));
                             values.put(Bookmarks.POSITION, 0);
                             values.put(Bookmarks.PARENT, FIXED_ID_ROOT);
                             ContentValues imageValues = new ContentValues();
-                            imageValues.put(Images.URL, c.getString(0));
+                            imageValues.put(Images.URL, url);
                             imageValues.put(Images.FAVICON, c.getBlob(2));
                             imageValues.put(Images.TOUCH_ICON, c.getBlob(3));
-                            db.insertOrThrow(TABLE_IMAGES, Images.THUMBNAIL, imageValues);
-                            db.insertOrThrow(TABLE_BOOKMARKS, Bookmarks.DIRTY, values);
+                            db.insert(TABLE_IMAGES, Images.THUMBNAIL, imageValues);
+                            db.insert(TABLE_BOOKMARKS, Bookmarks.DIRTY, values);
                         }
                         c.close();
                     }
@@ -547,12 +550,15 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                     if (c != null) {
                         while (c.moveToNext()) {
                             ContentValues values = new ContentValues();
-                            values.put(History.URL, c.getString(0));
+                            String url = c.getString(0);
+                            if (TextUtils.isEmpty(url))
+                                continue; // We require a valid URL
+                            values.put(History.URL, url);
                             values.put(History.TITLE, c.getString(1));
                             values.put(History.VISITS, c.getInt(2));
                             values.put(History.DATE_LAST_VISITED, c.getLong(3));
                             values.put(History.DATE_CREATED, c.getLong(4));
-                            db.insertOrThrow(TABLE_HISTORY, History.FAVICON, values);
+                            db.insert(TABLE_HISTORY, History.FAVICON, values);
                         }
                         c.close();
                     }
