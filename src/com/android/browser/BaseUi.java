@@ -749,19 +749,10 @@ public abstract class BaseUi implements UI {
     public void setFullscreen(boolean enabled) {
         Window win = mActivity.getWindow();
         WindowManager.LayoutParams winParams = win.getAttributes();
-        final int bits = WindowManager.LayoutParams.FLAG_FULLSCREEN;
+        final int bits = WindowManager.LayoutParams.FLAG_FULLSCREEN
+                | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN;
         if (enabled) {
             winParams.flags |=  bits;
-            if (mCustomView != null) {
-                // HTML5 Video can ask for the HIDE_NAVIGATION specifically,
-                // and we want to differentiate it from the flash.
-                if ((mCustomView.getSystemUiVisibility()
-                        & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0) {
-                    mCustomView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
-                }
-            } else {
-                mContentView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
-            }
         } else {
             winParams.flags &= ~bits;
             if (mCustomView != null) {
