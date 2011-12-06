@@ -30,6 +30,8 @@ import android.util.Log;
 import android.view.ActionMode;
 import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebChromeClient.CustomViewCallback;
@@ -144,6 +146,16 @@ public class XLargeUi extends BaseUi {
             web.stopScroll();
         }
     }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuItem bm = menu.findItem(R.id.bookmarks_menu_id);
+        if (bm != null) {
+            bm.setVisible(false);
+        }
+        return true;
+    }
+
 
     // WebView callbacks
 
