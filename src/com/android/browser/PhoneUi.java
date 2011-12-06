@@ -194,6 +194,10 @@ public class PhoneUi extends BaseUi {
 
     @Override
     public void updateMenuState(Tab tab, Menu menu) {
+        MenuItem bm = menu.findItem(R.id.bookmarks_menu_id);
+        if (bm != null) {
+            bm.setVisible(!showingNavScreen());
+        }
         MenuItem abm = menu.findItem(R.id.add_bookmark_menu_id);
         if (abm != null) {
             abm.setVisible((tab != null) && !tab.isSnapshot() && !showingNavScreen());
