@@ -56,7 +56,8 @@
                 android:layout_margin="2dip"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:inputType="textPersonName|textCapWords"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:imeOptions="actionNext" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -71,7 +72,8 @@
                 android:layout_margin="2dip"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:inputType="textCapWords"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:imeOptions="actionNext" />
             <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -97,7 +99,8 @@
                 android:layout_margin="2dip"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:inputType="textCapWords"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:imeOptions="actionNext" />
             <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -123,7 +126,8 @@
                 android:layout_margin="2dip"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:inputType="textCapWords"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:imeOptions="actionNext" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -138,7 +142,8 @@
                 android:layout_margin="2dip"
                 android:inputType="textCapWords"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:imeOptions="actionNext" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -153,7 +158,8 @@
                 android:layout_margin="2dip"
                 android:inputType="textCapWords"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:imeOptions="actionNext" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -168,7 +174,8 @@
                 android:layout_margin="2dip"
                 android:inputType="textCapCharacters"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:imeOptions="actionNext" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -183,7 +190,8 @@
                 android:layout_margin="2dip"
                 android:inputType="textCapWords"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:imeOptions="actionNext" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -198,7 +206,8 @@
                 android:layout_margin="2dip"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:singleLine="true"
-                android:phoneNumber="true" />
+                android:phoneNumber="true"
+                android:imeOptions="actionNext" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -213,7 +222,8 @@
                 android:layout_margin="2dip"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:inputType="textEmailAddress"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:imeOptions="actionDone" />
         </LinearLayout>
     </ScrollView>
 
