@@ -90,7 +90,7 @@
     </style>
     <style name="AutofillProfileEditText" parent="@style/AutofillProfileTextView">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:imeOptions">flagNoExtractUi</item>
+        <item name="android:imeOptions">flagNoExtractUi|actionNext</item>
         <item name="android:singleLine">true</item>
     </style>
 </resources>
