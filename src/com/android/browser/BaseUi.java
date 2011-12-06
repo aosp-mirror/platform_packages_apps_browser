@@ -749,8 +749,7 @@ public abstract class BaseUi implements UI {
     public void setFullscreen(boolean enabled) {
         Window win = mActivity.getWindow();
         WindowManager.LayoutParams winParams = win.getAttributes();
-        final int bits = WindowManager.LayoutParams.FLAG_FULLSCREEN
-                | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN;
+        final int bits = WindowManager.LayoutParams.FLAG_FULLSCREEN;
         if (enabled) {
             winParams.flags |=  bits;
         } else {
