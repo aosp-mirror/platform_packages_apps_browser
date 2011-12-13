@@ -3,8 +3,6 @@
     <array name="bookmark_preloads">
         <item>@raw/favicon_google</item>
         <item>@raw/thumb_google</item>
-        <item>@raw/favicon_google</item>
-        <item>@raw/thumb_help</item>
         <item>@raw/favicon_picasa</item>
         <item>@raw/thumb_picasa</item>
         <item>@raw/favicon_yahoo</item>
