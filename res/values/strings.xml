@@ -774,15 +774,10 @@
     <string name="instant_base" translatable="false">
         http://www.google.com/webhp?client={CID}&amp;source=android-instant&amp;ion=1</string>
 
-    <!-- The name of the help page bookmark [CHAR LIMIT=10] -->
-    <string name="help_page">Help</string>
-
     <!-- Bookmarks -->
     <string-array name="bookmarks" translatable="false">
         <item>Google</item>
         <item>http://www.google.com/</item>
-        <item>@string/help_page</item>
-        <item>http://www.google.com/support/mobile/?p=help_home</item>
         <item>Picasa</item>
         <item>http://picasaweb.google.com/</item>
         <item>Yahoo!</item>
