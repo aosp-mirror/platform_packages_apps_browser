@@ -84,7 +84,7 @@ public class PieStackView extends BasePieView {
 
     @Override
     public void draw(Canvas canvas) {
-        if (mViews != null) {
+        if ((mViews != null) && (mCurrent > -1)) {
             final int n = mViews.size();
             for (int i = 0; i < mCurrent; i++) {
                 drawView(mViews.get(i), canvas);
