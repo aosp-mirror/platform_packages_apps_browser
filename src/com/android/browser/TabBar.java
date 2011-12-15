@@ -31,10 +31,7 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Shader;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LayerDrawable;
-import android.graphics.drawable.PaintDrawable;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -253,7 +250,6 @@ public class TabBar extends LinearLayout implements OnClickListener {
         ImageView mLock;
         ImageView mClose;
         boolean mSelected;
-        boolean mInLoad;
         Path mPath;
         Path mFocusPath;
         int[] mWindowPos;
@@ -281,7 +277,6 @@ public class TabBar extends LinearLayout implements OnClickListener {
             mIncognito = mTabContent.findViewById(R.id.incognito);
             mSnapshot = mTabContent.findViewById(R.id.snapshot);
             mSelected = false;
-            mInLoad = false;
             // update the status
             updateFromTab();
         }
@@ -299,7 +294,6 @@ public class TabBar extends LinearLayout implements OnClickListener {
                 displayTitle = mTab.getUrl();
             }
             setDisplayTitle(displayTitle);
-            setProgress(mTab.getLoadProgress());
             if (mTab.getFavicon() != null) {
                 setFavicon(mUi.getFaviconDrawable(mTab.getFavicon()));
             }
@@ -349,16 +343,6 @@ public class TabBar extends LinearLayout implements OnClickListener {
             } else {
                 mLock.setImageDrawable(d);
                 mLock.setVisibility(View.VISIBLE);
-            }
-        }
-
-        void setProgress(int newProgress) {
-            if (newProgress >= PROGRESS_MAX) {
-                mInLoad = false;
-            } else {
-                if (!mInLoad && getWindowToken() != null) {
-                    mInLoad = true;
-                }
             }
         }
 
@@ -503,10 +487,6 @@ public class TabBar extends LinearLayout implements OnClickListener {
 
     public void onSetActiveTab(Tab tab) {
         mTabs.setSelectedTab(mTabControl.getTabPosition(tab));
-        TabView tv = mTabMap.get(tab);
-        if (tv != null) {
-            tv.setProgress(tv.mTab.getLoadProgress());
-        }
     }
 
     public void onFavicon(Tab tab, Bitmap favicon) {
@@ -519,13 +499,6 @@ public class TabBar extends LinearLayout implements OnClickListener {
     public void onNewTab(Tab tab) {
         TabView tv = buildTabView(tab);
         animateTabIn(tab, tv);
-    }
-
-    public void onProgress(Tab tab, int progress) {
-        TabView tv = mTabMap.get(tab);
-        if (tv != null) {
-            tv.setProgress(progress);
-        }
     }
 
     public void onRemoveTab(Tab tab) {
@@ -550,9 +523,9 @@ public class TabBar extends LinearLayout implements OnClickListener {
     }
 
     private boolean isLoading() {
-        TabView tv = mTabMap.get(mTabControl.getCurrentTab());
-        if (tv != null) {
-            return tv.mInLoad;
+        Tab tab = mTabControl.getCurrentTab();
+        if (tab != null) {
+            return tab.inPageLoad();
         } else {
             return false;
         }

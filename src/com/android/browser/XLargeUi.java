@@ -162,9 +162,15 @@ public class XLargeUi extends BaseUi {
     @Override
     public void onProgressChanged(Tab tab) {
         int progress = tab.getLoadProgress();
-        mTabBar.onProgress(tab, progress);
         if (tab.inForeground()) {
             mTitleBar.setProgress(progress);
+            if (mUseQuickControls) {
+                if (progress == 100) {
+                    mTitleBar.setShowProgressOnly(false);
+                } else if (!mTitleBar.isEditingUrl()) {
+                    mTitleBar.setShowProgressOnly(true);
+                }
+            }
         }
     }
 
