@@ -261,7 +261,9 @@ public class NavigationBarTablet extends NavigationBarBase {
         if (mTitleBar.isInLoad()) {
             mUiController.stopLoading();
         } else {
-            mUiController.getCurrentTopWebView().reload();
+            if (mUiController.getCurrentTopWebView() != null) {
+                mUiController.getCurrentTopWebView().reload();
+            }
         }
     }
 
