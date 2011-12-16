@@ -236,6 +236,7 @@ public abstract class BaseUi implements UI {
 
     @Override
     public void setActiveTab(final Tab tab) {
+        if (tab == null) return;
         mHandler.removeMessages(MSG_HIDE_TITLEBAR);
         if ((tab != mActiveTab) && (mActiveTab != null)) {
             removeTabFromContentView(mActiveTab);
