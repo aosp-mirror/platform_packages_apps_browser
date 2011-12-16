@@ -1293,6 +1293,7 @@ public class Controller
 
         // Show the correct menu group
         final String extra = result.getExtra();
+        if (extra == null) return;
         menu.setGroupVisible(R.id.PHONE_MENU,
                 type == WebView.HitTestResult.PHONE_TYPE);
         menu.setGroupVisible(R.id.EMAIL_MENU,
