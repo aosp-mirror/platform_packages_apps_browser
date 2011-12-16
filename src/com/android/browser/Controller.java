@@ -842,7 +842,8 @@ public class Controller
         mUi.onTabDataChanged(tab);
         if (!tab.isPrivateBrowsingEnabled()
                 && !TextUtils.isEmpty(tab.getUrl())
-                && !tab.isSnapshot()) {
+                && !tab.isSnapshot()
+                && !tab.inPageLoad()) {
             // Only update the bookmark screenshot if the user did not
             // cancel the load early and there is not already
             // a pending update for the tab.
@@ -2011,7 +2012,6 @@ public class Controller
         }
         final String url = tab.getUrl();
         final String originalUrl = view.getOriginalUrl();
-
         if (TextUtils.isEmpty(url)) {
             return;
         }
