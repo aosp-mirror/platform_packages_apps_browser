@@ -2569,8 +2569,11 @@ public class Controller
      * returns the current tab if it can't advance
      */
     private Tab getNextTab() {
-        return mTabControl.getTab(Math.min(mTabControl.getTabCount() - 1,
-                mTabControl.getCurrentPosition() + 1));
+        int pos = mTabControl.getCurrentPosition() + 1;
+        if (pos >= mTabControl.getTabCount()) {
+            pos = 0;
+        }
+        return mTabControl.getTab(pos);
     }
 
     /**
@@ -2578,8 +2581,11 @@ public class Controller
      * returns the current tab if it can't advance
      */
     private Tab getPrevTab() {
-        return  mTabControl.getTab(Math.max(0,
-                mTabControl.getCurrentPosition() - 1));
+        int pos  = mTabControl.getCurrentPosition() - 1;
+        if ( pos < 0) {
+            pos = mTabControl.getTabCount() - 1;
+        }
+        return  mTabControl.getTab(pos);
     }
 
     /**
