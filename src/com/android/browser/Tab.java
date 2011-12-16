@@ -610,11 +610,6 @@ class Tab implements PictureListener {
 
         @Override
         public void onPageFinished(WebView view, String url) {
-            if (!mInPageLoad) {
-                // In page navigation links (www.something.com#footer) will
-                // trigger an onPageFinished which we don't care about.
-                return;
-            }
             if (!isPrivateBrowsingEnabled()) {
                 LogTag.logPageFinishedLoading(
                         url, SystemClock.uptimeMillis() - mLoadStartTime);
