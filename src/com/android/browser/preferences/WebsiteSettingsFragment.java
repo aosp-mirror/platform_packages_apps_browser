@@ -75,10 +75,10 @@ public class WebsiteSettingsFragment extends ListFragment implements OnClickList
         // They must be consecutive. To add a new feature, add a new FEATURE_XXX
         // variable with value equal to the current value of FEATURE_COUNT, then
         // increment FEATURE_COUNT.
-        private final static int FEATURE_WEB_STORAGE = 0;
-        private final static int FEATURE_GEOLOCATION = 1;
+        final static int FEATURE_WEB_STORAGE = 0;
+        final static int FEATURE_GEOLOCATION = 1;
         // The number of features available.
-        private final static int FEATURE_COUNT = 2;
+        final static int FEATURE_COUNT = 2;
 
         public Site(String origin) {
             mOrigin = origin;
