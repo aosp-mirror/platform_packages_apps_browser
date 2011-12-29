@@ -181,7 +181,7 @@
     <string name="autofill_profile_successful_save" msgid="5691459703493331983">"S\'ha desat el text d\'emplenament automàtic."</string>
     <string name="autofill_profile_successful_delete" msgid="1790262652460723127">"S\'ha suprimit el text d\'emplenament automàtic."</string>
     <string name="autofill_profile_editor_delete_profile" msgid="3098369314558164153">"Suprimeix"</string>
-    <!-- outdated translation 1096164985825394616 -->     <string name="autofill_setup_dialog_message" msgid="7123905786076456503">"El navegador pot emplenar automàticament formularis web com aquest. Vols configurar el text d\'emplenament automàtic?"</string>
+    <string name="autofill_setup_dialog_message" msgid="7123905786076456503">"El navegador pot emplenar automàticament formularis web com aquest. Vols configurar el text d\'emplenament automàtic?"</string>
     <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"Pots configurar el text d\'emplenament automàtic sempre que vulguis des de la pantalla Navegador &gt; Configuració &gt; General."</string>
     <string name="disable_autofill" msgid="8305901059849400354">"Desactiva l\'emplenament automàtic"</string>
     <string name="pref_privacy_security_title" msgid="3480313968942160914">"Privadesa i seguretat"</string>
@@ -313,7 +313,6 @@
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"La targeta SD està ocupada. Per permetre les baixades, toca Desactiva l\'emmagatzematge d\'USB a la notificació."</string>
     <string name="cannot_download" msgid="8150552478556798780">"Només pot baixar URL \"http\" o \"https\"."</string>
     <string name="download_pending" msgid="2599683668575349559">"S\'està iniciant la baixada…"</string>
-    <string name="help_page" msgid="2906208423557552540">"Ajuda"</string>
     <string name="search_the_web" msgid="6046130189241962337">"Cerca al web"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"La memòria del navegador és plena"</string>
     <string name="webstorage_outofspace_notification_text" msgid="47273584426988640">"Toca per alliberar espai."</string>

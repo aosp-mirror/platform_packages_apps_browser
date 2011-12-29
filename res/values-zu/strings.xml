@@ -35,7 +35,7 @@
     <string name="cancel" msgid="3017274947407233702">"Khansela"</string>
     <string name="ok" msgid="1509280796718850364">"KULUNGILE"</string>
     <string name="title_bar_loading" msgid="7438217780834640678">"Iyalayisha..."</string>
-    <string name="page_info" msgid="4048529256302257195">"Ukwaziswa kwekhasi"</string>
+    <string name="page_info" msgid="4048529256302257195">"Ulwazi lekhasi"</string>
     <string name="page_info_view" msgid="5303490449842635158">"Buka ikhasi lolwazi"</string>
     <string name="page_info_address" msgid="2222306609532903254">"Ikheli:"</string>
     <string name="ssl_warnings_header" msgid="79744901983636370">"Kunezinkinga ngesitifiketi sokuphepha sale ngosi."</string>
@@ -181,7 +181,7 @@
     <string name="autofill_profile_successful_save" msgid="5691459703493331983">"Ukuzifakekela kombhalo kulondoloziwe."</string>
     <string name="autofill_profile_successful_delete" msgid="1790262652460723127">"Ukuzifakekela kwamagama kususiwe."</string>
     <string name="autofill_profile_editor_delete_profile" msgid="3098369314558164153">"Susa"</string>
-    <!-- outdated translation 1096164985825394616 -->     <string name="autofill_setup_dialog_message" msgid="7123905786076456503">"Isiphequluli singazigcwalisela amafomu ewebhu afana nalawa. Ungathanda ukulungisa uhlelo lokuzigcwalisela umbhalo?"</string>
+    <string name="autofill_setup_dialog_message" msgid="7123905786076456503">"Isiphequluli singaqedela amafomu ewebhu afana laleli. Ufuna ukusetha umbhalo wakho wokuqedela ngokuzenzakalela?"</string>
     <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"Ungakwazi njalo ukuthi usethe ukuzifakekela kombhalo usuka Esipheqululini; Izilungiselelosetho; Iskrini esijwayelekile."</string>
     <string name="disable_autofill" msgid="8305901059849400354">"Khubaza ukufaka-okuzenzakalelayo"</string>
     <string name="pref_privacy_security_title" msgid="3480313968942160914">"Ubumfihlo nokuvikela"</string>
@@ -313,7 +313,6 @@
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"Ikhadi le-SD limatasa. Ukuvumela ukulanda, khetha \"Vala ukulondoloza nge-USB\" kwisaziso."</string>
     <string name="cannot_download" msgid="8150552478556798780">"Ingalayisha kuphela ama-URL e-\"http\" noma ama-\"https\"."</string>
     <string name="download_pending" msgid="2599683668575349559">"Iqalisa ukulayisha..."</string>
-    <string name="help_page" msgid="2906208423557552540">"Usizo"</string>
     <string name="search_the_web" msgid="6046130189241962337">"Sesha iwebhu"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Ukulondoloza isiphequluli kugcwele"</string>
     <string name="webstorage_outofspace_notification_text" msgid="47273584426988640">"Thinta ukuvula iskhala."</string>
