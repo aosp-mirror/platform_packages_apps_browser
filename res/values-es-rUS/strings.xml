@@ -165,7 +165,7 @@
     <string name="autologin_bar_error" msgid="7470001207395920811">"No se pudo acceder."</string>
     <string name="autofill_profile_editor_heading" msgid="4798644544927738078">"Escribe el texto que deseas autocompletar en los formularios web."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Nombre completo:"</string>
-    <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"Correo electrónico:"</string>
+    <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"Correo:"</string>
     <string name="autofill_profile_editor_company_name" msgid="2813443159949210417">"Nombre de la empresa:"</string>
     <string name="autofill_profile_editor_address_line_1" msgid="836433242509243081">"Dirección línea 1:"</string>
     <string name="autofill_profile_editor_address_line_1_hint" msgid="5965659598509327172">"Dirección postal, código postal, A/A"</string>
@@ -181,7 +181,7 @@
     <string name="autofill_profile_successful_save" msgid="5691459703493331983">"Texto de autocompletado guardado"</string>
     <string name="autofill_profile_successful_delete" msgid="1790262652460723127">"Texto autocompletado eliminado"</string>
     <string name="autofill_profile_editor_delete_profile" msgid="3098369314558164153">"Borrar"</string>
-    <!-- outdated translation 1096164985825394616 -->     <string name="autofill_setup_dialog_message" msgid="7123905786076456503">"El navegador puede completar formularios web como este de forma automática. ¿Te gustaría configurar el completado automático de texto?"</string>
+    <string name="autofill_setup_dialog_message" msgid="7123905786076456503">"El navegador puede completar formularios web como este automáticamente. ¿Deseas configurar tu texto para autocompletar?"</string>
     <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"Siempre puedes configurar el autocompletado de texto desde la pantalla Navegador &gt; Configuración &gt; General."</string>
     <string name="disable_autofill" msgid="8305901059849400354">"Inhabilitar Autocompletar"</string>
     <string name="pref_privacy_security_title" msgid="3480313968942160914">"Privacidad &amp; seguridad"</string>
@@ -313,7 +313,6 @@
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"La tarjeta SD está ocupada. Para permitir descargas, selecciona \"Desactivar almacenamiento USB\" en la notificación."</string>
     <string name="cannot_download" msgid="8150552478556798780">"Solo se pueden descargar URL de \"http\" o de \"https\"."</string>
     <string name="download_pending" msgid="2599683668575349559">"Iniciando descarga..."</string>
-    <string name="help_page" msgid="2906208423557552540">"Ayuda"</string>
     <string name="search_the_web" msgid="6046130189241962337">"Buscar en Internet"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Almacenamiento del navegador lleno"</string>
     <string name="webstorage_outofspace_notification_text" msgid="47273584426988640">"Toca para liberar espacio."</string>

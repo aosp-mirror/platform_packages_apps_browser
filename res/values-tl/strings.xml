@@ -181,7 +181,7 @@
     <string name="autofill_profile_successful_save" msgid="5691459703493331983">"Na-save ang auto-fill text."</string>
     <string name="autofill_profile_successful_delete" msgid="1790262652460723127">"Tinanggal ang auto-fill text."</string>
     <string name="autofill_profile_editor_delete_profile" msgid="3098369314558164153">"Tanggalin"</string>
-    <!-- outdated translation 1096164985825394616 -->     <string name="autofill_setup_dialog_message" msgid="7123905786076456503">"Maaaring awtomatikong kumpletuhin ng browser ang mga web form tulad nito. Gusto mo bang i-set up ang iyong auto-fill text?"</string>
+    <string name="autofill_setup_dialog_message" msgid="7123905786076456503">"Awtomatikong makapagkukumpleto ang browser ng mga form sa web tulad nito. Nais mo bang i-set up ang iyong auto-fill na teksto?"</string>
     <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"Maaari mong i-set up ang iyong auto-fill text anumang oras mula sa Browser &gt; Mga Setting &gt; Pangkalahatang screen."</string>
     <string name="disable_autofill" msgid="8305901059849400354">"Huwag paganahin ang auto-fill"</string>
     <string name="pref_privacy_security_title" msgid="3480313968942160914">"Privacy at seguridad"</string>
@@ -313,7 +313,6 @@
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"Busy ang SD card. Upang bigyang-daan ang mga pag-download, pindutin ang I-Off ang USB Storage sa notification."</string>
     <string name="cannot_download" msgid="8150552478556798780">"Maaari lang mag-download ng mga URL ng \"http\" o \"https\"."</string>
     <string name="download_pending" msgid="2599683668575349559">"Sinisimulan ang pag-download..."</string>
-    <string name="help_page" msgid="2906208423557552540">"Tulong"</string>
     <string name="search_the_web" msgid="6046130189241962337">"Maghanap sa web"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Puno na ang imbakan ng browser"</string>
     <string name="webstorage_outofspace_notification_text" msgid="47273584426988640">"Pumindot upang magka-espasyo."</string>

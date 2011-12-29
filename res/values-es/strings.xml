@@ -181,7 +181,7 @@
     <string name="autofill_profile_successful_save" msgid="5691459703493331983">"Se ha guardado el texto de la función Autocompletar."</string>
     <string name="autofill_profile_successful_delete" msgid="1790262652460723127">"Se ha eliminado el texto de la función Autocompletar."</string>
     <string name="autofill_profile_editor_delete_profile" msgid="3098369314558164153">"Eliminar"</string>
-    <!-- outdated translation 1096164985825394616 -->     <string name="autofill_setup_dialog_message" msgid="7123905786076456503">"El navegador puede completar automáticamente formularios web como el que aparece a continuación. ¿Quieres configurar la función Autocompletar?"</string>
+    <string name="autofill_setup_dialog_message" msgid="7123905786076456503">"El navegador puede rellenar automáticamente formularios web como el que aparece a continuación. ¿Quieres configurar la función Autocompletar?"</string>
     <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"Siempre puedes configurar la opción Autocompletar desde la pantalla Navegador &gt; Ajustes &gt; Generales."</string>
     <string name="disable_autofill" msgid="8305901059849400354">"Inhabilitar autocompletar"</string>
     <string name="pref_privacy_security_title" msgid="3480313968942160914">"Seguridad y privacidad"</string>
@@ -313,7 +313,6 @@
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"La tarjeta SD está ocupada. Para permitir las descargas, toca Desactivar almacenamiento USB en la notificación."</string>
     <string name="cannot_download" msgid="8150552478556798780">"Solo se pueden descargar URL del tipo \"http\" o \"https\"."</string>
     <string name="download_pending" msgid="2599683668575349559">"Iniciando descarga…"</string>
-    <string name="help_page" msgid="2906208423557552540">"Ayuda"</string>
     <string name="search_the_web" msgid="6046130189241962337">"Buscar en la Web"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Espacio de almacenamiento del navegador agotado"</string>
     <string name="webstorage_outofspace_notification_text" msgid="47273584426988640">"Toca para liberar espacio."</string>

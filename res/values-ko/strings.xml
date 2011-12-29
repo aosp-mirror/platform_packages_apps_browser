@@ -181,7 +181,7 @@
     <string name="autofill_profile_successful_save" msgid="5691459703493331983">"자동 입력 텍스트를 저장했습니다."</string>
     <string name="autofill_profile_successful_delete" msgid="1790262652460723127">"자동 입력 텍스트가 삭제되었습니다."</string>
     <string name="autofill_profile_editor_delete_profile" msgid="3098369314558164153">"삭제"</string>
-    <!-- outdated translation 1096164985825394616 -->     <string name="autofill_setup_dialog_message" msgid="7123905786076456503">"브라우저에서 이 양식과 같은 웹 양식을 자동으로 완성할 수 있습니다. 자동 입력 텍스트를 설정하시겠습니까?"</string>
+    <string name="autofill_setup_dialog_message" msgid="7123905786076456503">"브라우저에서 이 양식과 같은 웹 양식을 자동으로 완성할 수 있습니다. 자동 입력 텍스트를 설정하시겠습니까?"</string>
     <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"브라우저 &gt; 설정 &gt; 일반 화면에서 언제든지 자동 입력 텍스트를 설정할 수 있습니다."</string>
     <string name="disable_autofill" msgid="8305901059849400354">"자동 입력 사용중지"</string>
     <string name="pref_privacy_security_title" msgid="3480313968942160914">"개인정보 보호 및 보안"</string>
@@ -313,7 +313,6 @@
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"SD 카드가 사용 중입니다. 다운로드를 허용하려면 알림에서 \'USB 저장소 끄기\'를 터치하세요."</string>
     <string name="cannot_download" msgid="8150552478556798780">"\'http\' 또는 \'https\' URL만 다운로드할 수 있습니다."</string>
     <string name="download_pending" msgid="2599683668575349559">"다운로드 시작 중..."</string>
-    <string name="help_page" msgid="2906208423557552540">"도움말"</string>
     <string name="search_the_web" msgid="6046130189241962337">"웹 검색"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"브라우저 저장용량 가득 참"</string>
     <string name="webstorage_outofspace_notification_text" msgid="47273584426988640">"여유 공간을 확보하려면 터치하세요."</string>
