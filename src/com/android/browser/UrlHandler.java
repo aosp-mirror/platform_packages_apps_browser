@@ -209,7 +209,7 @@ public class UrlHandler {
                   // Error on the side of staying in the browser, ignore
                   continue;
               }
-              if (filter.countDataAuthorities() == 0 || filter.countDataPaths() == 0) {
+              if (filter.countDataAuthorities() == 0 && filter.countDataPaths() == 0) {
                   // Generic handler, skip
                   continue;
               }
