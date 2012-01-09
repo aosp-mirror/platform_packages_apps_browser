@@ -23,6 +23,7 @@ import android.nfc.NfcAdapter;
 import android.nfc.NfcEvent;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 
 import java.util.concurrent.CountDownLatch;
 
@@ -32,6 +33,7 @@ import java.util.concurrent.CountDownLatch;
   * Incognito tabs will not be shared over NFC.
   */
 public class NfcHandler implements NfcAdapter.CreateNdefMessageCallback {
+    static final String TAG = "BrowserNfcHandler";
     static final int GET_PRIVATE_BROWSING_STATE_MSG = 100;
 
     final Controller mController;
@@ -94,9 +96,12 @@ public class NfcHandler implements NfcAdapter.CreateNdefMessageCallback {
 
         String currentUrl = mCurrentTab.getUrl();
         if (currentUrl != null) {
-            NdefRecord record = NdefRecord.createUri(currentUrl);
-            NdefMessage msg = new NdefMessage(new NdefRecord[] { record });
-            return msg;
+            try {
+                return new NdefMessage(NdefRecord.createUri(currentUrl));
+            } catch (IllegalArgumentException e) {
+                Log.e(TAG, "IllegalArgumentException creating URI NdefRecord", e);
+                return null;
+            }
         } else {
             return null;
         }
