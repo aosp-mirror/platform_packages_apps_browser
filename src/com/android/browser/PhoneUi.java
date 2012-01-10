@@ -428,7 +428,9 @@ public class PhoneUi extends BaseUi {
             mAnimScreen = new AnimScreen(mActivity);
         }
         mAnimScreen.set(tab.getScreenshot());
-        mCustomViewContainer.addView(mAnimScreen.mMain, COVER_SCREEN_PARAMS);
+        if (mAnimScreen.mMain.getParent() == null) {
+            mCustomViewContainer.addView(mAnimScreen.mMain, COVER_SCREEN_PARAMS);
+        }
         mAnimScreen.mMain.layout(0, 0, mContentView.getWidth(),
                 mContentView.getHeight());
         mNavScreen.mScroller.finishScroller();
