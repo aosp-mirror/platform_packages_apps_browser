@@ -97,7 +97,7 @@ public interface WebViewController {
 
     void onUpdatedSecurityState(Tab tab);
 
-    void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType);
+    void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType, String capture);
 
     void endActionMode();
 

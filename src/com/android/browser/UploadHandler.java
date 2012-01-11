@@ -90,7 +90,7 @@ public class UploadHandler {
         mCaughtActivityNotFoundException = false;
     }
 
-    void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType) {
+    void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType, String capture) {
 
         final String imageMimeType = "image/*";
         final String videoMimeType = "video/*";
@@ -102,8 +102,8 @@ public class UploadHandler {
         final String mediaSourceValueMicrophone = "microphone";
 
         // According to the spec, media source can be 'filesystem' or 'camera' or 'camcorder'
-        // or 'microphone'.
-        String mediaSource = "";
+        // or 'microphone' and the default value should be 'filesystem'.
+        String mediaSource = mediaSourceValueFileSystem;
 
         if (mUploadMessage != null) {
             // Already a file picker operation in progress.
@@ -116,12 +116,22 @@ public class UploadHandler {
         String params[] = acceptType.split(";");
         String mimeType = params[0];
 
-        for (String p : params) {
-            String[] keyValue = p.split("=");
-            if (keyValue.length == 2) {
-                // Process key=value parameters.
-                if (mediaSourceKey.equals(keyValue[0])) {
-                    mediaSource = keyValue[1];
+        if (capture.length() > 0) {
+            mediaSource = capture;
+        }
+
+        if (capture.equals(mediaSourceValueFileSystem)) {
+            // To maintain backwards compatibility with the previous implementation
+            // of the media capture API, if the value of the 'capture' attribute is
+            // "filesystem", we should examine the accept-type for a MIME type that
+            // may specify a different capture value.
+            for (String p : params) {
+                String[] keyValue = p.split("=");
+                if (keyValue.length == 2) {
+                    // Process key=value parameters.
+                    if (mediaSourceKey.equals(keyValue[0])) {
+                        mediaSource = keyValue[1];
+                    }
                 }
             }
         }
@@ -135,14 +145,10 @@ public class UploadHandler {
                 // camera directly.
                 startActivity(createCameraIntent());
                 return;
-            } else if (mediaSource.equals(mediaSourceValueFileSystem)) {
-                // Specified 'image/*' and requested the filesystem, so go ahead and launch an
-                // OPENABLE intent.
-                startActivity(createOpenableIntent(imageMimeType));
-                return;
             } else {
-                // Specified just 'image/*', so launch an intent for both the Camera and image/*
-                // OPENABLE.
+                // Specified just 'image/*', capture=filesystem, or an invalid capture parameter.
+                // In all these cases we show a traditional picker filetered on accept type
+                // so launch an intent for both the Camera and image/* OPENABLE.
                 Intent chooser = createChooserIntent(createCameraIntent());
                 chooser.putExtra(Intent.EXTRA_INTENT, createOpenableIntent(imageMimeType));
                 startActivity(chooser);
@@ -154,14 +160,10 @@ public class UploadHandler {
                 // camcorder directly.
                 startActivity(createCamcorderIntent());
                 return;
-            } else if (mediaSource.equals(mediaSourceValueFileSystem)) {
-                // Specified 'video/*' and requested the filesystem, so go ahead and launch an
-                // an OPENABLE intent.
-                startActivity(createOpenableIntent(videoMimeType));
-                return;
-            } else {
-                // Specified just 'video/*', so go ahead and launch an intent for both camcorder and
-                // video/* OPENABLE.
+           } else {
+                // Specified just 'video/*', capture=filesystem or an invalid capture parameter.
+                // In all these cases we show an intent for the traditional file picker, filtered
+                // on accept type so launch an intent for both camcorder and video/* OPENABLE.
                 Intent chooser = createChooserIntent(createCamcorderIntent());
                 chooser.putExtra(Intent.EXTRA_INTENT, createOpenableIntent(videoMimeType));
                 startActivity(chooser);
@@ -173,13 +175,9 @@ public class UploadHandler {
                 // recorder.
                 startActivity(createSoundRecorderIntent());
                 return;
-            } else if (mediaSource.equals(mediaSourceValueFileSystem)) {
-                // Specified 'audio/*' and requested filesystem, so go ahead and launch an
-                // OPENABLE intent.
-                startActivity(createOpenableIntent(audioMimeType));
-                return;
             } else {
-                // Specified just 'audio/*', so go ahead and launch an intent for both the sound
+                // Specified just 'audio/*',  capture=filesystem of an invalid capture parameter.
+                // In all these cases so go ahead and launch an intent for both the sound
                 // recorder and audio/* OPENABLE.
                 Intent chooser = createChooserIntent(createSoundRecorderIntent());
                 chooser.putExtra(Intent.EXTRA_INTENT, createOpenableIntent(audioMimeType));

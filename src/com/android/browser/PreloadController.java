@@ -214,7 +214,7 @@ public class PreloadController implements WebViewController {
     }
 
     @Override
-    public void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType) {
+    public void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType, String capture) {
         if (LOGD_ENABLED) Log.d(LOGTAG, "openFileChooser()");
     }
 

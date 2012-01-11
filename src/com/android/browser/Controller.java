@@ -1964,9 +1964,9 @@ public class Controller
     }
 
     // file chooser
-    public void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType) {
+    public void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType, String capture) {
         mUploadHandler = new UploadHandler(this);
-        mUploadHandler.openFileChooser(uploadMsg, acceptType);
+        mUploadHandler.openFileChooser(uploadMsg, acceptType, capture);
     }
 
     // thumbnails

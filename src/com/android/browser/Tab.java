@@ -1234,9 +1234,9 @@ class Tab implements PictureListener {
         }
 
         @Override
-        public void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType) {
+        public void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType, String capture) {
             if (mInForeground) {
-                mWebViewController.openFileChooser(uploadMsg, acceptType);
+                mWebViewController.openFileChooser(uploadMsg, acceptType, capture);
             } else {
                 uploadMsg.onReceiveValue(null);
             }
