@@ -1501,11 +1501,15 @@ class Tab implements PictureListener {
         return mId;
     }
 
+    void setWebView(WebView w) {
+        setWebView(w, true);
+    }
+
     /**
      * Sets the WebView for this tab, correctly removing the old WebView from
      * the container view.
      */
-    void setWebView(WebView w) {
+    void setWebView(WebView w, boolean restore) {
         if (mMainView == w) {
             return;
         }
@@ -1542,7 +1546,7 @@ class Tab implements PictureListener {
             if (tc != null && tc.getOnThumbnailUpdatedListener() != null) {
                 mMainView.setPictureListener(this);
             }
-            if (mSavedState != null) {
+            if (restore && (mSavedState != null)) {
                 WebBackForwardList restoredState
                         = mMainView.restoreState(mSavedState);
                 if (restoredState == null || restoredState.getSize() == 0) {
