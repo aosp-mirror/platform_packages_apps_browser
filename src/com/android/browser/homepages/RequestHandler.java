@@ -29,10 +29,14 @@ import android.util.Base64;
 import android.util.Log;
 
 import com.android.browser.R;
+import com.android.browser.homepages.Template.ListEntityIterator;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -71,6 +75,10 @@ public class RequestHandler extends Thread {
     }
 
     void doHandleRequest() throws IOException {
+        if ("file".equals(mUri.getScheme())) {
+            writeFolderIndex();
+            return;
+        }
         int match = sUriMatcher.match(mUri);
         switch (match) {
         case INDEX:
@@ -125,6 +133,71 @@ public class RequestHandler extends Thread {
             }
         });
         t.write(mOutput);
+    }
+
+    void writeFolderIndex() throws IOException {
+        File f = new File(mUri.getPath());
+        final File[] files = f.listFiles();
+        Template t = Template.getCachedTemplate(mContext, R.raw.folder_view);
+        t.assign("path", mUri.getPath());
+        t.assign("parent_url", f.getParent() != null ? f.getParent() : f.getPath());
+        t.assignLoop("files", new ListEntityIterator() {
+            int index = -1;
+
+            @Override
+            public void writeValue(OutputStream stream, String key) throws IOException {
+                File f = files[index];
+                if ("name".equals(key)) {
+                    stream.write(f.getName().getBytes());
+                }
+                if ("url".equals(key)) {
+                    stream.write(("file://" + f.getAbsolutePath()).getBytes());
+                }
+                if ("type".equals(key)) {
+                    stream.write((f.isDirectory() ? "dir" : "file").getBytes());
+                }
+                if ("size".equals(key)) {
+                    if (f.isFile()) {
+                        stream.write(readableFileSize(f.length()).getBytes());
+                    }
+                }
+                if ("last_modified".equals(key)) {
+                    String date = DateFormat.getDateTimeInstance(
+                            DateFormat.SHORT, DateFormat.SHORT)
+                            .format(f.lastModified());
+                    stream.write(date.getBytes());
+                }
+                if ("alt".equals(key)) {
+                    if (index % 2 == 0) {
+                        stream.write("alt".getBytes());
+                    }
+                }
+            }
+
+            @Override
+            public ListEntityIterator getListIterator(String key) {
+                return null;
+            }
+
+            @Override
+            public void reset() {
+                index = -1;
+            }
+
+            @Override
+            public boolean moveToNext() {
+                return (++index) < files.length;
+            }
+        });
+        t.write(mOutput);
+    }
+
+    static String readableFileSize(long size) {
+        if(size <= 0) return "0";
+        final String[] units = new String[] { "B", "KB", "MB", "GB", "TB" };
+        int digitGroups = (int) (Math.log10(size) / Math.log10(1024));
+        return new DecimalFormat("#,##0.#").format(
+                size / Math.pow(1024, digitGroups)) + " " + units[digitGroups];
     }
 
     String getUriResourcePath() {

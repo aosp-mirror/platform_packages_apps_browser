@@ -16,8 +16,6 @@
  */
 package com.android.browser.homepages;
 
-import com.android.browser.BrowserSettings;
-
 import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.content.Context;
@@ -28,8 +26,13 @@ import android.os.ParcelFileDescriptor;
 import android.util.Log;
 import android.webkit.WebResourceResponse;
 
+import com.android.browser.BrowserSettings;
+
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PipedInputStream;
+import java.io.PipedOutputStream;
 
 public class HomeProvider extends ContentProvider {
 
@@ -95,8 +98,27 @@ public class HomeProvider extends ContentProvider {
                     return new WebResourceResponse("text/html", "utf-8", ins);
                 }
             }
+            boolean listFiles = BrowserSettings.getInstance().isDebugEnabled();
+            if (listFiles && interceptFile(url)) {
+                PipedInputStream ins = new PipedInputStream();
+                PipedOutputStream outs = new PipedOutputStream(ins);
+                new RequestHandler(context, Uri.parse(url), outs).start();
+                return new WebResourceResponse("text/html", "utf-8", ins);
+            }
         } catch (Exception e) {}
         return null;
+    }
+
+    private static boolean interceptFile(String url) {
+        if (!url.startsWith("file:///")) {
+            return false;
+        }
+        String fpath = url.substring(7);
+        File f = new File(fpath);
+        if (!f.isDirectory()) {
+            return false;
+        }
+        return true;
     }
 
 }
