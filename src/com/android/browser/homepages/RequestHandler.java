@@ -20,8 +20,10 @@ import android.content.Context;
 import android.content.UriMatcher;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.database.MergeCursor;
 import android.net.Uri;
-import android.provider.Browser;
+import android.provider.BrowserContract.Bookmarks;
+import android.provider.BrowserContract.History;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
@@ -84,11 +86,28 @@ public class RequestHandler extends Thread {
         return TextUtils.htmlEncode(s).getBytes();
     }
 
+    // We can reuse this for both History and Bookmarks queries because the
+    // columns defined actually belong to the CommonColumn and ImageColumn
+    // interfaces that both History and Bookmarks implement
+    private static final String[] PROJECTION = new String[] {
+        History.URL,
+        History.TITLE,
+        History.THUMBNAIL
+    };
+    private static final String SELECTION = History.URL
+            + " NOT LIKE 'content:%' AND " + History.THUMBNAIL + " IS NOT NULL";
     void writeTemplatedIndex() throws IOException {
         Template t = Template.getCachedTemplate(mContext, R.raw.most_visited);
-        Cursor cursor = mContext.getContentResolver().query(Browser.BOOKMARKS_URI,
-                new String[] { "DISTINCT url", "title", "thumbnail" },
-                "(visits > 0 OR bookmark = 1) AND url NOT LIKE 'content:%' AND thumbnail IS NOT NULL", null, "visits DESC LIMIT 12");
+        Cursor historyResults = mContext.getContentResolver().query(
+                History.CONTENT_URI, PROJECTION, SELECTION,
+                null, History.VISITS + " DESC LIMIT 12");
+        Cursor cursor = historyResults;
+        if (cursor.getCount() < 12) {
+            Cursor bookmarkResults = mContext.getContentResolver().query(
+                    Bookmarks.CONTENT_URI, PROJECTION, SELECTION,
+                    null, null);
+            cursor = new MergeCursor(new Cursor[] { historyResults, bookmarkResults });
+        }
 
         t.assignLoop("most_visited", new Template.CursorListEntityWrapper(cursor) {
             @Override
