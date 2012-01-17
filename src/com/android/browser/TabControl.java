@@ -613,7 +613,7 @@ class TabControl {
         }
         // Create a new WebView. If this tab is the current tab, we need to put
         // back all the clients so force it to be the current tab.
-        t.setWebView(createNewWebView());
+        t.setWebView(createNewWebView(), false);
         if (getCurrentTab() == t) {
             setCurrentTab(t, true);
         }
