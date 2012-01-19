@@ -133,6 +133,7 @@ public class XLargeUi extends BaseUi {
     public void onResume() {
         super.onResume();
         mNavBar.clearCompletions();
+        checkTabCount();
     }
 
     @Override
