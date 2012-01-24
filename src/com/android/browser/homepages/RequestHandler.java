@@ -113,8 +113,13 @@ public class RequestHandler extends Thread {
         if (cursor.getCount() < 12) {
             Cursor bookmarkResults = mContext.getContentResolver().query(
                     Bookmarks.CONTENT_URI, PROJECTION, SELECTION,
-                    null, null);
-            cursor = new MergeCursor(new Cursor[] { historyResults, bookmarkResults });
+                    null, Bookmarks.DATE_CREATED + " DESC LIMIT 12");
+            cursor = new MergeCursor(new Cursor[] { historyResults, bookmarkResults }) {
+                @Override
+                public int getCount() {
+                    return Math.min(12, super.getCount());
+                }
+            };
         }
 
         t.assignLoop("most_visited", new Template.CursorListEntityWrapper(cursor) {
