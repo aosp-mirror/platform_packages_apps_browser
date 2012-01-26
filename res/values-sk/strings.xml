@@ -238,7 +238,7 @@
   <string-array name="pref_default_zoom_choices">
     <item msgid="549583171195154919">"Ďaleko"</item>
     <item msgid="5619034257768161024">"Stredné"</item>
-    <item msgid="3840999588443167001">"Zavrieť"</item>
+    <item msgid="3840999588443167001">"Blízko"</item>
   </string-array>
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"Predvolené priblíženie"</string>
     <string name="pref_content_load_page" msgid="2219810141690955452">"Otvárať stránky v náhľade"</string>

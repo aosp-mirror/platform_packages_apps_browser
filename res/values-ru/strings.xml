@@ -293,7 +293,7 @@
     <string name="go_home" msgid="109129207276086793">"Домашняя страница"</string>
     <string name="add_new_bookmark" msgid="3158497555612337238">"Добавить закладку"</string>
     <string name="add_bookmark_short" msgid="3783984330998103735">"Добавить"</string>
-    <string name="search_hint" msgid="4647356319916631820">"Введите условия поиска или URL-адрес"</string>
+    <string name="search_hint" msgid="4647356319916631820">"Условия поиска или URL"</string>
     <string name="search_button_text" msgid="5235226933877634410">"Поиск"</string>
     <string name="search_settings_description" msgid="1422401062529014107">"Закладки и история поиска"</string>
     <string name="popup_window_attempt" msgid="31565781154067629">"Открыть всплывающее окно с этого сайта?"</string>

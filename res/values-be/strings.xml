@@ -181,7 +181,7 @@
     <string name="autofill_profile_successful_save" msgid="5691459703493331983">"Аўтазапаўненне тэксту захавана."</string>
     <string name="autofill_profile_successful_delete" msgid="1790262652460723127">"Аўтазапаўненне тэксту адменена."</string>
     <string name="autofill_profile_editor_delete_profile" msgid="3098369314558164153">"Выдаліць"</string>
-    <string name="autofill_setup_dialog_message" msgid="1096164985825394616">"Браўзэр можа аўтаматычна запаўняць вэб-формы, падобныя на гэту. Хочаце ўсталяваць аўтазапаўненне?"</string>
+    <string name="autofill_setup_dialog_message" msgid="7123905786076456503">"Браўзер можа аўтаматычна запаўняць вэб-формы, падобныя на гэту. Хочаце уключыць аўтазапаўненне?"</string>
     <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"Вы заўсёды можаце наладзіць аўтазапаўненне тэксту ў браўзэры: Параметры &gt; Налады &gt; Агульны экран."</string>
     <string name="disable_autofill" msgid="8305901059849400354">"Адключыць аўтаматычнае запаўненне"</string>
     <string name="pref_privacy_security_title" msgid="3480313968942160914">"Канфідэнцыяльнасць і бяспека"</string>
@@ -313,7 +313,6 @@
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"SD-карта занятая. Каб дазволіць спампаванне, выберыце у апавяшчэнні \"Адключыць USB-назапашвальнiк\"."</string>
     <string name="cannot_download" msgid="8150552478556798780">"Можна спампаваць толькі \"HTTP\" або \"HTTPS\" URL."</string>
     <string name="download_pending" msgid="2599683668575349559">"Пачатак спампоўвання..."</string>
-    <string name="help_page" msgid="2906208423557552540">"Даведка"</string>
     <string name="search_the_web" msgid="6046130189241962337">"Пошук па ўсёй сетцы"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Памяць браўзэра поўная"</string>
     <string name="webstorage_outofspace_notification_text" msgid="47273584426988640">"Дакранiцеся, каб вызваліць месца."</string>
