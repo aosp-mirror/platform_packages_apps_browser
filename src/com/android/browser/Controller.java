@@ -2589,6 +2589,12 @@ public class Controller
         return  mTabControl.getTab(pos);
     }
 
+    boolean isMenuOrCtrlKey(int keyCode) {
+        return (KeyEvent.KEYCODE_MENU == keyCode)
+                || (KeyEvent.KEYCODE_CTRL_LEFT == keyCode)
+                || (KeyEvent.KEYCODE_CTRL_RIGHT == keyCode);
+    }
+
     /**
      * handle key events in browser
      *
@@ -2600,10 +2606,7 @@ public class Controller
         boolean noModifiers = event.hasNoModifiers();
         // Even if MENU is already held down, we need to call to super to open
         // the IME on long press.
-        if (!noModifiers
-                && ((KeyEvent.KEYCODE_MENU == keyCode)
-                        || (KeyEvent.KEYCODE_CTRL_LEFT == keyCode)
-                        || (KeyEvent.KEYCODE_CTRL_RIGHT == keyCode))) {
+        if (!noModifiers && isMenuOrCtrlKey(keyCode)) {
             mMenuIsDown = true;
             return false;
         }
@@ -2723,9 +2726,10 @@ public class Controller
     }
 
     boolean onKeyUp(int keyCode, KeyEvent event) {
-        if (KeyEvent.KEYCODE_MENU == keyCode) {
+        if (isMenuOrCtrlKey(keyCode)) {
             mMenuIsDown = false;
-            if (event.isTracking() && !event.isCanceled()) {
+            if (KeyEvent.KEYCODE_MENU == keyCode
+                    && event.isTracking() && !event.isCanceled()) {
                 return onMenuKey();
             }
         }
