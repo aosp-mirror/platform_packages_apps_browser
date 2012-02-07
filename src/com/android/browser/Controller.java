@@ -1258,6 +1258,7 @@ public class Controller
         }
         MenuInflater inflater = mActivity.getMenuInflater();
         inflater.inflate(R.menu.browser, menu);
+        menu.findItem(R.id.save_snapshot_menu_id).setEnabled(false);
         return true;
     }
 
