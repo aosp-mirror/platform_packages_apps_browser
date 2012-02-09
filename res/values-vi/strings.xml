@@ -130,7 +130,7 @@
     <string name="pref_content_block_popups" msgid="4158524847764470895">"Chặn cửa sổ bật lên"</string>
     <string name="pref_content_javascript" msgid="4570972030299516843">"Bật JavaScript"</string>
     <string name="pref_content_open_in_background" msgid="824123779725118663">"Mở dưới nền"</string>
-    <string name="pref_content_plugins" msgid="7231944644794301582">"Bật trình cắm"</string>
+    <string name="pref_content_plugins" msgid="7231944644794301582">"Cho phép phần bổ sung"</string>
   <string-array name="pref_content_plugins_choices">
     <item msgid="6745108155096660725">"Luôn bật"</item>
     <item msgid="2484126708670016519">"Theo yêu cầu"</item>
@@ -313,7 +313,6 @@
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"Thẻ SD đang bận. Để cho phép tải xuống, hãy chạm vào Tắt bộ nhớ USB trong thông báo."</string>
     <string name="cannot_download" msgid="8150552478556798780">"Chỉ có thể tải xuống URL \"http\" hoặc \"https\"."</string>
     <string name="download_pending" msgid="2599683668575349559">"Đang bắt đầu tải xuống..."</string>
-    <string name="help_page" msgid="2906208423557552540">"Trợ giúp"</string>
     <string name="search_the_web" msgid="6046130189241962337">"Tìm kiếm trên web"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Bộ nhớ của trình duyệt đầy"</string>
     <string name="webstorage_outofspace_notification_text" msgid="47273584426988640">"Chạm để giải phóng dung lượng."</string>

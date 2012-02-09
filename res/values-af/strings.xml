@@ -154,9 +154,9 @@
     <string name="pref_general_sync_title" msgid="3138637035975860324">"Sinkroniseer"</string>
     <string name="pref_general_autofill_title" msgid="547881256865816858">"Outo-invul"</string>
     <string name="pref_autofill_enabled" msgid="1015751713312396713">"Vorm-outo-invul"</string>
-    <string name="pref_autofill_enabled_summary" msgid="7659954073892471496">"Vul webvorms in met een klik"</string>
+    <string name="pref_autofill_enabled_summary" msgid="7659954073892471496">"Vul webvorms in met \'n enkele raak"</string>
     <string name="pref_autofill_profile_editor" msgid="8934844472922113166">"Outo-invul-teks"</string>
-    <string name="pref_autofill_profile_editor_summary" msgid="4864447251676856190">"Stel teks op om outomaties by webvorms in te vul"</string>
+    <string name="pref_autofill_profile_editor_summary" msgid="4864447251676856190">"Stel teks op om outomaties by webvorms te outo-invul"</string>
     <string name="pref_autologin_title" msgid="4421187193809267096">"Outomatiese Google-aanmelding"</string>
     <string name="pref_autologin_progress" msgid="8333244467048833461">"Meld aan by Google-werwe met <xliff:g id="ID_1">%s</xliff:g>"</string>
     <string name="autologin_bar_text" msgid="3684581827167173371">"Meld aan as"</string>
@@ -207,7 +207,7 @@
     <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"Laat werwe toe om toegang tot jou ligging te versoek"</string>
     <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"Maak liggingstoegang skoon"</string>
     <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"Maak liggingstoegang skoon vir alle webwerwe"</string>
-    <string name="pref_privacy_clear_geolocation_access_dlg" msgid="3190928760598034346">"Vee webwerwe se liggingstoegang uit?"</string>
+    <string name="pref_privacy_clear_geolocation_access_dlg" msgid="3190928760598034346">"Vee webwerfligging-toegang uit?"</string>
     <string name="pref_security_passwords_title" msgid="5734190542383756711">"Wagwoorde"</string>
     <string name="pref_security_remember_passwords" msgid="6492957683454529549">"Onthou wagwoorde"</string>
     <string name="pref_security_remember_passwords_summary" msgid="256388703356349137">"Stoor gebruikername en wagwoorde vir webwerwe"</string>
@@ -313,7 +313,6 @@
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"Die SD-kaart is besig. Om aflaaisels toe te laat, raak \"Skakel USB-berging af\" in die kennisgewing."</string>
     <string name="cannot_download" msgid="8150552478556798780">"Kan net URL\'e met \"http\" of \"https\" aflaai."</string>
     <string name="download_pending" msgid="2599683668575349559">"Begin aflaai…"</string>
-    <string name="help_page" msgid="2906208423557552540">"Hulp"</string>
     <string name="search_the_web" msgid="6046130189241962337">"Deursoek die web"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Blaaier se bergingsruimte is vol"</string>
     <string name="webstorage_outofspace_notification_text" msgid="47273584426988640">"Raak om ruimte te maak."</string>

@@ -16,7 +16,7 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="application_name" msgid="1935869255545976415">"Pārlūkprogramma"</string>
+    <string name="application_name" msgid="1935869255545976415">"Pārlūks"</string>
     <string name="choose_upload" msgid="3649366287575002063">"Izvēlieties augšupielādējamo failu"</string>
     <string name="uploads_disabled" msgid="463761197575372994">"Failu augšupielādes ir atspējotas."</string>
     <string name="new_tab" msgid="7971857320679510529">"Jauna cilne"</string>
@@ -238,7 +238,7 @@
   <string-array name="pref_default_zoom_choices">
     <item msgid="549583171195154919">"Tālu"</item>
     <item msgid="5619034257768161024">"Vidējs"</item>
-    <item msgid="3840999588443167001">"Aizvērt"</item>
+    <item msgid="3840999588443167001">"Tuvu"</item>
   </string-array>
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"Noklusējuma tālummaiņa"</string>
     <string name="pref_content_load_page" msgid="2219810141690955452">"Atvērt lapas kā pārskatus"</string>
@@ -313,7 +313,6 @@
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"SD karte ir aizņemta. Lai atļautu lejupielādes, paziņojumā pieskarieties iespējai Izslēgt USB atmiņu."</string>
     <string name="cannot_download" msgid="8150552478556798780">"Var lejupielādēt tikai tādus vietrāžus URL, kuri sākas ar “http” vai “https”."</string>
     <string name="download_pending" msgid="2599683668575349559">"Notiek lejupielādes sākšana..."</string>
-    <string name="help_page" msgid="2906208423557552540">"Palīdzība"</string>
     <string name="search_the_web" msgid="6046130189241962337">"Meklēšana tīmeklī"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Pārlūkprogrammas krātuve ir pilna."</string>
     <string name="webstorage_outofspace_notification_text" msgid="47273584426988640">"Pieskarieties, lai atbrīvotu vietu."</string>

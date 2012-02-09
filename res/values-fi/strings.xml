@@ -313,7 +313,6 @@
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"SD-kortti on varattu. Voit sallia lataukset valitsemalla ilmoituksessa Poista USB-tallennustila käytöstä."</string>
     <string name="cannot_download" msgid="8150552478556798780">"Vain http- tai https-URL-osoitteista voi ladata"</string>
     <string name="download_pending" msgid="2599683668575349559">"Aloitetaan latausta…"</string>
-    <string name="help_page" msgid="2906208423557552540">"Ohje"</string>
     <string name="search_the_web" msgid="6046130189241962337">"Verkkohaku"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Selaimen tallennustila täynnä"</string>
     <string name="webstorage_outofspace_notification_text" msgid="47273584426988640">"Vapauta tilaa koskettamalla."</string>
@@ -373,7 +372,7 @@
     <string name="accessibility_button_stop" msgid="6793644120043222148">"Keskeytä sivun lataus"</string>
     <string name="accessibility_button_addbookmark" msgid="4787844912630006181">"Lisää sivu kirjanmerkkeihin"</string>
     <string name="accessibility_button_search" msgid="5357014102136055376">"Haku"</string>
-    <string name="accessibility_button_voice" msgid="152016375096083337">"Aloita äänihaku"</string>
+    <string name="accessibility_button_voice" msgid="152016375096083337">"Aloita puhehaku"</string>
     <string name="accessibility_button_bookmarks" msgid="7435055677299151649">"Kirjanmerkit"</string>
     <string name="accessibility_button_closetab" msgid="6954807842756927737">"Sulje välilehti"</string>
     <string name="accessibility_button_newtab" msgid="4116986240706315748">"Avaa uusi välilehti"</string>

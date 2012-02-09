@@ -313,7 +313,6 @@
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"O cartão SD está ocupado. Para permitir downloads, toque em Desativar armazenamento USB na notificação."</string>
     <string name="cannot_download" msgid="8150552478556798780">"Somente é possível fazer download de URLs \"http\" ou \"https\""</string>
     <string name="download_pending" msgid="2599683668575349559">"Iniciando download…"</string>
-    <string name="help_page" msgid="2906208423557552540">"Ajuda"</string>
     <string name="search_the_web" msgid="6046130189241962337">"Pesquisar na web"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Armazenamento do navegador cheio"</string>
     <string name="webstorage_outofspace_notification_text" msgid="47273584426988640">"Toque para liberar espaço."</string>
@@ -362,7 +361,7 @@
     <string name="instant_search_label" msgid="8769284297650716935">"Google com Instant (Labs)"</string>
     <string name="preview" msgid="6450823514561689038">"Visualizar"</string>
     <string name="local_bookmarks" msgid="533816851415228520">"Locais"</string>
-    <string name="ua_switcher_desktop" msgid="220097077327558435">"Solicitar site na versão desktop"</string>
+    <string name="ua_switcher_desktop" msgid="220097077327558435">"Ver versão para web"</string>
     <string name="permission_preload_label" msgid="4856971662337877316">"Pré-carregar resultados"</string>
     <string name="empty_snapshots_folder" msgid="7675378008107026013">"Nenhuma página salva."</string>
     <string name="remove_snapshot" msgid="1624447424544976849">"Excluir página salva"</string>
