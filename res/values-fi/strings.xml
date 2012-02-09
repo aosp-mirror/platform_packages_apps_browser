@@ -372,7 +372,7 @@
     <string name="accessibility_button_stop" msgid="6793644120043222148">"Keskeytä sivun lataus"</string>
     <string name="accessibility_button_addbookmark" msgid="4787844912630006181">"Lisää sivu kirjanmerkkeihin"</string>
     <string name="accessibility_button_search" msgid="5357014102136055376">"Haku"</string>
-    <string name="accessibility_button_voice" msgid="152016375096083337">"Aloita äänihaku"</string>
+    <string name="accessibility_button_voice" msgid="152016375096083337">"Aloita puhehaku"</string>
     <string name="accessibility_button_bookmarks" msgid="7435055677299151649">"Kirjanmerkit"</string>
     <string name="accessibility_button_closetab" msgid="6954807842756927737">"Sulje välilehti"</string>
     <string name="accessibility_button_newtab" msgid="4116986240706315748">"Avaa uusi välilehti"</string>
