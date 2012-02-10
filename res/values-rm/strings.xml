@@ -20,15 +20,19 @@
     <string name="choose_upload" msgid="3649366287575002063">"Tscherner ina datoteca per importar"</string>
     <!-- no translation found for uploads_disabled (463761197575372994) -->
     <skip />
-    <!-- outdated translation 4505722538297295141 -->     <string name="new_tab" msgid="7971857320679510529">"Nova fanestra"</string>
-    <!-- outdated translation 5821404839654751753 -->     <string name="new_incognito_tab" msgid="3606197964239039478">"Nova fanestra incognito"</string>
+    <!-- no translation found for new_tab (7971857320679510529) -->
+    <skip />
+    <!-- no translation found for new_incognito_tab (3606197964239039478) -->
+    <skip />
     <string name="tab_bookmarks" msgid="2305793036003473653">"Segnapaginas"</string>
     <string name="tab_most_visited" msgid="1077402532455000703">"Visità il pli savens"</string>
     <string name="tab_history" msgid="1979267558744613746">"Cronologia"</string>
     <!-- no translation found for tab_snapshots (1449241204980265186) -->
     <skip />
-    <!-- outdated translation 1020224130695956728 -->     <string name="added_to_bookmarks" msgid="4028710765672851635">"Agiuntà als segnapaginas"</string>
-    <!-- outdated translation 6063705902028438800 -->     <string name="removed_from_bookmarks" msgid="546648923924996722">"Allontanà dals segnapaginas"</string>
+    <!-- no translation found for added_to_bookmarks (4028710765672851635) -->
+    <skip />
+    <!-- no translation found for removed_from_bookmarks (546648923924996722) -->
+    <skip />
     <string name="sign_in_to" msgid="5939425800148759165">"S\'annunziar tar <xliff:g id="HOSTNAME">%s1</xliff:g> «<xliff:g id="REALM">%s2</xliff:g>»"</string>
     <string name="username" msgid="5057566336518215922">"Num"</string>
     <string name="password" msgid="1177138552305184404">"Pled-clav"</string>
@@ -46,10 +50,13 @@
     <string name="view_certificate" msgid="1472768887529093862">"Mussar il certificat"</string>
     <!-- no translation found for ssl_go_back (4598951822061593819) -->
     <skip />
-    <!-- outdated translation 5369967226521102194 -->     <string name="ssl_untrusted" msgid="7754507359360636447">"Quest certificat n\'è betg vegnì emess dad in post da certificaziun fidà."</string>
-    <!-- outdated translation 558688832420069896 -->     <string name="ssl_mismatch" msgid="3809794439740523641">"Il num da la website na correspunda betg al num sin il certificat."</string>
+    <!-- no translation found for ssl_untrusted (7754507359360636447) -->
+    <skip />
+    <!-- no translation found for ssl_mismatch (3809794439740523641) -->
+    <skip />
     <string name="ssl_expired" msgid="5739349389499575559">"Quest certificat è scrudà."</string>
-    <!-- outdated translation 2893167846212645846 -->     <string name="ssl_not_yet_valid" msgid="8193083327719048247">"Quest certificat n\'è anc betg valid."</string>
+    <!-- no translation found for ssl_not_yet_valid (8193083327719048247) -->
+    <skip />
     <!-- no translation found for ssl_date_invalid (3705563379257285534) -->
     <skip />
     <!-- no translation found for ssl_invalid (9041704741505449967) -->
@@ -63,7 +70,8 @@
     <string name="forward" msgid="4288210890526641577">"Vinavant"</string>
     <string name="save" msgid="5922311934992468496">"OK"</string>
     <string name="do_not_save" msgid="6777633870113477714">"Interrumper"</string>
-    <!-- outdated translation 969988560160364559 -->     <string name="location" msgid="3411848697912600125">"Adressa"</string>
+    <!-- no translation found for location (3411848697912600125) -->
+    <skip />
     <!-- no translation found for account (5179824606448077042) -->
     <skip />
     <!-- no translation found for containing_folder (6771180232953030479) -->
@@ -82,26 +90,32 @@
     <skip />
     <!-- no translation found for add_to_other_folder_menu_option (5947586525822134105) -->
     <skip />
-    <!-- outdated translation 5990326151488445481 -->     <string name="name" msgid="5462672162695365387">"Num"</string>
+    <!-- no translation found for name (5462672162695365387) -->
+    <skip />
     <string name="http" msgid="2163722670597250102">"http://"</string>
-    <!-- outdated translation 6101482434920313244 -->     <string name="save_to_bookmarks" msgid="1679286010089780932">"Agiuntar als segnapaginas"</string>
+    <!-- no translation found for save_to_bookmarks (1679286010089780932) -->
+    <skip />
     <!-- no translation found for bookmark_this_page (7530739804320811054) -->
     <skip />
     <string name="remove" msgid="7820112494467011374">"Allontanar"</string>
     <string name="edit_bookmark" msgid="5024089053490231905">"Modifitgar il segnapagina"</string>
-    <!-- outdated translation 4528337239019328891 -->     <string name="create_shortcut_bookmark" msgid="1995095662095484289">"Agiuntar a la pagina da partenza"</string>
+    <!-- no translation found for create_shortcut_bookmark (1995095662095484289) -->
+    <skip />
     <string name="open_bookmark" msgid="8473581305759935790">"Avrir"</string>
     <string name="remove_bookmark" msgid="8407495852801410891">"Stizzar il segnapagina"</string>
     <string name="remove_from_bookmarks" msgid="4374080666576982775">"Stizzar dals segnapaginas"</string>
     <string name="remove_history_item" msgid="5021424935726728618">"Stizzar da la cronologia"</string>
     <string name="set_as_homepage" msgid="4752937379414905560">"Definir sco pagina da partenza"</string>
     <string name="bookmark_saved" msgid="2766434679871317557">"Memorisà en ils segnapaginas."</string>
-    <!-- outdated translation 700600955089376724 -->     <string name="bookmark_not_saved" msgid="1077732557310662080">"Impussibel da memorisar il segnapagina."</string>
+    <!-- no translation found for bookmark_not_saved (1077732557310662080) -->
+    <skip />
     <string name="homepage_set" msgid="8768087280310966395">"Definì ina pagina da partenza."</string>
     <string name="bookmark_needs_title" msgid="6245900436119218187">"Il segnapagina sto avair in num."</string>
     <string name="bookmark_needs_url" msgid="7809876865972755158">"Il segnapagina sto avair in lieu da memorisaziun."</string>
-    <!-- outdated translation 6719785633980202419 -->     <string name="bookmark_url_not_valid" msgid="4917440933384496211">"La URL è nuncorrecta."</string>
-    <!-- outdated translation 791722768778386941 -->     <string name="bookmark_cannot_save_url" msgid="7836064647943671126">"Impussibel d\'agiuntar questa URL a Voss segnapaginas."</string>
+    <!-- no translation found for bookmark_url_not_valid (4917440933384496211) -->
+    <skip />
+    <!-- no translation found for bookmark_cannot_save_url (7836064647943671126) -->
+    <skip />
     <string name="bookmark_page" msgid="6845189305130307274">"Segnapagina per l\'ultima pagina visitada"</string>
     <!-- no translation found for bookmark_thumbnail_view (3164068314718522138) -->
     <skip />
@@ -120,7 +134,8 @@
     <skip />
     <string name="history" msgid="2451240511251410032">"Cronologia"</string>
     <string name="menu_view_download" msgid="2124570321712995120">"Telechargiadas"</string>
-    <!-- outdated translation 7635062169011319208 -->     <string name="copy_page_url" msgid="1188679152608889555">"Copiar la URL da la pagina"</string>
+    <!-- no translation found for copy_page_url (1188679152608889555) -->
+    <skip />
     <string name="share_page" msgid="593756995297268343">"Barattar la pagina"</string>
     <!-- no translation found for menu_save_snapshot (6935080344031126139) -->
     <skip />
@@ -131,7 +146,8 @@
     <!-- no translation found for contextheader_folder_empty (974171637803391651) -->
     <skip />
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Avrir"</string>
-    <!-- outdated translation 992765050093960353 -->     <string name="contextmenu_openlink_newwindow" msgid="1205313604181761403">"Avrir en ina nova fanestra"</string>
+    <!-- no translation found for contextmenu_openlink_newwindow (1205313604181761403) -->
+    <skip />
     <!-- no translation found for contextmenu_openlink_newwindow_background (4690381019116746687) -->
     <skip />
     <string name="contextmenu_savelink" msgid="5508554930832538184">"Memorisar la colliaziun"</string>
@@ -150,10 +166,12 @@
     <string name="replace" msgid="4843033491070384047">"Remplazzar"</string>
     <string name="browser_bookmarks_page_bookmarks_text" msgid="6787605028726162673">"Segnapaginas"</string>
     <string name="menu_preferences" msgid="6709237687234102240">"Parameters"</string>
-    <!-- outdated translation 722227111894838633 -->     <string name="pref_content_title" msgid="3834107397725342174">"Parameters dal cuntegn da la pagina"</string>
+    <!-- no translation found for pref_content_title (3834107397725342174) -->
+    <skip />
     <string name="pref_content_load_images" msgid="2125616852957377561">"Chargiar ils maletgs"</string>
     <string name="pref_content_load_images_summary" msgid="5055874125248398584">"Mussar ils maletgs da las paginas web"</string>
-    <!-- outdated translation 7808433807197256726 -->     <string name="pref_content_block_popups" msgid="4158524847764470895">"Bloccar las fanestras pop-up"</string>
+    <!-- no translation found for pref_content_block_popups (4158524847764470895) -->
+    <skip />
     <string name="pref_content_javascript" msgid="4570972030299516843">"Activar JavaScript"</string>
     <string name="pref_content_open_in_background" msgid="824123779725118663">"Avrir davos las culissas"</string>
     <string name="pref_content_plugins" msgid="7231944644794301582">"Activar ils plug-ins"</string>
@@ -162,8 +180,10 @@
     <item msgid="2484126708670016519">"Sin dumonda"</item>
     <item msgid="8547442717307793863">"Deactivà"</item>
   </string-array>
-    <!-- outdated translation 1737664075721181678 -->     <string name="pref_content_open_in_background_summary" msgid="955411158407739504">"Avrir las novas fanestras davos la fanestra actuala"</string>
-    <!-- outdated translation 6082437160778559806 -->     <string name="pref_content_homepage" msgid="3324574611613105696">"Definir la pagina da partenza"</string>
+    <!-- no translation found for pref_content_open_in_background_summary (955411158407739504) -->
+    <skip />
+    <!-- no translation found for pref_content_homepage (3324574611613105696) -->
+    <skip />
     <!-- no translation found for pref_content_search_engine (1620101310821644144) -->
     <skip />
     <!-- no translation found for pref_content_search_engine_summary (304003941861818133) -->
@@ -176,7 +196,8 @@
     <!-- no translation found for pref_homepage_choices:3 (6092441301001006473) -->
     <!-- no translation found for pref_homepage_choices:4 (6569304572171444894) -->
     <string name="pref_content_autofit" msgid="8260474534053660809">"Adattar las paginas auto."</string>
-    <!-- outdated translation 4587831659894879986 -->     <string name="pref_content_autofit_summary" msgid="324810555822572112">"Adattar las paginas web al visur"</string>
+    <!-- no translation found for pref_content_autofit_summary (324810555822572112) -->
+    <skip />
     <!-- no translation found for pref_general_title (1946872771219249323) -->
     <skip />
     <!-- no translation found for pref_general_sync_title (3138637035975860324) -->
@@ -249,30 +270,37 @@
     <skip />
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Stizzar il cache"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Stizzar las bancas da datas ed il cuntegn ord il cache local"</string>
-    <!-- outdated translation 5541011591300753881 -->     <string name="pref_privacy_clear_cache_dlg" msgid="4344512581716422465">"Las bancas da datas ed ils cuntegns en il cache local vegnan stizzads."</string>
+    <!-- no translation found for pref_privacy_clear_cache_dlg (4344512581716422465) -->
+    <skip />
     <!-- no translation found for pref_privacy_cookies_title (6763274282214830526) -->
     <skip />
     <string name="pref_privacy_clear_cookies" msgid="3095583579133780331">"Stizzar tut ils cookies"</string>
     <string name="pref_privacy_clear_cookies_summary" msgid="6962742063990677520">"Stizzar tut ils cookies dal navigatur"</string>
-    <!-- outdated translation 552855688091432682 -->     <string name="pref_privacy_clear_cookies_dlg" msgid="1493252163164621278">"Tut ils cookies vegnan stizzads."</string>
+    <!-- no translation found for pref_privacy_clear_cookies_dlg (1493252163164621278) -->
+    <skip />
     <string name="pref_privacy_clear_history" msgid="8723795508825198477">"Stizzar la cronologia"</string>
     <string name="pref_privacy_clear_history_summary" msgid="6868501330708940734">"Stizzar la cronologia dal navigatur"</string>
-    <!-- outdated translation 544903007914753853 -->     <string name="pref_privacy_clear_history_dlg" msgid="6934317391642846227">"La cronologia dal navigatur vegn stizzada."</string>
+    <!-- no translation found for pref_privacy_clear_history_dlg (6934317391642846227) -->
+    <skip />
     <!-- no translation found for pref_privacy_formdata_title (6549813837982050424) -->
     <skip />
     <string name="pref_privacy_clear_form_data" msgid="4232668196344383987">"Stizzar datas da formular"</string>
-    <!-- outdated translation 1790390894719517167 -->     <string name="pref_privacy_clear_form_data_summary" msgid="7702091143640546200">"Stizzar tut las datas da formular memorisadas"</string>
-    <!-- outdated translation 4443621086781197928 -->     <string name="pref_privacy_clear_form_data_dlg" msgid="8205626042241338983">"Tut las datas da formulars memorisadas vegnan stizzadas."</string>
+    <!-- no translation found for pref_privacy_clear_form_data_summary (7702091143640546200) -->
+    <skip />
+    <!-- no translation found for pref_privacy_clear_form_data_dlg (8205626042241338983) -->
+    <skip />
     <string name="pref_privacy_clear_passwords" msgid="4750234112289277480">"Stizzar ils pleds-clav"</string>
     <string name="pref_privacy_clear_passwords_summary" msgid="8856782718942903335">"Stizzar tut ils pleds-clav memorisads"</string>
-    <!-- outdated translation 2083869328824248255 -->     <string name="pref_privacy_clear_passwords_dlg" msgid="5836576259947160045">"Tut ils pleds-clav memorisads vegnan stizzads."</string>
+    <!-- no translation found for pref_privacy_clear_passwords_dlg (5836576259947160045) -->
+    <skip />
     <!-- no translation found for pref_privacy_location_title (7458378016606081067) -->
     <skip />
     <string name="pref_privacy_enable_geolocation" msgid="1395040170290765686">"Activar la posiziun"</string>
     <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"Autorisar las websites da dumandar l\'access a Vossa posiziun"</string>
     <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"Stizzar l\'access a datas da posiziun"</string>
     <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"Stizzar l\'access a datas da posiziun per tut las websites."</string>
-    <!-- outdated translation 7327063124488827244 -->     <string name="pref_privacy_clear_geolocation_access_dlg" msgid="3190928760598034346">"Stizzar l\'access a datas da posiziun per tut las websites"</string>
+    <!-- no translation found for pref_privacy_clear_geolocation_access_dlg (3190928760598034346) -->
+    <skip />
     <!-- no translation found for pref_security_passwords_title (5734190542383756711) -->
     <skip />
     <string name="pref_security_remember_passwords" msgid="6492957683454529549">"Memorisar ils pleds-clav"</string>
@@ -280,9 +308,11 @@
     <string name="pref_security_save_form_data" msgid="1213669802810198893">"Memorisar las datas da formular"</string>
     <string name="pref_security_save_form_data_summary" msgid="4994074685153708026">"Memorisar las datas endatadas en formulars per reutilisar ellas"</string>
     <string name="pref_security_show_security_warning" msgid="8901135676266754559">"Avertiments da segirezza"</string>
-    <!-- outdated translation 8968906112720511704 -->     <string name="pref_security_show_security_warning_summary" msgid="5260098316025397525">"Mussar in avertiment en cas da problems da segirezza cun ina website"</string>
+    <!-- no translation found for pref_security_show_security_warning_summary (5260098316025397525) -->
+    <skip />
     <string name="pref_security_accept_cookies" msgid="3201367661925047989">"Acceptar cookies"</string>
-    <!-- outdated translation 1465118934875026920 -->     <string name="pref_security_accept_cookies_summary" msgid="1907951236154433751">"Permetter a las websites da memorisar e leger cookies"</string>
+    <!-- no translation found for pref_security_accept_cookies_summary (1907951236154433751) -->
+    <skip />
   <string-array name="pref_text_size_choices">
     <item msgid="4952686548944739548">"Fitg pitschna"</item>
     <item msgid="1950030433642671460">"Pitschna"</item>
@@ -318,15 +348,18 @@
   </string-array>
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"Zoom predefinì"</string>
     <string name="pref_content_load_page" msgid="2219810141690955452">"Avrir las paginas en la survista"</string>
-    <!-- outdated translation 8792093504054149369 -->     <string name="pref_content_load_page_summary" msgid="9168803276420332955">"Mussar ina survista da las paginas novas"</string>
-    <!-- outdated translation 3091250467679722382 -->     <string name="pref_extras_title" msgid="7075456173747370647">"Parameters avanzads"</string>
+    <!-- no translation found for pref_content_load_page_summary (9168803276420332955) -->
+    <skip />
+    <!-- no translation found for pref_extras_title (7075456173747370647) -->
+    <skip />
     <string name="pref_extras_website_settings" msgid="67866640052455549">"Parameters per websites"</string>
     <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"Parameters avanzads per singulas websites"</string>
     <!-- no translation found for pref_extras_reset_default_title (3579760449455761762) -->
     <skip />
     <string name="pref_extras_reset_default" msgid="8904000515846202110">"Reinizialisar il standard"</string>
     <string name="pref_extras_reset_default_summary" msgid="4247870778270414501">"Restaurar ils parameters predefinids"</string>
-    <!-- outdated translation 6640261575874704022 -->     <string name="pref_extras_reset_default_dlg" msgid="7922814420184322450">"Ils parameters da standard vegnan restituids."</string>
+    <!-- no translation found for pref_extras_reset_default_dlg (7922814420184322450) -->
+    <skip />
     <string name="pref_development_title" msgid="3263854204533056480">"Debugar"</string>
     <string name="pref_default_text_encoding" msgid="5742965543955558478">"Codaziun dal text"</string>
   <string-array name="pref_default_text_encoding_choices">
@@ -369,69 +402,94 @@
     <skip />
     <!-- no translation found for pref_data_preload_dialogtitle (8421297746110796536) -->
     <skip />
-    <!-- outdated translation 126892350904924893 -->     <string name="browserFrameNetworkErrorLabel" msgid="8102515020625680714">"Problem da connectivitad da datas"</string>
-    <!-- outdated translation 8063691502792670367 -->     <string name="browserFrameFileErrorLabel" msgid="4703792279852977350">"Problem da datoteca"</string>
+    <!-- no translation found for browserFrameNetworkErrorLabel (8102515020625680714) -->
+    <skip />
+    <!-- no translation found for browserFrameFileErrorLabel (4703792279852977350) -->
+    <skip />
     <string name="browserFrameFormResubmitLabel" msgid="2385512101948178841"></string>
-    <!-- outdated translation 2752182215695632138 -->     <string name="browserFrameFormResubmitMessage" msgid="5244059279866705254">"La pagina che Vus vulais laschar mussar cuntegna datas ch\'èn gia vegnidas tramessas («POSTDATA»). Sche Vus tramettais danovamain las datas vegn mintga acziun ch\'il formular da la pagina ha exequì repetida (sco per exempel ina tschertga u ina cumpra online)."</string>
-    <!-- outdated translation 675991625288706944 -->     <string name="loadSuspendedTitle" msgid="6453376579109644551">"Nagina connexiun da rait"</string>
-    <!-- outdated translation 3133656588880851273 -->     <string name="loadSuspended" msgid="3843343290039218668">"Impussibel da chargiar questa pagina en il navigatur senza connexiun a l\'internet."</string>
+    <!-- no translation found for browserFrameFormResubmitMessage (5244059279866705254) -->
+    <skip />
+    <!-- no translation found for loadSuspendedTitle (6453376579109644551) -->
+    <skip />
+    <!-- no translation found for loadSuspended (3843343290039218668) -->
+    <skip />
     <string name="clear_history" msgid="5998307092715979619">"Stizzar la cronologia"</string>
     <string name="browser_history" msgid="2979476257919939232">"Paginas visitadas dacurt"</string>
-    <!-- outdated translation 8738772352308207274 -->     <string name="empty_history" msgid="7013369425484218985">"La cronologia è vida."</string>
+    <!-- no translation found for empty_history (7013369425484218985) -->
+    <skip />
     <!-- no translation found for go_home (109129207276086793) -->
     <skip />
-    <!-- outdated translation 8086367791400349049 -->     <string name="add_new_bookmark" msgid="3158497555612337238">"Agiuntar in segnapagina…"</string>
+    <!-- no translation found for add_new_bookmark (3158497555612337238) -->
+    <skip />
     <string name="add_bookmark_short" msgid="3783984330998103735">"Agiuntar"</string>
     <string name="search_hint" msgid="4647356319916631820">"Tschertgar u endatar ina URL"</string>
     <string name="search_button_text" msgid="5235226933877634410">"Dai"</string>
     <string name="search_settings_description" msgid="1422401062529014107">"Segnapaginas e cronologia web"</string>
-    <!-- outdated translation 2673111696288657989 -->     <string name="popup_window_attempt" msgid="31565781154067629">"Questa website emprova dad avrir ina fanestra pop-up."</string>
+    <!-- no translation found for popup_window_attempt (31565781154067629) -->
+    <skip />
     <string name="allow" msgid="1157313689171991335">"Permetter"</string>
     <string name="block" msgid="9172175889884707800">"Bloccar"</string>
-    <!-- outdated translation 5175503564948906442 -->     <string name="too_many_windows_dialog_title" msgid="5709782301477380438">"Cuntanschì la limita da fanestras"</string>
-    <!-- outdated translation 1398571800233959583 -->     <string name="too_many_windows_dialog_message" msgid="3644234634638290304">"Impussibel dad avrir ina nova fanestra. Il dumber maximal da fanestras avertas è cuntanschì."</string>
+    <!-- no translation found for too_many_windows_dialog_title (5709782301477380438) -->
+    <skip />
+    <!-- no translation found for too_many_windows_dialog_message (3644234634638290304) -->
+    <skip />
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"La fanestra pop-up è gia averta"</string>
-    <!-- outdated translation 5827289829907966657 -->     <string name="too_many_subwindows_dialog_message" msgid="2164725447981195556">"Impussibel d\'avrir ina nova fanestra. Ina unica fanestra po esser averta a la giada."</string>
-    <!-- outdated translation 605904452159416792 -->     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"Nagina carta SD"</string>
+    <!-- no translation found for too_many_subwindows_dialog_message (2164725447981195556) -->
+    <skip />
+    <!-- no translation found for download_no_sdcard_dlg_title (56777245081568508) -->
+    <skip />
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"Nagina carta SD"</string>
     <!-- no translation found for download_no_sdcard_dlg_msg (3144652102051031721) -->
     <skip />
     <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"Per telechargiar <xliff:g id="FILENAME">%s</xliff:g> è necessaria ina carta SD."</string>
-    <!-- outdated translation 6877712666046917741 -->     <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"Carta SD betg disponibla"</string>
+    <!-- no translation found for download_sdcard_busy_dlg_title (8081445664689818973) -->
+    <skip />
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"Carta SD betg disponibla"</string>
-    <!-- outdated translation 3473883538192835204 -->     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="8412543086906716875">"La carta SD è occupada. Tscherni «Deactivar la memoria USB» en l\'avis per permetter telechargiadas."</string>
-    <!-- outdated translation 3473883538192835204 -->     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"La carta SD è occupada. Tscherni «Deactivar la memoria USB» en l\'avis per permetter telechargiadas."</string>
+    <!-- no translation found for download_sdcard_busy_dlg_msg (8412543086906716875) -->
+    <skip />
+    <!-- no translation found for download_sdcard_busy_dlg_msg (2629425950473358591) -->
+    <skip />
     <!-- no translation found for cannot_download (8150552478556798780) -->
     <skip />
     <string name="download_pending" msgid="2599683668575349559">"Cumenzar la telechargiada…"</string>
-    <!-- no translation found for help_page (2906208423557552540) -->
-    <skip />
     <string name="search_the_web" msgid="6046130189241962337">"Tschertgar en il web"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Memoria dal navigatur plaina"</string>
-    <!-- outdated translation 7341075135051829692 -->     <string name="webstorage_outofspace_notification_text" msgid="47273584426988640">"Cliccai qua per gudagnar capacitad da memorisar."</string>
+    <!-- no translation found for webstorage_outofspace_notification_text (47273584426988640) -->
+    <skip />
     <string name="webstorage_clear_data_title" msgid="689484577124333977">"Stizzar las datas memorisadas"</string>
-    <!-- outdated translation 6678281256970470125 -->     <string name="webstorage_clear_data_dialog_message" msgid="6200681632891775881">"Tut las datas memorisadas da questa website vegnan stizzadas."</string>
-    <!-- outdated translation 2516563534211898636 -->     <string name="webstorage_clear_data_dialog_ok_button" msgid="6682570951259237542">"Stizzar tut"</string>
+    <!-- no translation found for webstorage_clear_data_dialog_message (6200681632891775881) -->
+    <skip />
+    <!-- no translation found for webstorage_clear_data_dialog_ok_button (6682570951259237542) -->
+    <skip />
     <string name="webstorage_clear_data_dialog_cancel_button" msgid="2028867751958942762">"Interrumper"</string>
     <string name="webstorage_origin_summary_mb_stored" msgid="1985885826292236210">"MB memorisads sin Voss telefon"</string>
-    <!-- outdated translation 4887871585216091096 -->     <string name="loading_video" msgid="7886324933131962321">"Chargiar il video"</string>
+    <!-- no translation found for loading_video (7886324933131962321) -->
+    <skip />
     <string name="geolocation_permissions_prompt_message" msgid="356796102004052471">"<xliff:g id="WEBSITE_ORIGIN">%s</xliff:g> vul savair Vossa posiziun geografica."</string>
     <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"Tradir mia posiziun"</string>
     <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"Refusar"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"Memorisar las preferenzas"</string>
-    <!-- outdated translation 987286072035125498 -->     <string name="geolocation_permissions_prompt_toast_allowed" msgid="7201417941112726112">"Questa website ha access a Vossa posiziun. Modifitgai questa opziun en Parameters -&gt; Parameters da la website"</string>
-    <!-- outdated translation 7695100950212692515 -->     <string name="geolocation_permissions_prompt_toast_disallowed" msgid="156443445797377409">"Questa pagina n\'ha betg access a Vossa posiziun. Midai questa opziun en Parameters -&gt; Parameters da la website"</string>
+    <!-- no translation found for geolocation_permissions_prompt_toast_allowed (7201417941112726112) -->
+    <skip />
+    <!-- no translation found for geolocation_permissions_prompt_toast_disallowed (156443445797377409) -->
+    <skip />
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Stizzar l\'access a la posiziun"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Questa website ha actualmain access a Vossa posiziun"</string>
-    <!-- outdated translation 4589649082203102544 -->     <string name="geolocation_settings_page_summary_not_allowed" msgid="7941769772784366199">"Questa website n\'ha per il mument betg access a Vossa posiziun."</string>
-    <!-- outdated translation 7586671987576403993 -->     <string name="geolocation_settings_page_dialog_message" msgid="8772923416296868537">"L\'access da questa website a datas da posiziun vegn stizzà."</string>
-    <!-- outdated translation 4789434178048077287 -->     <string name="geolocation_settings_page_dialog_ok_button" msgid="2113465477131017852">"Stizzar l\'access"</string>
+    <!-- no translation found for geolocation_settings_page_summary_not_allowed (7941769772784366199) -->
+    <skip />
+    <!-- no translation found for geolocation_settings_page_dialog_message (8772923416296868537) -->
+    <skip />
+    <!-- no translation found for geolocation_settings_page_dialog_ok_button (2113465477131017852) -->
+    <skip />
     <string name="geolocation_settings_page_dialog_cancel_button" msgid="7941036504673409747">"Interrumper"</string>
     <string name="website_settings_clear_all" msgid="8739804325997655980">"Stizzar tut"</string>
-    <!-- outdated translation 6150502090601476333 -->     <string name="website_settings_clear_all_dialog_message" msgid="1551164275687475061">"Tut las datas da la website e las autorisaziuns da posiziun vegnan stizzadas."</string>
-    <!-- outdated translation 6401582240627669431 -->     <string name="website_settings_clear_all_dialog_ok_button" msgid="7858504776529106243">"Stizzar tut las datas"</string>
+    <!-- no translation found for website_settings_clear_all_dialog_message (1551164275687475061) -->
+    <skip />
+    <!-- no translation found for website_settings_clear_all_dialog_ok_button (7858504776529106243) -->
+    <skip />
     <string name="website_settings_clear_all_dialog_cancel_button" msgid="1896757051856611674">"Interrumper"</string>
-    <!-- outdated translation 4871900779338536674 -->     <string name="progress_dialog_setting_wallpaper" msgid="2031391201442335889">"Il maletg dal fund davos vegn endrizzà…"</string>
+    <!-- no translation found for progress_dialog_setting_wallpaper (2031391201442335889) -->
+    <skip />
     <string name="defaultBookmarksUpButton" msgid="2303951020715704735">"Segnapaginas"</string>
     <!-- no translation found for empty_bookmarks_folder (6239830231917618556) -->
     <skip />

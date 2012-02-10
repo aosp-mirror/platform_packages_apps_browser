@@ -313,7 +313,6 @@
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"La tarjeta SD está ocupada. Para permitir las descargas, toca Desactivar almacenamiento USB en la notificación."</string>
     <string name="cannot_download" msgid="8150552478556798780">"Solo se pueden descargar URL del tipo \"http\" o \"https\"."</string>
     <string name="download_pending" msgid="2599683668575349559">"Iniciando descarga…"</string>
-    <string name="help_page" msgid="2906208423557552540">"Ayuda"</string>
     <string name="search_the_web" msgid="6046130189241962337">"Buscar en la Web"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Espacio de almacenamiento del navegador agotado"</string>
     <string name="webstorage_outofspace_notification_text" msgid="47273584426988640">"Toca para liberar espacio."</string>

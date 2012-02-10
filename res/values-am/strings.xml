@@ -313,7 +313,6 @@
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"የ SD ካርዱ ስራ ላይ ነው። ማውረድ ለመፍቀድ፣ በማሳወቂያ ውስጥ \"የUSB ማከማቻ አጥፋ።"</string>
     <string name="cannot_download" msgid="8150552478556798780">" \"http\" ወይም \"https\" URL ብቻ ማውረድ ይችላል።"</string>
     <string name="download_pending" msgid="2599683668575349559">"አውርድ በማስጀመር ላይ..."</string>
-    <string name="help_page" msgid="2906208423557552540">"እገዛ"</string>
     <string name="search_the_web" msgid="6046130189241962337">"ድሩን ፈልግ"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"የአሳሽ ማከማቻ ሙሉ ነው"</string>
     <string name="webstorage_outofspace_notification_text" msgid="47273584426988640">"ቦታ ነፃ ለማድረግ ነካ አድርግ።"</string>

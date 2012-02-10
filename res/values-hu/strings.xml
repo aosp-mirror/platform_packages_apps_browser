@@ -313,7 +313,6 @@
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"Az SD-kártya dolgozik. A letöltések engedélyezéséhez válassza az \"USB-tár kikapcsolása\" lehetőséget."</string>
     <string name="cannot_download" msgid="8150552478556798780">"Csak \"http\" vagy \"https\" URL-ek letöltése lehetséges."</string>
     <string name="download_pending" msgid="2599683668575349559">"Letöltés megkezdése..."</string>
-    <string name="help_page" msgid="2906208423557552540">"Súgó"</string>
     <string name="search_the_web" msgid="6046130189241962337">"Keresés az interneten"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"A böngésző tárterülete megtelt"</string>
     <string name="webstorage_outofspace_notification_text" msgid="47273584426988640">"Érintse meg terület felszabadításához."</string>
