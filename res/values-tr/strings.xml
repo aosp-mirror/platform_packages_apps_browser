@@ -313,7 +313,6 @@
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"SD kart meşgul. İndirme işlemlerine izin vermek için bildirim alanında USB Depolama Birimini Kapat seçeneğine dokunun."</string>
     <string name="cannot_download" msgid="8150552478556798780">"Yalnızca \"http\" veya \"https\" URL\'leri indirilebilir."</string>
     <string name="download_pending" msgid="2599683668575349559">"İndirme işlemi başlatılıyor…"</string>
-    <string name="help_page" msgid="2906208423557552540">"Yardım"</string>
     <string name="search_the_web" msgid="6046130189241962337">"Web\'de ara"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Tarayıcı deposu dolu"</string>
     <string name="webstorage_outofspace_notification_text" msgid="47273584426988640">"Yer boşaltmak için dokunun."</string>

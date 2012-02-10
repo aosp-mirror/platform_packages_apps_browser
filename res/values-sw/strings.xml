@@ -267,7 +267,7 @@
     <string name="pref_font_size_category" msgid="6683754355084218254">"Ukubwa wa maandishi"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"Maabara"</string>
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Vidhibiti vya Haraka"</string>
-    <string name="pref_lab_quick_controls_summary" msgid="3149664132600968775">"Telea gumba kutoka pambizo ya kushoto au kulia ili kufungua vidhibiti na kuficha programu na mwambaa za URL"</string>
+    <string name="pref_lab_quick_controls_summary" msgid="3149664132600968775">"Telea gumba kutoka pambizo ya kushoto au kulia ili kufungua vidhibiti na kuficha prog na mwambaa za URL"</string>
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Google Instant"</string>
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Tumia Google Instant unapotumia Utafutaji wa Google, ili kuonyesha matokeo unapoendelea kuchapa (hii inaweza kuongeza matumizi ya data)."</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"Skrini nzima"</string>
@@ -313,7 +313,6 @@
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"Kadi ya SD inashughuli. Kuruhusu vipakuzi, gusa \"Zima Hifadhi ya USB\" katika arifa."</string>
     <string name="cannot_download" msgid="8150552478556798780">"Inaweza kupakua tu URLs za \"http\" au \"https\"."</string>
     <string name="download_pending" msgid="2599683668575349559">"Inaanza kupakua..."</string>
-    <string name="help_page" msgid="2906208423557552540">"Msaada"</string>
     <string name="search_the_web" msgid="6046130189241962337">"Tafuta wavuti"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Hifadhi ya kivinjari imejaa"</string>
     <string name="webstorage_outofspace_notification_text" msgid="47273584426988640">"Gusaa ili kupata nafasi."</string>
