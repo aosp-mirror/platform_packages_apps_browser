@@ -313,7 +313,6 @@
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"SD картата е заета. За да разрешите изтегляния, докоснете „Изключване на USB хранилището“ в известието."</string>
     <string name="cannot_download" msgid="8150552478556798780">"Могат да се изтеглят само URL адреси от тип „http“ или „https“."</string>
     <string name="download_pending" msgid="2599683668575349559">"Изтеглянето се стартира…"</string>
-    <string name="help_page" msgid="2906208423557552540">"Помощ"</string>
     <string name="search_the_web" msgid="6046130189241962337">"Търсене в мрежата"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Хранилището на браузъра е пълно"</string>
     <string name="webstorage_outofspace_notification_text" msgid="47273584426988640">"Докоснете, за да освободите място."</string>

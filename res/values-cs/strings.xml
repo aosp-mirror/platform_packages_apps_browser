@@ -76,7 +76,7 @@
     <string name="create_shortcut_bookmark" msgid="1995095662095484289">"Přidat zástupce na plochu"</string>
     <string name="open_bookmark" msgid="8473581305759935790">"Otevřít"</string>
     <string name="remove_bookmark" msgid="8407495852801410891">"Smazat záložku"</string>
-    <string name="remove_from_bookmarks" msgid="4374080666576982775">"Zrušit přístup k poloze"</string>
+    <string name="remove_from_bookmarks" msgid="4374080666576982775">"Odebrat ze záložek"</string>
     <string name="remove_history_item" msgid="5021424935726728618">"Odstranit z historie"</string>
     <string name="set_as_homepage" msgid="4752937379414905560">"Nastavit jako domovskou stránku"</string>
     <string name="bookmark_saved" msgid="2766434679871317557">"Uloženo do záložek."</string>
@@ -95,7 +95,7 @@
     <string name="goto_dot" msgid="3895839050522602723">"Přejít"</string>
     <string name="select_dot" msgid="6299170761900561967">"Vybrat text"</string>
     <string name="bookmarks" msgid="1961279134885867815">"Záložky"</string>
-    <string name="shortcut_bookmark" msgid="3974876480401135895">"Přidat do záložek"</string>
+    <string name="shortcut_bookmark" msgid="3974876480401135895">"Záložka"</string>
     <string name="shortcut_bookmark_title" msgid="7570786275916681296">"Zvolte záložku"</string>
     <string name="history" msgid="2451240511251410032">"Historie"</string>
     <string name="menu_view_download" msgid="2124570321712995120">"Stažené"</string>
@@ -244,7 +244,7 @@
     <string name="pref_content_load_page" msgid="2219810141690955452">"Otevírat stránky v náhledu"</string>
     <string name="pref_content_load_page_summary" msgid="9168803276420332955">"Zobrazit přehled nově otevřených stránek"</string>
     <string name="pref_extras_title" msgid="7075456173747370647">"Pokročilé"</string>
-    <string name="pref_extras_website_settings" msgid="67866640052455549">"Zrušit přístup k poloze"</string>
+    <string name="pref_extras_website_settings" msgid="67866640052455549">"Nastavení webových stránek"</string>
     <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"Pokročilá nastavení pro jednotlivé webové stránky"</string>
     <string name="pref_extras_reset_default_title" msgid="3579760449455761762">"Obnovit výchozí"</string>
     <string name="pref_extras_reset_default" msgid="8904000515846202110">"Obnovit výchozí"</string>
@@ -293,7 +293,7 @@
     <string name="go_home" msgid="109129207276086793">"Domovská stránka"</string>
     <string name="add_new_bookmark" msgid="3158497555612337238">"Přidat záložku"</string>
     <string name="add_bookmark_short" msgid="3783984330998103735">"Přidat"</string>
-    <string name="search_hint" msgid="4647356319916631820">"Zrušit přístup k poloze"</string>
+    <string name="search_hint" msgid="4647356319916631820">"Vyhledávejte nebo zadejte adresu URL"</string>
     <string name="search_button_text" msgid="5235226933877634410">"Přejít"</string>
     <string name="search_settings_description" msgid="1422401062529014107">"Záložky a webová historie"</string>
     <string name="popup_window_attempt" msgid="31565781154067629">"Umožnit tomuto webu otevřít vyskakovací okno?"</string>
@@ -313,15 +313,14 @@
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"Karta SD je zaneprázdněna. Chcete-li povolit stahování, dotkněte se v oznámení možnosti Vypnout úložiště USB."</string>
     <string name="cannot_download" msgid="8150552478556798780">"Lze stahovat pouze adresy URL začínající jako http nebo https."</string>
     <string name="download_pending" msgid="2599683668575349559">"Zahájení stahování..."</string>
-    <string name="help_page" msgid="2906208423557552540">"Nápověda"</string>
     <string name="search_the_web" msgid="6046130189241962337">"Vyhledat na webu"</string>
-    <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Zrušit přístup k poloze"</string>
+    <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Paměť prohlížeče je plná"</string>
     <string name="webstorage_outofspace_notification_text" msgid="47273584426988640">"Dotykem uvolníte místo."</string>
-    <string name="webstorage_clear_data_title" msgid="689484577124333977">"Zrušit přístup k poloze"</string>
+    <string name="webstorage_clear_data_title" msgid="689484577124333977">"Vymazat uložená data"</string>
     <string name="webstorage_clear_data_dialog_message" msgid="6200681632891775881">"Smazat veškerá data uložená tímto webem?"</string>
     <string name="webstorage_clear_data_dialog_ok_button" msgid="6682570951259237542">"OK"</string>
     <string name="webstorage_clear_data_dialog_cancel_button" msgid="2028867751958942762">"Zrušit"</string>
-    <string name="webstorage_origin_summary_mb_stored" msgid="1985885826292236210">"Zrušit přístup k poloze"</string>
+    <string name="webstorage_origin_summary_mb_stored" msgid="1985885826292236210">"MB uloženo ve vašem telefonu"</string>
     <string name="loading_video" msgid="7886324933131962321">"Načítání videa..."</string>
     <string name="geolocation_permissions_prompt_message" msgid="356796102004052471">"Web <xliff:g id="WEBSITE_ORIGIN">%s</xliff:g> požaduje informace o vaší poloze"</string>
     <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"Sdílet polohu"</string>

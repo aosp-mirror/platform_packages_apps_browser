@@ -313,7 +313,6 @@
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"کارت SD مشغول است. برای انجام دانلودها، خاموش کردن حافظه USB را در اعلان لمس کنید."</string>
     <string name="cannot_download" msgid="8150552478556798780">"فقط می تواند URL های \"http\" یا \"https\" را دانلود کند."</string>
     <string name="download_pending" msgid="2599683668575349559">"شروع دانلود..."</string>
-    <string name="help_page" msgid="2906208423557552540">"راهنما"</string>
     <string name="search_the_web" msgid="6046130189241962337">"جستجوی وب"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"حافظه مرورگر پر است"</string>
     <string name="webstorage_outofspace_notification_text" msgid="47273584426988640">"برای آزاد کردن فضا لمس کنید."</string>

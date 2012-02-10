@@ -35,7 +35,7 @@
     <string name="cancel" msgid="3017274947407233702">"Khansela"</string>
     <string name="ok" msgid="1509280796718850364">"KULUNGILE"</string>
     <string name="title_bar_loading" msgid="7438217780834640678">"Iyalayisha..."</string>
-    <string name="page_info" msgid="4048529256302257195">"Ukwaziswa kwekhasi"</string>
+    <string name="page_info" msgid="4048529256302257195">"Ulwazi lekhasi"</string>
     <string name="page_info_view" msgid="5303490449842635158">"Buka ikhasi lolwazi"</string>
     <string name="page_info_address" msgid="2222306609532903254">"Ikheli:"</string>
     <string name="ssl_warnings_header" msgid="79744901983636370">"Kunezinkinga ngesitifiketi sokuphepha sale ngosi."</string>
@@ -155,7 +155,7 @@
     <string name="pref_general_autofill_title" msgid="547881256865816858">"Ukufaka-okuzenzakalelayo"</string>
     <string name="pref_autofill_enabled" msgid="1015751713312396713">"Ukufaka-okuzenzakalelayo kweFomu"</string>
     <string name="pref_autofill_enabled_summary" msgid="7659954073892471496">"Gcwalisa amafomu ewebhu ngokuthinta kanye"</string>
-    <string name="pref_autofill_profile_editor" msgid="8934844472922113166">"Umbhalo ofakwe ngokuzenzakalelayo"</string>
+    <string name="pref_autofill_profile_editor" msgid="8934844472922113166">"Ubhalo ozenzakalelayo"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="4864447251676856190">"Setha ukuzilayisha kombhalo emafomini ewebhu"</string>
     <string name="pref_autologin_title" msgid="4421187193809267096">"Ukusayinda ku-Google okuzenzakalelayo"</string>
     <string name="pref_autologin_progress" msgid="8333244467048833461">"Ingena ngemvume kumasayithi e-Google isebenzisa i-<xliff:g id="ID_1">%s</xliff:g>"</string>
@@ -163,7 +163,7 @@
     <string name="autologin_bar_login_text" msgid="3336615320510851879">"Ngena"</string>
     <string name="autologin_bar_hide_text" msgid="3629355974385859580">"Fihla"</string>
     <string name="autologin_bar_error" msgid="7470001207395920811">"Ayikwazanga ukungena ngemvume."</string>
-    <string name="autofill_profile_editor_heading" msgid="4798644544927738078">"Bhala umbhalo owufunayo ukuzigcwalisela amafomu ewebhu."</string>
+    <string name="autofill_profile_editor_heading" msgid="4798644544927738078">"Bhala umbhalo owufunayo ukuzigcwalisela aafomu ewebhu."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Igama eliphelele:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"I-imeyili:"</string>
     <string name="autofill_profile_editor_company_name" msgid="2813443159949210417">"Igama lenkampani:"</string>
@@ -182,7 +182,7 @@
     <string name="autofill_profile_successful_delete" msgid="1790262652460723127">"Ukuzifakekela kwamagama kususiwe."</string>
     <string name="autofill_profile_editor_delete_profile" msgid="3098369314558164153">"Susa"</string>
     <string name="autofill_setup_dialog_message" msgid="1096164985825394616">"Isiphequluli singazigcwalisela amafomu ewebhu afana nalawa. Ungathanda ukulungisa uhlelo lokuzigcwalisela umbhalo?"</string>
-    <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"Ungakwazi njalo ukuthi usethe ukuzifakekela kombhalo usuka Esipheqululini; Izilungiselelosetho; Iskrini esijwayelekile."</string>
+    <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"Ungakwazi njalo ukuthi usethe ukuzifakekela kombhalo usuka Esipheqululini &gt; Izisetho &gt; Iskrini esijwayelekile."</string>
     <string name="disable_autofill" msgid="8305901059849400354">"Khubaza ukufaka-okuzenzakalelayo"</string>
     <string name="pref_privacy_security_title" msgid="3480313968942160914">"Ubumfihlo nokuvikela"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Sula inqolobane"</string>
@@ -191,7 +191,7 @@
     <string name="pref_privacy_cookies_title" msgid="6763274282214830526">"Amakhukhi"</string>
     <string name="pref_privacy_clear_cookies" msgid="3095583579133780331">"Sula yonke idatha yekhukhi"</string>
     <string name="pref_privacy_clear_cookies_summary" msgid="6962742063990677520">"Sula wonke amakhukhi okuphequlula"</string>
-    <string name="pref_privacy_clear_cookies_dlg" msgid="1493252163164621278">"Susa wonke amakhukhi?"</string>
+    <string name="pref_privacy_clear_cookies_dlg" msgid="1493252163164621278">"Susa wonke ama-cookie?"</string>
     <string name="pref_privacy_clear_history" msgid="8723795508825198477">"Sula umlando"</string>
     <string name="pref_privacy_clear_history_summary" msgid="6868501330708940734">"Sula umlando wokuzulazula isiphequluli"</string>
     <string name="pref_privacy_clear_history_dlg" msgid="6934317391642846227">"Susa umlando wokubheka umlando?"</string>
@@ -226,7 +226,7 @@
   </string-array>
     <string name="pref_min_font_size" msgid="8811125835817449131">"Usayizi wefonti olinganiselwe ophansi"</string>
     <string name="pref_min_font_size_value" msgid="2924708480509060209">"<xliff:g id="FONT_SIZE">%d</xliff:g>pt"</string>
-    <string name="pref_text_zoom" msgid="5171056101805125497">"Ukukekela kombhalo"</string>
+    <string name="pref_text_zoom" msgid="5171056101805125497">"Umbhalo uyakekela"</string>
     <string name="pref_zoom_on_double_tap" msgid="902786475250741795">"Sondeza ithephu ephindwe kabili"</string>
     <string name="pref_force_userscalable" msgid="5641500562399892621">"Phoqelela ukuvumela ukusondeza"</string>
     <string name="pref_force_userscalable_summary" msgid="3613242300617172230">"Shintsha isicelo sewebusayithi ukulawula indlela yokwandisa"</string>
@@ -249,7 +249,7 @@
     <string name="pref_extras_reset_default_title" msgid="3579760449455761762">"Setha kabusha okumisiwe"</string>
     <string name="pref_extras_reset_default" msgid="8904000515846202110">"Setha kabusha kube okumisiwe"</string>
     <string name="pref_extras_reset_default_summary" msgid="4247870778270414501">"Buyisela esimweni izilungiselelo ezizenzakalelayo"</string>
-    <string name="pref_extras_reset_default_dlg" msgid="7922814420184322450">"Buyisela izilungiselelo kokumisiwe?"</string>
+    <string name="pref_extras_reset_default_dlg" msgid="7922814420184322450">"Buyisela izisetho kokumisiwe?"</string>
     <string name="pref_development_title" msgid="3263854204533056480">"Lungisa amaphutha"</string>
     <string name="pref_default_text_encoding" msgid="5742965543955558478">"Umbhalo wekhodi wokubhaliwe"</string>
   <string-array name="pref_default_text_encoding_choices">
@@ -272,7 +272,7 @@
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Sebenzisa i-Google Instant uma usebenzisa Usesho lwe-Google, ukubonisa imiphumelo njengoba uthayipha (lokhu kungakhuphula ukusetshenziswa kwedatha)."</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"Isikrini esigcwele"</string>
     <string name="pref_lab_fullscreen_summary" msgid="7694738112219376740">"Sebenzisa imodi yesikrini esiphelele ukuze ufihle umudwa ochaza ngesimo."</string>
-    <string name="pref_data_title" msgid="7255058703417796578">"Ukuphathwa kwebhendiwithi"</string>
+    <string name="pref_data_title" msgid="7255058703417796578">"Ukuphathwa Komkhawulokudonsa"</string>
     <string name="pref_data_preload_title" msgid="4479320472980292873">"Imiphumela yosesho iyafaka"</string>
   <string-array name="pref_data_preload_choices">
     <item msgid="5180466923190095508">"Akusoze"</item>
@@ -313,7 +313,6 @@
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"Ikhadi le-SD limatasa. Ukuvumela ukulanda, khetha \"Vala ukulondoloza nge-USB\" kwisaziso."</string>
     <string name="cannot_download" msgid="8150552478556798780">"Ingalayisha kuphela ama-URL e-\"http\" noma ama-\"https\"."</string>
     <string name="download_pending" msgid="2599683668575349559">"Iqalisa ukulayisha..."</string>
-    <string name="help_page" msgid="2906208423557552540">"Usizo"</string>
     <string name="search_the_web" msgid="6046130189241962337">"Sesha iwebhu"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Ukulondoloza isiphequluli kugcwele"</string>
     <string name="webstorage_outofspace_notification_text" msgid="47273584426988640">"Thinta ukuvula iskhala."</string>
@@ -332,7 +331,7 @@
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Sula ukufinyelela indawo"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Le sayithi okwamanje ingafinyelela kundawo yakho"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="7941769772784366199">"Le sayithi ayikwazi okwamanje ukufinyelela kundawo yakho"</string>
-    <string name="geolocation_settings_page_dialog_message" msgid="8772923416296868537">"Susa izilungiselelo zendawo zale webusayithi?"</string>
+    <string name="geolocation_settings_page_dialog_message" msgid="8772923416296868537">"Susa izisetho zendawo zalewebusayithi?"</string>
     <string name="geolocation_settings_page_dialog_ok_button" msgid="2113465477131017852">"KULUNGILE"</string>
     <string name="geolocation_settings_page_dialog_cancel_button" msgid="7941036504673409747">"Khansela"</string>
     <string name="website_settings_clear_all" msgid="8739804325997655980">"Sula konke"</string>

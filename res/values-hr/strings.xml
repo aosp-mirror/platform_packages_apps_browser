@@ -313,7 +313,6 @@
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"SD kartica je zauzeta. Kako biste omogućili preuzimanja, dodirnite \"Isključi USB pohranu\" u obavijesti."</string>
     <string name="cannot_download" msgid="8150552478556798780">"Mogu se preuzeti samo \"http\" ili \"https\" URL-ovi."</string>
     <string name="download_pending" msgid="2599683668575349559">"Početak preuzimanja…"</string>
-    <string name="help_page" msgid="2906208423557552540">"Pomoć"</string>
     <string name="search_the_web" msgid="6046130189241962337">"Pretraži web"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Pohrana preglednika puna"</string>
     <string name="webstorage_outofspace_notification_text" msgid="47273584426988640">"Dodirnite za oslobađanje prostora."</string>
@@ -362,7 +361,7 @@
     <string name="instant_search_label" msgid="8769284297650716935">"Google sa značajkom Instant (Labs)"</string>
     <string name="preview" msgid="6450823514561689038">"Pregled"</string>
     <string name="local_bookmarks" msgid="533816851415228520">"Lokalno"</string>
-    <string name="ua_switcher_desktop" msgid="220097077327558435">"Zahtjev za klasičnu verziju web-lokacije"</string>
+    <string name="ua_switcher_desktop" msgid="220097077327558435">"Prikaži klasičnu web-stranicu"</string>
     <string name="permission_preload_label" msgid="4856971662337877316">"Prethodno učitavanje rezultata"</string>
     <string name="empty_snapshots_folder" msgid="7675378008107026013">"Nema spremljenih stranica."</string>
     <string name="remove_snapshot" msgid="1624447424544976849">"Brisanje spremljene stranice"</string>
