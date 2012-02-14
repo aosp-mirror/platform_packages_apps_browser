@@ -44,7 +44,7 @@
     <string name="view_certificate" msgid="1472768887529093862">"Vis certifikat"</string>
     <string name="ssl_go_back" msgid="4598951822061593819">"Tilbage"</string>
     <string name="ssl_untrusted" msgid="7754507359360636447">"Dette certifikat stammer ikke fra en troværdig autoritet."</string>
-    <string name="ssl_mismatch" msgid="3809794439740523641">"Navnet på webstedet stemmer ikke overens med navnet på certifikatet."</string>
+    <string name="ssl_mismatch" msgid="3809794439740523641">"Navnet på websitet stemmer ikke overens med navnet på certifikatet."</string>
     <string name="ssl_expired" msgid="5739349389499575559">"Dette certifikat er udløbet."</string>
     <string name="ssl_not_yet_valid" msgid="8193083327719048247">"Dette certifikat er endnu ikke gyldigt."</string>
     <string name="ssl_date_invalid" msgid="3705563379257285534">"Dette certifikat har en ugyldig dato."</string>
@@ -207,7 +207,7 @@
     <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"Tillad, at websteder anmoder om adgang til din placering"</string>
     <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"Ryd placeringsadgang"</string>
     <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"Placeringsadgang for alle websteder ryddes"</string>
-    <string name="pref_privacy_clear_geolocation_access_dlg" msgid="3190928760598034346">"Vil du rydde webstedets placeringsadgang?"</string>
+    <string name="pref_privacy_clear_geolocation_access_dlg" msgid="3190928760598034346">"Vil du rydde websitets placeringsadgang?"</string>
     <string name="pref_security_passwords_title" msgid="5734190542383756711">"Adgangskoder"</string>
     <string name="pref_security_remember_passwords" msgid="6492957683454529549">"Husk adgangskoder"</string>
     <string name="pref_security_remember_passwords_summary" msgid="256388703356349137">"Gem brugernavne og adgangskoder til websteder"</string>
@@ -335,7 +335,7 @@
     <string name="geolocation_settings_page_dialog_ok_button" msgid="2113465477131017852">"OK"</string>
     <string name="geolocation_settings_page_dialog_cancel_button" msgid="7941036504673409747">"Annuller"</string>
     <string name="website_settings_clear_all" msgid="8739804325997655980">"Ryd alle"</string>
-    <string name="website_settings_clear_all_dialog_message" msgid="1551164275687475061">"Vil du slette alle webstedsdata og placeringstilladelser?"</string>
+    <string name="website_settings_clear_all_dialog_message" msgid="1551164275687475061">"Vil du slette alle websitedata og placeringstilladelser?"</string>
     <string name="website_settings_clear_all_dialog_ok_button" msgid="7858504776529106243">"OK"</string>
     <string name="website_settings_clear_all_dialog_cancel_button" msgid="1896757051856611674">"Annuller"</string>
     <string name="progress_dialog_setting_wallpaper" msgid="2031391201442335889">"Angiver baggrund..."</string>
