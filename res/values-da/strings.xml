@@ -145,7 +145,7 @@
     <item msgid="844041670142910837">"Aktuel side"</item>
     <item msgid="4430498748295169195">"Tom side"</item>
     <item msgid="5747608191946904074">"Standardside"</item>
-    <item msgid="6092441301001006473">"Mest besøgte websteder"</item>
+    <item msgid="6092441301001006473">"Mest besøgte websites"</item>
     <item msgid="6569304572171444894">"Andre"</item>
   </string-array>
     <string name="pref_content_autofit" msgid="8260474534053660809">"Tilpas sider automatisk"</string>
@@ -158,7 +158,7 @@
     <string name="pref_autofill_profile_editor" msgid="8934844472922113166">"AutoFyld-tekst"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="4864447251676856190">"Opret tekst, som skal indsættes i webformularer med AutoFyld"</string>
     <string name="pref_autologin_title" msgid="4421187193809267096">"Automatisk Google-login"</string>
-    <string name="pref_autologin_progress" msgid="8333244467048833461">"Logger ind på Google-websteder med <xliff:g id="ID_1">%s</xliff:g>"</string>
+    <string name="pref_autologin_progress" msgid="8333244467048833461">"Logger ind på Google-websites med <xliff:g id="ID_1">%s</xliff:g>"</string>
     <string name="autologin_bar_text" msgid="3684581827167173371">"Log ind som"</string>
     <string name="autologin_bar_login_text" msgid="3336615320510851879">"Log ind"</string>
     <string name="autologin_bar_hide_text" msgid="3629355974385859580">"Skjul"</string>
@@ -204,19 +204,19 @@
     <string name="pref_privacy_clear_passwords_dlg" msgid="5836576259947160045">"Vil du slette alle gemte adgangskoder?"</string>
     <string name="pref_privacy_location_title" msgid="7458378016606081067">"Placering"</string>
     <string name="pref_privacy_enable_geolocation" msgid="1395040170290765686">"Aktiver placering"</string>
-    <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"Tillad, at websteder anmoder om adgang til din placering"</string>
+    <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"Tillad, at websites anmoder om adgang til din placering"</string>
     <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"Ryd placeringsadgang"</string>
-    <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"Placeringsadgang for alle websteder ryddes"</string>
+    <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"Placeringsadgang for alle websites ryddes"</string>
     <string name="pref_privacy_clear_geolocation_access_dlg" msgid="3190928760598034346">"Vil du rydde websitets placeringsadgang?"</string>
     <string name="pref_security_passwords_title" msgid="5734190542383756711">"Adgangskoder"</string>
     <string name="pref_security_remember_passwords" msgid="6492957683454529549">"Husk adgangskoder"</string>
-    <string name="pref_security_remember_passwords_summary" msgid="256388703356349137">"Gem brugernavne og adgangskoder til websteder"</string>
+    <string name="pref_security_remember_passwords_summary" msgid="256388703356349137">"Gem brugernavne og adgangskoder til websites"</string>
     <string name="pref_security_save_form_data" msgid="1213669802810198893">"Husk formulardata"</string>
     <string name="pref_security_save_form_data_summary" msgid="4994074685153708026">"Husk data, jeg indtaster i formularer, til senere brug"</string>
     <string name="pref_security_show_security_warning" msgid="8901135676266754559">"Vis sikkerhedsadvarsler"</string>
     <string name="pref_security_show_security_warning_summary" msgid="5260098316025397525">"Vis en advarsel, hvis der er problemer med sikkerheden på et websted"</string>
     <string name="pref_security_accept_cookies" msgid="3201367661925047989">"Accepter cookies"</string>
-    <string name="pref_security_accept_cookies_summary" msgid="1907951236154433751">"Tillad, at websteder gemmer og læser cookie-data"</string>
+    <string name="pref_security_accept_cookies_summary" msgid="1907951236154433751">"Tillad, at websites gemmer og læser cookie-data"</string>
   <string-array name="pref_text_size_choices">
     <item msgid="4952686548944739548">"Lillebitte"</item>
     <item msgid="1950030433642671460">"Lille"</item>
@@ -244,8 +244,8 @@
     <string name="pref_content_load_page" msgid="2219810141690955452">"Åbn sider i oversigt"</string>
     <string name="pref_content_load_page_summary" msgid="9168803276420332955">"Vis oversigt over sider, som er åbnet for nylig"</string>
     <string name="pref_extras_title" msgid="7075456173747370647">"Avanceret"</string>
-    <string name="pref_extras_website_settings" msgid="67866640052455549">"Indstillinger for websteder"</string>
-    <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"Avancerede indstillinger for individuelle websteder"</string>
+    <string name="pref_extras_website_settings" msgid="67866640052455549">"Indstillinger for websites"</string>
+    <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"Avancerede indstillinger for individuelle websites"</string>
     <string name="pref_extras_reset_default_title" msgid="3579760449455761762">"Gendannelse af standardindstillinger"</string>
     <string name="pref_extras_reset_default" msgid="8904000515846202110">"Nulstil til standard"</string>
     <string name="pref_extras_reset_default_summary" msgid="4247870778270414501">"Gendan standardindstillinger"</string>
