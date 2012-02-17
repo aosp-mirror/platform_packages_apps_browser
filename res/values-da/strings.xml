@@ -38,7 +38,7 @@
     <string name="page_info" msgid="4048529256302257195">"Sideoplysninger"</string>
     <string name="page_info_view" msgid="5303490449842635158">"Vis sideoplysninger"</string>
     <string name="page_info_address" msgid="2222306609532903254">"Adresse:"</string>
-    <string name="ssl_warnings_header" msgid="79744901983636370">"Der er problemer med sikkerhedscertifikatet for dette websted."</string>
+    <string name="ssl_warnings_header" msgid="79744901983636370">"Der er problemer med sikkerhedscertifikatet for dette website."</string>
     <string name="ssl_continue" msgid="8031515015829358457">"Fortsæt"</string>
     <string name="security_warning" msgid="6607795404322797541">"Sikkerhedsadvarsel"</string>
     <string name="view_certificate" msgid="1472768887529093862">"Vis certifikat"</string>
@@ -214,7 +214,7 @@
     <string name="pref_security_save_form_data" msgid="1213669802810198893">"Husk formulardata"</string>
     <string name="pref_security_save_form_data_summary" msgid="4994074685153708026">"Husk data, jeg indtaster i formularer, til senere brug"</string>
     <string name="pref_security_show_security_warning" msgid="8901135676266754559">"Vis sikkerhedsadvarsler"</string>
-    <string name="pref_security_show_security_warning_summary" msgid="5260098316025397525">"Vis en advarsel, hvis der er problemer med sikkerheden på et websted"</string>
+    <string name="pref_security_show_security_warning_summary" msgid="5260098316025397525">"Vis en advarsel, hvis der er problemer med sikkerheden på et website"</string>
     <string name="pref_security_accept_cookies" msgid="3201367661925047989">"Accepter cookies"</string>
     <string name="pref_security_accept_cookies_summary" msgid="1907951236154433751">"Tillad, at websites gemmer og læser cookie-data"</string>
   <string-array name="pref_text_size_choices">
@@ -229,7 +229,7 @@
     <string name="pref_text_zoom" msgid="5171056101805125497">"Skalering af tekst"</string>
     <string name="pref_zoom_on_double_tap" msgid="902786475250741795">"Zoom ved dobbeltklik"</string>
     <string name="pref_force_userscalable" msgid="5641500562399892621">"Tving aktivering af zoom"</string>
-    <string name="pref_force_userscalable_summary" msgid="3613242300617172230">"Tilsidesæt et websteds anmodning om at kontrollere zoom-adfærd"</string>
+    <string name="pref_force_userscalable_summary" msgid="3613242300617172230">"Tilsidesæt et websites anmodning om at kontrollere zoom-adfærd"</string>
     <string name="pref_inverted_category" msgid="1280639705117152207">"Omvendt skærmgengivelse"</string>
     <string name="pref_inverted" msgid="7613556986776824112">"Omvendt gengivelse"</string>
     <string name="pref_inverted_summary" msgid="7357225897413923085">"Sort bliver hvidt og vice versa"</string>
@@ -296,7 +296,7 @@
     <string name="search_hint" msgid="4647356319916631820">"Søg efter eller indtast en webadresse"</string>
     <string name="search_button_text" msgid="5235226933877634410">"Gå"</string>
     <string name="search_settings_description" msgid="1422401062529014107">"Bogmærker og weboversigt"</string>
-    <string name="popup_window_attempt" msgid="31565781154067629">"Vil du tillade, at dette websted åbner et pop op-vindue?"</string>
+    <string name="popup_window_attempt" msgid="31565781154067629">"Vil du tillade, at dette website åbner et pop op-vindue?"</string>
     <string name="allow" msgid="1157313689171991335">"Tillad"</string>
     <string name="block" msgid="9172175889884707800">"Bloker"</string>
     <string name="too_many_windows_dialog_title" msgid="5709782301477380438">"Grænsen for faner er nået"</string>
@@ -317,7 +317,7 @@
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Browserlageret er fuldt"</string>
     <string name="webstorage_outofspace_notification_text" msgid="47273584426988640">"Tryk for at frigøre plads."</string>
     <string name="webstorage_clear_data_title" msgid="689484577124333977">"Ryd lagrede data"</string>
-    <string name="webstorage_clear_data_dialog_message" msgid="6200681632891775881">"Vil du slette alle data, som dette websted har gemt?"</string>
+    <string name="webstorage_clear_data_dialog_message" msgid="6200681632891775881">"Vil du slette alle data, som dette website har gemt?"</string>
     <string name="webstorage_clear_data_dialog_ok_button" msgid="6682570951259237542">"OK"</string>
     <string name="webstorage_clear_data_dialog_cancel_button" msgid="2028867751958942762">"Annuller"</string>
     <string name="webstorage_origin_summary_mb_stored" msgid="1985885826292236210">"Mb lagret på din telefon"</string>
@@ -326,12 +326,12 @@
     <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"Del placering"</string>
     <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"Afvis"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"Husk indstilling"</string>
-    <string name="geolocation_permissions_prompt_toast_allowed" msgid="7201417941112726112">"Dette websted kan få adgang til din placering. Du kan ændre dette på skærmen Indstillinger &gt; Avanceret &gt; Websted."</string>
-    <string name="geolocation_permissions_prompt_toast_disallowed" msgid="156443445797377409">"Dette websted kan ikke få adgang til din placering. Du kan ændre dette på skærmen Indstillinger &gt; Avanceret &gt; Websted."</string>
+    <string name="geolocation_permissions_prompt_toast_allowed" msgid="7201417941112726112">"Dette website kan få adgang til din placering. Du kan ændre dette på skærmen Indstillinger &gt; Avanceret &gt; Website."</string>
+    <string name="geolocation_permissions_prompt_toast_disallowed" msgid="156443445797377409">"Dette website kan ikke få adgang til din placering. Du kan ændre dette på skærmen Indstillinger &gt; Avanceret &gt; Website."</string>
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Ryd placeringsadgang"</string>
-    <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Dette websted har i øjeblikket adgang til din placering"</string>
-    <string name="geolocation_settings_page_summary_not_allowed" msgid="7941769772784366199">"Dette websted har i øjeblikket ikke adgang til din placering"</string>
-    <string name="geolocation_settings_page_dialog_message" msgid="8772923416296868537">"Vil du rydde placeringsadgang for dette websted?"</string>
+    <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Dette website har i øjeblikket adgang til din placering"</string>
+    <string name="geolocation_settings_page_summary_not_allowed" msgid="7941769772784366199">"Dette website har i øjeblikket ikke adgang til din placering"</string>
+    <string name="geolocation_settings_page_dialog_message" msgid="8772923416296868537">"Vil du rydde placeringsadgang for dette website?"</string>
     <string name="geolocation_settings_page_dialog_ok_button" msgid="2113465477131017852">"OK"</string>
     <string name="geolocation_settings_page_dialog_cancel_button" msgid="7941036504673409747">"Annuller"</string>
     <string name="website_settings_clear_all" msgid="8739804325997655980">"Ryd alle"</string>
