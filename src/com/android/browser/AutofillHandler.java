@@ -158,6 +158,10 @@ public class AutofillHandler {
             Cursor c = mContext.getContentResolver().query(uri, new String[] { field },
                     ContactsContract.Data.MIMETYPE + "=?", new String[] { itemType }, null);
 
+            if (c == null) {
+                return null;
+            }
+
             try {
                 // Just use the first returned value if we get more than one.
                 if (c.moveToFirst()) {
