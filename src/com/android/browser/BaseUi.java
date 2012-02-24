@@ -47,6 +47,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
+import android.webkit.WebViewClassic;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -344,7 +345,7 @@ public abstract class BaseUi implements UI {
         // Remove the container from the content and then remove the
         // WebView from the container. This will trigger a focus change
         // needed by WebView.
-        mainView.setEmbeddedTitleBar(null);
+        WebViewClassic.fromWebView(mainView).setEmbeddedTitleBar(null);
         FrameLayout wrapper =
                 (FrameLayout) container.findViewById(R.id.webview_wrapper);
         wrapper.removeView(mainView);
@@ -395,7 +396,8 @@ public abstract class BaseUi implements UI {
         final WebView cancelSubView = subView;
         cancel.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                cancelSubView.getWebChromeClient().onCloseWindow(cancelSubView);
+                WebViewClassic.fromWebView(cancelSubView).getWebChromeClient().onCloseWindow(
+                        cancelSubView);
             }
         });
         tab.setSubWebView(subView);
@@ -476,7 +478,7 @@ public abstract class BaseUi implements UI {
     protected void setTitleGravity(int gravity) {
         WebView web = getWebView();
         if (web != null) {
-            web.setTitleBarGravity(gravity);
+            WebViewClassic.fromWebView(web).setTitleBarGravity(gravity);
         }
     }
 

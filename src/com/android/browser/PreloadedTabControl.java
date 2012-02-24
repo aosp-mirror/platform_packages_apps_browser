@@ -62,12 +62,12 @@ public class PreloadedTabControl {
     }
 
     public void setQuery(String query) {
-        maybeSetQuery(query, mTab.getWebView().getSearchBox());
+        maybeSetQuery(query, mTab.getWebViewClassic().getSearchBox());
     }
 
     public boolean searchBoxSubmit(final String query,
             final String fallbackUrl, final Map<String, String> fallbackHeaders) {
-        final SearchBox sb = mTab.getWebView().getSearchBox();
+        final SearchBox sb = mTab.getWebViewClassic().getSearchBox();
         if (sb == null) {
             // no searchbox, cannot submit. Fallback to regular tab creation
             if (LOGD_ENABLED) Log.d(LOGTAG, "No searchbox, cannot submit query");
@@ -106,7 +106,7 @@ public class PreloadedTabControl {
     }
 
     public void searchBoxCancel() {
-        SearchBox sb = mTab.getWebView().getSearchBox();
+        SearchBox sb = mTab.getWebViewClassic().getSearchBox();
         if (sb != null) {
             mLastQuery = null;
             sb.oncancel(new SearchBox.SearchBoxListener(){

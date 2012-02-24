@@ -27,6 +27,7 @@ import android.view.View;
 import android.webkit.HttpAuthHandler;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebView;
+import android.webkit.WebViewClassic;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -296,8 +297,8 @@ public class PageDialogsHandler {
                                 mSSLCertificateOnErrorHandler = null;
                                 mSSLCertificateOnErrorError = null;
 
-                                view.getWebViewClient().onReceivedSslError(
-                                                view, handler, error);
+                                WebViewClassic.fromWebView(view).getWebViewClient().
+                                        onReceivedSslError(view, handler, error);
                             }
                         })
                  .setNeutralButton(R.string.page_info_view,
@@ -324,8 +325,8 @@ public class PageDialogsHandler {
                                 mSSLCertificateOnErrorHandler = null;
                                 mSSLCertificateOnErrorError = null;
 
-                                view.getWebViewClient().onReceivedSslError(
-                                                view, handler, error);
+                                WebViewClassic.fromWebView(view).getWebViewClient().
+                                        onReceivedSslError(view, handler, error);
                             }
                         })
                 .show();

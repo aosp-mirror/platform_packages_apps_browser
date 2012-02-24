@@ -38,6 +38,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.accessibility.AccessibilityEvent;
 import android.webkit.WebView;
+import android.webkit.WebViewClassic;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
@@ -169,7 +170,7 @@ public class PhoneUi extends BaseUi {
         } else {
             // check if title bar is already attached by animation
             if (mTitleBar.getParent() == null) {
-                view.setEmbeddedTitleBar(mTitleBar);
+                WebViewClassic.fromWebView(view).setEmbeddedTitleBar(mTitleBar);
             }
         }
         if (tab.isInVoiceSearchMode()) {
@@ -287,7 +288,7 @@ public class PhoneUi extends BaseUi {
             mPieControl.attachToContainer(mContentView);
             WebView web = getWebView();
             if (web != null) {
-                web.setEmbeddedTitleBar(null);
+                WebViewClassic.fromWebView(web).setEmbeddedTitleBar(null);
             }
         } else {
             if (mPieControl != null) {
@@ -299,7 +300,7 @@ public class PhoneUi extends BaseUi {
                 if ((mTitleBar != null) && (mTitleBar.getParent() != null)) {
                     ((ViewGroup) mTitleBar.getParent()).removeView(mTitleBar);
                 }
-                web.setEmbeddedTitleBar(mTitleBar);
+                WebViewClassic.fromWebView(web).setEmbeddedTitleBar(mTitleBar);
             }
             setTitleGravity(Gravity.NO_GRAVITY);
         }

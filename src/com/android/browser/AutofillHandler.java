@@ -26,7 +26,7 @@ import android.os.AsyncTask;
 import android.os.Message;
 import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
-import android.webkit.WebSettings.AutoFillProfile;
+import android.webkit.WebSettingsClassic.AutoFillProfile;
 
 import java.util.concurrent.CountDownLatch;
 

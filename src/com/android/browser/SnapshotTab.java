@@ -25,6 +25,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.webkit.WebView;
+import android.webkit.WebViewClassic;
 
 import com.android.browser.provider.SnapshotProvider.Snapshots;
 
@@ -121,7 +122,7 @@ public class SnapshotTab extends Tab {
     public void loadUrl(String url, Map<String, String> headers) {
         if (!mIsLive) {
             mIsLive = true;
-            getWebView().clearViewState();
+            getWebViewClassic().clearViewState();
         }
         super.loadUrl(url, headers);
     }
@@ -185,7 +186,7 @@ public class SnapshotTab extends Tab {
                         mTab.mCurrentState.mFavicon = BitmapFactory
                                 .decodeByteArray(favicon, 0, favicon.length);
                     }
-                    WebView web = mTab.getWebView();
+                    WebViewClassic web = mTab.getWebViewClassic();
                     if (web != null) {
                         byte[] data = result.getBlob(4);
                         ByteArrayInputStream bis = new ByteArrayInputStream(data);

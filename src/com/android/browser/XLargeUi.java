@@ -36,6 +36,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebChromeClient.CustomViewCallback;
 import android.webkit.WebView;
+import android.webkit.WebViewClassic;
 
 import java.util.List;
 
@@ -93,7 +94,7 @@ public class XLargeUi extends BaseUi {
             mPieControl.attachToContainer(mContentView);
             WebView web = getWebView();
             if (web != null) {
-                web.setEmbeddedTitleBar(null);
+                WebViewClassic.fromWebView(web).setEmbeddedTitleBar(null);
 
             }
         } else {
@@ -107,7 +108,7 @@ public class XLargeUi extends BaseUi {
                     ViewGroup p = (ViewGroup) mTitleBar.getParent();
                     p.removeView(mTitleBar);
                 }
-                web.setEmbeddedTitleBar(mTitleBar);
+                WebViewClassic.fromWebView(web).setEmbeddedTitleBar(mTitleBar);
             }
             setTitleGravity(Gravity.NO_GRAVITY);
         }
@@ -144,7 +145,7 @@ public class XLargeUi extends BaseUi {
     void stopWebViewScrolling() {
         BrowserWebView web = (BrowserWebView) mUiController.getCurrentWebView();
         if (web != null) {
-            web.stopScroll();
+            WebViewClassic.fromWebView(web).stopScroll();
         }
     }
 
@@ -202,7 +203,7 @@ public class XLargeUi extends BaseUi {
         } else {
             // check if title bar is already attached by animation
             if (mTitleBar.getParent() == null) {
-                view.setEmbeddedTitleBar(mTitleBar);
+                WebViewClassic.fromWebView(view).setEmbeddedTitleBar(mTitleBar);
             }
         }
         mTabBar.onSetActiveTab(tab);

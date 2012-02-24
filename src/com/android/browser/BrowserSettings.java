@@ -32,11 +32,12 @@ import android.webkit.CookieManager;
 import android.webkit.GeolocationPermissions;
 import android.webkit.WebIconDatabase;
 import android.webkit.WebSettings;
-import android.webkit.WebSettings.AutoFillProfile;
 import android.webkit.WebSettings.LayoutAlgorithm;
 import android.webkit.WebSettings.PluginState;
 import android.webkit.WebSettings.TextSize;
 import android.webkit.WebSettings.ZoomDensity;
+import android.webkit.WebSettingsClassic;
+import android.webkit.WebSettingsClassic.AutoFillProfile;
 import android.webkit.WebStorage;
 import android.webkit.WebView;
 import android.webkit.WebViewDatabase;
@@ -149,12 +150,13 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     }
 
     public void startManagingSettings(WebSettings settings) {
+        WebSettingsClassic settingsClassic = (WebSettingsClassic) settings;
         if (mNeedsSharedSync) {
             syncSharedSettings();
         }
         synchronized (mManagedSettings) {
-            syncStaticSettings(settings);
-            syncSetting(settings);
+            syncStaticSettings(settingsClassic);
+            syncSetting(settingsClassic);
             mManagedSettings.add(new WeakReference<WebSettings>(settings));
         }
     }
@@ -233,7 +235,7 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     /**
      * Syncs all the settings that have a Preference UI
      */
-    private void syncSetting(WebSettings settings) {
+    private void syncSetting(WebSettingsClassic settings) {
         settings.setGeolocationEnabled(enableGeolocation());
         settings.setJavaScriptEnabled(enableJavascript());
         settings.setLightTouchEnabled(enableLightTouch());
@@ -283,7 +285,7 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
      * Syncs all the settings that have no UI
      * These cannot change, so we only need to set them once per WebSettings
      */
-    private void syncStaticSettings(WebSettings settings) {
+    private void syncStaticSettings(WebSettingsClassic settings) {
         settings.setDefaultFontSize(16);
         settings.setDefaultFixedFontSize(13);
         settings.setPageCacheCapacity(getPageCacheCapacity());
@@ -332,7 +334,7 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
             Iterator<WeakReference<WebSettings>> iter = mManagedSettings.iterator();
             while (iter.hasNext()) {
                 WeakReference<WebSettings> ref = iter.next();
-                WebSettings settings = ref.get();
+                WebSettingsClassic settings = (WebSettingsClassic)ref.get();
                 if (settings == null) {
                     iter.remove();
                     continue;

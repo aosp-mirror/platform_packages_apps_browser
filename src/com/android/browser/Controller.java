@@ -76,6 +76,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebIconDatabase;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClassic;
 import android.widget.Toast;
 
 import com.android.browser.IntentHandler.UrlData;
@@ -351,7 +352,7 @@ public class Controller
         // Read JavaScript flags if it exists.
         String jsFlags = getSettings().getJsEngineFlags();
         if (jsFlags.trim().length() != 0) {
-            getCurrentWebView().setJsFlags(jsFlags);
+            WebViewClassic.fromWebView(getCurrentWebView()).setJsFlags(jsFlags);
         }
         if (intent != null
                 && BrowserActivity.ACTION_SHOW_BOOKMARKS.equals(intent.getAction())) {
@@ -2147,7 +2148,7 @@ public class Controller
     }
 
     private static class SelectText implements OnMenuItemClickListener {
-        private WebView mWebView;
+        private WebViewClassic mWebView;
 
         public boolean onMenuItemClick(MenuItem item) {
             if (mWebView != null) {
@@ -2157,7 +2158,7 @@ public class Controller
         }
 
         public SelectText(WebView webView) {
-            mWebView = webView;
+            mWebView = WebViewClassic.fromWebView(webView);
         }
 
     }
@@ -2430,7 +2431,8 @@ public class Controller
         // In case the user enters nothing.
         if (url != null && url.length() != 0 && tab != null && view != null) {
             url = UrlUtils.smartUrlFilter(url);
-            if (!view.getWebViewClient().shouldOverrideUrlLoading(view, url)) {
+            if (!WebViewClassic.fromWebView(view).getWebViewClient().
+                    shouldOverrideUrlLoading(view, url)) {
                 loadUrl(tab, url);
             }
         }
@@ -2662,14 +2664,14 @@ public class Controller
                 break;
             case KeyEvent.KEYCODE_A:
                 if (ctrl) {
-                    webView.selectAll();
+                    WebViewClassic.fromWebView(webView).selectAll();
                     return true;
                 }
                 break;
 //          case KeyEvent.KEYCODE_B:    // menu
             case KeyEvent.KEYCODE_C:
                 if (ctrl) {
-                    webView.copySelection();
+                    WebViewClassic.fromWebView(webView).copySelection();
                     return true;
                 }
                 break;

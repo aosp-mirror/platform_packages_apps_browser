@@ -32,7 +32,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
-import android.webkit.WebSettings.AutoFillProfile;
+import android.webkit.WebSettingsClassic.AutoFillProfile;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;

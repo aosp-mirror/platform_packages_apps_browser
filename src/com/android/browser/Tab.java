@@ -64,6 +64,7 @@ import android.webkit.WebHistoryItem;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebStorage;
 import android.webkit.WebView;
+import android.webkit.WebViewClassic;
 import android.webkit.WebView.PictureListener;
 import android.webkit.WebViewClient;
 import android.widget.CheckBox;
@@ -1541,7 +1542,7 @@ class Tab implements PictureListener {
             // does a redirect after a period of time. The user could have
             // switched to another tab while waiting for the download to start.
             mMainView.setDownloadListener(mDownloadListener);
-            mMainView.setWebBackForwardListClient(mWebBackForwardListClient);
+            getWebViewClassic().setWebBackForwardListClient(mWebBackForwardListClient);
             TabControl tc = mWebViewController.getTabControl();
             if (tc != null && tc.getOnThumbnailUpdatedListener() != null) {
                 mMainView.setPictureListener(this);
@@ -1565,7 +1566,7 @@ class Tab implements PictureListener {
         if (mMainView != null) {
             dismissSubWindow();
             // Make sure the embedded title bar isn't still attached
-            mMainView.setEmbeddedTitleBar(null);
+            getWebViewClassic().setEmbeddedTitleBar(null);
             // save the WebView to call destroy() after detach it from the tab
             WebView webView = mMainView;
             setWebView(null);
@@ -1776,6 +1777,15 @@ class Tab implements PictureListener {
      */
     WebView getWebView() {
         return mMainView;
+    }
+
+    /**
+     * Return the underlying WebViewClassic implementation. As with getWebView,
+     * this maybe null for background tabs.
+     * @return The main WebView of this tab.
+     */
+    WebViewClassic getWebViewClassic() {
+        return WebViewClassic.fromWebView(mMainView);
     }
 
     void setViewContainer(View container) {
@@ -2046,7 +2056,7 @@ class Tab implements PictureListener {
         SnapshotByteArrayOutputStream bos = new SnapshotByteArrayOutputStream();
         try {
             GZIPOutputStream stream = new GZIPOutputStream(bos);
-            if (!mMainView.saveViewState(stream)) {
+            if (!getWebViewClassic().saveViewState(stream)) {
                 return null;
             }
             stream.flush();
@@ -2060,7 +2070,7 @@ class Tab implements PictureListener {
         values.put(Snapshots.TITLE, mCurrentState.mTitle);
         values.put(Snapshots.URL, mCurrentState.mUrl);
         values.put(Snapshots.VIEWSTATE, data);
-        values.put(Snapshots.BACKGROUND, mMainView.getPageBackgroundColor());
+        values.put(Snapshots.BACKGROUND, getWebViewClassic().getPageBackgroundColor());
         values.put(Snapshots.DATE_CREATED, System.currentTimeMillis());
         values.put(Snapshots.FAVICON, compressBitmap(getFavicon()));
         Bitmap screenshot = Controller.createScreenshot(mMainView,

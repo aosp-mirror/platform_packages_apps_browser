@@ -19,7 +19,8 @@ package com.android.browser.preferences;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.webkit.WebSettings;
+import android.webkit.WebSettingsClassic;
+import android.webkit.WebViewClassic;
 
 import com.android.browser.BrowserSettings;
 import com.android.browser.WebViewProperties;
@@ -76,7 +77,7 @@ public class InvertedContrastPreview extends WebViewPreview {
     protected void updatePreview() {
         if (mWebView == null) return;
 
-        WebSettings ws = mWebView.getSettings();
+        WebSettingsClassic ws = WebViewClassic.fromWebView(mWebView).getSettings();
         BrowserSettings bs = BrowserSettings.getInstance();
         ws.setProperty(WebViewProperties.gfxInvertedScreen,
                 bs.useInvertedRendering() ? "true" : "false");

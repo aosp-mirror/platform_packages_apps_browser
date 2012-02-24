@@ -24,6 +24,7 @@ import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.webkit.WebView;
+import android.webkit.WebViewClassic;
 
 /**
  * Handle network state changes
@@ -110,7 +111,7 @@ public class NetworkStateHandler {
     private void sendNetworkType(String type, String subtype) {
         WebView w = mController.getCurrentWebView();
         if (w != null) {
-            w.setNetworkType(type, subtype);
+            WebViewClassic.fromWebView(w).setNetworkType(type, subtype);
         }
     }
 

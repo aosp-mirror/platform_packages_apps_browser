@@ -197,15 +197,15 @@ public class IntentHandler {
                 if (!urlData.isEmpty()
                         && urlData.mUrl.startsWith("about:debug")) {
                     if ("about:debug.dom".equals(urlData.mUrl)) {
-                        current.getWebView().dumpDomTree(false);
+                        current.getWebViewClassic().dumpDomTree(false);
                     } else if ("about:debug.dom.file".equals(urlData.mUrl)) {
-                        current.getWebView().dumpDomTree(true);
+                        current.getWebViewClassic().dumpDomTree(true);
                     } else if ("about:debug.render".equals(urlData.mUrl)) {
-                        current.getWebView().dumpRenderTree(false);
+                        current.getWebViewClassic().dumpRenderTree(false);
                     } else if ("about:debug.render.file".equals(urlData.mUrl)) {
-                        current.getWebView().dumpRenderTree(true);
+                        current.getWebViewClassic().dumpRenderTree(true);
                     } else if ("about:debug.display".equals(urlData.mUrl)) {
-                        current.getWebView().dumpDisplayTree();
+                        current.getWebViewClassic().dumpDisplayTree();
                     } else if ("about:debug.nav".equals(urlData.mUrl)) {
                         current.getWebView().debugDump();
                     } else {

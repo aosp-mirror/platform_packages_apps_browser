@@ -32,6 +32,7 @@ import android.webkit.JsPromptResult;
 import android.webkit.JsResult;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebView;
+import android.webkit.WebViewClassic;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -134,7 +135,8 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
         Tab tab = mController.getTabControl().getCurrentTab();
         WebView webView = tab.getWebView();
 
-        webView.setWebChromeClient(new TestWebChromeClient(webView.getWebChromeClient()) {
+        webView.setWebChromeClient(new TestWebChromeClient(
+                WebViewClassic.fromWebView(webView).getWebChromeClient()) {
 
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
@@ -203,7 +205,8 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
             }
         });
 
-        webView.setWebViewClient(new TestWebViewClient(webView.getWebViewClient()) {
+        webView.setWebViewClient(new TestWebViewClient(
+                WebViewClassic.fromWebView(webView).getWebViewClient()) {
 
             /**
              * Bypasses and logs errors.

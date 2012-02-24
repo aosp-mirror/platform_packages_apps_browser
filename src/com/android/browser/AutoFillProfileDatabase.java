@@ -22,7 +22,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 import android.util.Log;
-import android.webkit.WebSettings.AutoFillProfile;
+import android.webkit.WebSettingsClassic.AutoFillProfile;
 
 public class AutoFillProfileDatabase {
 
