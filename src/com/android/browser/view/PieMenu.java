@@ -60,7 +60,8 @@ public class PieMenu extends FrameLayout {
 
         public void setLayoutListener(OnLayoutListener l);
 
-        public void layout(int anchorX, int anchorY, boolean onleft, float angle);
+        public void layout(int anchorX, int anchorY, boolean onleft, float angle,
+                int parentHeight);
 
         public void draw(Canvas c);
 
@@ -383,7 +384,7 @@ public class PieMenu extends FrameLayout {
     }
 
     private void layoutPieView(PieView pv, int x, int y, float angle) {
-        pv.layout(x, y, onTheLeft(), angle);
+        pv.layout(x, y, onTheLeft(), angle, getHeight());
     }
 
     /**

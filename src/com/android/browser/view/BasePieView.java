@@ -109,7 +109,8 @@ public abstract class BasePieView implements PieMenu.PieView {
      * needs to set top, left, width, height
      */
     @Override
-    public void layout(int anchorX, int anchorY, boolean left, float angle) {
+    public void layout(int anchorX, int anchorY, boolean left, float angle,
+            int parentHeight) {
         if (mListener != null) {
             mListener.onLayout(anchorX, anchorY, left);
         }
