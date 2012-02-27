@@ -36,12 +36,12 @@
     <string name="ok" msgid="1509280796718850364">"OK"</string>
     <string name="title_bar_loading" msgid="7438217780834640678">"Wird geladen..."</string>
     <string name="page_info" msgid="4048529256302257195">"Seiteninfo"</string>
-    <string name="page_info_view" msgid="5303490449842635158">"Seiteninfo anzeigen"</string>
+    <string name="page_info_view" msgid="5303490449842635158">"Seiteninfo ansehen"</string>
     <string name="page_info_address" msgid="2222306609532903254">"Adresse:"</string>
     <string name="ssl_warnings_header" msgid="79744901983636370">"Es ist ein Problem mit dem Sicherheitszertifikat für diese Website aufgetreten."</string>
     <string name="ssl_continue" msgid="8031515015829358457">"Fortfahren"</string>
     <string name="security_warning" msgid="6607795404322797541">"Sicherheitswarnung"</string>
-    <string name="view_certificate" msgid="1472768887529093862">"Zertifikat anzeigen"</string>
+    <string name="view_certificate" msgid="1472768887529093862">"Zertifikat ansehen"</string>
     <string name="ssl_go_back" msgid="4598951822061593819">"Zurück"</string>
     <string name="ssl_untrusted" msgid="7754507359360636447">"Dieses Zertifikat wurde nicht von einer vertrauenswürdigen Stelle ausgegeben."</string>
     <string name="ssl_mismatch" msgid="3809794439740523641">"Name der Website stimmt nicht mit dem Namen auf dem Zertifikat überein."</string>
@@ -113,7 +113,7 @@
     <string name="contextmenu_copy" msgid="398860586635404030">"Kopieren"</string>
     <string name="contextmenu_copylink" msgid="5153657160294534270">"Link-URL kopieren"</string>
     <string name="contextmenu_download_image" msgid="4243829645180686912">"Bild speichern"</string>
-    <string name="contextmenu_view_image" msgid="3870625602053600905">"Bild anzeigen"</string>
+    <string name="contextmenu_view_image" msgid="3870625602053600905">"Bild ansehen"</string>
     <string name="contextmenu_set_wallpaper" msgid="3691902960115350686">"Als Hintergrund festlegen"</string>
     <string name="contextmenu_dial_dot" msgid="5856550683415933806">"Wählen..."</string>
     <string name="contextmenu_add_contact" msgid="3183511922223645716">"Kontakt hinzufügen"</string>
