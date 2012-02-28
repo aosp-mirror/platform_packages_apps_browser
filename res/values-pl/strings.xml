@@ -172,7 +172,7 @@
     <string name="autofill_profile_editor_address_line_2" msgid="8194745202893822479">"Adres, wiersz 2:"</string>
     <string name="autofill_profile_editor_address_line_2_hint" msgid="8529642768127569254">"Mieszkanie, apartament, wydział, budynek, piętro itp."</string>
     <string name="autofill_profile_editor_city" msgid="7306716145784997135">"Miasto/miejscowość:"</string>
-    <string name="autofill_profile_editor_state" msgid="2150403366835080407">"Województwo/region:"</string>
+    <string name="autofill_profile_editor_state" msgid="2150403366835080407">"Województwo / region:"</string>
     <string name="autofill_profile_editor_zip_code" msgid="283668573295656671">"Kod pocztowy:"</string>
     <string name="autofill_profile_editor_country" msgid="7234470301239156656">"Kraj:"</string>
     <string name="autofill_profile_editor_phone_number" msgid="4938852821413729276">"Telefon:"</string>

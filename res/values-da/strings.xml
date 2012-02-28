@@ -293,7 +293,7 @@
     <string name="go_home" msgid="109129207276086793">"Startside"</string>
     <string name="add_new_bookmark" msgid="3158497555612337238">"Tilføj bogmærke"</string>
     <string name="add_bookmark_short" msgid="3783984330998103735">"Tilføj"</string>
-    <string name="search_hint" msgid="4647356319916631820">"Søg efter eller indtast en webadresse"</string>
+    <string name="search_hint" msgid="4647356319916631820">"Søg eller indtast en webadresse"</string>
     <string name="search_button_text" msgid="5235226933877634410">"Gå"</string>
     <string name="search_settings_description" msgid="1422401062529014107">"Bogmærker og weboversigt"</string>
     <string name="popup_window_attempt" msgid="31565781154067629">"Vil du tillade, at dette website åbner et pop op-vindue?"</string>
