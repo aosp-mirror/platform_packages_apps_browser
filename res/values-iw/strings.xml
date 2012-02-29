@@ -20,7 +20,7 @@
     <string name="choose_upload" msgid="3649366287575002063">"בחר קובץ להעלאה"</string>
     <string name="uploads_disabled" msgid="463761197575372994">"העלאות הקובץ הושבתו."</string>
     <string name="new_tab" msgid="7971857320679510529">"כרטיסייה חדשה"</string>
-    <string name="new_incognito_tab" msgid="3606197964239039478">"כרטיסייה חדשה של גלישה בסתר"</string>
+    <string name="new_incognito_tab" msgid="3606197964239039478">"כרטיסיית גלישה בסתר חדשה"</string>
     <string name="tab_bookmarks" msgid="2305793036003473653">"סימניות"</string>
     <string name="tab_most_visited" msgid="1077402532455000703">"אתרים שבהם אתה מבקר הכי הרבה"</string>
     <string name="tab_history" msgid="1979267558744613746">"היסטוריה"</string>
@@ -376,7 +376,7 @@
     <string name="accessibility_button_bookmarks" msgid="7435055677299151649">"סימניות"</string>
     <string name="accessibility_button_closetab" msgid="6954807842756927737">"סגור כרטיסייה"</string>
     <string name="accessibility_button_newtab" msgid="4116986240706315748">"פתח כרטיסייה חדשה"</string>
-    <string name="accessibility_button_newincognitotab" msgid="5254901889040012964">"פתח כרטיסייה חדשה של גלישה בסתר"</string>
+    <string name="accessibility_button_newincognitotab" msgid="5254901889040012964">"פתח כרטיסיית גלישה בסתר חדשה"</string>
     <string name="accessibility_button_clear" msgid="6943152307986161598">"נקה תוכן"</string>
     <string name="accessibility_button_uaswitch" msgid="6286804719724282339">"החלף סוכן משתמש"</string>
     <string name="accessibility_button_go" msgid="1182818872083055958">"בצע"</string>
