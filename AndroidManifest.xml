@@ -56,7 +56,7 @@
 
         <provider android:name=".provider.BrowserProvider2"
                   android:authorities="com.android.browser;browser"
-                  android:multiprocess="true"
+                  android:multiprocess="false"
                   android:readPermission="com.android.browser.permission.READ_HISTORY_BOOKMARKS"
                   android:writePermission="com.android.browser.permission.WRITE_HISTORY_BOOKMARKS">
             <path-permission android:path="/bookmarks/search_suggest_query"
