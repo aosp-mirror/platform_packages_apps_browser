@@ -168,7 +168,7 @@
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"电子邮件地址："</string>
     <string name="autofill_profile_editor_company_name" msgid="2813443159949210417">"公司名称："</string>
     <string name="autofill_profile_editor_address_line_1" msgid="836433242509243081">"地址行 1："</string>
-    <string name="autofill_profile_editor_address_line_1_hint" msgid="5965659598509327172">"街道地址、邮政信箱、转交"</string>
+    <string name="autofill_profile_editor_address_line_1_hint" msgid="5965659598509327172">"街道地址、邮政信箱、转交人"</string>
     <string name="autofill_profile_editor_address_line_2" msgid="8194745202893822479">"地址行 2："</string>
     <string name="autofill_profile_editor_address_line_2_hint" msgid="8529642768127569254">"公寓、套房、单元、楼栋、楼层等等。"</string>
     <string name="autofill_profile_editor_city" msgid="7306716145784997135">"城市/乡镇："</string>
