@@ -604,6 +604,8 @@ public class Controller
 
     protected void onConfgurationChanged(Configuration config) {
         mConfigChanged = true;
+        // update the menu in case of a locale change
+        mActivity.invalidateOptionsMenu();
         if (mPageDialogsHandler != null) {
             mPageDialogsHandler.onConfigurationChanged(config);
         }
