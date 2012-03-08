@@ -1548,6 +1548,7 @@ class Tab implements PictureListener {
                 mMainView.setPictureListener(this);
             }
             if (restore && (mSavedState != null)) {
+                restoreUserAgent();
                 WebBackForwardList restoredState
                         = mMainView.restoreState(mSavedState);
                 if (restoredState == null || restoredState.getSize() == 0) {
@@ -2010,10 +2011,7 @@ class Tab implements PictureListener {
         mId = b.getLong(ID);
         mAppId = b.getString(APPID);
         mCloseOnBack = b.getBoolean(CLOSEFLAG);
-        if (b.getBoolean(USERAGENT)
-                != mSettings.hasDesktopUseragent(getWebView())) {
-            mSettings.toggleDesktopUseragent(getWebView());
-        }
+        restoreUserAgent();
         String url = b.getString(CURRURL);
         String title = b.getString(CURRTITLE);
         boolean incognito = b.getBoolean(INCOGNITO);
@@ -2023,6 +2021,16 @@ class Tab implements PictureListener {
             if (mCapture != null) {
                 DataController.getInstance(mContext).loadThumbnail(this);
             }
+        }
+    }
+
+    private void restoreUserAgent() {
+        if (mMainView == null || mSavedState == null) {
+            return;
+        }
+        if (mSavedState.getBoolean(USERAGENT)
+                != mSettings.hasDesktopUseragent(mMainView)) {
+            mSettings.toggleDesktopUseragent(mMainView);
         }
     }
 
