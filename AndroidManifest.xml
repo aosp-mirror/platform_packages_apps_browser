@@ -66,7 +66,7 @@
                   android:label="@string/application_name"
                   android:launchMode="singleTask"
                   android:alwaysRetainTaskState="true"
-                  android:configChanges="orientation|keyboardHidden|keyboard|screenSize"
+                  android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale"
                   android:theme="@style/BrowserTheme"
                   android:windowSoftInputMode="adjustResize" >
             <intent-filter>
