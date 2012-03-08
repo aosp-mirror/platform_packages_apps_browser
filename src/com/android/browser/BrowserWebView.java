@@ -124,4 +124,10 @@ public class BrowserWebView extends WebView implements WebViewClassic.TitleBarDe
         return false;
     }
 
+    @Override
+    public void destroy() {
+        BrowserSettings.getInstance().stopManagingSettings(getSettings());
+        super.destroy();
+    }
+
 }
