@@ -161,6 +161,17 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         }
     }
 
+    public void stopManagingSettings(WebSettings settings) {
+        Iterator<WeakReference<WebSettings>> iter = mManagedSettings.iterator();
+        while (iter.hasNext()) {
+            WeakReference<WebSettings> ref = iter.next();
+            if (ref.get() == settings) {
+                iter.remove();
+                return;
+            }
+        }
+    }
+
     private Runnable mSetup = new Runnable() {
 
         @Override
