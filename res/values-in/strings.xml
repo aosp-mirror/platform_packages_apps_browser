@@ -60,13 +60,13 @@
     <string name="location" msgid="3411848697912600125">"Alamat"</string>
     <string name="account" msgid="5179824606448077042">"Akun"</string>
     <string name="containing_folder" msgid="6771180232953030479">"Tambahkan ke"</string>
-    <string name="new_folder" msgid="7743540149088867917">"Map baru"</string>
-    <string name="edit_folder" msgid="621817453133656156">"Edit map"</string>
-    <string name="delete_folder" msgid="2046483129024501116">"Hapus map"</string>
-    <string name="no_subfolders" msgid="3303645239686962674">"Tanpa submap."</string>
+    <string name="new_folder" msgid="7743540149088867917">"Folder baru"</string>
+    <string name="edit_folder" msgid="621817453133656156">"Edit folder"</string>
+    <string name="delete_folder" msgid="2046483129024501116">"Hapus folder"</string>
+    <string name="no_subfolders" msgid="3303645239686962674">"Tanpa subfolder."</string>
     <string name="add_to_bookmarks_menu_option" msgid="4449323955122214389">"Bookmark"</string>
     <string name="add_to_homescreen_menu_option" msgid="1461447829242963790">"Layar utama"</string>
-    <string name="add_to_other_folder_menu_option" msgid="5947586525822134105">"Map lainnya"</string>
+    <string name="add_to_other_folder_menu_option" msgid="5947586525822134105">"Folder lainnya"</string>
     <string name="name" msgid="5462672162695365387">"Label"</string>
     <string name="http" msgid="2163722670597250102">"http://"</string>
     <string name="save_to_bookmarks" msgid="1679286010089780932">"Simpan ke bookmark"</string>
@@ -104,7 +104,7 @@
     <string name="menu_save_snapshot" msgid="6935080344031126139">"Simpan untuk dibaca secara offline"</string>
     <string name="snapshot_failed" msgid="4584580873565876033">"Tidak dapat menyimpan untuk dibaca secara offline."</string>
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"<xliff:g id="BOOKMARK_COUNT">%d</xliff:g> bookmark"</string>
-    <string name="contextheader_folder_empty" msgid="974171637803391651">"Map kosong"</string>
+    <string name="contextheader_folder_empty" msgid="974171637803391651">"Folder kosong"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Buka"</string>
     <string name="contextmenu_openlink_newwindow" msgid="1205313604181761403">"Buka di tab baru"</string>
     <string name="contextmenu_openlink_newwindow_background" msgid="4690381019116746687">"Buka di tab latar belakang baru"</string>
