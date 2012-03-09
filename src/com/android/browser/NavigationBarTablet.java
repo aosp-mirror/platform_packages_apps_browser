@@ -165,9 +165,9 @@ public class NavigationBarTablet extends NavigationBarBase {
 
     @Override
     public void onClick(View v) {
-        if (mBackButton == v) {
+        if ((mBackButton == v) && (mUiController.getCurrentTab() != null)) {
             mUiController.getCurrentTab().goBack();
-        } else if (mForwardButton == v) {
+        } else if ((mForwardButton == v)  && (mUiController.getCurrentTab() != null)) {
             mUiController.getCurrentTab().goForward();
         } else if (mStar == v) {
             Intent intent = mUiController.createBookmarkCurrentPageIntent(true);
