@@ -697,6 +697,8 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                     }
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
+            } finally {
+                preloads.recycle();
             }
         }
 
