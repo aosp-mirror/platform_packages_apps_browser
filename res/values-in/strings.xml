@@ -123,7 +123,7 @@
     <string name="clear" msgid="7070043081700011461">"Bersihkan"</string>
     <string name="replace" msgid="4843033491070384047">"Ganti"</string>
     <string name="browser_bookmarks_page_bookmarks_text" msgid="6787605028726162673">"Bookmark"</string>
-    <string name="menu_preferences" msgid="6709237687234102240">"Pengaturan"</string>
+    <string name="menu_preferences" msgid="6709237687234102240">"Setelan"</string>
     <string name="pref_content_title" msgid="3834107397725342174">"Konten laman"</string>
     <string name="pref_content_load_images" msgid="2125616852957377561">"Muat gambar"</string>
     <string name="pref_content_load_images_summary" msgid="5055874125248398584">"Tampilkan gambar pada laman web"</string>
@@ -182,7 +182,7 @@
     <string name="autofill_profile_successful_delete" msgid="1790262652460723127">"Teks isi-otomatis dihapus."</string>
     <string name="autofill_profile_editor_delete_profile" msgid="3098369314558164153">"Hapus"</string>
     <string name="autofill_setup_dialog_message" msgid="7123905786076456503">"Browser dapat melengkapi formulir web seperti ini secara otomatis. Apakah Anda ingin menyiapkan teks isi-otomatis?"</string>
-    <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"Anda selalu dapat menyiapkan teks isi-otomatis dari layar Browser &gt; Pengaturan &gt; Umum."</string>
+    <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"Anda selalu dapat menyiapkan teks isi-otomatis dari layar Browser &gt; Setelan &gt; Umum."</string>
     <string name="disable_autofill" msgid="8305901059849400354">"Nonaktifkan isi-otomatis"</string>
     <string name="pref_privacy_security_title" msgid="3480313968942160914">"Privasi &amp; keamanan"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Hapus tembolok"</string>
@@ -244,12 +244,12 @@
     <string name="pref_content_load_page" msgid="2219810141690955452">"Buka laman di ikhtisar"</string>
     <string name="pref_content_load_page_summary" msgid="9168803276420332955">"Menampilkan ikhtisar laman yang baru dibuka"</string>
     <string name="pref_extras_title" msgid="7075456173747370647">"Lanjutan"</string>
-    <string name="pref_extras_website_settings" msgid="67866640052455549">"Pengaturan situs web"</string>
-    <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"Pengaturan lanjutan untuk masing-masing situs web"</string>
+    <string name="pref_extras_website_settings" msgid="67866640052455549">"Setelan situs web"</string>
+    <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"Setelan lanjutan untuk masing-masing situs web"</string>
     <string name="pref_extras_reset_default_title" msgid="3579760449455761762">"Setel ulang bawaan"</string>
     <string name="pref_extras_reset_default" msgid="8904000515846202110">"Setel ulang ke bawaan"</string>
-    <string name="pref_extras_reset_default_summary" msgid="4247870778270414501">"Pulihkan pengaturan bawaan"</string>
-    <string name="pref_extras_reset_default_dlg" msgid="7922814420184322450">"Kembalikan pengaturan ke nilai bawaan?"</string>
+    <string name="pref_extras_reset_default_summary" msgid="4247870778270414501">"Pulihkan setelan bawaan"</string>
+    <string name="pref_extras_reset_default_dlg" msgid="7922814420184322450">"Kembalikan setelan ke nilai bawaan?"</string>
     <string name="pref_development_title" msgid="3263854204533056480">"Debug"</string>
     <string name="pref_default_text_encoding" msgid="5742965543955558478">"Penyandiaksaraan teks"</string>
   <string-array name="pref_default_text_encoding_choices">
@@ -326,8 +326,8 @@
     <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"Bagikan lokasi"</string>
     <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"Tolak"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"Ingat preferensi"</string>
-    <string name="geolocation_permissions_prompt_toast_allowed" msgid="7201417941112726112">"Situs ini dapat mengakses lokasi Anda. Ubah melalui layar Pengaturan &gt; Lanjutan &gt; Situs web."</string>
-    <string name="geolocation_permissions_prompt_toast_disallowed" msgid="156443445797377409">"Situs ini tidak dapat mengakses lokasi Anda. Ubah melalui layar Pengaturan &gt; Lanjutan &gt; Situs web."</string>
+    <string name="geolocation_permissions_prompt_toast_allowed" msgid="7201417941112726112">"Situs ini dapat mengakses lokasi Anda. Ubah melalui layar Setelan &gt; Lanjutan &gt; Situs web."</string>
+    <string name="geolocation_permissions_prompt_toast_disallowed" msgid="156443445797377409">"Situs ini tidak dapat mengakses lokasi Anda. Ubah melalui layar Setelan &gt; Lanjutan &gt; Situs web."</string>
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Hapus akses lokasi"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Saat ini situs ini dapat mengakses lokasi Anda"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="7941769772784366199">"Saat ini situs ini tidak dapat mengakses lokasi Anda"</string>
