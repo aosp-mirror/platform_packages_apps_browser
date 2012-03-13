@@ -144,7 +144,7 @@
   <string-array name="pref_homepage_choices">
     <item msgid="844041670142910837">"Laman ini"</item>
     <item msgid="4430498748295169195">"Laman kosong"</item>
-    <item msgid="5747608191946904074">"Laman bawaan"</item>
+    <item msgid="5747608191946904074">"Laman default"</item>
     <item msgid="6092441301001006473">"Situs yang paling sering dikunjungi"</item>
     <item msgid="6569304572171444894">"Lainnya"</item>
   </string-array>
@@ -224,7 +224,7 @@
     <item msgid="5043128215356351184">"Besar"</item>
     <item msgid="7201512237890458902">"Sangat besar"</item>
   </string-array>
-    <string name="pref_min_font_size" msgid="8811125835817449131">"Ukuran fon minimal"</string>
+    <string name="pref_min_font_size" msgid="8811125835817449131">"Ukuran font minimal"</string>
     <string name="pref_min_font_size_value" msgid="2924708480509060209">"<xliff:g id="FONT_SIZE">%d</xliff:g> pn"</string>
     <string name="pref_text_zoom" msgid="5171056101805125497">"Penskalaan teks"</string>
     <string name="pref_zoom_on_double_tap" msgid="902786475250741795">"Zoom dengan mengetuk dua kali"</string>
@@ -234,22 +234,22 @@
     <string name="pref_inverted" msgid="7613556986776824112">"Penampilan terinversi"</string>
     <string name="pref_inverted_summary" msgid="7357225897413923085">"Hitam menjadi putih dan sebaliknya"</string>
     <string name="pref_inverted_contrast" msgid="8527441236225288169">"Kontras"</string>
-    <string name="pref_default_zoom" msgid="8076142259097187395">"Zoom bawaan"</string>
+    <string name="pref_default_zoom" msgid="8076142259097187395">"Zoom default"</string>
   <string-array name="pref_default_zoom_choices">
     <item msgid="549583171195154919">"Jauh"</item>
     <item msgid="5619034257768161024">"Sedang"</item>
     <item msgid="3840999588443167001">"Tutup"</item>
   </string-array>
-    <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"Zoom bawaan"</string>
+    <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"Zoom default"</string>
     <string name="pref_content_load_page" msgid="2219810141690955452">"Buka laman di ikhtisar"</string>
     <string name="pref_content_load_page_summary" msgid="9168803276420332955">"Menampilkan ikhtisar laman yang baru dibuka"</string>
     <string name="pref_extras_title" msgid="7075456173747370647">"Lanjutan"</string>
     <string name="pref_extras_website_settings" msgid="67866640052455549">"Setelan situs web"</string>
     <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"Setelan lanjutan untuk masing-masing situs web"</string>
-    <string name="pref_extras_reset_default_title" msgid="3579760449455761762">"Setel ulang bawaan"</string>
-    <string name="pref_extras_reset_default" msgid="8904000515846202110">"Setel ulang ke bawaan"</string>
-    <string name="pref_extras_reset_default_summary" msgid="4247870778270414501">"Pulihkan setelan bawaan"</string>
-    <string name="pref_extras_reset_default_dlg" msgid="7922814420184322450">"Kembalikan setelan ke nilai bawaan?"</string>
+    <string name="pref_extras_reset_default_title" msgid="3579760449455761762">"Setel ulang default"</string>
+    <string name="pref_extras_reset_default" msgid="8904000515846202110">"Setel ulang ke default"</string>
+    <string name="pref_extras_reset_default_summary" msgid="4247870778270414501">"Pulihkan setelan default"</string>
+    <string name="pref_extras_reset_default_dlg" msgid="7922814420184322450">"Kembalikan setelan ke nilai default?"</string>
     <string name="pref_development_title" msgid="3263854204533056480">"Debug"</string>
     <string name="pref_default_text_encoding" msgid="5742965543955558478">"Penyandiaksaraan teks"</string>
   <string-array name="pref_default_text_encoding_choices">
