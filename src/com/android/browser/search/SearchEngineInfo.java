@@ -83,13 +83,15 @@ public class SearchEngineInfo {
 
         // Add the current language/country information to the URIs.
         Locale locale = context.getResources().getConfiguration().locale;
-        StringBuilder language = new StringBuilder(locale.getLanguage());
-        if (!TextUtils.isEmpty(locale.getCountry())) {
-            language.append('-');
-            language.append(locale.getCountry());
+        String language = locale.getLanguage();
+        StringBuilder languageBuilder = new StringBuilder(language);
+        String country = locale.getCountry();
+        if (!TextUtils.isEmpty(country) && useLangCountryHl(language, country)) {
+            languageBuilder.append('-');
+            languageBuilder.append(country);
         }
 
-        String language_str = language.toString();
+        String language_str = languageBuilder.toString();
         mSearchEngineData[FIELD_SEARCH_URI] =
                 mSearchEngineData[FIELD_SEARCH_URI].replace(PARAMETER_LANGUAGE, language_str);
         mSearchEngineData[FIELD_SUGGEST_URI] =
@@ -107,6 +109,19 @@ public class SearchEngineInfo {
                 mSearchEngineData[FIELD_SEARCH_URI].replace(PARAMETER_INPUT_ENCODING, enc);
         mSearchEngineData[FIELD_SUGGEST_URI] =
                 mSearchEngineData[FIELD_SUGGEST_URI].replace(PARAMETER_INPUT_ENCODING, enc);
+    }
+
+    private static boolean useLangCountryHl(String language, String country) {
+        // lang-country is currently only supported for a small number of locales
+        if("en".equals(language)) {
+            return "GB".equals(country);
+        } else if ("zh".equals(language)) {
+            return "CN".equals(country) || "TW".equals(country);
+        } else if ("pt".equals(language)) {
+            return "BR".equals(country) || "PT".equals(country);
+        } else {
+            return false;
+        }
     }
 
     public String getName() {
