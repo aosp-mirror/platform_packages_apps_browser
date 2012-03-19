@@ -34,7 +34,7 @@
     <string name="bookmarks_search" msgid="5229596268214362873">"Browser"</string>
     <string name="cancel" msgid="3017274947407233702">"Annuller"</string>
     <string name="ok" msgid="1509280796718850364">"OK"</string>
-    <string name="title_bar_loading" msgid="7438217780834640678">"Indlæser ..."</string>
+    <string name="title_bar_loading" msgid="7438217780834640678">"Indlæser..."</string>
     <string name="page_info" msgid="4048529256302257195">"Sideoplysninger"</string>
     <string name="page_info_view" msgid="5303490449842635158">"Vis sideoplysninger"</string>
     <string name="page_info_address" msgid="2222306609532903254">"Adresse:"</string>
