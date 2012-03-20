@@ -74,7 +74,7 @@ public class InvertedContrastPreview extends WebViewPreview {
     }
 
     @Override
-    protected void updatePreview() {
+    protected void updatePreview(boolean forceReload) {
         if (mWebView == null) return;
 
         WebSettingsClassic ws = WebViewClassic.fromWebView(mWebView).getSettings();
@@ -83,7 +83,9 @@ public class InvertedContrastPreview extends WebViewPreview {
                 bs.useInvertedRendering() ? "true" : "false");
         ws.setProperty(WebViewProperties.gfxInvertedScreenContrast,
                 Float.toString(bs.getInvertedContrast()));
-        mWebView.loadData(mHtml, "text/html", null);
+        if (forceReload) {
+            mWebView.loadData(mHtml, "text/html", null);
+        }
     }
 
 }

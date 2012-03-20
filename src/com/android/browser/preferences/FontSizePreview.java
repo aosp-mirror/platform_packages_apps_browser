@@ -54,7 +54,7 @@ public class FontSizePreview extends WebViewPreview {
     }
 
     @Override
-    protected void updatePreview() {
+    protected void updatePreview(boolean forceReload) {
         if (mWebView == null) return;
 
         WebSettings ws = mWebView.getSettings();
