@@ -138,7 +138,7 @@
   </string-array>
     <string name="pref_content_open_in_background_summary" msgid="955411158407739504">"فتح علامات تبويب جديدة وراء علامة التبويب الحالية"</string>
     <string name="pref_content_homepage" msgid="3324574611613105696">"تعيين الصفحة الرئيسية"</string>
-    <string name="pref_content_search_engine" msgid="1620101310821644144">"تعين محرك بحث"</string>
+    <string name="pref_content_search_engine" msgid="1620101310821644144">"تعيين محرك بحث"</string>
     <string name="pref_content_search_engine_summary" msgid="304003941861818133">"اختر محرك بحث"</string>
     <string name="pref_set_homepage_to" msgid="7838684355145561242">"تعيين على"</string>
   <string-array name="pref_homepage_choices">
