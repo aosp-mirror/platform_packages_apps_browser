@@ -53,7 +53,7 @@ public abstract class WebViewPreview extends Preference
         setLayoutResource(R.layout.webview_preview);
     }
 
-    protected abstract void updatePreview();
+    protected abstract void updatePreview(boolean forceReload);
 
     protected void setupWebView(WebView view) {}
 
@@ -77,7 +77,7 @@ public abstract class WebViewPreview extends Preference
     protected void onBindView(View view) {
         super.onBindView(view);
         mWebView = (WebView) view.findViewById(R.id.webview);
-        updatePreview();
+        updatePreview(true);
     }
 
     @Override
@@ -95,7 +95,7 @@ public abstract class WebViewPreview extends Preference
     @Override
     public void onSharedPreferenceChanged(
             SharedPreferences sharedPreferences, String key) {
-        updatePreview();
+        updatePreview(false);
     }
 
 }
