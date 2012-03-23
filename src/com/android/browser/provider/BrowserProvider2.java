@@ -386,6 +386,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
         static final int DATABASE_VERSION = 32;
         public DatabaseHelper(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
+            setWriteAheadLoggingEnabled(true);
         }
 
         @Override
@@ -624,7 +625,6 @@ public class BrowserProvider2 extends SQLiteContentProvider {
         }
 
         public void onOpen(SQLiteDatabase db) {
-            db.enableWriteAheadLogging();
             mSyncHelper.onDatabaseOpened(db);
         }
 
