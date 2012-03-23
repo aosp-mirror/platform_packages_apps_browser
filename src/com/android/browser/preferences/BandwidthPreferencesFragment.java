@@ -16,9 +16,11 @@
 
 package com.android.browser.preferences;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceScreen;
 
 import com.android.browser.BrowserSettings;
 import com.android.browser.PreferenceKeys;
@@ -38,13 +40,22 @@ public class BandwidthPreferencesFragment extends PreferenceFragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (!getPreferenceScreen().getSharedPreferences()
-                .contains(PreferenceKeys.PREF_DATA_PRELOAD)) {
+        PreferenceScreen prefScreen = getPreferenceScreen();
+        SharedPreferences sharedPrefs = prefScreen.getSharedPreferences();
+        if (!sharedPrefs.contains(PreferenceKeys.PREF_DATA_PRELOAD)) {
             // set default value for preload setting
-            ListPreference preload = (ListPreference) getPreferenceScreen().findPreference(
+            ListPreference preload = (ListPreference) prefScreen.findPreference(
                     PreferenceKeys.PREF_DATA_PRELOAD);
             if (preload != null) {
                 preload.setValue(BrowserSettings.getInstance().getDefaultPreloadSetting());
+            }
+        }
+        if (!sharedPrefs.contains(PreferenceKeys.PREF_LINK_PREFETCH)) {
+            // set default value for link prefetch setting
+            ListPreference prefetch = (ListPreference) prefScreen.findPreference(
+                    PreferenceKeys.PREF_LINK_PREFETCH);
+            if (prefetch != null) {
+                prefetch.setValue(BrowserSettings.getInstance().getDefaultLinkPrefetchSetting());
             }
         }
     }

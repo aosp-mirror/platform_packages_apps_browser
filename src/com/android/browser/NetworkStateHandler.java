@@ -26,6 +26,8 @@ import android.net.NetworkInfo;
 import android.webkit.WebView;
 import android.webkit.WebViewClassic;
 
+import com.android.browser.BrowserSettings;
+
 /**
  * Handle network state changes
  */
@@ -68,6 +70,7 @@ public class NetworkStateHandler {
                     String subtypeName = info.getSubtypeName();
                     sendNetworkType(typeName.toLowerCase(),
                             (subtypeName != null ? subtypeName.toLowerCase() : ""));
+                    BrowserSettings.getInstance().updateConnectionType();
 
                     boolean noConnection = intent.getBooleanExtra(
                             ConnectivityManager.EXTRA_NO_CONNECTIVITY, false);
@@ -87,6 +90,7 @@ public class NetworkStateHandler {
     void onResume() {
         mActivity.registerReceiver(mNetworkStateIntentReceiver,
                 mNetworkStateChangedFilter);
+        BrowserSettings.getInstance().updateConnectionType();
     }
 
     /**
@@ -114,5 +118,4 @@ public class NetworkStateHandler {
             WebViewClassic.fromWebView(w).setNetworkType(type, subtype);
         }
     }
-
 }

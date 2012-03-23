@@ -22,6 +22,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Message;
 import android.preference.PreferenceManager;
@@ -114,6 +116,9 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     private static boolean sInitialized = false;
     private boolean mNeedsSharedSync = true;
     private float mFontSizeMult = 1.0f;
+
+    // Current state of network-dependent settings
+    private boolean mLinkPrefetchAllowed = true;
 
     // Cached values
     private int mPageCacheCapacity = 1;
@@ -290,6 +295,8 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
             settings.setProperty(WebViewProperties.gfxEnableCpuUploadPath,
                     enableCpuUploadPath() ? "true" : "false");
         }
+
+        settings.setLinkPrefetchEnabled(mLinkPrefetchAllowed);
     }
 
     /**
@@ -361,8 +368,7 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         syncManagedSettings();
         if (PREF_SEARCH_ENGINE.equals(key)) {
             updateSearchEngine(false);
-        }
-        if (PREF_FULLSCREEN.equals(key)) {
+        } else if (PREF_FULLSCREEN.equals(key)) {
             if (mController.getUi() != null) {
                 mController.getUi().setFullscreen(useFullscreen());
             }
@@ -370,6 +376,8 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
             if (mController.getUi() != null) {
                 mController.getUi().setUseQuickControls(sharedPreferences.getBoolean(key, false));
             }
+        } else if (PREF_LINK_PREFETCH.equals(key)) {
+            updateConnectionType();
         }
     }
 
@@ -574,6 +582,37 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
 
     public SharedPreferences getPreferences() {
         return mPrefs;
+    }
+
+    // update connectivity-dependent options
+    public void updateConnectionType() {
+        ConnectivityManager cm = (ConnectivityManager)
+            mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+        String linkPrefetchPreference = getLinkPrefetchEnabled();
+        boolean linkPrefetchAllowed = linkPrefetchPreference.
+            equals(getLinkPrefetchAlwaysPreferenceString(mContext));
+        NetworkInfo ni = cm.getActiveNetworkInfo();
+        if (ni != null) {
+            switch (ni.getType()) {
+                case ConnectivityManager.TYPE_WIFI:
+                case ConnectivityManager.TYPE_ETHERNET:
+                case ConnectivityManager.TYPE_BLUETOOTH:
+                    linkPrefetchAllowed |= linkPrefetchPreference.
+                        equals(getLinkPrefetchOnWifiOnlyPreferenceString(mContext));
+                    break;
+                case ConnectivityManager.TYPE_MOBILE:
+                case ConnectivityManager.TYPE_MOBILE_DUN:
+                case ConnectivityManager.TYPE_MOBILE_MMS:
+                case ConnectivityManager.TYPE_MOBILE_SUPL:
+                case ConnectivityManager.TYPE_WIMAX:
+                default:
+                    break;
+            }
+        }
+        if (mLinkPrefetchAllowed != linkPrefetchAllowed) {
+            mLinkPrefetchAllowed = linkPrefetchAllowed;
+            syncManagedSettings();
+        }
     }
 
     // -----------------------------
@@ -856,6 +895,30 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
 
     public String getPreloadEnabled() {
         return mPrefs.getString(PREF_DATA_PRELOAD, getDefaultPreloadSetting());
+    }
+
+    public static String getLinkPrefetchOnWifiOnlyPreferenceString(Context context) {
+        return context.getResources().getString(R.string.pref_link_prefetch_value_wifi_only);
+    }
+
+    public static String getLinkPrefetchAlwaysPreferenceString(Context context) {
+        return context.getResources().getString(R.string.pref_link_prefetch_value_always);
+    }
+
+    private static final String DEFAULT_LINK_PREFETCH_SECURE_SETTING_KEY =
+            "browser_default_link_prefetch_setting";
+
+    public String getDefaultLinkPrefetchSetting() {
+        String preload = Settings.Secure.getString(mContext.getContentResolver(),
+            DEFAULT_LINK_PREFETCH_SECURE_SETTING_KEY);
+        if (preload == null) {
+            preload = mContext.getResources().getString(R.string.pref_link_prefetch_default_value);
+        }
+        return preload;
+    }
+
+    public String getLinkPrefetchEnabled() {
+        return mPrefs.getString(PREF_LINK_PREFETCH, getDefaultLinkPrefetchSetting());
     }
 
     // -----------------------------
