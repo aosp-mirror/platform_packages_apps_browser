@@ -267,7 +267,7 @@
     <string name="pref_font_size_category" msgid="6683754355084218254">"文字大小"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"实验室"</string>
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"快速控制"</string>
-    <string name="pref_lab_quick_controls_summary" msgid="3149664132600968775">"从左侧或右侧边缘滑动拇指可打开快速控件并隐藏应用程序和网址栏"</string>
+    <string name="pref_lab_quick_controls_summary" msgid="3149664132600968775">"从左侧或右侧边缘滑动拇指可打开快速控件并隐藏应用和网址栏"</string>
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Google 即搜即得"</string>
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"借助 Google 即搜即得，您可以在使用 Google 搜索时一边键入内容一边查看结果（此功能可能会增加数据使用量）。"</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"全屏"</string>

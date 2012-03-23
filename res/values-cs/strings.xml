@@ -293,7 +293,7 @@
     <string name="go_home" msgid="109129207276086793">"Domovská stránka"</string>
     <string name="add_new_bookmark" msgid="3158497555612337238">"Přidat záložku"</string>
     <string name="add_bookmark_short" msgid="3783984330998103735">"Přidat"</string>
-    <string name="search_hint" msgid="4647356319916631820">"Vyhledávejte či zadejte adresu"</string>
+    <string name="search_hint" msgid="4647356319916631820">"Vyhledávejte či zadejte URL"</string>
     <string name="search_button_text" msgid="5235226933877634410">"Přejít"</string>
     <string name="search_settings_description" msgid="1422401062529014107">"Záložky a webová historie"</string>
     <string name="popup_window_attempt" msgid="31565781154067629">"Umožnit tomuto webu otevřít vyskakovací okno?"</string>
