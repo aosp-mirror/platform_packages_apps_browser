@@ -49,7 +49,7 @@
     <string name="ssl_not_yet_valid" msgid="8193083327719048247">"Sertifikat ini belum valid."</string>
     <string name="ssl_date_invalid" msgid="3705563379257285534">"Tanggal sertifikat ini tidak valid."</string>
     <string name="ssl_invalid" msgid="9041704741505449967">"Sertifikat ini tidak valid."</string>
-    <string name="ssl_unknown" msgid="5679243486524754571">"Galat sertifikat tak dikenal."</string>
+    <string name="ssl_unknown" msgid="5679243486524754571">"Kesalahan sertifikat tak dikenal."</string>
     <string name="stopping" msgid="4839698519340302982">"Menghentikan"</string>
     <string name="stop" msgid="5687251076030630074">"Berhenti"</string>
     <string name="reload" msgid="8585220783228408062">"Segarkan"</string>
@@ -189,9 +189,9 @@
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Hapus konten dan basis data yang disimpan dalam tembolok secara lokal"</string>
     <string name="pref_privacy_clear_cache_dlg" msgid="4344512581716422465">"Hapus basis data dan konten dalam tembolok lokal?"</string>
     <string name="pref_privacy_cookies_title" msgid="6763274282214830526">"Kuki"</string>
-    <string name="pref_privacy_clear_cookies" msgid="3095583579133780331">"Hapus semua data kuki"</string>
-    <string name="pref_privacy_clear_cookies_summary" msgid="6962742063990677520">"Menghapus semua kuki browser"</string>
-    <string name="pref_privacy_clear_cookies_dlg" msgid="1493252163164621278">"Hapus semua kuki?"</string>
+    <string name="pref_privacy_clear_cookies" msgid="3095583579133780331">"Hapus semua data cookie"</string>
+    <string name="pref_privacy_clear_cookies_summary" msgid="6962742063990677520">"Menghapus semua cookie browser"</string>
+    <string name="pref_privacy_clear_cookies_dlg" msgid="1493252163164621278">"Hapus semua cookie?"</string>
     <string name="pref_privacy_clear_history" msgid="8723795508825198477">"Hapus riwayat"</string>
     <string name="pref_privacy_clear_history_summary" msgid="6868501330708940734">"Hapus riwayat navigasi browser"</string>
     <string name="pref_privacy_clear_history_dlg" msgid="6934317391642846227">"Hapus riwayat navigasi browser?"</string>
@@ -215,8 +215,8 @@
     <string name="pref_security_save_form_data_summary" msgid="4994074685153708026">"Ingat data yang saya ketik untuk digunakan lagi nanti"</string>
     <string name="pref_security_show_security_warning" msgid="8901135676266754559">"Tampilkan peringatan keamanan"</string>
     <string name="pref_security_show_security_warning_summary" msgid="5260098316025397525">"Tampilkan peringatan jika ada masalah dengan keamanan situs"</string>
-    <string name="pref_security_accept_cookies" msgid="3201367661925047989">"Terima kuki"</string>
-    <string name="pref_security_accept_cookies_summary" msgid="1907951236154433751">"Izinkan situs menyimpan dan membaca data kuki"</string>
+    <string name="pref_security_accept_cookies" msgid="3201367661925047989">"Terima cookie"</string>
+    <string name="pref_security_accept_cookies_summary" msgid="1907951236154433751">"Izinkan situs menyimpan dan membaca data cookie"</string>
   <string-array name="pref_text_size_choices">
     <item msgid="4952686548944739548">"Kecil"</item>
     <item msgid="1950030433642671460">"Kecil"</item>
