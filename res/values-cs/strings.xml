@@ -322,7 +322,7 @@
     <string name="webstorage_clear_data_dialog_cancel_button" msgid="2028867751958942762">"Zrušit"</string>
     <string name="webstorage_origin_summary_mb_stored" msgid="1985885826292236210">"MB uloženo ve vašem telefonu"</string>
     <string name="loading_video" msgid="7886324933131962321">"Načítání videa..."</string>
-    <string name="geolocation_permissions_prompt_message" msgid="356796102004052471">"Web <xliff:g id="WEBSITE_ORIGIN">%s</xliff:g> požaduje informace o vaší poloze"</string>
+    <string name="geolocation_permissions_prompt_message" msgid="356796102004052471">"<xliff:g id="WEBSITE_ORIGIN">%s</xliff:g> žádá informace o vaší poloze"</string>
     <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"Sdílet polohu"</string>
     <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"Odmítnout"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"Zapamatovat předvolbu"</string>
