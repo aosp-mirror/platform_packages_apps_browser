@@ -263,7 +263,7 @@
     <item msgid="2193955365569270096">"Tiếng Hàn (EUC-KR)"</item>
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Mã hóa văn bản"</string>
-    <string name="pref_accessibility_title" msgid="5127836981587423215">"Khả năng truy cập"</string>
+    <string name="pref_accessibility_title" msgid="5127836981587423215">"Hỗ trợ truy cập"</string>
     <string name="pref_font_size_category" msgid="6683754355084218254">"Kích thước văn bản"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"Lab"</string>
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Các điều khiển nhanh"</string>
