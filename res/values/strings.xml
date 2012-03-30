@@ -785,14 +785,9 @@
     <!-- Do not translate.  Testing only -->
     <string name="dump_nav" translatable="false">Dump navigation cache</string>
 
-    <!-- The default homepage. If it starts with "http://www.google" and the
-            user signs up the device with a Google sites account, the site's
-            domain will be appended. -->
+    <!-- The default homepage. -->
     <string name="homepage_base" translatable="false">
-        http://www.google.com/webhp?client={CID}&amp;source=android-home</string>
-    <!-- The default url for the instant_base_page. -->
-    <string name="instant_base" translatable="false">
-        http://www.google.com/webhp?client={CID}&amp;source=android-instant&amp;ion=1</string>
+        https://www.google.com/webhp?client={CID}&amp;source=android-home</string>
 
     <!-- Bookmarks -->
     <string-array name="bookmarks" translatable="false">
