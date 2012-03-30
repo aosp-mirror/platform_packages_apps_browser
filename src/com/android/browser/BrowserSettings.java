@@ -318,6 +318,9 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         settings.setAppCachePath(getAppCachePath());
         settings.setDatabasePath(mContext.getDir("databases", 0).getPath());
         settings.setGeolocationDatabasePath(mContext.getDir("geolocation", 0).getPath());
+        // origin policy for file access
+        settings.setAllowUniversalAccessFromFileURLs(false);
+        settings.setAllowFileAccessFromFileURLs(false);
     }
 
     private void syncSharedSettings() {
