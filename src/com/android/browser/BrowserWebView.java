@@ -74,6 +74,10 @@ public class BrowserWebView extends WebView implements WebViewClassic.TitleBarDe
         super(context);
     }
 
+    public void setTitleBar(TitleBar title) {
+        mTitleBar = title;
+    }
+
     // From TitleBarDelegate
     @Override
     public int getTitleHeight() {
@@ -83,7 +87,6 @@ public class BrowserWebView extends WebView implements WebViewClassic.TitleBarDe
     // From TitleBarDelegate
     @Override
     public void onSetEmbeddedTitleBar(final View title) {
-        mTitleBar = (TitleBar) title;
     }
 
     public boolean hasTitleBar() {
@@ -110,6 +113,9 @@ public class BrowserWebView extends WebView implements WebViewClassic.TitleBarDe
     @Override
     protected void onScrollChanged(int l, int t, int oldl, int oldt) {
         super.onScrollChanged(l, t, oldl, oldt);
+        if (mTitleBar != null) {
+            mTitleBar.onScrollChanged();
+        }
         if (mOnScrollChangedListener != null) {
             mOnScrollChangedListener.onScrollChanged(l, t, oldl, oldt);
         }

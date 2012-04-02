@@ -1566,8 +1566,6 @@ class Tab implements PictureListener {
     void destroy() {
         if (mMainView != null) {
             dismissSubWindow();
-            // Make sure the embedded title bar isn't still attached
-            getWebViewClassic().setEmbeddedTitleBar(null);
             // save the WebView to call destroy() after detach it from the tab
             WebView webView = mMainView;
             setWebView(null);

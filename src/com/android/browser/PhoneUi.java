@@ -124,7 +124,6 @@ public class PhoneUi extends BaseUi {
                 if (!mOptionsMenuOpen || mExtendedMenuOpen) {
                     if (mUseQuickControls && !mTitleBar.isEditingUrl()) {
                         mTitleBar.setShowProgressOnly(true);
-                        setTitleGravity(Gravity.TOP);
                     }
                     showTitleBar();
                 }
@@ -167,11 +166,9 @@ public class PhoneUi extends BaseUi {
         // Request focus on the top window.
         if (mUseQuickControls) {
             mPieControl.forceToTop(mContentView);
+            view.setTitleBar(null);
         } else {
-            // check if title bar is already attached by animation
-            if (mTitleBar.getParent() == null) {
-                WebViewClassic.fromWebView(view).setEmbeddedTitleBar(mTitleBar);
-            }
+            view.setTitleBar(mTitleBar);
         }
         if (tab.isInVoiceSearchMode()) {
             showVoiceTitleBar(tab.getVoiceDisplayTitle(), tab.getVoiceSearchResults());
@@ -268,41 +265,16 @@ public class PhoneUi extends BaseUi {
     }
 
     @Override
-    protected void setTitleGravity(int gravity) {
-        if (mUseQuickControls) {
-            FrameLayout.LayoutParams lp =
-                    (FrameLayout.LayoutParams) mTitleBar.getLayoutParams();
-            lp.gravity = gravity;
-            mTitleBar.setLayoutParams(lp);
-        } else {
-            super.setTitleGravity(gravity);
-        }
-    }
-
-    @Override
     public void setUseQuickControls(boolean useQuickControls) {
         mUseQuickControls = useQuickControls;
         mTitleBar.setUseQuickControls(mUseQuickControls);
         if (useQuickControls) {
             mPieControl = new PieControlPhone(mActivity, mUiController, this);
             mPieControl.attachToContainer(mContentView);
-            WebView web = getWebView();
-            if (web != null) {
-                WebViewClassic.fromWebView(web).setEmbeddedTitleBar(null);
-            }
         } else {
             if (mPieControl != null) {
                 mPieControl.removeFromContainer(mContentView);
             }
-            WebView web = getWebView();
-            if (web != null) {
-                // make sure we can re-parent titlebar
-                if ((mTitleBar != null) && (mTitleBar.getParent() != null)) {
-                    ((ViewGroup) mTitleBar.getParent()).removeView(mTitleBar);
-                }
-                WebViewClassic.fromWebView(web).setEmbeddedTitleBar(mTitleBar);
-            }
-            setTitleGravity(Gravity.NO_GRAVITY);
         }
         updateUrlBarAutoShowManagerTarget();
     }

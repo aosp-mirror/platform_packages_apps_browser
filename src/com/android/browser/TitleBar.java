@@ -21,7 +21,6 @@ import android.animation.Animator.AnimatorListener;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.res.Resources;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +30,6 @@ import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 import android.webkit.WebView;
-import android.widget.AbsoluteLayout;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
@@ -67,6 +65,7 @@ public class TitleBar extends RelativeLayout {
         mBaseUi = ui;
         mParent = parent;
         initLayout(context);
+        mParent.addView(this, makeLayoutParams());
     }
 
     private void initLayout(Context context) {
@@ -107,7 +106,11 @@ public class TitleBar extends RelativeLayout {
 
     public void setUseQuickControls(boolean use) {
         mUseQuickControls = use;
-        setLayoutParams(makeLayoutParams());
+        if (use) {
+            this.setVisibility(View.GONE);
+        } else {
+            this.setVisibility(View.VISIBLE);
+        }
     }
 
     void setShowProgressOnly(boolean progress) {
@@ -132,7 +135,8 @@ public class TitleBar extends RelativeLayout {
 
     void show() {
         if (mUseQuickControls) {
-            mParent.addView(this);
+            this.setVisibility(View.VISIBLE);
+            this.setTranslationY(0);
         } else {
             if (!mSkipTitleBarAnimations) {
                 cancelTitleBarAnimation(false);
@@ -147,14 +151,13 @@ public class TitleBar extends RelativeLayout {
                 setupTitleBarAnimator(mTitleBarAnimator);
                 mTitleBarAnimator.start();
             }
-            mBaseUi.setTitleGravity(Gravity.TOP);
         }
         mShowing = true;
     }
 
     void hide() {
         if (mUseQuickControls) {
-            mParent.removeView(this);
+            this.setVisibility(View.GONE);
         } else {
             if (!mSkipTitleBarAnimations) {
                 cancelTitleBarAnimation(false);
@@ -166,7 +169,7 @@ public class TitleBar extends RelativeLayout {
                 setupTitleBarAnimator(mTitleBarAnimator);
                 mTitleBarAnimator.start();
             } else {
-                mBaseUi.setTitleGravity(Gravity.NO_GRAVITY);
+                onScrollChanged();
             }
         }
         mShowing = false;
@@ -188,10 +191,8 @@ public class TitleBar extends RelativeLayout {
 
     private AnimatorListener mHideTileBarAnimatorListener = new AnimatorListener() {
 
-        boolean mWasCanceled;
         @Override
         public void onAnimationStart(Animator animation) {
-            mWasCanceled = false;
         }
 
         @Override
@@ -200,15 +201,12 @@ public class TitleBar extends RelativeLayout {
 
         @Override
         public void onAnimationEnd(Animator animation) {
-            if (!mWasCanceled) {
-                setTranslationY(0);
-            }
-            mBaseUi.setTitleGravity(Gravity.NO_GRAVITY);
+            // update position
+            onScrollChanged();
         }
 
         @Override
         public void onAnimationCancel(Animator animation) {
-            mWasCanceled = true;
         }
     };
 
@@ -252,6 +250,7 @@ public class TitleBar extends RelativeLayout {
     }
 
     public int getEmbeddedHeight() {
+        if (mUseQuickControls) return 0;
         int height = mNavBar.getHeight();
         if (mAutoLogin != null && mAutoLogin.getVisibility() == View.VISIBLE) {
             height += mAutoLogin.getHeight();
@@ -355,14 +354,8 @@ public class TitleBar extends RelativeLayout {
     }
 
     private ViewGroup.LayoutParams makeLayoutParams() {
-        if (mUseQuickControls) {
-            return new FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT,
-                    LayoutParams.WRAP_CONTENT);
-        } else {
-            return new AbsoluteLayout.LayoutParams(
-                    LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT,
-                    0, 0);
-        }
+        return new FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT,
+                LayoutParams.WRAP_CONTENT);
     }
 
     @Override
@@ -387,6 +380,12 @@ public class TitleBar extends RelativeLayout {
                 mSnapshotBar.setVisibility(GONE);
             }
             mNavBar.setVisibility(VISIBLE);
+        }
+    }
+
+    public void onScrollChanged() {
+        if (!mShowing) {
+            setTranslationY(getVisibleTitleHeight() - getEmbeddedHeight());
         }
     }
 

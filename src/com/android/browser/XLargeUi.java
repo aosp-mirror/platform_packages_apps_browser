@@ -28,13 +28,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.ActionMode;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.webkit.WebChromeClient.CustomViewCallback;
 import android.webkit.WebView;
 import android.webkit.WebViewClassic;
 
@@ -92,25 +88,11 @@ public class XLargeUi extends BaseUi {
             checkTabCount();
             mPieControl = new PieControlXLarge(mActivity, mUiController, this);
             mPieControl.attachToContainer(mContentView);
-            WebView web = getWebView();
-            if (web != null) {
-                WebViewClassic.fromWebView(web).setEmbeddedTitleBar(null);
-
-            }
         } else {
             mActivity.getActionBar().show();
             if (mPieControl != null) {
                 mPieControl.removeFromContainer(mContentView);
             }
-            WebView web = getWebView();
-            if (web != null) {
-                if (mTitleBar.getParent() != null) {
-                    ViewGroup p = (ViewGroup) mTitleBar.getParent();
-                    p.removeView(mTitleBar);
-                }
-                WebViewClassic.fromWebView(web).setEmbeddedTitleBar(mTitleBar);
-            }
-            setTitleGravity(Gravity.NO_GRAVITY);
         }
         mTabBar.setUseQuickControls(mUseQuickControls);
         // We need to update the tabs with this change
@@ -200,11 +182,9 @@ public class XLargeUi extends BaseUi {
         // Request focus on the top window.
         if (mUseQuickControls) {
             mPieControl.forceToTop(mContentView);
+            view.setTitleBar(null);
         } else {
-            // check if title bar is already attached by animation
-            if (mTitleBar.getParent() == null) {
-                WebViewClassic.fromWebView(view).setEmbeddedTitleBar(mTitleBar);
-            }
+            view.setTitleBar(mTitleBar);
         }
         mTabBar.onSetActiveTab(tab);
         if (tab.isInVoiceSearchMode()) {
@@ -266,13 +246,6 @@ public class XLargeUi extends BaseUi {
     protected void hideTitleBar() {
         if (isTitleBarShowing()) {
             mTitleBar.hide();
-        }
-    }
-
-    @Override
-    protected void setTitleGravity(int gravity) {
-        if (!mUseQuickControls) {
-            super.setTitleGravity(gravity);
         }
     }
 

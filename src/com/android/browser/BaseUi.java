@@ -250,6 +250,7 @@ public abstract class BaseUi implements UI {
         WebView web = mActiveTab.getWebView();
         updateUrlBarAutoShowManagerTarget();
         attachTabToContentView(tab);
+        mTitleBar.bringToFront();
         setShouldShowErrorConsole(tab, mUiController.shouldShowErrorConsole());
         onTabDataChanged(tab);
         onProgressChanged(tab);
@@ -345,7 +346,6 @@ public abstract class BaseUi implements UI {
         // Remove the container from the content and then remove the
         // WebView from the container. This will trigger a focus change
         // needed by WebView.
-        WebViewClassic.fromWebView(mainView).setEmbeddedTitleBar(null);
         FrameLayout wrapper =
                 (FrameLayout) container.findViewById(R.id.webview_wrapper);
         wrapper.removeView(mainView);
@@ -473,13 +473,6 @@ public abstract class BaseUi implements UI {
 
     public TitleBar getTitleBar() {
         return mTitleBar;
-    }
-
-    protected void setTitleGravity(int gravity) {
-        WebView web = getWebView();
-        if (web != null) {
-            WebViewClassic.fromWebView(web).setTitleBarGravity(gravity);
-        }
     }
 
     @Override
