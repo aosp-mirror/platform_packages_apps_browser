@@ -281,6 +281,14 @@
   </string-array>
     <string name="pref_data_preload_summary" msgid="3809168910751382727">"อนุญาตให้เบราว์เซอร์โหลดผลการค้นหาที่เชื่อถือได้สูงก่อนล่วงหน้าในเบื้องหลัง"</string>
     <string name="pref_data_preload_dialogtitle" msgid="8421297746110796536">"การโหลดผลการค้นหาล่วงหน้า"</string>
+    <string name="pref_link_prefetch_title" msgid="4123685219009241072">"การโหลดหน้าเว็บล่วงหน้า"</string>
+  <string-array name="pref_link_prefetch_choices">
+    <item msgid="4889781230398008031">"ไม่มี"</item>
+    <item msgid="1908465963242077428">"WiFi เท่านั้น"</item>
+    <item msgid="7647277566998527142">"ทุกครั้ง"</item>
+  </string-array>
+    <string name="pref_link_prefetch_summary" msgid="6558181497993206817">"อนุญาตให้เบราว์เซอร์โหลดหน้าเว็บที่ลิงก์ในพื้นหลังล่วงหน้า"</string>
+    <string name="pref_link_prefetch_dialogtitle" msgid="3804646141622839765">"การโหลดหน้าเว็บล่วงหน้า"</string>
     <string name="browserFrameNetworkErrorLabel" msgid="8102515020625680714">"ปัญหาการเชื่อมต่อ"</string>
     <string name="browserFrameFileErrorLabel" msgid="4703792279852977350">"ปัญหาเกี่ยวกับไฟล์"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2385512101948178841"></string>

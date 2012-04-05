@@ -281,6 +281,14 @@
   </string-array>
     <string name="pref_data_preload_summary" msgid="3809168910751382727">"Разрешаване на зареждането от браузъра на заден план на наистина точни резултати"</string>
     <string name="pref_data_preload_dialogtitle" msgid="8421297746110796536">"Предварително зареждане на резултати"</string>
+    <string name="pref_link_prefetch_title" msgid="4123685219009241072">"Предварително зареждане на уеб страници"</string>
+  <string-array name="pref_link_prefetch_choices">
+    <item msgid="4889781230398008031">"Никога"</item>
+    <item msgid="1908465963242077428">"Само при Wi-Fi"</item>
+    <item msgid="7647277566998527142">"Винаги"</item>
+  </string-array>
+    <string name="pref_link_prefetch_summary" msgid="6558181497993206817">"Разрешаване на браузъра да зарежда предв. на заден план свързани уеб страници"</string>
+    <string name="pref_link_prefetch_dialogtitle" msgid="3804646141622839765">"Предварително зареждане на уеб страници"</string>
     <string name="browserFrameNetworkErrorLabel" msgid="8102515020625680714">"Проблем с връзката"</string>
     <string name="browserFrameFileErrorLabel" msgid="4703792279852977350">"Проблем с файла"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2385512101948178841"></string>

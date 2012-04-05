@@ -281,6 +281,14 @@
   </string-array>
     <string name="pref_data_preload_summary" msgid="3809168910751382727">"Дазволіць браўзэру загадзя загружаць вынікі пошуку высокага даверу ў фоне"</string>
     <string name="pref_data_preload_dialogtitle" msgid="8421297746110796536">"Папярэдняя загрузка вынікаў пошуку"</string>
+    <string name="pref_link_prefetch_title" msgid="4123685219009241072">"Папярэдняя загрузка вэб-старонак"</string>
+  <string-array name="pref_link_prefetch_choices">
+    <item msgid="4889781230398008031">"Ніколі"</item>
+    <item msgid="1908465963242077428">"Толькі па Wi-Fi"</item>
+    <item msgid="7647277566998527142">"Заўсёды"</item>
+  </string-array>
+    <string name="pref_link_prefetch_summary" msgid="6558181497993206817">"Дазволіць браўзеру папярэднюю загрузку звязаных вэб-старонак у фонавым рэжыме"</string>
+    <string name="pref_link_prefetch_dialogtitle" msgid="3804646141622839765">"Папярэдняя загрузка вэб-старонак"</string>
     <string name="browserFrameNetworkErrorLabel" msgid="8102515020625680714">"Праблема злучэння"</string>
     <string name="browserFrameFileErrorLabel" msgid="4703792279852977350">"Праблема з файлам"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2385512101948178841"></string>

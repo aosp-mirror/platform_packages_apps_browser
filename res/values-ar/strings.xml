@@ -281,6 +281,14 @@
   </string-array>
     <string name="pref_data_preload_summary" msgid="3809168910751382727">"السماح للمتصفح بتحميل نتائج بحث عالية الثقة في الخلفية مسبقًا"</string>
     <string name="pref_data_preload_dialogtitle" msgid="8421297746110796536">"التحميل المسبق لنتيجة البحث"</string>
+    <string name="pref_link_prefetch_title" msgid="4123685219009241072">"التحميل المسبق لصفحة الويب"</string>
+  <string-array name="pref_link_prefetch_choices">
+    <item msgid="4889781230398008031">"مطلقًا"</item>
+    <item msgid="1908465963242077428">"في شبكة Wi-Fi فقط"</item>
+    <item msgid="7647277566998527142">"دائمًا"</item>
+  </string-array>
+    <string name="pref_link_prefetch_summary" msgid="6558181497993206817">"السماح للمتصفح بتحميل صفحات الويب المرتبطة مسبقًا في الخلفية"</string>
+    <string name="pref_link_prefetch_dialogtitle" msgid="3804646141622839765">"تحميل صفحة الويب مسبقًا"</string>
     <string name="browserFrameNetworkErrorLabel" msgid="8102515020625680714">"مشكلة في الاتصال"</string>
     <string name="browserFrameFileErrorLabel" msgid="4703792279852977350">"مشكلة بالملف"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2385512101948178841"></string>

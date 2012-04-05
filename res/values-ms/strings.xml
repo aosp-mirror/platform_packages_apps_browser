@@ -281,6 +281,14 @@
   </string-array>
     <string name="pref_data_preload_summary" msgid="3809168910751382727">"Benarkan penyemak imbas untuk mempramuat hasil carian berkeyakinan tinggi di latar belakang"</string>
     <string name="pref_data_preload_dialogtitle" msgid="8421297746110796536">"Hasil carian sedang dipramuat"</string>
+    <string name="pref_link_prefetch_title" msgid="4123685219009241072">"Pramuat halaman web"</string>
+  <string-array name="pref_link_prefetch_choices">
+    <item msgid="4889781230398008031">"Jangan sekali-kali"</item>
+    <item msgid="1908465963242077428">"Hanya di Wi-Fi"</item>
+    <item msgid="7647277566998527142">"Sentiasa"</item>
+  </string-array>
+    <string name="pref_link_prefetch_summary" msgid="6558181497993206817">"Benarkan penyemak imbas mempramuat halaman web dikaitkan di latar belakang"</string>
+    <string name="pref_link_prefetch_dialogtitle" msgid="3804646141622839765">"Pramuat halaman web"</string>
     <string name="browserFrameNetworkErrorLabel" msgid="8102515020625680714">"Masalah sambungan"</string>
     <string name="browserFrameFileErrorLabel" msgid="4703792279852977350">"Masalah fail"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2385512101948178841"></string>

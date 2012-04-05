@@ -281,6 +281,14 @@
   </string-array>
     <string name="pref_data_preload_summary" msgid="3809168910751382727">"允许浏览器在后台预加载相关度高的搜索结果"</string>
     <string name="pref_data_preload_dialogtitle" msgid="8421297746110796536">"搜索结果预加载"</string>
+    <string name="pref_link_prefetch_title" msgid="4123685219009241072">"网页预加载"</string>
+  <string-array name="pref_link_prefetch_choices">
+    <item msgid="4889781230398008031">"从不"</item>
+    <item msgid="1908465963242077428">"仅限 Wi-Fi"</item>
+    <item msgid="7647277566998527142">"始终"</item>
+  </string-array>
+    <string name="pref_link_prefetch_summary" msgid="6558181497993206817">"允许浏览器在后台预加载链接的网页"</string>
+    <string name="pref_link_prefetch_dialogtitle" msgid="3804646141622839765">"网页预加载"</string>
     <string name="browserFrameNetworkErrorLabel" msgid="8102515020625680714">"连接问题"</string>
     <string name="browserFrameFileErrorLabel" msgid="4703792279852977350">"文件问题"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2385512101948178841"></string>
@@ -312,7 +320,7 @@
     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="8412543086906716875">"USB 存储设备正忙。要允许下载，请在通知中触摸“关闭 USB 存储设备”。"</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"SD 卡正忙。要允许下载，请在通知中触摸“关闭 USB 存储设备”。"</string>
     <string name="cannot_download" msgid="8150552478556798780">"只能从“http”或“https”网址下载。"</string>
-    <string name="download_pending" msgid="2599683668575349559">"正在准备下载..."</string>
+    <string name="download_pending" msgid="2599683668575349559">"开始下载..."</string>
     <string name="search_the_web" msgid="6046130189241962337">"搜索网页"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"浏览器存储空间已满"</string>
     <string name="webstorage_outofspace_notification_text" msgid="47273584426988640">"触摸可释放空间。"</string>

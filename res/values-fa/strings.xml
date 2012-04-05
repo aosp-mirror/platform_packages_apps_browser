@@ -281,6 +281,14 @@
   </string-array>
     <string name="pref_data_preload_summary" msgid="3809168910751382727">"به مرورگر اجازه داده شود نتایج جستجوی با اطمینان بالا را از قبل در پس زمینه بارگیری کند"</string>
     <string name="pref_data_preload_dialogtitle" msgid="8421297746110796536">"پیش بارگیری نتیجه جستجو"</string>
+    <string name="pref_link_prefetch_title" msgid="4123685219009241072">"پیش بارگیری صفحه وب"</string>
+  <string-array name="pref_link_prefetch_choices">
+    <item msgid="4889781230398008031">"هرگز"</item>
+    <item msgid="1908465963242077428">"فقط در Wi-Fi"</item>
+    <item msgid="7647277566998527142">"همیشه"</item>
+  </string-array>
+    <string name="pref_link_prefetch_summary" msgid="6558181497993206817">"اجازه دادن به مرورگر برای پیش بارگیری صفحات وب مرتبط در پس زمینه"</string>
+    <string name="pref_link_prefetch_dialogtitle" msgid="3804646141622839765">"پیش بارگیری صفحه وب"</string>
     <string name="browserFrameNetworkErrorLabel" msgid="8102515020625680714">"مشکل اتصال"</string>
     <string name="browserFrameFileErrorLabel" msgid="4703792279852977350">"مشکل فایل"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2385512101948178841"></string>

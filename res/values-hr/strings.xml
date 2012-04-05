@@ -281,6 +281,14 @@
   </string-array>
     <string name="pref_data_preload_summary" msgid="3809168910751382727">"Dopusti pregledniku prethodno učitavanje vrlo pouzdanih rezultata u pozadini"</string>
     <string name="pref_data_preload_dialogtitle" msgid="8421297746110796536">"Prethodno učitavanje rezultata pretrage"</string>
+    <string name="pref_link_prefetch_title" msgid="4123685219009241072">"Predučitavanje web-stranice"</string>
+  <string-array name="pref_link_prefetch_choices">
+    <item msgid="4889781230398008031">"Nikad"</item>
+    <item msgid="1908465963242077428">"Samo na Wi-Fi mreži"</item>
+    <item msgid="7647277566998527142">"Uvijek"</item>
+  </string-array>
+    <string name="pref_link_prefetch_summary" msgid="6558181497993206817">"Dopustite pregledniku predučitavanje povezanih web-stranica u pozadini"</string>
+    <string name="pref_link_prefetch_dialogtitle" msgid="3804646141622839765">"Predučitavanje web-stranice"</string>
     <string name="browserFrameNetworkErrorLabel" msgid="8102515020625680714">"Problem s vezom"</string>
     <string name="browserFrameFileErrorLabel" msgid="4703792279852977350">"Problem s datotekom"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2385512101948178841"></string>

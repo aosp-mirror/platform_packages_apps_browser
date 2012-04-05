@@ -281,6 +281,14 @@
   </string-array>
     <string name="pref_data_preload_summary" msgid="3809168910751382727">"Låt webbläsaren läsa in säkra sökresultat i förväg i bakgrunden"</string>
     <string name="pref_data_preload_dialogtitle" msgid="8421297746110796536">"Läser in sökresultat i förväg"</string>
+    <string name="pref_link_prefetch_title" msgid="4123685219009241072">"Läser in webbsida i förväg"</string>
+  <string-array name="pref_link_prefetch_choices">
+    <item msgid="4889781230398008031">"Aldrig"</item>
+    <item msgid="1908465963242077428">"Endast på Wi-Fi"</item>
+    <item msgid="7647277566998527142">"Alltid"</item>
+  </string-array>
+    <string name="pref_link_prefetch_summary" msgid="6558181497993206817">"Låt webbläsaren läsa in länkade webbsidor i bakgrunden i förväg"</string>
+    <string name="pref_link_prefetch_dialogtitle" msgid="3804646141622839765">"Läser in webbsida i förväg"</string>
     <string name="browserFrameNetworkErrorLabel" msgid="8102515020625680714">"Anslutningsproblem"</string>
     <string name="browserFrameFileErrorLabel" msgid="4703792279852977350">"Filproblem"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2385512101948178841"></string>
