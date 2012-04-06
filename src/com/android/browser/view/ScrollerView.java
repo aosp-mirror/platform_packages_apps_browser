@@ -97,6 +97,8 @@ public class ScrollerView extends FrameLayout {
      */
     protected boolean mIsBeingDragged = false;
 
+    protected boolean mEventCancelled = false;
+
     /**
      * Determines speed during touch scrolling
      */
@@ -740,6 +742,7 @@ public class ScrollerView extends FrameLayout {
                 }
                 break;
             case MotionEvent.ACTION_CANCEL:
+                mEventCancelled = true;
                 if (mIsOrthoDragged) {
                     onOrthoDragFinished(mDownView);
                     mActivePointerId = INVALID_POINTER;
@@ -757,6 +760,7 @@ public class ScrollerView extends FrameLayout {
                     mActivePointerId = INVALID_POINTER;
                     endDrag();
                 }
+                mEventCancelled = false;
                 break;
             case MotionEvent.ACTION_POINTER_DOWN: {
                 final int index = ev.getActionIndex();
