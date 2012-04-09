@@ -287,7 +287,7 @@
     <item msgid="1908465963242077428">"Solo en Wi-Fi"</item>
     <item msgid="7647277566998527142">"Siempre"</item>
   </string-array>
-    <string name="pref_link_prefetch_summary" msgid="6558181497993206817">"Permitir que el navegador cargue páginas web vinculadas en segundo plano"</string>
+    <string name="pref_link_prefetch_summary" msgid="6558181497993206817">"Permitir que el navegador precargue páginas web vinculadas en segundo plano"</string>
     <string name="pref_link_prefetch_dialogtitle" msgid="3804646141622839765">"Carga previa de páginas web"</string>
     <string name="browserFrameNetworkErrorLabel" msgid="8102515020625680714">"Problema de conexión"</string>
     <string name="browserFrameFileErrorLabel" msgid="4703792279852977350">"Problema del archivo"</string>
