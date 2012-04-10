@@ -472,6 +472,10 @@ public abstract class BaseUi implements UI {
         return mTitleBar.isEditingUrl();
     }
 
+    public void stopEditingUrl() {
+        mTitleBar.getNavigationBar().stopEditingUrl();
+    }
+
     public TitleBar getTitleBar() {
         return mTitleBar;
     }

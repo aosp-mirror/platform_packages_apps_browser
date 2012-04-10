@@ -50,8 +50,6 @@ public class PieStackView extends BasePieView {
         super.setCurrent(ix);
         if (mCurrentListener != null) {
             mCurrentListener.onSetCurrent(ix);
-            buildViews();
-            layoutChildrenLinear();
         }
     }
 

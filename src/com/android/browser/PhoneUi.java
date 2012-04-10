@@ -52,7 +52,7 @@ public class PhoneUi extends BaseUi {
     private static final String LOGTAG = "PhoneUi";
     private static final int MSG_INIT_NAVSCREEN = 100;
 
-    private PieControlPhone mPieControl;
+    private PieControl mPieControl;
     private NavScreen mNavScreen;
     private AnimScreen mAnimScreen;
     private NavigationBarPhone mNavigationBar;
@@ -268,7 +268,7 @@ public class PhoneUi extends BaseUi {
         mUseQuickControls = useQuickControls;
         mTitleBar.setUseQuickControls(mUseQuickControls);
         if (useQuickControls) {
-            mPieControl = new PieControlPhone(mActivity, mUiController, this);
+            mPieControl = new PieControl(mActivity, mUiController, this);
             mPieControl.attachToContainer(mContentView);
         } else {
             if (mPieControl != null) {

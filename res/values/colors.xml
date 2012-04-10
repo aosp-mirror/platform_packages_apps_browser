@@ -33,7 +33,8 @@
     <color name="tabFocusHighlight">#FF99CC00</color>
     <color name="qcMenuBackground">#C0000000</color>
     <color name="qc_normal">#E02A96BC</color>
-    <color name="qc_selected">#F01A5B73</color>
+    <color name="qc_selected">#E0FF8800</color>
+    <color name="qc_sub">#F01A5B73</color>
     <color name="qc_tab_nr">#F033B5E5</color>
     <color name="tabViewTitleBackground">#D0000000</color>
     <color name="navtab_bg">#80606060</color>

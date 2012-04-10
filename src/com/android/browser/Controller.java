@@ -1587,10 +1587,7 @@ public class Controller
                 break;
 
             case R.id.add_bookmark_menu_id:
-                Intent bookmarkIntent = createBookmarkCurrentPageIntent(false);
-                if (bookmarkIntent != null) {
-                    mActivity.startActivity(bookmarkIntent);
-                }
+                bookmarkCurrentPage();
                 break;
 
             case R.id.stop_reload_menu_id:
@@ -1624,14 +1621,10 @@ public class Controller
                 break;
 
             case R.id.preferences_menu_id:
-                Intent intent = new Intent(mActivity, BrowserPreferencesPage.class);
-                intent.putExtra(BrowserPreferencesPage.CURRENT_PAGE,
-                        getCurrentTopWebView().getUrl());
-                mActivity.startActivityForResult(intent, PREFERENCES_PAGE);
+                openPreferences();
                 break;
 
             case R.id.find_menu_id:
-                getCurrentTopWebView().showFindDialog(null, true);
                 break;
 
             case R.id.save_snapshot_menu_id:
@@ -1703,9 +1696,7 @@ public class Controller
                 break;
 
             case R.id.ua_desktop_menu_id:
-                WebView web = getCurrentWebView();
-                mSettings.toggleDesktopUseragent(web);
-                web.loadUrl(web.getOriginalUrl());
+                toggleUserAgent();
                 break;
 
             case R.id.window_one_menu_id:
@@ -1735,6 +1726,34 @@ public class Controller
                 return false;
         }
         return true;
+    }
+
+    @Override
+    public void toggleUserAgent() {
+        WebView web = getCurrentWebView();
+        mSettings.toggleDesktopUseragent(web);
+        web.loadUrl(web.getOriginalUrl());
+    }
+
+    @Override
+    public void findOnPage() {
+        getCurrentTopWebView().showFindDialog(null, true);
+    }
+
+    @Override
+    public void openPreferences() {
+        Intent intent = new Intent(mActivity, BrowserPreferencesPage.class);
+        intent.putExtra(BrowserPreferencesPage.CURRENT_PAGE,
+                getCurrentTopWebView().getUrl());
+        mActivity.startActivityForResult(intent, PREFERENCES_PAGE);
+    }
+
+    @Override
+    public void bookmarkCurrentPage() {
+        Intent bookmarkIntent = createBookmarkCurrentPageIntent(false);
+        if (bookmarkIntent != null) {
+            mActivity.startActivity(bookmarkIntent);
+        }
     }
 
     private void goLive() {

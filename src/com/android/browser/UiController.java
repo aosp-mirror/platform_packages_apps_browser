@@ -65,6 +65,8 @@ public interface UiController {
 
     void bookmarksOrHistoryPicker(ComboViews startView);
 
+    void bookmarkCurrentPage();
+
     void startVoiceSearch();
 
     boolean supportsVoiceSearch();
@@ -102,5 +104,11 @@ public interface UiController {
     Activity getActivity();
 
     void showPageInfo();
+
+    void openPreferences();
+
+    void findOnPage();
+
+    void toggleUserAgent();
 
 }

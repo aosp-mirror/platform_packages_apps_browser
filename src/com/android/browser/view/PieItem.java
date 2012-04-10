@@ -16,10 +16,12 @@
 
 package com.android.browser.view;
 
+import android.view.View;
+
 import com.android.browser.view.PieMenu.PieView;
 
-import android.graphics.Path;
-import android.view.View;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Pie menu item
@@ -31,20 +33,66 @@ public class PieItem {
     private int level;
     private float start;
     private float sweep;
+    private float animate;
     private int inner;
     private int outer;
     private boolean mSelected;
-    private Path mPath;
+    private boolean mEnabled;
+    private List<PieItem> mItems;
 
     public PieItem(View view, int level) {
         mView = view;
         this.level = level;
+        mEnabled = true;
+        setAnimationAngle(getAnimationAngle());
+        setAlpha(getAlpha());
     }
 
     public PieItem(View view, int level, PieView sym) {
         mView = view;
         this.level = level;
         mPieView = sym;
+        mEnabled = false;
+    }
+
+    public boolean hasItems() {
+        return mItems != null;
+    }
+
+    public List<PieItem> getItems() {
+        return mItems;
+    }
+
+    public void addItem(PieItem item) {
+        if (mItems == null) {
+            mItems = new ArrayList<PieItem>();
+        }
+        mItems.add(item);
+    }
+
+    public void setAlpha(float alpha) {
+        if (mView != null) {
+            mView.setAlpha(alpha);
+        }
+    }
+
+    public float getAlpha() {
+        if (mView != null) {
+            return mView.getAlpha();
+        }
+        return 1;
+    }
+
+    public void setAnimationAngle(float a) {
+        animate = a;
+    }
+
+    public float getAnimationAngle() {
+        return animate;
+    }
+
+    public void setEnabled(boolean enabled) {
+        mEnabled = enabled;
     }
 
     public void setSelected(boolean s) {
@@ -62,16 +110,19 @@ public class PieItem {
         return level;
     }
 
-    public void setGeometry(float st, float sw, int inside, int outside, Path p) {
+    public void setGeometry(float st, float sw, int inside, int outside) {
         start = st;
         sweep = sw;
         inner = inside;
         outer = outside;
-        mPath = p;
+    }
+
+    public float getStart() {
+        return start;
     }
 
     public float getStartAngle() {
-        return start;
+        return start + animate;
     }
 
     public float getSweep() {
@@ -99,11 +150,10 @@ public class PieItem {
     }
 
     public PieView getPieView() {
-        return mPieView;
-    }
-
-    public Path getPath() {
-        return mPath;
+        if (mEnabled) {
+            return mPieView;
+        }
+        return null;
     }
 
 }

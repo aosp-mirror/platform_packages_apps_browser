@@ -27,8 +27,8 @@
     <dimen name="widgetItemMinHeight">48dip</dimen>
     <dimen name="favicon_size">16dip</dimen>
     <dimen name="favicon_padded_size">20dip</dimen>
-    <dimen name="qc_radius_start">60dip</dimen>
-    <dimen name="qc_radius_increment">70dip</dimen>
+    <dimen name="qc_radius_start">65dip</dimen>
+    <dimen name="qc_radius_increment">80dip</dimen>
     <dimen name="qc_slop">10dip</dimen>
     <dimen name="qc_touch_offset">15dip</dimen>
     <dimen name="qc_tab_title_height">24dip</dimen>
