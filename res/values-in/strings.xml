@@ -287,7 +287,7 @@
     <item msgid="1908465963242077428">"Hanya pada Wi-Fi"</item>
     <item msgid="7647277566998527142">"Selalu"</item>
   </string-array>
-    <string name="pref_link_prefetch_summary" msgid="6558181497993206817">"Mengizinkan browser mem-pramuat laman web yang ditautkan di latar belakang"</string>
+    <string name="pref_link_prefetch_summary" msgid="6558181497993206817">"Izinkan browser untuk pramuat laman web yang ditautkan di latar belakang"</string>
     <string name="pref_link_prefetch_dialogtitle" msgid="3804646141622839765">"Pramuat laman web"</string>
     <string name="browserFrameNetworkErrorLabel" msgid="8102515020625680714">"Masalah sambungan"</string>
     <string name="browserFrameFileErrorLabel" msgid="4703792279852977350">"Masalah file"</string>

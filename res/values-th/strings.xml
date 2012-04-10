@@ -287,7 +287,7 @@
     <item msgid="1908465963242077428">"WiFi เท่านั้น"</item>
     <item msgid="7647277566998527142">"ทุกครั้ง"</item>
   </string-array>
-    <string name="pref_link_prefetch_summary" msgid="6558181497993206817">"อนุญาตให้เบราว์เซอร์โหลดหน้าเว็บที่ลิงก์ในพื้นหลังล่วงหน้า"</string>
+    <string name="pref_link_prefetch_summary" msgid="6558181497993206817">"อนุญาตให้เบราว์เซอร์โหลดหน้าเว็บที่ลิงก์กันล่วงหน้าในพื้นหลัง"</string>
     <string name="pref_link_prefetch_dialogtitle" msgid="3804646141622839765">"การโหลดหน้าเว็บล่วงหน้า"</string>
     <string name="browserFrameNetworkErrorLabel" msgid="8102515020625680714">"ปัญหาการเชื่อมต่อ"</string>
     <string name="browserFrameFileErrorLabel" msgid="4703792279852977350">"ปัญหาเกี่ยวกับไฟล์"</string>
