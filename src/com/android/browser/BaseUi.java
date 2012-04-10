@@ -251,6 +251,7 @@ public abstract class BaseUi implements UI {
         updateUrlBarAutoShowManagerTarget();
         attachTabToContentView(tab);
         mTitleBar.bringToFront();
+        tab.getTopWindow().requestFocus();
         setShouldShowErrorConsole(tab, mUiController.shouldShowErrorConsole());
         onTabDataChanged(tab);
         onProgressChanged(tab);
