@@ -178,7 +178,6 @@ public class PhoneUi extends BaseUi {
         // update nav bar state
         mNavigationBar.onStateChanged(StateListener.STATE_NORMAL);
         updateLockIconToLatest(tab);
-        tab.getTopWindow().requestFocus();
         mTitleBar.setSkipTitleBarAnimations(false);
     }
 

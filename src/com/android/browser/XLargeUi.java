@@ -193,7 +193,6 @@ public class XLargeUi extends BaseUi {
             revertVoiceTitleBar(tab);
         }
         updateLockIconToLatest(tab);
-        tab.getTopWindow().requestFocus();
         mTitleBar.setSkipTitleBarAnimations(false);
     }
 
