@@ -108,7 +108,6 @@ public class NavigationBarBase extends LinearLayout implements
         }
         if (hasFocus) {
             mBaseUi.showTitleBar();
-            mUrlInput.forceIme();
             if (mInVoiceMode) {
                 mUrlInput.forceFilter();
             }

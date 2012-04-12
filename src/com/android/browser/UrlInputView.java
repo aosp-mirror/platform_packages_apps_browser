@@ -246,11 +246,6 @@ public class UrlInputView extends AutoCompleteTextView
         showDropDown();
     }
 
-    void forceIme() {
-        mInputManager.focusIn(this);
-        mInputManager.showSoftInput(this, 0);
-    }
-
     void hideIME() {
         mInputManager.hideSoftInputFromWindow(getWindowToken(), 0);
     }
