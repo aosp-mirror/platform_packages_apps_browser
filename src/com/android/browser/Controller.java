@@ -788,8 +788,10 @@ public class Controller
         mLoadStopped = true;
         Tab tab = mTabControl.getCurrentTab();
         WebView w = getCurrentTopWebView();
-        w.stopLoading();
-        mUi.onPageStopped(tab);
+        if (w != null) {
+            w.stopLoading();
+            mUi.onPageStopped(tab);
+        }
     }
 
     boolean didUserStopLoading() {
