@@ -312,26 +312,16 @@ public abstract class BaseUi implements UI {
         ViewGroup parent = (ViewGroup) mainView.getParent();
         if (parent != wrapper) {
             if (parent != null) {
-                Log.w(LOGTAG, "mMainView already has a parent in"
-                        + " attachTabToContentView!");
                 parent.removeView(mainView);
             }
             wrapper.addView(mainView);
-        } else {
-            Log.w(LOGTAG, "mMainView is already attached to wrapper in"
-                    + " attachTabToContentView!");
         }
         parent = (ViewGroup) container.getParent();
         if (parent != mContentView) {
             if (parent != null) {
-                Log.w(LOGTAG, "mContainer already has a parent in"
-                        + " attachTabToContentView!");
                 parent.removeView(container);
             }
             mContentView.addView(container, COVER_SCREEN_PARAMS);
-        } else {
-            Log.w(LOGTAG, "mContainer is already attached to content in"
-                    + " attachTabToContentView!");
         }
         mUiController.attachSubWindow(tab);
     }
