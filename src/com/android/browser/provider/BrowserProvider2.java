@@ -284,6 +284,17 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 " FROM " + TABLE_BOOKMARKS + " A WHERE " +
                 "A." + Bookmarks._ID + "=" + TABLE_BOOKMARKS + "." + Bookmarks.INSERT_AFTER +
                 ") AS " + Bookmarks.INSERT_AFTER_SOURCE_ID);
+        map.put(Bookmarks.TYPE, "CASE "
+                + " WHEN " + Bookmarks.IS_FOLDER + "=0 THEN "
+                    + Bookmarks.BOOKMARK_TYPE_BOOKMARK
+                + " WHEN " + ChromeSyncColumns.SERVER_UNIQUE + "='"
+                    + ChromeSyncColumns.FOLDER_NAME_BOOKMARKS_BAR + "' THEN "
+                    + Bookmarks.BOOKMARK_TYPE_BOOKMARK_BAR_FOLDER
+                + " WHEN " + ChromeSyncColumns.SERVER_UNIQUE + "='"
+                    + ChromeSyncColumns.FOLDER_NAME_OTHER_BOOKMARKS + "' THEN "
+                    + Bookmarks.BOOKMARK_TYPE_OTHER_FOLDER
+                + " ELSE " + Bookmarks.BOOKMARK_TYPE_FOLDER
+                + " END AS " + Bookmarks.TYPE);
 
         // Other bookmarks
         OTHER_BOOKMARKS_PROJECTION_MAP.putAll(BOOKMARKS_PROJECTION_MAP);

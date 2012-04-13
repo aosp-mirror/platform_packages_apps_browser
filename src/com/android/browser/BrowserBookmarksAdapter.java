@@ -20,6 +20,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.provider.BrowserContract.Bookmarks;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,6 +53,15 @@ public class BrowserBookmarksAdapter extends CursorAdapter {
         }
     }
 
+    CharSequence getTitle(Cursor cursor, Context context) {
+        int type = cursor.getInt(BookmarksLoader.COLUMN_INDEX_TYPE);
+        switch (type) {
+        case Bookmarks.BOOKMARK_TYPE_OTHER_FOLDER:
+            return context.getText(R.string.other_bookmarks);
+        }
+        return cursor.getString(BookmarksLoader.COLUMN_INDEX_TITLE);
+    }
+
     void bindGridView(View view, Context context, Cursor cursor) {
         // We need to set this to handle rotation and other configuration change
         // events. If the padding didn't change, this is a no op.
@@ -62,7 +72,7 @@ public class BrowserBookmarksAdapter extends CursorAdapter {
         ImageView thumb = (ImageView) view.findViewById(R.id.thumb);
         TextView tv = (TextView) view.findViewById(R.id.label);
 
-        tv.setText(cursor.getString(BookmarksLoader.COLUMN_INDEX_TITLE));
+        tv.setText(getTitle(cursor, context));
         if (cursor.getInt(BookmarksLoader.COLUMN_INDEX_IS_FOLDER) != 0) {
             // folder
             thumb.setImageResource(R.drawable.thumb_bookmark_widget_folder_holo);
@@ -89,7 +99,7 @@ public class BrowserBookmarksAdapter extends CursorAdapter {
         ImageView favicon = (ImageView) view.findViewById(R.id.favicon);
         TextView tv = (TextView) view.findViewById(R.id.label);
 
-        tv.setText(cursor.getString(BookmarksLoader.COLUMN_INDEX_TITLE));
+        tv.setText(getTitle(cursor, context));
         if (cursor.getInt(BookmarksLoader.COLUMN_INDEX_IS_FOLDER) != 0) {
             // folder
             favicon.setImageResource(R.drawable.ic_folder_holo_dark);

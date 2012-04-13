@@ -34,7 +34,7 @@ public class BookmarksLoader extends CursorLoader {
     public static final int COLUMN_INDEX_TOUCH_ICON = 5;
     public static final int COLUMN_INDEX_IS_FOLDER = 6;
     public static final int COLUMN_INDEX_PARENT = 8;
-    public static final int COLUMN_INDEX_SERVER_UNIQUE = 9;
+    public static final int COLUMN_INDEX_TYPE = 9;
 
     public static final String[] PROJECTION = new String[] {
         Bookmarks._ID, // 0
@@ -46,7 +46,7 @@ public class BookmarksLoader extends CursorLoader {
         Bookmarks.IS_FOLDER, // 6
         Bookmarks.POSITION, // 7
         Bookmarks.PARENT, // 8
-        ChromeSyncColumns.SERVER_UNIQUE, // 9
+        Bookmarks.TYPE, // 9
     };
 
     String mAccountType;
