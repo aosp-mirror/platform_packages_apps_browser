@@ -37,6 +37,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -140,9 +142,20 @@ public class RequestHandler extends Thread {
         t.write(mOutput);
     }
 
+    private static final Comparator<File> sFileComparator = new Comparator<File>() {
+        @Override
+        public int compare(File lhs, File rhs) {
+            if (lhs.isDirectory() != rhs.isDirectory()) {
+                return lhs.isDirectory() ? -1 : 1;
+            }
+            return lhs.getName().compareTo(rhs.getName());
+        }
+    };
+
     void writeFolderIndex() throws IOException {
         File f = new File(mUri.getPath());
         final File[] files = f.listFiles();
+        Arrays.sort(files, sFileComparator);
         Template t = Template.getCachedTemplate(mContext, R.raw.folder_view);
         t.assign("path", mUri.getPath());
         t.assign("parent_url", f.getParent() != null ? f.getParent() : f.getPath());
