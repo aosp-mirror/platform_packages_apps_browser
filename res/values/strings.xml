@@ -883,6 +883,9 @@
          This is centered in the middle of the screen [CHAR LIMIT=NONE] -->
     <string name="empty_bookmarks_folder">No bookmarks.</string>
 
+    <!-- The folder name for the special "Other Bookmarks" folder created by Chrome [CHAR LIMIT=24] -->
+    <string name="other_bookmarks">Other Bookmarks</string>
+
     <!-- Access point for RLZ tracking. -->
     <string name="rlz_access_point">Y1</string>
 

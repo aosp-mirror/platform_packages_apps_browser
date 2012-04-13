@@ -37,7 +37,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.BrowserContract;
 import android.provider.BrowserContract.Accounts;
-import android.provider.BrowserContract.ChromeSyncColumns;
 import android.view.ActionMode;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -285,8 +284,9 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
     }
 
     boolean canEdit(Cursor c) {
-        String unique = c.getString(BookmarksLoader.COLUMN_INDEX_SERVER_UNIQUE);
-        return !ChromeSyncColumns.FOLDER_NAME_OTHER_BOOKMARKS.equals(unique);
+        int type = c.getInt(BookmarksLoader.COLUMN_INDEX_TYPE);
+        return type == BrowserContract.Bookmarks.BOOKMARK_TYPE_BOOKMARK
+                || type == BrowserContract.Bookmarks.BOOKMARK_TYPE_FOLDER;
     }
 
     private void populateBookmarkItem(Cursor cursor, BookmarkItem item, boolean isFolder) {
