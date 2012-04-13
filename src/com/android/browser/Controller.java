@@ -1627,6 +1627,7 @@ public class Controller
                 break;
 
             case R.id.find_menu_id:
+                findOnPage();
                 break;
 
             case R.id.save_snapshot_menu_id:
