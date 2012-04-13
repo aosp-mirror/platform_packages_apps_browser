@@ -33,7 +33,7 @@
     <string name="action" msgid="183105774472071343">"Masuk"</string>
     <string name="bookmarks_search" msgid="5229596268214362873">"Browser"</string>
     <string name="cancel" msgid="3017274947407233702">"Batal"</string>
-    <string name="ok" msgid="1509280796718850364">"OK"</string>
+    <string name="ok" msgid="1509280796718850364">"Oke"</string>
     <string name="title_bar_loading" msgid="7438217780834640678">"Memuat…"</string>
     <string name="page_info" msgid="4048529256302257195">"Info laman"</string>
     <string name="page_info_view" msgid="5303490449842635158">"Lihat info laman"</string>
@@ -55,7 +55,7 @@
     <string name="reload" msgid="8585220783228408062">"Segarkan"</string>
     <string name="back" msgid="8414603107175713668">"Kembali"</string>
     <string name="forward" msgid="4288210890526641577">"Teruskan"</string>
-    <string name="save" msgid="5922311934992468496">"OK"</string>
+    <string name="save" msgid="5922311934992468496">"Oke"</string>
     <string name="do_not_save" msgid="6777633870113477714">"Batal"</string>
     <string name="location" msgid="3411848697912600125">"Alamat"</string>
     <string name="account" msgid="5179824606448077042">"Akun"</string>
@@ -130,7 +130,7 @@
     <string name="pref_content_block_popups" msgid="4158524847764470895">"Cekal jendela munculan"</string>
     <string name="pref_content_javascript" msgid="4570972030299516843">"Aktifkan JavaScript"</string>
     <string name="pref_content_open_in_background" msgid="824123779725118663">"Buka di latar belakang"</string>
-    <string name="pref_content_plugins" msgid="7231944644794301582">"Aktifkan pengaya"</string>
+    <string name="pref_content_plugins" msgid="7231944644794301582">"Aktifkan plugin"</string>
   <string-array name="pref_content_plugins_choices">
     <item msgid="6745108155096660725">"Selalu hidup"</item>
     <item msgid="2484126708670016519">"Sesuai permintaan"</item>
@@ -326,7 +326,7 @@
     <string name="webstorage_outofspace_notification_text" msgid="47273584426988640">"Sentuh untuk mengosongkan ruang."</string>
     <string name="webstorage_clear_data_title" msgid="689484577124333977">"Hapus data tersimpan"</string>
     <string name="webstorage_clear_data_dialog_message" msgid="6200681632891775881">"Hapus semua data yang disimpan situs web ini?"</string>
-    <string name="webstorage_clear_data_dialog_ok_button" msgid="6682570951259237542">"OK"</string>
+    <string name="webstorage_clear_data_dialog_ok_button" msgid="6682570951259237542">"Oke"</string>
     <string name="webstorage_clear_data_dialog_cancel_button" msgid="2028867751958942762">"Batal"</string>
     <string name="webstorage_origin_summary_mb_stored" msgid="1985885826292236210">"MB yang disimpan pada ponsel Anda"</string>
     <string name="loading_video" msgid="7886324933131962321">"Memuat video..."</string>
@@ -340,15 +340,17 @@
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Saat ini situs ini dapat mengakses lokasi Anda"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="7941769772784366199">"Saat ini situs ini tidak dapat mengakses lokasi Anda"</string>
     <string name="geolocation_settings_page_dialog_message" msgid="8772923416296868537">"Hapus akses lokasi untuk situs web ini?"</string>
-    <string name="geolocation_settings_page_dialog_ok_button" msgid="2113465477131017852">"OK"</string>
+    <string name="geolocation_settings_page_dialog_ok_button" msgid="2113465477131017852">"Oke"</string>
     <string name="geolocation_settings_page_dialog_cancel_button" msgid="7941036504673409747">"Batal"</string>
     <string name="website_settings_clear_all" msgid="8739804325997655980">"Hapus semua"</string>
     <string name="website_settings_clear_all_dialog_message" msgid="1551164275687475061">"Hapus semua data situs web dan izin lokasi?"</string>
-    <string name="website_settings_clear_all_dialog_ok_button" msgid="7858504776529106243">"OK"</string>
+    <string name="website_settings_clear_all_dialog_ok_button" msgid="7858504776529106243">"Oke"</string>
     <string name="website_settings_clear_all_dialog_cancel_button" msgid="1896757051856611674">"Batal"</string>
     <string name="progress_dialog_setting_wallpaper" msgid="2031391201442335889">"Menyetel wallpaper..."</string>
     <string name="defaultBookmarksUpButton" msgid="2303951020715704735">"Bookmark"</string>
     <string name="empty_bookmarks_folder" msgid="6239830231917618556">"Tidak ada bookmark."</string>
+    <!-- no translation found for other_bookmarks (8021889794475657319) -->
+    <skip />
     <string name="rlz_access_point" msgid="7165847807377650632">"Y1"</string>
     <string name="account_chooser_dialog_title" msgid="3314204833188808194">"Pilih akun"</string>
     <string name="import_bookmarks_dialog_title" msgid="3325557652271172128">"Sinkronkan dengan akun Google"</string>
