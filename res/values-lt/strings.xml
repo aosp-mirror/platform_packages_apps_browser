@@ -349,6 +349,8 @@
     <string name="progress_dialog_setting_wallpaper" msgid="2031391201442335889">"Nustatomas darbalaukio fonas..."</string>
     <string name="defaultBookmarksUpButton" msgid="2303951020715704735">"Žymės"</string>
     <string name="empty_bookmarks_folder" msgid="6239830231917618556">"Žymių nėra."</string>
+    <!-- no translation found for other_bookmarks (8021889794475657319) -->
+    <skip />
     <string name="rlz_access_point" msgid="7165847807377650632">"Y1"</string>
     <string name="account_chooser_dialog_title" msgid="3314204833188808194">"Pasirinkite paskyrą"</string>
     <string name="import_bookmarks_dialog_title" msgid="3325557652271172128">"Sinchron. su „Google“ paskyra"</string>

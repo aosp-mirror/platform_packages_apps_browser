@@ -281,14 +281,14 @@
   </string-array>
     <string name="pref_data_preload_summary" msgid="3809168910751382727">"Laat blaaier toe om waarskynlike soekresultate in die agtergrond vooraf laai"</string>
     <string name="pref_data_preload_dialogtitle" msgid="8421297746110796536">"Soekresultaat word voorafgelaai"</string>
-    <string name="pref_link_prefetch_title" msgid="4123685219009241072">"Vooraf laai webbladsy"</string>
+    <string name="pref_link_prefetch_title" msgid="4123685219009241072">"Vooraflaai webbladsy"</string>
   <string-array name="pref_link_prefetch_choices">
     <item msgid="4889781230398008031">"Nooit"</item>
     <item msgid="1908465963242077428">"Net op Wi-Fi"</item>
     <item msgid="7647277566998527142">"Altyd"</item>
   </string-array>
     <string name="pref_link_prefetch_summary" msgid="6558181497993206817">"Laat blaaier toe om gekoppelde webblaaie vooraf te laai in die agtergrond"</string>
-    <string name="pref_link_prefetch_dialogtitle" msgid="3804646141622839765">"Vooraf laai webbladsy"</string>
+    <string name="pref_link_prefetch_dialogtitle" msgid="3804646141622839765">"Vooraflaai webbladsy"</string>
     <string name="browserFrameNetworkErrorLabel" msgid="8102515020625680714">"Verbindingsprobleem"</string>
     <string name="browserFrameFileErrorLabel" msgid="4703792279852977350">"Lêerprobleem"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2385512101948178841"></string>
@@ -349,6 +349,8 @@
     <string name="progress_dialog_setting_wallpaper" msgid="2031391201442335889">"Stel tans muurpapier in..."</string>
     <string name="defaultBookmarksUpButton" msgid="2303951020715704735">"Boekmerke"</string>
     <string name="empty_bookmarks_folder" msgid="6239830231917618556">"Geen boekmerke nie."</string>
+    <!-- no translation found for other_bookmarks (8021889794475657319) -->
+    <skip />
     <string name="rlz_access_point" msgid="7165847807377650632">"Y1"</string>
     <string name="account_chooser_dialog_title" msgid="3314204833188808194">"Kies rekening"</string>
     <string name="import_bookmarks_dialog_title" msgid="3325557652271172128">"Sinkroniseer met Google-rekening"</string>
