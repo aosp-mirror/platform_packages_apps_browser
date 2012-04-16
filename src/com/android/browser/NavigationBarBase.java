@@ -261,6 +261,9 @@ public class NavigationBarBase extends LinearLayout implements
         } else if (mInVoiceMode) {
             mUrlInput.showDropDown();
         }
+        if (mTitleBar.useQuickControls()) {
+            mUrlInput.showIME();
+        }
     }
 
     public void onProgressStarted() {

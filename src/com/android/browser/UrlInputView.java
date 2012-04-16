@@ -250,6 +250,11 @@ public class UrlInputView extends AutoCompleteTextView
         mInputManager.hideSoftInputFromWindow(getWindowToken(), 0);
     }
 
+    void showIME() {
+        mInputManager.focusIn(this);
+        mInputManager.showSoftInput(this, 0);
+    }
+
     private void finishInput(String url, String extra, String source) {
         mNeedsUpdate = true;
         dismissDropDown();
