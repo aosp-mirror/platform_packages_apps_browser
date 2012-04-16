@@ -50,7 +50,6 @@ public class XLargeUi extends BaseUi {
 
     private NavigationBarTablet mNavBar;
 
-    private PieControl mPieControl;
     private Handler mHandler;
 
     /**
@@ -82,27 +81,19 @@ public class XLargeUi extends BaseUi {
 
     @Override
     public void setUseQuickControls(boolean useQuickControls) {
-        mUseQuickControls = useQuickControls;
-        mTitleBar.setUseQuickControls(mUseQuickControls);
-        if (useQuickControls) {
-            checkTabCount();
-            mPieControl = new PieControl(mActivity, mUiController, this);
-            mPieControl.attachToContainer(mContentView);
-        } else {
-            mActivity.getActionBar().show();
-            if (mPieControl != null) {
-                mPieControl.removeFromContainer(mContentView);
-            }
+        super.setUseQuickControls(useQuickControls);
+        checkHideActionBar();
+        if (!useQuickControls) {
+            mActionBar.show();
         }
         mTabBar.setUseQuickControls(mUseQuickControls);
         // We need to update the tabs with this change
         for (Tab t : mTabControl.getTabs()) {
             t.updateShouldCaptureThumbnails();
         }
-        updateUrlBarAutoShowManagerTarget();
     }
 
-    private void checkTabCount() {
+    private void checkHideActionBar() {
         if (mUseQuickControls) {
             mHandler.post(new Runnable() {
                 public void run() {
@@ -116,7 +107,7 @@ public class XLargeUi extends BaseUi {
     public void onResume() {
         super.onResume();
         mNavBar.clearCompletions();
-        checkTabCount();
+        checkHideActionBar();
     }
 
     @Override
@@ -164,7 +155,7 @@ public class XLargeUi extends BaseUi {
     }
 
     protected void onAddTabCompleted(Tab tab) {
-        checkTabCount();
+        checkHideActionBar();
     }
 
     @Override
@@ -179,13 +170,6 @@ public class XLargeUi extends BaseUi {
             Log.e(LOGTAG, "active tab with no webview detected");
             return;
         }
-        // Request focus on the top window.
-        if (mUseQuickControls) {
-            mPieControl.forceToTop(mContentView);
-            view.setTitleBar(null);
-        } else {
-            view.setTitleBar(mTitleBar);
-        }
         mTabBar.onSetActiveTab(tab);
         if (tab.isInVoiceSearchMode()) {
             showVoiceTitleBar(tab.getVoiceDisplayTitle(), tab.getVoiceSearchResults());
@@ -199,7 +183,7 @@ public class XLargeUi extends BaseUi {
     @Override
     public void updateTabs(List<Tab> tabs) {
         mTabBar.updateTabs(tabs);
-        checkTabCount();
+        checkHideActionBar();
     }
 
     @Override
@@ -212,7 +196,7 @@ public class XLargeUi extends BaseUi {
     }
 
     protected void onRemoveTabCompleted(Tab tab) {
-        checkTabCount();
+        checkHideActionBar();
     }
 
     int getContentWidth() {
@@ -256,7 +240,7 @@ public class XLargeUi extends BaseUi {
 
     @Override
     public void onActionModeFinished(boolean inLoad) {
-        checkTabCount();
+        checkHideActionBar();
         if (inLoad) {
             // the titlebar was removed when the CAB was shown
             // if the page is loading, show it again
@@ -288,9 +272,7 @@ public class XLargeUi extends BaseUi {
     @Override
     public void onHideCustomView() {
         super.onHideCustomView();
-        if (mUseQuickControls) {
-            checkTabCount();
-        }
+        checkHideActionBar();
     }
 
     @Override
