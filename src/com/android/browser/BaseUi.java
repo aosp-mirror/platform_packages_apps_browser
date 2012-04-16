@@ -32,7 +32,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -112,6 +111,7 @@ public abstract class BaseUi implements UI {
     protected boolean mUseQuickControls;
     protected TitleBar mTitleBar;
     private NavigationBarBase mNavigationBar;
+    protected PieControl mPieControl;
 
     public BaseUi(Activity browser, UiController controller) {
         mActivity = browser;
@@ -196,6 +196,21 @@ public abstract class BaseUi implements UI {
         return false;
     }
 
+    @Override
+    public void setUseQuickControls(boolean useQuickControls) {
+        mUseQuickControls = useQuickControls;
+        mTitleBar.setUseQuickControls(mUseQuickControls);
+        if (useQuickControls) {
+            mPieControl = new PieControl(mActivity, mUiController, this);
+            mPieControl.attachToContainer(mContentView);
+        } else {
+            if (mPieControl != null) {
+                mPieControl.removeFromContainer(mContentView);
+            }
+        }
+        updateUrlBarAutoShowManagerTarget();
+    }
+
     // Tab callbacks
     @Override
     public void onTabDataChanged(Tab tab) {
@@ -247,9 +262,19 @@ public abstract class BaseUi implements UI {
             }
         }
         mActiveTab = tab;
-        WebView web = mActiveTab.getWebView();
+        BrowserWebView web = (BrowserWebView) mActiveTab.getWebView();
         updateUrlBarAutoShowManagerTarget();
         attachTabToContentView(tab);
+        if (web != null) {
+            // Request focus on the top window.
+            if (mUseQuickControls) {
+                mPieControl.forceToTop(mContentView);
+                web.setTitleBar(null);
+            } else {
+                web.setTitleBar(mTitleBar);
+                mTitleBar.onScrollChanged();
+            }
+        }
         mTitleBar.bringToFront();
         tab.getTopWindow().requestFocus();
         setShouldShowErrorConsole(tab, mUiController.shouldShowErrorConsole());

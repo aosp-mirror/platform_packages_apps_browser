@@ -29,17 +29,13 @@ import android.os.Message;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.ActionMode;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.accessibility.AccessibilityEvent;
 import android.webkit.WebView;
-import android.webkit.WebViewClassic;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.android.browser.UrlInputView.StateListener;
@@ -52,7 +48,6 @@ public class PhoneUi extends BaseUi {
     private static final String LOGTAG = "PhoneUi";
     private static final int MSG_INIT_NAVSCREEN = 100;
 
-    private PieControl mPieControl;
     private NavScreen mNavScreen;
     private AnimScreen mAnimScreen;
     private NavigationBarPhone mNavigationBar;
@@ -261,21 +256,6 @@ public class PhoneUi extends BaseUi {
             }
             showTitleBar();
         }
-    }
-
-    @Override
-    public void setUseQuickControls(boolean useQuickControls) {
-        mUseQuickControls = useQuickControls;
-        mTitleBar.setUseQuickControls(mUseQuickControls);
-        if (useQuickControls) {
-            mPieControl = new PieControl(mActivity, mUiController, this);
-            mPieControl.attachToContainer(mContentView);
-        } else {
-            if (mPieControl != null) {
-                mPieControl.removeFromContainer(mContentView);
-            }
-        }
-        updateUrlBarAutoShowManagerTarget();
     }
 
     @Override
