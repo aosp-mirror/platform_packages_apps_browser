@@ -157,6 +157,16 @@ public class IntentHandler {
                 mController.openTab(urlData);
                 return;
             }
+            if (Intent.ACTION_VIEW.equals(action)
+                    && (appId != null)
+                    && appId.startsWith(mActivity.getPackageName())) {
+                Tab appTab = mTabControl.getTabFromAppId(appId);
+                if ((appTab != null) && (appTab == mController.getCurrentTab())) {
+                    mController.switchToTab(appTab);
+                    mController.loadUrlDataIn(appTab, urlData);
+                    return;
+                }
+            }
             if ((Intent.ACTION_VIEW.equals(action)
                     // If a voice search has no appId, it means that it came
                     // from the browser.  In that case, reuse the current tab.

@@ -163,7 +163,7 @@ public class UrlHandler {
       // Re-use the existing tab if the intent comes back to us
       if (tab != null) {
           if (tab.getAppId() == null) {
-              tab.setAppId("com.android.browser-" + tab.getId());
+              tab.setAppId(mActivity.getPackageName() + "-" + tab.getId());
           }
           intent.putExtra(Browser.EXTRA_APPLICATION_ID, tab.getAppId());
       }
