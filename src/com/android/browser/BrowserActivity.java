@@ -17,10 +17,12 @@
 package com.android.browser;
 
 import android.app.Activity;
+import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.util.Log;
 import android.view.ActionMode;
 import android.view.ContextMenu;
@@ -56,6 +58,11 @@ public class BrowserActivity extends Activity {
         }
         super.onCreate(icicle);
 
+        if (shouldIgnoreIntents()) {
+            finish();
+            return;
+        }
+
         // If this was a web search request, pass it on to the default web
         // search provider and finish this activity.
         if (IntentHandler.handleWebSearchIntent(this, null, getIntent())) {
@@ -86,6 +93,7 @@ public class BrowserActivity extends Activity {
 
     @Override
     protected void onNewIntent(Intent intent) {
+        if (shouldIgnoreIntents()) return;
         if (ACTION_RESTART.equals(intent.getAction())) {
             Bundle outState = new Bundle();
             mController.onSaveInstanceState(outState);
@@ -97,6 +105,25 @@ public class BrowserActivity extends Activity {
             return;
         }
         mController.handleNewIntent(intent);
+    }
+
+    private KeyguardManager mKeyguardManager;
+    private PowerManager mPowerManager;
+    private boolean shouldIgnoreIntents() {
+        // Only process intents if the screen is on and the device is unlocked
+        // aka, if we will be user-visible
+        if (mKeyguardManager == null) {
+            mKeyguardManager = (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
+        }
+        if (mPowerManager == null) {
+            mPowerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
+        }
+        boolean ignore = !mPowerManager.isScreenOn();
+        ignore |= mKeyguardManager.inKeyguardRestrictedInputMode();
+        if (LOGV_ENABLED) {
+            Log.v(LOGTAG, "ignore intents: " + ignore);
+        }
+        return ignore;
     }
 
     @Override
