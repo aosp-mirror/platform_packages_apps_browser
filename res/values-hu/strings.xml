@@ -349,8 +349,7 @@
     <string name="progress_dialog_setting_wallpaper" msgid="2031391201442335889">"Háttérkép beállítása..."</string>
     <string name="defaultBookmarksUpButton" msgid="2303951020715704735">"Könyvjelzők"</string>
     <string name="empty_bookmarks_folder" msgid="6239830231917618556">"Nincsenek könyvjelzők"</string>
-    <!-- no translation found for other_bookmarks (8021889794475657319) -->
-    <skip />
+    <string name="other_bookmarks" msgid="8021889794475657319">"Egyéb könyvjelzők"</string>
     <string name="rlz_access_point" msgid="7165847807377650632">"Y1"</string>
     <string name="account_chooser_dialog_title" msgid="3314204833188808194">"Fiók kiválasztása"</string>
     <string name="import_bookmarks_dialog_title" msgid="3325557652271172128">"Szinkronizálás Google Fiókkal"</string>
