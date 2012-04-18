@@ -137,6 +137,7 @@ public class PageDialogsHandler {
     void showPageInfo(final Tab tab,
             final boolean fromShowSSLCertificateOnError,
             final String urlCertificateOnError) {
+        if (tab == null) return;
         final LayoutInflater factory = LayoutInflater.from(mContext);
 
         final View pageInfoView = factory.inflate(R.layout.page_info, null);
