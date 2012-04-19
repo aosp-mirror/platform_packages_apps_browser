@@ -182,7 +182,7 @@
     <string name="autofill_profile_successful_delete" msgid="1790262652460723127">"ራስ ሰር-ሙላ ጽሑፍ ተሰርዟል::"</string>
     <string name="autofill_profile_editor_delete_profile" msgid="3098369314558164153">"ሰርዝ"</string>
     <string name="autofill_setup_dialog_message" msgid="7123905786076456503">"አሳሹ እንደዚህ ዓይነቶቹን የድር ቅርጾች በራስ ሰር ያሟላል፡፡ የራስህን ራስ-ሙላ ጽሑፍ ማዘጋጀት ትፈልጋለህ?"</string>
-    <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"የራስህን ራስ ሰር ሙላ ጽሑፍ ከአሳሽ ላይ&gt;  ቅንጅቶች&gt;  አጠቃላይ ማያ ላይ ሁልጊዜ ማዘጋጀት ትችላለህ፡፡"</string>
+    <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"የራስህን ራስ ሰር ሙላ ጽሑፍ ከአሳሽ ላይ&gt;  ቅንብሮች &gt;  አጠቃላይ ማያ ላይ ሁልጊዜ ማዘጋጀት ትችላለህ፡፡"</string>
     <string name="disable_autofill" msgid="8305901059849400354">"ራስ-ሙላ አቦዝን"</string>
     <string name="pref_privacy_security_title" msgid="3480313968942160914">"ግላዊነት&amp; ደህንነት"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"መሸጎጫ አጥራ"</string>
@@ -334,7 +334,7 @@
     <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"ሥፍራ አጋራ"</string>
     <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"አትቀበል"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"ምርጫ አስታውስ"</string>
-    <string name="geolocation_permissions_prompt_toast_allowed" msgid="7201417941112726112">"ይህ ድረ ገፅ የአንተን ሥፍራ መድረስ አይችልም። በቅንጅቶች ውስጥ ይህን-&gt; ከፍተኛ-&gt; የድረ ገፅ ቅንጅቶች ለውጥ::"</string>
+    <string name="geolocation_permissions_prompt_toast_allowed" msgid="7201417941112726112">"ይህ ድረ ገፅ የአንተን ሥፍራ መድረስ አይችልም። በቅንብሮች  ውስጥ ይህን-&gt; ከፍተኛ-&gt; የድረ ገፅ ቅንብሮች  ለውጥ::"</string>
     <string name="geolocation_permissions_prompt_toast_disallowed" msgid="156443445797377409">"ይህ ድረ ገፅ የአንተን ሥፍራ መድረስ አይችልም። በቅንጅቶች ውስጥ ይህን-&gt; ከፍተኛ-&gt; የድረ ገፅ ቅንብሮች ለውጥ::"</string>
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"የስፍራ መድረሻ አጥራ"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"ይህ ድረ ገፅ በአሁኑ ጊዜ የእርስዎን ስፍራ መድረስ ይችላል"</string>
