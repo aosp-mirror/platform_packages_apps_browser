@@ -15,13 +15,10 @@
  */
 package com.android.browser.provider;
 
-import android.content.BroadcastReceiver;
 import android.content.ContentProvider;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
@@ -29,15 +26,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
-import android.os.Environment;
+import android.os.FileUtils;
 import android.provider.BrowserContract;
 
 import java.io.File;
 
-/**
- * This provider is expected to be potentially flaky. It uses a database
- * stored on external storage, which could be yanked unexpectedly.
- */
 public class SnapshotProvider extends ContentProvider {
 
     public static interface Snapshots {
@@ -45,6 +38,7 @@ public class SnapshotProvider extends ContentProvider {
         public static final Uri CONTENT_URI = Uri.withAppendedPath(
                 SnapshotProvider.AUTHORITY_URI, "snapshots");
         public static final String _ID = "_id";
+        @Deprecated
         public static final String VIEWSTATE = "view_state";
         public static final String BACKGROUND = "background";
         public static final String TITLE = "title";
@@ -52,6 +46,8 @@ public class SnapshotProvider extends ContentProvider {
         public static final String FAVICON = "favicon";
         public static final String THUMBNAIL = "thumbnail";
         public static final String DATE_CREATED = "date_created";
+        public static final String VIEWSTATE_PATH = "viewstate_path";
+        public static final String VIEWSTATE_SIZE = "viewstate_size";
     }
 
     public static final String AUTHORITY = "com.android.browser.snapshots";
@@ -61,6 +57,8 @@ public class SnapshotProvider extends ContentProvider {
     static final int SNAPSHOTS = 10;
     static final int SNAPSHOTS_ID = 11;
     static final UriMatcher URI_MATCHER = new UriMatcher(UriMatcher.NO_MATCH);
+    // Workaround that we can't remove the "NOT NULL" constraint on VIEWSTATE
+    static final byte[] NULL_BLOB_HACK = new byte[0];
 
     SnapshotDatabaseHelper mOpenHelper;
 
@@ -72,15 +70,10 @@ public class SnapshotProvider extends ContentProvider {
     final static class SnapshotDatabaseHelper extends SQLiteOpenHelper {
 
         static final String DATABASE_NAME = "snapshots.db";
-        static final int DATABASE_VERSION = 2;
+        static final int DATABASE_VERSION = 3;
 
         public SnapshotDatabaseHelper(Context context) {
-            super(context, getFullDatabaseName(context), null, DATABASE_VERSION);
-        }
-
-        static String getFullDatabaseName(Context context) {
-            File dir = context.getExternalFilesDir(null);
-            return new File(dir, DATABASE_NAME).getAbsolutePath();
+            super(context, DATABASE_NAME, null, DATABASE_VERSION);
         }
 
         @Override
@@ -93,7 +86,9 @@ public class SnapshotProvider extends ContentProvider {
                     Snapshots.FAVICON + " BLOB," +
                     Snapshots.THUMBNAIL + " BLOB," +
                     Snapshots.BACKGROUND + " INTEGER," +
-                    Snapshots.VIEWSTATE + " BLOB NOT NULL" +
+                    Snapshots.VIEWSTATE + " BLOB NOT NULL," +
+                    Snapshots.VIEWSTATE_PATH + " TEXT," +
+                    Snapshots.VIEWSTATE_SIZE + "INTEGER" +
                     ");");
         }
 
@@ -103,64 +98,52 @@ public class SnapshotProvider extends ContentProvider {
                 db.execSQL("DROP TABLE " + TABLE_SNAPSHOTS);
                 onCreate(db);
             }
+            if (oldVersion < 3) {
+                db.execSQL("ALTER TABLE " + TABLE_SNAPSHOTS + " ADD COLUMN "
+                        + Snapshots.VIEWSTATE_PATH + " TEXT");
+                db.execSQL("ALTER TABLE " + TABLE_SNAPSHOTS + " ADD COLUMN "
+                        + Snapshots.VIEWSTATE_SIZE + " INTEGER");
+                db.execSQL("UPDATE " + TABLE_SNAPSHOTS + " SET "
+                        + Snapshots.VIEWSTATE_SIZE + " = length("
+                        + Snapshots.VIEWSTATE + ")");
+            }
         }
 
+    }
+
+    static File getOldDatabasePath(Context context) {
+        File dir = context.getExternalFilesDir(null);
+        return new File(dir, SnapshotDatabaseHelper.DATABASE_NAME);
+    }
+
+    private void migrateToDataFolder() {
+        File dbPath = getContext().getDatabasePath(SnapshotDatabaseHelper.DATABASE_NAME);
+        if (dbPath.exists()) return;
+        File oldPath = getOldDatabasePath(getContext());
+        if (oldPath.exists()) {
+            // Try to move
+            if (!oldPath.renameTo(dbPath)) {
+                // Failed, do a copy
+                FileUtils.copyFile(oldPath, dbPath);
+            }
+            // Cleanup
+            oldPath.delete();
+        }
     }
 
     @Override
     public boolean onCreate() {
-        IntentFilter filter = new IntentFilter(Intent.ACTION_MEDIA_EJECT);
-        filter.addAction(Intent.ACTION_MEDIA_UNMOUNTED);
-        getContext().registerReceiver(mExternalStorageReceiver, filter);
+        migrateToDataFolder();
+        mOpenHelper = new SnapshotDatabaseHelper(getContext());
         return true;
     }
 
-    final BroadcastReceiver mExternalStorageReceiver = new BroadcastReceiver() {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (mOpenHelper != null) {
-                try {
-                    mOpenHelper.close();
-                } catch (Throwable t) {
-                    // We failed to close the open helper, which most likely means
-                    // another thread is busy attempting to open the database
-                    // or use the database. Let that thread try to gracefully
-                    // deal with the error
-                }
-            }
-        }
-    };
-
     SQLiteDatabase getWritableDatabase() {
-        String state = Environment.getExternalStorageState();
-        if (Environment.MEDIA_MOUNTED.equals(state)) {
-            try {
-                if (mOpenHelper == null) {
-                    mOpenHelper = new SnapshotDatabaseHelper(getContext());
-                }
-                return mOpenHelper.getWritableDatabase();
-            } catch (Throwable t) {
-                return null;
-            }
-        }
-        return null;
+        return mOpenHelper.getWritableDatabase();
     }
 
     SQLiteDatabase getReadableDatabase() {
-        String state = Environment.getExternalStorageState();
-        if (Environment.MEDIA_MOUNTED.equals(state)
-                || Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
-            try {
-                if (mOpenHelper == null) {
-                    mOpenHelper = new SnapshotDatabaseHelper(getContext());
-                }
-                return mOpenHelper.getReadableDatabase();
-            } catch (Throwable t) {
-                return null;
-            }
-        }
-        return null;
+        return mOpenHelper.getReadableDatabase();
     }
 
     @Override
@@ -186,15 +169,11 @@ public class SnapshotProvider extends ContentProvider {
         default:
             throw new UnsupportedOperationException("Unknown URL " + uri.toString());
         }
-        try {
-            Cursor cursor = qb.query(db, projection, selection, selectionArgs,
-                    null, null, sortOrder, limit);
-            cursor.setNotificationUri(getContext().getContentResolver(),
-                    AUTHORITY_URI);
-            return cursor;
-        } catch (Throwable t) {
-            return null;
-        }
+        Cursor cursor = qb.query(db, projection, selection, selectionArgs,
+                null, null, sortOrder, limit);
+        cursor.setNotificationUri(getContext().getContentResolver(),
+                AUTHORITY_URI);
+        return cursor;
     }
 
     @Override
@@ -212,11 +191,10 @@ public class SnapshotProvider extends ContentProvider {
         long id = -1;
         switch (match) {
         case SNAPSHOTS:
-            try {
-                id = db.insert(TABLE_SNAPSHOTS, Snapshots.TITLE, values);
-            } catch (Throwable t) {
-                id = -1;
+            if (!values.containsKey(Snapshots.VIEWSTATE)) {
+                values.put(Snapshots.VIEWSTATE, NULL_BLOB_HACK);
             }
+            id = db.insert(TABLE_SNAPSHOTS, Snapshots.TITLE, values);
             break;
         default:
             throw new UnsupportedOperationException("Unknown insert URI " + uri);
@@ -227,6 +205,25 @@ public class SnapshotProvider extends ContentProvider {
         Uri inserted = ContentUris.withAppendedId(uri, id);
         getContext().getContentResolver().notifyChange(inserted, null, false);
         return inserted;
+    }
+
+    static final String[] DELETE_PROJECTION = new String[] {
+        Snapshots.VIEWSTATE_PATH,
+    };
+    private void deleteDataFiles(SQLiteDatabase db, String selection,
+            String[] selectionArgs) {
+        Cursor c = db.query(TABLE_SNAPSHOTS, DELETE_PROJECTION, selection,
+                selectionArgs, null, null, null);
+        final Context context = getContext();
+        while (c.moveToNext()) {
+            File f = context.getFileStreamPath(c.getString(0));
+            if (f.exists()) {
+                if (!f.delete()) {
+                    f.deleteOnExit();
+                }
+            }
+        }
+        c.close();
     }
 
     @Override
@@ -245,10 +242,8 @@ public class SnapshotProvider extends ContentProvider {
             // fall through
         }
         case SNAPSHOTS:
-            try {
-                deleted = db.delete(TABLE_SNAPSHOTS, selection, selectionArgs);
-            } catch (Throwable t) {
-            }
+            deleteDataFiles(db, selection, selectionArgs);
+            deleted = db.delete(TABLE_SNAPSHOTS, selection, selectionArgs);
             break;
         default:
             throw new UnsupportedOperationException("Unknown delete URI " + uri);

@@ -64,8 +64,8 @@ import android.webkit.WebHistoryItem;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebStorage;
 import android.webkit.WebView;
-import android.webkit.WebViewClassic;
 import android.webkit.WebView.PictureListener;
+import android.webkit.WebViewClassic;
 import android.webkit.WebViewClient;
 import android.widget.CheckBox;
 import android.widget.Toast;
@@ -76,12 +76,15 @@ import com.android.browser.provider.SnapshotProvider.Snapshots;
 import com.android.common.speech.LoggingEvents;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.OutputStream;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.UUID;
 import java.util.Vector;
 import java.util.regex.Pattern;
 import java.util.zip.GZIPOutputStream;
@@ -2059,9 +2062,10 @@ class Tab implements PictureListener {
 
     public ContentValues createSnapshotValues() {
         if (mMainView == null) return null;
-        SnapshotByteArrayOutputStream bos = new SnapshotByteArrayOutputStream();
+        String path = UUID.randomUUID().toString();
         try {
-            GZIPOutputStream stream = new GZIPOutputStream(bos);
+            OutputStream outs = mContext.openFileOutput(path, Context.MODE_PRIVATE);
+            GZIPOutputStream stream = new GZIPOutputStream(outs);
             if (!getWebViewClassic().saveViewState(stream)) {
                 return null;
             }
@@ -2071,11 +2075,13 @@ class Tab implements PictureListener {
             Log.w(LOGTAG, "Failed to save view state", e);
             return null;
         }
-        byte[] data = bos.toByteArray();
+        File savedFile = mContext.getFileStreamPath(path);
+        long size = savedFile.length();
         ContentValues values = new ContentValues();
         values.put(Snapshots.TITLE, mCurrentState.mTitle);
         values.put(Snapshots.URL, mCurrentState.mUrl);
-        values.put(Snapshots.VIEWSTATE, data);
+        values.put(Snapshots.VIEWSTATE_PATH, path);
+        values.put(Snapshots.VIEWSTATE_SIZE, size);
         values.put(Snapshots.BACKGROUND, getWebViewClassic().getPageBackgroundColor());
         values.put(Snapshots.DATE_CREATED, System.currentTimeMillis());
         values.put(Snapshots.FAVICON, compressBitmap(getFavicon()));

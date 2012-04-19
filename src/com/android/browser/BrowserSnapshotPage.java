@@ -61,7 +61,7 @@ public class BrowserSnapshotPage extends Fragment implements
     private static final String[] PROJECTION = new String[] {
         Snapshots._ID,
         Snapshots.TITLE,
-        "length(" + Snapshots.VIEWSTATE + ")",
+        Snapshots.VIEWSTATE_SIZE,
         Snapshots.THUMBNAIL,
         Snapshots.FAVICON,
         Snapshots.URL,
@@ -69,7 +69,7 @@ public class BrowserSnapshotPage extends Fragment implements
     };
     private static final int SNAPSHOT_ID = 0;
     private static final int SNAPSHOT_TITLE = 1;
-    private static final int SNAPSHOT_VIEWSTATE_LENGTH = 2;
+    private static final int SNAPSHOT_VIEWSTATE_SIZE = 2;
     private static final int SNAPSHOT_THUMBNAIL = 3;
     private static final int SNAPSHOT_FAVICON = 4;
     private static final int SNAPSHOT_URL = 5;
@@ -281,7 +281,7 @@ public class BrowserSnapshotPage extends Fragment implements
             title.setText(cursor.getString(SNAPSHOT_TITLE));
             TextView size = (TextView) view.findViewById(R.id.size);
             if (size != null) {
-                int stateLen = cursor.getInt(SNAPSHOT_VIEWSTATE_LENGTH);
+                int stateLen = cursor.getInt(SNAPSHOT_VIEWSTATE_SIZE);
                 size.setText(String.format("%.2fMB", stateLen / 1024f / 1024f));
             }
             long timestamp = cursor.getLong(SNAPSHOT_DATE_CREATED);

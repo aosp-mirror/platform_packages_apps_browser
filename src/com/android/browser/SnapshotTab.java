@@ -18,11 +18,13 @@ package com.android.browser;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.webkit.WebView;
 import android.webkit.WebViewClassic;
@@ -30,6 +32,8 @@ import android.webkit.WebViewClassic;
 import com.android.browser.provider.SnapshotProvider.Snapshots;
 
 import java.io.ByteArrayInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.Map;
 import java.util.zip.GZIPInputStream;
 
@@ -75,7 +79,7 @@ public class SnapshotTab extends Tab {
 
     void loadData() {
         if (mLoadTask == null) {
-            mLoadTask = new LoadData(this, mContext.getContentResolver());
+            mLoadTask = new LoadData(this, mContext);
             mLoadTask.execute();
         }
     }
@@ -152,20 +156,31 @@ public class SnapshotTab extends Tab {
 
         static final String[] PROJECTION = new String[] {
             Snapshots._ID, // 0
-            Snapshots.TITLE, // 1
-            Snapshots.URL, // 2
+            Snapshots.URL, // 1
+            Snapshots.TITLE, // 2
             Snapshots.FAVICON, // 3
             Snapshots.VIEWSTATE, // 4
             Snapshots.BACKGROUND, // 5
             Snapshots.DATE_CREATED, // 6
+            Snapshots.VIEWSTATE_PATH, // 7
         };
+        static final int SNAPSHOT_ID = 0;
+        static final int SNAPSHOT_URL = 1;
+        static final int SNAPSHOT_TITLE = 2;
+        static final int SNAPSHOT_FAVICON = 3;
+        static final int SNAPSHOT_VIEWSTATE = 4;
+        static final int SNAPSHOT_BACKGROUND = 5;
+        static final int SNAPSHOT_DATE_CREATED = 6;
+        static final int SNAPSHOT_VIEWSTATE_PATH = 7;
 
         private SnapshotTab mTab;
         private ContentResolver mContentResolver;
+        private Context mContext;
 
-        public LoadData(SnapshotTab t, ContentResolver cr) {
+        public LoadData(SnapshotTab t, Context context) {
             mTab = t;
-            mContentResolver = cr;
+            mContentResolver = context.getContentResolver();
+            mContext = context;
         }
 
         @Override
@@ -175,26 +190,35 @@ public class SnapshotTab extends Tab {
             return mContentResolver.query(uri, PROJECTION, null, null, null);
         }
 
+        private InputStream getInputStream(Cursor c) throws FileNotFoundException {
+            String path = c.getString(SNAPSHOT_VIEWSTATE_PATH);
+            if (!TextUtils.isEmpty(path)) {
+                return mContext.openFileInput(path);
+            }
+            byte[] data = c.getBlob(SNAPSHOT_VIEWSTATE);
+            ByteArrayInputStream bis = new ByteArrayInputStream(data);
+            return bis;
+        }
+
         @Override
         protected void onPostExecute(Cursor result) {
             try {
                 if (result.moveToFirst()) {
-                    mTab.mCurrentState.mTitle = result.getString(1);
-                    mTab.mCurrentState.mUrl = result.getString(2);
-                    byte[] favicon = result.getBlob(3);
+                    mTab.mCurrentState.mTitle = result.getString(SNAPSHOT_TITLE);
+                    mTab.mCurrentState.mUrl = result.getString(SNAPSHOT_URL);
+                    byte[] favicon = result.getBlob(SNAPSHOT_FAVICON);
                     if (favicon != null) {
                         mTab.mCurrentState.mFavicon = BitmapFactory
                                 .decodeByteArray(favicon, 0, favicon.length);
                     }
                     WebViewClassic web = mTab.getWebViewClassic();
                     if (web != null) {
-                        byte[] data = result.getBlob(4);
-                        ByteArrayInputStream bis = new ByteArrayInputStream(data);
-                        GZIPInputStream stream = new GZIPInputStream(bis);
+                        InputStream ins = getInputStream(result);
+                        GZIPInputStream stream = new GZIPInputStream(ins);
                         web.loadViewState(stream);
                     }
-                    mTab.mBackgroundColor = result.getInt(5);
-                    mTab.mDateCreated = result.getLong(6);
+                    mTab.mBackgroundColor = result.getInt(SNAPSHOT_BACKGROUND);
+                    mTab.mDateCreated = result.getLong(SNAPSHOT_DATE_CREATED);
                     mTab.mWebViewController.onPageFinished(mTab);
                 }
             } catch (Exception e) {
