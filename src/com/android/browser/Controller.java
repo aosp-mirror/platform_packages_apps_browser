@@ -17,7 +17,10 @@
 package com.android.browser;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.DownloadManager;
+import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.ClipboardManager;
 import android.content.ContentProvider;
@@ -26,6 +29,8 @@ import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -1633,37 +1638,7 @@ public class Controller
             case R.id.save_snapshot_menu_id:
                 final Tab source = getTabControl().getCurrentTab();
                 if (source == null) break;
-                final ContentResolver cr = mActivity.getContentResolver();
-                final ContentValues values = source.createSnapshotValues();
-                if (values != null) {
-                    new AsyncTask<Tab, Void, Long>() {
-
-                        @Override
-                        protected Long doInBackground(Tab... params) {
-                            Uri result = cr.insert(Snapshots.CONTENT_URI, values);
-                            if (result == null) {
-                                return null;
-                            }
-                            long id = ContentUris.parseId(result);
-                            return id;
-                        }
-
-                        @Override
-                        protected void onPostExecute(Long id) {
-                            if (id == null) {
-                                Toast.makeText(mActivity, R.string.snapshot_failed,
-                                        Toast.LENGTH_SHORT).show();
-                                return;
-                            }
-                            Bundle b = new Bundle();
-                            b.putLong(BrowserSnapshotPage.EXTRA_ANIMATE_ID, id);
-                            mUi.showComboView(ComboViews.Snapshots, b);
-                        };
-                    }.execute(source);
-                } else {
-                    Toast.makeText(mActivity, R.string.snapshot_failed,
-                            Toast.LENGTH_SHORT).show();
-                }
+                new SaveSnapshotTask(source).execute();
                 break;
 
             case R.id.page_info_menu_id:
@@ -1729,6 +1704,69 @@ public class Controller
                 return false;
         }
         return true;
+    }
+
+    private class SaveSnapshotTask extends AsyncTask<Void, Void, Long>
+            implements OnCancelListener {
+
+        private Tab mTab;
+        private Dialog mProgressDialog;
+        private ContentValues mValues;
+
+        private SaveSnapshotTask(Tab tab) {
+            mTab = tab;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            CharSequence message = mActivity.getText(R.string.saving_snapshot);
+            mProgressDialog = ProgressDialog.show(mActivity, null, message,
+                    true, true, this);
+            mValues = mTab.createSnapshotValues();
+        }
+
+        @Override
+        protected Long doInBackground(Void... params) {
+            if (!mTab.saveViewState(mValues)) {
+                return null;
+            }
+            if (isCancelled()) {
+                String path = mValues.getAsString(Snapshots.VIEWSTATE_PATH);
+                File file = mActivity.getFileStreamPath(path);
+                if (!file.delete()) {
+                    file.deleteOnExit();
+                }
+                return null;
+            }
+            final ContentResolver cr = mActivity.getContentResolver();
+            Uri result = cr.insert(Snapshots.CONTENT_URI, mValues);
+            if (result == null) {
+                return null;
+            }
+            long id = ContentUris.parseId(result);
+            return id;
+        }
+
+        @Override
+        protected void onPostExecute(Long id) {
+            if (isCancelled()) {
+                return;
+            }
+            mProgressDialog.dismiss();
+            if (id == null) {
+                Toast.makeText(mActivity, R.string.snapshot_failed,
+                        Toast.LENGTH_SHORT).show();
+                return;
+            }
+            Bundle b = new Bundle();
+            b.putLong(BrowserSnapshotPage.EXTRA_ANIMATE_ID, id);
+            mUi.showComboView(ComboViews.Snapshots, b);
+        }
+
+        @Override
+        public void onCancel(DialogInterface dialog) {
+            cancel(true);
+        }
     }
 
     @Override

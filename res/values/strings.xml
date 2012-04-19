@@ -215,6 +215,8 @@
     <string name="share_page">Share page</string>
     <!-- Menu item for saving a page for offline reading. This is a view-only snapshot of the page. [CHAR LIMIT=50] -->
     <string name="menu_save_snapshot">Save for offline reading</string>
+    <!-- Dialog message that is shown while saving a page for offline reading. [CHAR LIMIT=50] -->
+    <string name="saving_snapshot">Saving\u2026</string>
     <!-- Toast informing the user that saving the page for offline reading has failed. [CHAR LIMIT=50] -->
     <string name="snapshot_failed">Couldn\'t save for offline reading.</string>
     <!-- The number of bookmarks in a folder [CHAR LIMT=50] -->
