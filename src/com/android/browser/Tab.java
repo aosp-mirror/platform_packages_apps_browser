@@ -77,6 +77,7 @@ import com.android.common.speech.LoggingEvents;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
@@ -2060,29 +2061,29 @@ class Tab implements PictureListener {
         return false;
     }
 
-    public ContentValues createSnapshotValues() {
-        if (mMainView == null) return null;
-        String path = UUID.randomUUID().toString();
-        try {
-            OutputStream outs = mContext.openFileOutput(path, Context.MODE_PRIVATE);
-            GZIPOutputStream stream = new GZIPOutputStream(outs);
-            if (!getWebViewClassic().saveViewState(stream)) {
-                return null;
+    private static class SaveCallback implements ValueCallback<Boolean> {
+        boolean mResult;
+
+        @Override
+        public void onReceiveValue(Boolean value) {
+            mResult = value;
+            synchronized (this) {
+                notifyAll();
             }
-            stream.flush();
-            stream.close();
-        } catch (Exception e) {
-            Log.w(LOGTAG, "Failed to save view state", e);
-            return null;
         }
-        File savedFile = mContext.getFileStreamPath(path);
-        long size = savedFile.length();
+
+    }
+
+    /**
+     * Must be called on the UI thread
+     */
+    public ContentValues createSnapshotValues() {
+        WebViewClassic web = getWebViewClassic();
+        if (web == null) return null;
         ContentValues values = new ContentValues();
         values.put(Snapshots.TITLE, mCurrentState.mTitle);
         values.put(Snapshots.URL, mCurrentState.mUrl);
-        values.put(Snapshots.VIEWSTATE_PATH, path);
-        values.put(Snapshots.VIEWSTATE_SIZE, size);
-        values.put(Snapshots.BACKGROUND, getWebViewClassic().getPageBackgroundColor());
+        values.put(Snapshots.BACKGROUND, web.getPageBackgroundColor());
         values.put(Snapshots.DATE_CREATED, System.currentTimeMillis());
         values.put(Snapshots.FAVICON, compressBitmap(getFavicon()));
         Bitmap screenshot = Controller.createScreenshot(mMainView,
@@ -2090,6 +2091,50 @@ class Tab implements PictureListener {
                 Controller.getDesiredThumbnailHeight(mContext));
         values.put(Snapshots.THUMBNAIL, compressBitmap(screenshot));
         return values;
+    }
+
+    /**
+     * Probably want to call this on a background thread
+     */
+    public boolean saveViewState(ContentValues values) {
+        WebViewClassic web = getWebViewClassic();
+        if (web == null) return false;
+        String path = UUID.randomUUID().toString();
+        SaveCallback callback = new SaveCallback();
+        OutputStream outs = null;
+        try {
+            outs = mContext.openFileOutput(path, Context.MODE_PRIVATE);
+            GZIPOutputStream stream = new GZIPOutputStream(outs);
+            synchronized (callback) {
+                web.saveViewState(stream, callback);
+                callback.wait();
+            }
+            stream.flush();
+            stream.close();
+        } catch (Exception e) {
+            Log.w(LOGTAG, "Failed to save view state", e);
+            if (outs != null) {
+                try {
+                    outs.close();
+                } catch (IOException ignore) {}
+            }
+            File file = mContext.getFileStreamPath(path);
+            if (file.exists() && !file.delete()) {
+                file.deleteOnExit();
+            }
+            return false;
+        }
+        File savedFile = mContext.getFileStreamPath(path);
+        if (!callback.mResult) {
+            if (!savedFile.delete()) {
+                savedFile.deleteOnExit();
+            }
+            return false;
+        }
+        long size = savedFile.length();
+        values.put(Snapshots.VIEWSTATE_PATH, path);
+        values.put(Snapshots.VIEWSTATE_SIZE, size);
+        return true;
     }
 
     public byte[] compressBitmap(Bitmap bitmap) {
