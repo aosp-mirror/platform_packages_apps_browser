@@ -282,11 +282,6 @@ public abstract class BaseUi implements UI {
         onProgressChanged(tab);
         mNavigationBar.setIncognitoMode(tab.isPrivateBrowsingEnabled());
         updateAutoLogin(tab, false);
-        if (web != null && web.getVisibleTitleHeight()
-                != mTitleBar.getEmbeddedHeight()
-                && !mUseQuickControls) {
-            showTitleBarForDuration();
-        }
     }
 
     protected void updateUrlBarAutoShowManagerTarget() {
