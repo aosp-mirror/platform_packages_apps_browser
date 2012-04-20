@@ -130,8 +130,9 @@ public class PreloadController implements WebViewController {
     }
 
     @Override
-    public void onUnhandledKeyEvent(KeyEvent event) {
+    public boolean onUnhandledKeyEvent(KeyEvent event) {
         if (LOGD_ENABLED) Log.d(LOGTAG, "onUnhandledKeyEvent()");
+        return false;
     }
 
     @Override

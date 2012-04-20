@@ -950,14 +950,15 @@ public class Controller
     }
 
     @Override
-    public void onUnhandledKeyEvent(KeyEvent event) {
+    public boolean onUnhandledKeyEvent(KeyEvent event) {
         if (!isActivityPaused()) {
             if (event.getAction() == KeyEvent.ACTION_DOWN) {
-                mActivity.onKeyDown(event.getKeyCode(), event);
+                return mActivity.onKeyDown(event.getKeyCode(), event);
             } else {
-                mActivity.onKeyUp(event.getKeyCode(), event);
+                return mActivity.onKeyUp(event.getKeyCode(), event);
             }
         }
+        return false;
     }
 
     @Override
