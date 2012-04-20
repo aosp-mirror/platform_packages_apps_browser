@@ -63,7 +63,7 @@ public interface WebViewController {
 
     boolean shouldOverrideKeyEvent(KeyEvent event);
 
-    void onUnhandledKeyEvent(KeyEvent event);
+    boolean onUnhandledKeyEvent(KeyEvent event);
 
     void doUpdateVisitedHistory(Tab tab, boolean isReload);
 

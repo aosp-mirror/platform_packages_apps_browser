@@ -895,7 +895,9 @@ class Tab implements PictureListener {
             if (!mInForeground) {
                 return;
             }
-            mWebViewController.onUnhandledKeyEvent(event);
+            if (!mWebViewController.onUnhandledKeyEvent(event)) {
+                super.onUnhandledKeyEvent(view, event);
+            }
         }
 
         @Override
