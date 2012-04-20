@@ -102,6 +102,8 @@
     <string name="copy_page_url" msgid="1188679152608889555">"העתק כתובת אתר של דף"</string>
     <string name="share_page" msgid="593756995297268343">"שתף דף"</string>
     <string name="menu_save_snapshot" msgid="6935080344031126139">"שמור לקריאה במצב לא מקוון"</string>
+    <!-- no translation found for saving_snapshot (1693789062351182809) -->
+    <skip />
     <string name="snapshot_failed" msgid="4584580873565876033">"השמירה לקריאה במצב לא מקוון לא הצליחה."</string>
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"<xliff:g id="BOOKMARK_COUNT">%d</xliff:g> סימניות"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"תיקיה ריקה"</string>

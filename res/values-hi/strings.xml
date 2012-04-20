@@ -102,6 +102,8 @@
     <string name="copy_page_url" msgid="1188679152608889555">"पृष्ठ url की प्रतिलिपि बनाएं"</string>
     <string name="share_page" msgid="593756995297268343">"पृष्ठ शेयर करें"</string>
     <string name="menu_save_snapshot" msgid="6935080344031126139">"ऑफ़लाइन पढ़ने के लिए सहेजें"</string>
+    <!-- no translation found for saving_snapshot (1693789062351182809) -->
+    <skip />
     <string name="snapshot_failed" msgid="4584580873565876033">"ऑफ़लाइन पढ़ने के लिए सहेजा नहीं जा सका."</string>
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"<xliff:g id="BOOKMARK_COUNT">%d</xliff:g> बुकमार्क"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"रिक्त फ़ोल्डर"</string>

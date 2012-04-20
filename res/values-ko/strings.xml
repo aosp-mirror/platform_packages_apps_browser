@@ -102,6 +102,8 @@
     <string name="copy_page_url" msgid="1188679152608889555">"페이지 URL 복사"</string>
     <string name="share_page" msgid="593756995297268343">"페이지 공유"</string>
     <string name="menu_save_snapshot" msgid="6935080344031126139">"오프라인 보기로 저장"</string>
+    <!-- no translation found for saving_snapshot (1693789062351182809) -->
+    <skip />
     <string name="snapshot_failed" msgid="4584580873565876033">"오프라인 읽기용으로 저장하지 못했습니다."</string>
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"북마크 <xliff:g id="BOOKMARK_COUNT">%d</xliff:g>개"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"빈 폴더"</string>
