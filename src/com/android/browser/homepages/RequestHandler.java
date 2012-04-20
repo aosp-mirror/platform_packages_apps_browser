@@ -112,34 +112,37 @@ public class RequestHandler extends Thread {
                 History.CONTENT_URI, PROJECTION, SELECTION,
                 null, History.VISITS + " DESC LIMIT 12");
         Cursor cursor = historyResults;
-        if (cursor.getCount() < 12) {
-            Cursor bookmarkResults = mContext.getContentResolver().query(
-                    Bookmarks.CONTENT_URI, PROJECTION, SELECTION,
-                    null, Bookmarks.DATE_CREATED + " DESC LIMIT 12");
-            cursor = new MergeCursor(new Cursor[] { historyResults, bookmarkResults }) {
-                @Override
-                public int getCount() {
-                    return Math.min(12, super.getCount());
-                }
-            };
-        }
-
-        t.assignLoop("most_visited", new Template.CursorListEntityWrapper(cursor) {
-            @Override
-            public void writeValue(OutputStream stream, String key) throws IOException {
-                Cursor cursor = getCursor();
-                if (key.equals("url")) {
-                    stream.write(htmlEncode(cursor.getString(0)));
-                } else if (key.equals("title")) {
-                    stream.write(htmlEncode(cursor.getString(1)));
-                } else if (key.equals("thumbnail")) {
-                    stream.write("data:image/png;base64,".getBytes());
-                    byte[] thumb = cursor.getBlob(2);
-                    stream.write(Base64.encode(thumb, Base64.DEFAULT));
-                }
+        try {
+            if (cursor.getCount() < 12) {
+                Cursor bookmarkResults = mContext.getContentResolver().query(
+                        Bookmarks.CONTENT_URI, PROJECTION, SELECTION,
+                        null, Bookmarks.DATE_CREATED + " DESC LIMIT 12");
+                cursor = new MergeCursor(new Cursor[] { historyResults, bookmarkResults }) {
+                    @Override
+                    public int getCount() {
+                        return Math.min(12, super.getCount());
+                    }
+                };
             }
-        });
-        t.write(mOutput);
+            t.assignLoop("most_visited", new Template.CursorListEntityWrapper(cursor) {
+                @Override
+                public void writeValue(OutputStream stream, String key) throws IOException {
+                    Cursor cursor = getCursor();
+                    if (key.equals("url")) {
+                        stream.write(htmlEncode(cursor.getString(0)));
+                    } else if (key.equals("title")) {
+                        stream.write(htmlEncode(cursor.getString(1)));
+                    } else if (key.equals("thumbnail")) {
+                        stream.write("data:image/png;base64,".getBytes());
+                        byte[] thumb = cursor.getBlob(2);
+                        stream.write(Base64.encode(thumb, Base64.DEFAULT));
+                    }
+                }
+            });
+            t.write(mOutput);
+        } finally {
+            cursor.close();
+        }
     }
 
     private static final Comparator<File> sFileComparator = new Comparator<File>() {
