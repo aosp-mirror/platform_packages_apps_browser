@@ -227,9 +227,10 @@ public class TitleBar extends RelativeLayout {
             mNavBar.onProgressStopped();
             // check if needs to be hidden
             if (!isEditingUrl() && !wantsToBeVisible()) {
-                hide();
                 if (mUseQuickControls) {
                     setShowProgressOnly(false);
+                } else {
+                    mBaseUi.showTitleBarForDuration();
                 }
             }
         } else {

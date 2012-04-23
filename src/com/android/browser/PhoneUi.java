@@ -53,8 +53,6 @@ public class PhoneUi extends BaseUi {
     private NavigationBarPhone mNavigationBar;
     private int mActionBarHeight;
 
-    boolean mExtendedMenuOpen;
-    boolean mOptionsMenuOpen;
     boolean mAnimating;
 
     /**
@@ -108,21 +106,6 @@ public class PhoneUi extends BaseUi {
         if (tab.inForeground()) {
             int progress = tab.getLoadProgress();
             mTitleBar.setProgress(progress);
-            if (progress == 100) {
-                if (!mOptionsMenuOpen || !mExtendedMenuOpen) {
-                    suggestHideTitleBar();
-                    if (mUseQuickControls) {
-                        mTitleBar.setShowProgressOnly(false);
-                    }
-                }
-            } else {
-                if (!mOptionsMenuOpen || mExtendedMenuOpen) {
-                    if (mUseQuickControls && !mTitleBar.isEditingUrl()) {
-                        mTitleBar.setShowProgressOnly(true);
-                    }
-                    showTitleBar();
-                }
-            }
         }
         if (mNavScreen == null && getTitleBar().getHeight() > 0) {
             mHandler.sendEmptyMessage(MSG_INIT_NAVSCREEN);
