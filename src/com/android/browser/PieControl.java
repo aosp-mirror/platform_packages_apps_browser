@@ -151,6 +151,9 @@ public class PieControl implements PieMenu.PieController, OnClickListener {
         setClickListener(this, mBack, mRefresh, mForward, mUrl, mFind, mInfo,
                 mShare, mBookmarks, mNewTab, mIncognito, mClose, mHistory,
                 mAddBookmark, mOptions, mRDS);
+        if (!BrowserActivity.isTablet(mActivity)) {
+            mShowTabs.getView().setOnClickListener(this);
+        }
         // level 1
         mPie.addItem(mOptions);
         mOptions.addItem(mRDS);
@@ -219,6 +222,8 @@ public class PieControl implements PieMenu.PieController, OnClickListener {
             mUiController.findOnPage();
         } else if (mRDS.getView() == v) {
             mUiController.toggleUserAgent();
+        } else if (mShowTabs.getView() == v) {
+            ((PhoneUi) mUi).showNavScreen();
         }
     }
 
