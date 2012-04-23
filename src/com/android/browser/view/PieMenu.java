@@ -194,19 +194,21 @@ public class PieMenu extends FrameLayout {
     private void show(boolean show) {
         mOpen = show;
         if (mOpen) {
+            // ensure clean state
+            mAnimating = false;
+            mCurrentItem = null;
+            mOpenItem = null;
+            mPieView = null;
             mController.stopEditingUrl();
             mCurrentItems = mItems;
+            for (PieItem item : mCurrentItems) {
+                item.setSelected(false);
+            }
             if (mController != null) {
                 boolean changed = mController.onOpen();
             }
             layoutPie();
             animateOpen();
-        }
-        if (!show) {
-            mAnimating = false;
-            mCurrentItem = null;
-            mOpenItem = null;
-            mPieView = null;
         }
         invalidate();
     }
