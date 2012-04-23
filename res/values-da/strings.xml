@@ -102,8 +102,7 @@
     <string name="copy_page_url" msgid="1188679152608889555">"Kopier sidens webadresse"</string>
     <string name="share_page" msgid="593756995297268343">"Del side"</string>
     <string name="menu_save_snapshot" msgid="6935080344031126139">"Gem til læsning offline"</string>
-    <!-- no translation found for saving_snapshot (1693789062351182809) -->
-    <skip />
+    <string name="saving_snapshot" msgid="1693789062351182809">"Gemmer..."</string>
     <string name="snapshot_failed" msgid="4584580873565876033">"Siden kunne ikke gemmes til læsning offline."</string>
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"<xliff:g id="BOOKMARK_COUNT">%d</xliff:g> bogmærker"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Mappen er tom"</string>

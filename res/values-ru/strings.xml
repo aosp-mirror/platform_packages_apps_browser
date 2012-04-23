@@ -102,8 +102,7 @@
     <string name="copy_page_url" msgid="1188679152608889555">"Скопировать URL страницы"</string>
     <string name="share_page" msgid="593756995297268343">"Отправить страницу"</string>
     <string name="menu_save_snapshot" msgid="6935080344031126139">"Сохранить страницу"</string>
-    <!-- no translation found for saving_snapshot (1693789062351182809) -->
-    <skip />
+    <string name="saving_snapshot" msgid="1693789062351182809">"Сохранение…"</string>
     <string name="snapshot_failed" msgid="4584580873565876033">"Не удалось сохранить страницу."</string>
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"Закладок: <xliff:g id="BOOKMARK_COUNT">%d</xliff:g>"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Папка пуста"</string>
@@ -303,7 +302,7 @@
     <string name="go_home" msgid="109129207276086793">"Домашняя страница"</string>
     <string name="add_new_bookmark" msgid="3158497555612337238">"Добавить закладку"</string>
     <string name="add_bookmark_short" msgid="3783984330998103735">"Добавить"</string>
-    <string name="search_hint" msgid="4647356319916631820">"Условия поиска или URL"</string>
+    <string name="search_hint" msgid="4647356319916631820">"Введите запрос или URL"</string>
     <string name="search_button_text" msgid="5235226933877634410">"Поиск"</string>
     <string name="search_settings_description" msgid="1422401062529014107">"Закладки и история поиска"</string>
     <string name="popup_window_attempt" msgid="31565781154067629">"Открыть всплывающее окно с этого сайта?"</string>
