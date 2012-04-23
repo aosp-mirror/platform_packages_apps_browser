@@ -243,6 +243,8 @@ class BrowserSettings extends Observable {
             s.setSupportMultipleWindows(true);
             // disable content url access
             s.setAllowContentAccess(false);
+            // disable file url access
+            s.setAllowFileAccess(false);
 
             // HTML5 API flags
             s.setAppCacheEnabled(b.appCacheEnabled);
