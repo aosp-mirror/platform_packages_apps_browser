@@ -21,8 +21,8 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Message;
 import android.os.Process;
+import android.os.SystemProperties;
 import android.util.Log;
-import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
@@ -32,12 +32,12 @@ import android.widget.CursorAdapter;
 import com.android.browser.R;
 
 import java.lang.ref.WeakReference;
-import java.util.HashMap;
 
 public abstract class ThreadedCursorAdapter<T> extends BaseAdapter {
 
-    private static final String LOGTAG = "tca";
+    private static final String LOGTAG = "BookmarksThreadedAdapter";
     private static final boolean DEBUG = false;
+    private static boolean sEnableBitmapRecycling = true;
 
     private Context mContext;
     private Object mCursorLock = new Object();
@@ -46,6 +46,15 @@ public abstract class ThreadedCursorAdapter<T> extends BaseAdapter {
     private Handler mLoadHandler;
     private Handler mHandler;
     private int mSize;
+    private boolean mHasCursor;
+    private long mGeneration;
+
+    static {
+        // TODO: Remove this once recycling is either stabilized or scrapped
+        sEnableBitmapRecycling = SystemProperties
+                .getBoolean("com.android.browser.recycling", sEnableBitmapRecycling);
+        Log.d(LOGTAG, "Bitmap recycling enabled: " + sEnableBitmapRecycling);
+    }
 
     private class LoadContainer {
         WeakReference<View> view;
@@ -53,10 +62,12 @@ public abstract class ThreadedCursorAdapter<T> extends BaseAdapter {
         T bind_object;
         Adapter owner;
         boolean loaded;
+        long generation;
     }
 
     public ThreadedCursorAdapter(Context context, Cursor c) {
         mContext = context;
+        mHasCursor = (c != null);
         mCursorAdapter = new CursorAdapter(context, c, 0) {
 
             @Override
@@ -73,6 +84,7 @@ public abstract class ThreadedCursorAdapter<T> extends BaseAdapter {
             public void notifyDataSetChanged() {
                 super.notifyDataSetChanged();
                 mSize = getCount();
+                mGeneration++;
                 ThreadedCursorAdapter.this.notifyDataSetChanged();
             }
 
@@ -80,6 +92,7 @@ public abstract class ThreadedCursorAdapter<T> extends BaseAdapter {
             public void notifyDataSetInvalidated() {
                 super.notifyDataSetInvalidated();
                 mSize = getCount();
+                mGeneration++;
                 ThreadedCursorAdapter.this.notifyDataSetInvalidated();
             }
 
@@ -109,7 +122,9 @@ public abstract class ThreadedCursorAdapter<T> extends BaseAdapter {
                 View view = container.view.get();
                 if (view == null
                         || container.owner != ThreadedCursorAdapter.this
-                        || container.position != msg.what) {
+                        || container.position != msg.what
+                        || view.getWindowToken() == null
+                        || container.generation != mGeneration) {
                     return;
                 }
                 container.loaded = true;
@@ -142,7 +157,12 @@ public abstract class ThreadedCursorAdapter<T> extends BaseAdapter {
         }
         synchronized (mCursorLock) {
             Cursor c = (Cursor) mCursorAdapter.getItem(position);
-            container.bind_object = getRowObject(c, container.bind_object);
+            if (c == null || c.isClosed()) {
+                return;
+            }
+            final T recycleObject = sEnableBitmapRecycling
+                    ? container.bind_object : null;
+            container.bind_object = getRowObject(c, recycleObject);
         }
         mHandler.obtainMessage(position, container).sendToTarget();
     }
@@ -161,14 +181,18 @@ public abstract class ThreadedCursorAdapter<T> extends BaseAdapter {
         }
         if (container.position == position
                 && container.owner == this
-                && container.loaded) {
+                && container.loaded
+                && container.generation == mGeneration) {
             bindView(convertView, container.bind_object);
         } else {
             bindView(convertView, cachedLoadObject());
-            container.position = position;
-            container.loaded = false;
-            container.owner = this;
-            mLoadHandler.obtainMessage(position, container).sendToTarget();
+            if (mHasCursor) {
+                container.position = position;
+                container.loaded = false;
+                container.owner = this;
+                container.generation = mGeneration;
+                mLoadHandler.obtainMessage(position, container).sendToTarget();
+            }
         }
         return convertView;
     }
@@ -181,7 +205,10 @@ public abstract class ThreadedCursorAdapter<T> extends BaseAdapter {
     }
 
     public void changeCursor(Cursor cursor) {
+        mLoadHandler.removeCallbacksAndMessages(null);
+        mHandler.removeCallbacksAndMessages(null);
         synchronized (mCursorLock) {
+            mHasCursor = (cursor != null);
             mCursorAdapter.changeCursor(cursor);
         }
     }

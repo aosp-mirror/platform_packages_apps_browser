@@ -161,6 +161,10 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
+        if (loader.getId() >= LOADER_BOOKMARKS) {
+            BrowserBookmarksAdapter adapter = mBookmarkAdapters.get(loader.getId());
+            adapter.changeCursor(null);
+        }
     }
 
     @Override
