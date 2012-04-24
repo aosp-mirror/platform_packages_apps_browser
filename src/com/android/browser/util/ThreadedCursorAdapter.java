@@ -37,7 +37,6 @@ public abstract class ThreadedCursorAdapter<T> extends BaseAdapter {
 
     private static final String LOGTAG = "BookmarksThreadedAdapter";
     private static final boolean DEBUG = false;
-    private static boolean sEnableBitmapRecycling = true;
 
     private Context mContext;
     private Object mCursorLock = new Object();
@@ -48,13 +47,6 @@ public abstract class ThreadedCursorAdapter<T> extends BaseAdapter {
     private int mSize;
     private boolean mHasCursor;
     private long mGeneration;
-
-    static {
-        // TODO: Remove this once recycling is either stabilized or scrapped
-        sEnableBitmapRecycling = SystemProperties
-                .getBoolean("com.android.browser.recycling", sEnableBitmapRecycling);
-        Log.d(LOGTAG, "Bitmap recycling enabled: " + sEnableBitmapRecycling);
-    }
 
     private class LoadContainer {
         WeakReference<View> view;
@@ -160,9 +152,7 @@ public abstract class ThreadedCursorAdapter<T> extends BaseAdapter {
             if (c == null || c.isClosed()) {
                 return;
             }
-            final T recycleObject = sEnableBitmapRecycling
-                    ? container.bind_object : null;
-            container.bind_object = getRowObject(c, recycleObject);
+            container.bind_object = getRowObject(c, container.bind_object);
         }
         mHandler.obtainMessage(position, container).sendToTarget();
     }

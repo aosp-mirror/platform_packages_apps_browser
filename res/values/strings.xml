@@ -591,8 +591,6 @@
     <string name="pref_development_error_console" translatable="false">Show JavaScript Console</string>
     <!-- Do not translate. Development option to reset the prologin time [CHAR LIMIT=20] -->
     <string name="pref_development_reset_prelogin" translatable="false">Reset prelogin</string>
-    <!-- Do not translate. Development option to add more bookmarks [CHAR LIMIT=20] -->
-    <string name="pref_development_add_bookmarks" tranlsatable="false">Moar bookmarks!</string>
     <!-- Settings screen, setting option name -->
     <string name="pref_default_text_encoding">Text encoding</string>
     <!-- Options in the Default encoding dialog box -->

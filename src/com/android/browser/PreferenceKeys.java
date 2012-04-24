@@ -76,7 +76,6 @@ public interface PreferenceKeys {
     static final String PREF_SMALL_SCREEN = "small_screen";
     static final String PREF_WIDE_VIEWPORT = "wide_viewport";
     static final String PREF_RESET_PRELOGIN = "reset_prelogin";
-    static final String PREF_ADD_BOOKMARKS = "add_bookmarks";
 
     // ----------------------
     // Keys for lab_preferences.xml
