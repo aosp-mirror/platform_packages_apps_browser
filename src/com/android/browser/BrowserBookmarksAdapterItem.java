@@ -15,7 +15,6 @@
  */
 package com.android.browser;
 
-import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 
 public class BrowserBookmarksAdapterItem {

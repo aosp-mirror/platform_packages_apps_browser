@@ -75,6 +75,9 @@ public class BrowserProvider2 extends SQLiteContentProvider {
     static final Uri LEGACY_AUTHORITY_URI = new Uri.Builder()
             .authority(LEGACY_AUTHORITY).scheme("content").build();
 
+    public static final Uri DEBUG_ADD_BOOKMARKS_URI = Uri.withAppendedPath(
+            BrowserContract.AUTHORITY_URI, "debug-add-bookmarks");
+
     public static interface Thumbnails {
         public static final Uri CONTENT_URI = Uri.withAppendedPath(
                 BrowserContract.AUTHORITY_URI, "thumbnails");
@@ -149,6 +152,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
     static final int THUMBNAILS = 10;
     static final int THUMBNAILS_ID = 11;
     static final int OMNIBOX_SUGGESTIONS = 20;
+    static final int DEBUG_ADD_BOOKMARKS = 30;
 
     static final int BOOKMARKS = 1000;
     static final int BOOKMARKS_ID = 1001;
@@ -229,6 +233,9 @@ public class BrowserProvider2 extends SQLiteContentProvider {
         matcher.addURI(authority, "thumbnails", THUMBNAILS);
         matcher.addURI(authority, "thumbnails/#", THUMBNAILS_ID);
         matcher.addURI(authority, "omnibox_suggestions", OMNIBOX_SUGGESTIONS);
+
+        // Debug
+        matcher.addURI(authority, "debug-add-bookmarks", DEBUG_ADD_BOOKMARKS);
 
         // Legacy
         matcher.addURI(LEGACY_AUTHORITY, "searches", SEARCHES);
@@ -1479,6 +1486,11 @@ public class BrowserProvider2 extends SQLiteContentProvider {
 
             case THUMBNAILS: {
                 id = db.replaceOrThrow(TABLE_THUMBNAILS, null, values);
+                break;
+            }
+
+            case DEBUG_ADD_BOOKMARKS: {
+                mOpenHelper.addDefaultBookmarks(db, FIXED_ID_ROOT);
                 break;
             }
 
