@@ -25,7 +25,6 @@ import com.android.browser.BrowserSettings;
 import com.android.browser.GoogleAccountLogin;
 import com.android.browser.PreferenceKeys;
 import com.android.browser.R;
-import com.android.browser.provider.BrowserProvider2;
 
 public class DebugPreferencesFragment extends PreferenceFragment
         implements OnPreferenceClickListener {
@@ -38,8 +37,6 @@ public class DebugPreferencesFragment extends PreferenceFragment
 
         Preference e = findPreference(PreferenceKeys.PREF_RESET_PRELOGIN);
         e.setOnPreferenceClickListener(this);
-        e = findPreference(PreferenceKeys.PREF_ADD_BOOKMARKS);
-        e.setOnPreferenceClickListener(this);
     }
 
     @Override
@@ -48,11 +45,6 @@ public class DebugPreferencesFragment extends PreferenceFragment
             BrowserSettings.getInstance().getPreferences().edit()
                     .remove(GoogleAccountLogin.PREF_AUTOLOGIN_TIME)
                     .apply();
-            return true;
-        }
-        if (PreferenceKeys.PREF_ADD_BOOKMARKS.equals(preference.getKey())) {
-            getActivity().getContentResolver().insert(
-                    BrowserProvider2.DEBUG_ADD_BOOKMARKS_URI, null);
             return true;
         }
         return false;

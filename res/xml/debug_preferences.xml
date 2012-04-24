@@ -91,8 +91,4 @@
         android:key="reset_prelogin"
         android:title="@string/pref_development_reset_prelogin" />
 
-    <Preference
-        android:key="add_bookmarks"
-        android:title="@string/pref_development_add_bookmarks" />
-
 </PreferenceScreen>

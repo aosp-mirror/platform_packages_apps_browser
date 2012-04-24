@@ -17,7 +17,6 @@
 package com.android.browser.view;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.database.DataSetObserver;
 import android.provider.BrowserContract;
 import android.util.AttributeSet;
@@ -33,13 +32,8 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.android.browser.BookmarkDragHandler;
-import com.android.browser.BookmarkDragHandler.BookmarkDragAdapter;
-import com.android.browser.BookmarkDragHandler.BookmarkDragState;
 import com.android.browser.BreadCrumbView;
 import com.android.browser.BrowserBookmarksAdapter;
-import com.android.browser.BrowserBookmarksPage;
-import com.android.browser.BrowserBookmarksPage.ExtraDragState;
 import com.android.browser.R;
 import com.android.internal.view.menu.MenuBuilder;
 
@@ -54,9 +48,6 @@ public class BookmarkExpandableView extends ExpandableListView
 
     public static final String LOCAL_ACCOUNT_NAME = "local";
 
-    // Experimental drag & drop
-    private static final boolean ENABLE_DRAG_DROP = false;
-
     private BookmarkAccountAdapter mAdapter;
     private int mColumnWidth;
     private Context mContext;
@@ -65,9 +56,7 @@ public class BookmarkExpandableView extends ExpandableListView
     private OnCreateContextMenuListener mOnCreateContextMenuListener;
     private boolean mLongClickable;
     private BreadCrumbView.Controller mBreadcrumbController;
-    private BookmarkDragHandler mDragHandler;
     private int mMaxColumnCount;
-    private int mCurrentView = -1;
 
     public BookmarkExpandableView(Context context) {
         super(context);
@@ -141,9 +130,6 @@ public class BookmarkExpandableView extends ExpandableListView
                 adapter.registerDataSetObserver(mAdapter.mObserver);
             }
         } else {
-            if (mCurrentView >= 0) {
-                adapter.selectView(mCurrentView);
-            }
             mAdapter.mGroups.add(accountName);
             mAdapter.mChildren.add(adapter);
             adapter.registerDataSetObserver(mAdapter.mObserver);
@@ -229,36 +215,6 @@ public class BookmarkExpandableView extends ExpandableListView
         return mAdapter.mChildren.get(groupPosition);
     }
 
-    public BookmarkDragAdapter getDragAdapter() {
-        return mDragAdapter;
-    }
-
-    public void showContextMenuForState(BookmarkDragState state) {
-        ExtraDragState extraState = (ExtraDragState) state.extraState;
-        mContextMenuInfo = new BookmarkContextMenuInfo(
-                extraState.childPosition,
-                extraState.groupPosition);
-        if (getParent() != null) {
-            getParent().showContextMenuForChild(BookmarkExpandableView.this);
-        }
-    }
-
-    private BookmarkDragAdapter mDragAdapter = new BookmarkDragAdapter() {
-
-        @Override
-        public void setBookmarkDragHandler(BookmarkDragHandler handler) {
-            mDragHandler = handler;
-        }
-
-        @Override
-        public Cursor getItemForView(View v) {
-            int groupPosition = (Integer) v.getTag(R.id.group_position);
-            int childPosition = (Integer) v.getTag(R.id.child_position);
-            return getChildAdapter(groupPosition).getItem(childPosition);
-        }
-
-    };
-
     private OnClickListener mChildClickListener = new OnClickListener() {
 
         @Override
@@ -293,33 +249,8 @@ public class BookmarkExpandableView extends ExpandableListView
         }
     };
 
-    private OnLongClickListener mChildOnLongClickListener = new OnLongClickListener() {
-
-        @Override
-        public boolean onLongClick(View v) {
-            if (!ENABLE_DRAG_DROP) {
-                return false;
-            }
-            ExtraDragState state = new ExtraDragState();
-            state.groupPosition = (Integer) v.getTag(R.id.group_position);
-            state.childPosition = (Integer) v.getTag(R.id.child_position);
-            long id = (Long) v.getTag(R.id.child_id);
-            Cursor c = getChildAdapter(state.groupPosition)
-                    .getItem(state.childPosition);
-            return mDragHandler.startDrag(v, c, id, state);
-        }
-    };
-
     public BreadCrumbView getBreadCrumbs(int groupPosition) {
         return mAdapter.getBreadCrumbView(groupPosition);
-    }
-
-    public void selectView(int view) {
-        mCurrentView = view;
-        for (BrowserBookmarksAdapter adapter : mAdapter.mChildren) {
-            adapter.selectView(mCurrentView);
-        }
-        mAdapter.notifyDataSetChanged();
     }
 
     public JSONObject saveGroupState() throws JSONException {
@@ -386,9 +317,6 @@ public class BookmarkExpandableView extends ExpandableListView
             }
             BrowserBookmarksAdapter childAdapter = mChildren.get(groupPosition);
             int rowCount = mRowCount;
-            if (childAdapter.getViewMode() == BrowserBookmarksPage.VIEW_LIST) {
-                rowCount = 1;
-            }
             LinearLayout row = (LinearLayout) convertView;
             if (row.getChildCount() > rowCount) {
                 row.removeViews(rowCount, row.getChildCount() - rowCount);
@@ -406,10 +334,6 @@ public class BookmarkExpandableView extends ExpandableListView
                     v.setTag(R.id.child_id, childAdapter.getItemId(realChildPosition));
                     v.setOnClickListener(mChildClickListener);
                     v.setLongClickable(mLongClickable);
-                    if (mDragHandler != null) {
-                        v.setOnLongClickListener(mChildOnLongClickListener);
-                        mDragHandler.registerBookmarkDragHandler(v);
-                    }
                     if (cv == null) {
                         row.addView(v);
                     } else if (cv != v) {
@@ -428,9 +352,6 @@ public class BookmarkExpandableView extends ExpandableListView
         @Override
         public int getChildrenCount(int groupPosition) {
             BrowserBookmarksAdapter adapter = mChildren.get(groupPosition);
-            if (adapter.getViewMode() == BrowserBookmarksPage.VIEW_LIST) {
-                return adapter.getCount();
-            }
             return (int) Math.ceil(adapter.getCount() / (float)mRowCount);
         }
 
@@ -516,20 +437,6 @@ public class BookmarkExpandableView extends ExpandableListView
         @Override
         public boolean isChildSelectable(int groupPosition, int childPosition) {
             return true;
-        }
-
-        @Override
-        public int getChildTypeCount() {
-            return 2;
-        }
-
-        @Override
-        public int getChildType(int groupPosition, int childPosition) {
-            BrowserBookmarksAdapter adapter = mChildren.get(groupPosition);
-            if (adapter.getViewMode() == BrowserBookmarksPage.VIEW_LIST) {
-                return 1;
-            }
-            return 0;
         }
     }
 
