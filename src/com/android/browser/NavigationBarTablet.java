@@ -177,7 +177,7 @@ public class NavigationBarTablet extends NavigationBarBase {
         } else if (mAllButton == v) {
             mUiController.bookmarksOrHistoryPicker(ComboViews.Bookmarks);
         } else if (mSearchButton == v) {
-            mBaseUi.editUrl(true);
+            mBaseUi.editUrl(true, false);
         } else if (mStopButton == v) {
             stopOrRefresh();
         } else if (mGoButton == v) {

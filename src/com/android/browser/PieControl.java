@@ -197,7 +197,7 @@ public class PieControl implements PieMenu.PieController, OnClickListener {
                 web.reload();
             }
         } else if (mUrl.getView() == v) {
-            mUi.editUrl(false);
+            mUi.editUrl(false, true);
         } else if (mBookmarks.getView() == v) {
             mUiController.bookmarksOrHistoryPicker(ComboViews.Bookmarks);
         } else if (mHistory.getView() == v) {
@@ -206,10 +206,10 @@ public class PieControl implements PieMenu.PieController, OnClickListener {
             mUiController.bookmarkCurrentPage();
         } else if (mNewTab.getView() == v) {
             mUiController.openTabToHomePage();
-            mUi.editUrl(false);
+            mUi.editUrl(false, true);
         } else if (mIncognito.getView() == v) {
             mUiController.openIncognitoTab();
-            mUi.editUrl(false);
+            mUi.editUrl(false, true);
         } else if (mClose.getView() == v) {
             mUiController.closeCurrentTab();
         } else if (mOptions.getView() == v) {
