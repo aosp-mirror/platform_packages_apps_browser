@@ -38,7 +38,6 @@ import com.android.browser.BookmarkDragHandler.BookmarkDragAdapter;
 import com.android.browser.BookmarkDragHandler.BookmarkDragState;
 import com.android.browser.BreadCrumbView;
 import com.android.browser.BrowserBookmarksAdapter;
-import com.android.browser.BrowserBookmarksPage;
 import com.android.browser.BrowserBookmarksPage.ExtraDragState;
 import com.android.browser.R;
 import com.android.internal.view.menu.MenuBuilder;
@@ -67,7 +66,6 @@ public class BookmarkExpandableView extends ExpandableListView
     private BreadCrumbView.Controller mBreadcrumbController;
     private BookmarkDragHandler mDragHandler;
     private int mMaxColumnCount;
-    private int mCurrentView = -1;
 
     public BookmarkExpandableView(Context context) {
         super(context);
@@ -141,9 +139,6 @@ public class BookmarkExpandableView extends ExpandableListView
                 adapter.registerDataSetObserver(mAdapter.mObserver);
             }
         } else {
-            if (mCurrentView >= 0) {
-                adapter.selectView(mCurrentView);
-            }
             mAdapter.mGroups.add(accountName);
             mAdapter.mChildren.add(adapter);
             adapter.registerDataSetObserver(mAdapter.mObserver);
@@ -314,14 +309,6 @@ public class BookmarkExpandableView extends ExpandableListView
         return mAdapter.getBreadCrumbView(groupPosition);
     }
 
-    public void selectView(int view) {
-        mCurrentView = view;
-        for (BrowserBookmarksAdapter adapter : mAdapter.mChildren) {
-            adapter.selectView(mCurrentView);
-        }
-        mAdapter.notifyDataSetChanged();
-    }
-
     public JSONObject saveGroupState() throws JSONException {
         JSONObject obj = new JSONObject();
         int count = mAdapter.getGroupCount();
@@ -386,9 +373,6 @@ public class BookmarkExpandableView extends ExpandableListView
             }
             BrowserBookmarksAdapter childAdapter = mChildren.get(groupPosition);
             int rowCount = mRowCount;
-            if (childAdapter.getViewMode() == BrowserBookmarksPage.VIEW_LIST) {
-                rowCount = 1;
-            }
             LinearLayout row = (LinearLayout) convertView;
             if (row.getChildCount() > rowCount) {
                 row.removeViews(rowCount, row.getChildCount() - rowCount);
@@ -428,9 +412,6 @@ public class BookmarkExpandableView extends ExpandableListView
         @Override
         public int getChildrenCount(int groupPosition) {
             BrowserBookmarksAdapter adapter = mChildren.get(groupPosition);
-            if (adapter.getViewMode() == BrowserBookmarksPage.VIEW_LIST) {
-                return adapter.getCount();
-            }
             return (int) Math.ceil(adapter.getCount() / (float)mRowCount);
         }
 
@@ -516,20 +497,6 @@ public class BookmarkExpandableView extends ExpandableListView
         @Override
         public boolean isChildSelectable(int groupPosition, int childPosition) {
             return true;
-        }
-
-        @Override
-        public int getChildTypeCount() {
-            return 2;
-        }
-
-        @Override
-        public int getChildType(int groupPosition, int childPosition) {
-            BrowserBookmarksAdapter adapter = mChildren.get(groupPosition);
-            if (adapter.getViewMode() == BrowserBookmarksPage.VIEW_LIST) {
-                return 1;
-            }
-            return 0;
         }
     }
 

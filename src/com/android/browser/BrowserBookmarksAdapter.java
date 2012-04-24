@@ -35,50 +35,30 @@ public class BrowserBookmarksAdapter extends
         ThreadedCursorAdapter<BrowserBookmarksAdapterItem> {
 
     LayoutInflater mInflater;
-    int mCurrentView;
     Context mContext;
 
     /**
      *  Create a new BrowserBookmarksAdapter.
      */
-    public BrowserBookmarksAdapter(Context context, int defaultView) {
+    public BrowserBookmarksAdapter(Context context) {
         // Make sure to tell the CursorAdapter to avoid the observer and auto-requery
         // since the Loader will do that for us.
         super(context, null);
         mInflater = LayoutInflater.from(context);
         mContext = context;
-        selectView(defaultView);
     }
 
     @Override
     public View newView(Context context, ViewGroup parent) {
-        if (mCurrentView == BrowserBookmarksPage.VIEW_LIST) {
-            return mInflater.inflate(R.layout.bookmark_list, parent, false);
-        } else {
-            return mInflater.inflate(R.layout.bookmark_thumbnail, parent, false);
-        }
+        return mInflater.inflate(R.layout.bookmark_thumbnail, parent, false);
     }
 
     @Override
     public void bindView(View view, BrowserBookmarksAdapterItem object) {
         BookmarkContainer container = (BookmarkContainer) view;
         container.setIgnoreRequestLayout(true);
-        if (mCurrentView == BrowserBookmarksPage.VIEW_LIST) {
-            bindListView(view, mContext, object);
-        } else {
-            bindGridView(view, mContext, object);
-        }
+        bindGridView(view, mContext, object);
         container.setIgnoreRequestLayout(false);
-    }
-
-    void clearView(View view) {
-        if (mCurrentView == BrowserBookmarksPage.VIEW_LIST) {
-            ImageView favicon = (ImageView) view.findViewById(R.id.favicon);
-            favicon.setImageBitmap(null);
-        } else {
-            ImageView thumb = (ImageView) view.findViewById(R.id.thumb);
-            thumb.setImageBitmap(null);
-        }
     }
 
     CharSequence getTitle(Cursor cursor) {
@@ -117,53 +97,15 @@ public class BrowserBookmarksAdapter extends
         }
     }
 
-    void bindListView(View view, Context context, BrowserBookmarksAdapterItem item) {
-        ImageView favicon = (ImageView) view.findViewById(R.id.favicon);
-        TextView tv = (TextView) view.findViewById(R.id.label);
-
-        tv.setText(item.title);
-        if (item.is_folder) {
-            // folder
-            favicon.setImageResource(R.drawable.ic_folder_holo_dark);
-            favicon.setBackground(null);
-        } else {
-            if (item.favicon == null) {
-                favicon.setImageResource(R.drawable.app_web_browser_sm);
-            } else {
-                favicon.setImageDrawable(item.favicon);
-            }
-            favicon.setBackgroundResource(R.drawable.bookmark_list_favicon_bg);
-        }
-    }
-
-    public void selectView(int view) {
-        if (view != BrowserBookmarksPage.VIEW_LIST
-                && view != BrowserBookmarksPage.VIEW_THUMBNAILS) {
-            throw new IllegalArgumentException("Unknown view specified: " + view);
-        }
-        mCurrentView = view;
-    }
-
-    public int getViewMode() {
-        return mCurrentView;
-    }
-
     @Override
     public BrowserBookmarksAdapterItem getRowObject(Cursor c,
             BrowserBookmarksAdapterItem item) {
         if (item == null) {
             item = new BrowserBookmarksAdapterItem();
         }
-        Bitmap favicon = item.favicon != null ? item.favicon.getBitmap() : null;
         Bitmap thumbnail = item.thumbnail != null ? item.thumbnail.getBitmap() : null;
-        favicon = BrowserBookmarksPage.getBitmap(c,
-                BookmarksLoader.COLUMN_INDEX_FAVICON, favicon);
         thumbnail = BrowserBookmarksPage.getBitmap(c,
                 BookmarksLoader.COLUMN_INDEX_THUMBNAIL, thumbnail);
-        if (favicon != null
-                && (item.favicon == null || item.favicon.getBitmap() != favicon)) {
-            item.favicon = new BitmapDrawable(mContext.getResources(), favicon);
-        }
         if (thumbnail != null
                 && (item.thumbnail == null || item.thumbnail.getBitmap() != thumbnail)) {
             item.thumbnail = new BitmapDrawable(mContext.getResources(), thumbnail);

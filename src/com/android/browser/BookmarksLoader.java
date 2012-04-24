@@ -20,7 +20,6 @@ import android.content.Context;
 import android.content.CursorLoader;
 import android.net.Uri;
 import android.provider.BrowserContract.Bookmarks;
-import android.provider.BrowserContract.ChromeSyncColumns;
 
 public class BookmarksLoader extends CursorLoader {
     public static final String ARG_ACCOUNT_TYPE = "acct_type";

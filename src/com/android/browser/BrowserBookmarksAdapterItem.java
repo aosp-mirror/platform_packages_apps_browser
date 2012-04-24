@@ -20,7 +20,6 @@ import android.graphics.drawable.BitmapDrawable;
 public class BrowserBookmarksAdapterItem {
     public String url;
     public CharSequence title;
-    public BitmapDrawable favicon;
     public BitmapDrawable thumbnail;
     public boolean is_folder;
 }

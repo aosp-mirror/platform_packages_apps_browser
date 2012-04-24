@@ -93,9 +93,6 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
     static final String ACCOUNT_TYPE = "account_type";
     static final String ACCOUNT_NAME = "account_name";
 
-    public static final int VIEW_THUMBNAILS = 1;
-    public static final int VIEW_LIST = 2;
-
     BookmarksPageCallbacks mCallbacks;
     View mRoot;
     BookmarkExpandableView mGrid;
@@ -134,7 +131,7 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
                 args.putString(ACCOUNT_NAME, accountName);
                 args.putString(ACCOUNT_TYPE, accountType);
                 BrowserBookmarksAdapter adapter = new BrowserBookmarksAdapter(
-                        getActivity(), VIEW_THUMBNAILS);
+                        getActivity());
                 mBookmarkAdapters.put(id, adapter);
                 boolean expand = true;
                 try {
