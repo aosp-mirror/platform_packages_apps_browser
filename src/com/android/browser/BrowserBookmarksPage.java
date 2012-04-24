@@ -38,7 +38,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.BrowserContract;
 import android.provider.BrowserContract.Accounts;
-import android.view.ActionMode;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -48,12 +47,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.android.browser.BookmarkDragHandler.BookmarkDragController;
-import com.android.browser.BookmarkDragHandler.BookmarkDragState;
 import com.android.browser.provider.BrowserProvider2;
 import com.android.browser.view.BookmarkExpandableView;
 import com.android.browser.view.BookmarkExpandableView.BookmarkContextMenuInfo;
@@ -101,7 +96,6 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
     View mEmptyView;
     View mHeader;
     HashMap<Integer, BrowserBookmarksAdapter> mBookmarkAdapters = new HashMap<Integer, BrowserBookmarksAdapter>();
-    BookmarkDragHandler mDragHandler;
     JSONObject mState;
 
     @Override
@@ -401,8 +395,6 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         mGrid.setColumnWidthFromLayout(R.layout.bookmark_thumbnail);
         mGrid.setBreadcrumbController(this);
         setEnableContextMenu(mEnableContextMenu);
-        mDragHandler = new BookmarkDragHandler(getActivity(), mDragController,
-                mGrid.getDragAdapter());
 
         // Start the loaders
         LoaderManager lm = getLoaderManager();
@@ -618,45 +610,6 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
             }
         }
     }
-
-    private BookmarkDragController mDragController = new BookmarkDragController() {
-
-        @Override
-        public boolean startDrag(Cursor item) {
-            return canEdit(item);
-        }
-
-        @Override
-        public ViewGroup getActionModeView(ActionMode mode,
-                BookmarkDragState state) {
-            LayoutInflater inflater = LayoutInflater.from(getActivity());
-            LinearLayout view = (LinearLayout) inflater.inflate(
-                    R.layout.bookmarks_drag_actionmode, null);
-            view.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
-            ExtraDragState extraState = (ExtraDragState) state.extraState;
-            BrowserBookmarksAdapter adapter = getChildAdapter(extraState.groupPosition);
-            Cursor c = adapter.getItem(extraState.childPosition);
-            boolean isFolder = c.getInt(BookmarksLoader.COLUMN_INDEX_IS_FOLDER) != 0;
-            if (isFolder) {
-                view.findViewById(R.id.open_context_menu_id).setVisibility(View.GONE);
-                ImageView iv = (ImageView) view.findViewById(
-                        R.id.new_window_context_menu_id);
-                iv.setImageResource(R.drawable.ic_windows_holo_dark);
-            }
-            return view;
-        }
-
-        @Override
-        public void actionItemClicked(View v, BookmarkDragState state) {
-            if (v.getId() == R.id.info) {
-                mGrid.showContextMenuForState(state);
-            } else {
-                ExtraDragState extraState = (ExtraDragState) state.extraState;
-                handleContextItem(v.getId(), extraState.groupPosition,
-                        extraState.childPosition);
-            }
-        }
-    };
 
     private static class LookupBookmarkCount extends AsyncTask<Long, Void, Integer> {
         Context mContext;
