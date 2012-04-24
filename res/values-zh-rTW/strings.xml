@@ -102,8 +102,7 @@
     <string name="copy_page_url" msgid="1188679152608889555">"複製網頁網址"</string>
     <string name="share_page" msgid="593756995297268343">"分享網頁"</string>
     <string name="menu_save_snapshot" msgid="6935080344031126139">"儲存頁面以供離線閱讀"</string>
-    <!-- no translation found for saving_snapshot (1693789062351182809) -->
-    <skip />
+    <string name="saving_snapshot" msgid="1693789062351182809">"儲存中…"</string>
     <string name="snapshot_failed" msgid="4584580873565876033">"無法儲存網頁以供離線閱讀。"</string>
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"<xliff:g id="BOOKMARK_COUNT">%d</xliff:g> 個書籤"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"空資料夾"</string>
