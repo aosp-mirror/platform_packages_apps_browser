@@ -88,7 +88,7 @@ public class SnapshotProvider extends ContentProvider {
                     Snapshots.BACKGROUND + " INTEGER," +
                     Snapshots.VIEWSTATE + " BLOB NOT NULL," +
                     Snapshots.VIEWSTATE_PATH + " TEXT," +
-                    Snapshots.VIEWSTATE_SIZE + "INTEGER" +
+                    Snapshots.VIEWSTATE_SIZE + " INTEGER" +
                     ");");
         }
 
