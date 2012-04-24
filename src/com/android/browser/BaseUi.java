@@ -443,13 +443,13 @@ public abstract class BaseUi implements UI {
         }
     }
 
-    public void editUrl(boolean clearInput) {
+    public void editUrl(boolean clearInput, boolean forceIME) {
         if (mUiController.isInCustomActionMode()) {
             mUiController.endActionMode();
         }
         showTitleBar();
         if ((getActiveTab() != null) && !getActiveTab().isSnapshot()) {
-            mNavigationBar.startEditingUrl(clearInput);
+            mNavigationBar.startEditingUrl(clearInput, forceIME);
         }
     }
 

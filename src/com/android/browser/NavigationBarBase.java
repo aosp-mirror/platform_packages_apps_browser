@@ -247,7 +247,7 @@ public class NavigationBarBase extends LinearLayout implements
      * called from the Ui when the user wants to edit
      * @param clearInput clear the input field
      */
-    void startEditingUrl(boolean clearInput) {
+    void startEditingUrl(boolean clearInput, boolean forceIME) {
         // editing takes preference of progress
         setVisibility(View.VISIBLE);
         if (mTitleBar.useQuickControls()) {
@@ -261,7 +261,7 @@ public class NavigationBarBase extends LinearLayout implements
         } else if (mInVoiceMode) {
             mUrlInput.showDropDown();
         }
-        if (mTitleBar.useQuickControls()) {
+        if (forceIME) {
             mUrlInput.showIME();
         }
     }

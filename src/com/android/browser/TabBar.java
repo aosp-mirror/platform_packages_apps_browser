@@ -197,7 +197,7 @@ public class TabBar extends LinearLayout implements OnClickListener {
                     mUi.hideTitleBar();
                 } else {
                     mUi.stopWebViewScrolling();
-                    mUi.editUrl(false);
+                    mUi.editUrl(false, false);
                 }
             } else if (mUi.isTitleBarShowing() && !isLoading()) {
                 mUi.stopEditingUrl();

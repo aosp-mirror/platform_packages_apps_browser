@@ -1104,7 +1104,7 @@ public class Controller
     // callback from phone title bar
     public void editUrl() {
         if (mOptionsMenuOpen) mActivity.closeOptionsMenu();
-        mUi.editUrl(false);
+        mUi.editUrl(false, true);
     }
 
     public void startVoiceSearch() {
@@ -2837,7 +2837,7 @@ public class Controller
     }
 
     public boolean onSearchRequested() {
-        mUi.editUrl(false);
+        mUi.editUrl(false, true);
         return true;
     }
 

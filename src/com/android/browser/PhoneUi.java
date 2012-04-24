@@ -76,11 +76,11 @@ public class PhoneUi extends BaseUi {
     }
 
     @Override
-    public void editUrl(boolean clearInput) {
+    public void editUrl(boolean clearInput, boolean forceIME) {
         if (mUseQuickControls) {
             mTitleBar.setShowProgressOnly(false);
         }
-        super.editUrl(clearInput);
+        super.editUrl(clearInput, forceIME);
     }
 
     @Override

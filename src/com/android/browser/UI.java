@@ -134,7 +134,7 @@ public interface UI {
 
     void showMaxTabsWarning();
 
-    void editUrl(boolean clearInput);
+    void editUrl(boolean clearInput, boolean forceIME);
 
     boolean isEditingUrl();
 

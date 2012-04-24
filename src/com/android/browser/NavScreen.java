@@ -242,7 +242,7 @@ public class NavScreen extends RelativeLayout
                         switchToTab(tab);
                         mUi.getTitleBar().setSkipTitleBarAnimations(true);
                         close(position, false);
-                        mUi.editUrl(false);
+                        mUi.editUrl(false, true);
                         mUi.getTitleBar().setSkipTitleBarAnimations(false);
                     } else if (tabview.isWebView(v)) {
                         close(position);

@@ -207,11 +207,11 @@ public class XLargeUi extends BaseUi {
     }
 
     @Override
-    public void editUrl(boolean clearInput) {
+    public void editUrl(boolean clearInput, boolean forceIME) {
         if (mUseQuickControls) {
             mTitleBar.setShowProgressOnly(false);
         }
-        super.editUrl(clearInput);
+        super.editUrl(clearInput, forceIME);
     }
 
     @Override
@@ -285,13 +285,13 @@ public class XLargeUi extends BaseUi {
                     case KeyEvent.KEYCODE_DPAD_UP:
                     case KeyEvent.KEYCODE_DPAD_LEFT:
                         if ((web != null) && web.hasFocus() && !mTitleBar.hasFocus()) {
-                            editUrl(false);
+                            editUrl(false, false);
                             return true;
                         }
                 }
                 boolean ctrl = event.hasModifiers(KeyEvent.META_CTRL_ON);
                 if (!ctrl && isTypingKey(event) && !mTitleBar.isEditingUrl()) {
-                    editUrl(true);
+                    editUrl(true, false);
                     return mContentView.dispatchKeyEvent(event);
                 }
             }
