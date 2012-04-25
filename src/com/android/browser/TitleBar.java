@@ -228,7 +228,7 @@ public class TitleBar extends RelativeLayout {
             // check if needs to be hidden
             if (!isEditingUrl() && !wantsToBeVisible()) {
                 if (mUseQuickControls) {
-                    setShowProgressOnly(false);
+                    hide();
                 } else {
                     mBaseUi.showTitleBarForDuration();
                 }
@@ -241,10 +241,10 @@ public class TitleBar extends RelativeLayout {
             }
             mProgress.setProgress(newProgress * PageProgressView.MAX_PROGRESS
                     / PROGRESS_MAX);
+            if (mUseQuickControls && !isEditingUrl()) {
+                setShowProgressOnly(true);
+            }
             if (!mShowing) {
-                if (mUseQuickControls && !isEditingUrl()) {
-                    setShowProgressOnly(true);
-                }
                 show();
             }
         }

@@ -103,10 +103,7 @@ public class PhoneUi extends BaseUi {
 
     @Override
     public void onProgressChanged(Tab tab) {
-        if (tab.inForeground()) {
-            int progress = tab.getLoadProgress();
-            mTitleBar.setProgress(progress);
-        }
+        super.onProgressChanged(tab);
         if (mNavScreen == null && getTitleBar().getHeight() > 0) {
             mHandler.sendEmptyMessage(MSG_INIT_NAVSCREEN);
         }
@@ -145,6 +142,7 @@ public class PhoneUi extends BaseUi {
         if (mUseQuickControls) {
             mPieControl.forceToTop(mContentView);
             view.setTitleBar(null);
+            mTitleBar.setShowProgressOnly(true);
         } else {
             view.setTitleBar(mTitleBar);
         }

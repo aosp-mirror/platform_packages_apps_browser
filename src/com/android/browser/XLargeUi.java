@@ -135,21 +135,6 @@ public class XLargeUi extends BaseUi {
     // WebView callbacks
 
     @Override
-    public void onProgressChanged(Tab tab) {
-        int progress = tab.getLoadProgress();
-        if (tab.inForeground()) {
-            mTitleBar.setProgress(progress);
-            if (mUseQuickControls) {
-                if (progress == 100) {
-                    mTitleBar.setShowProgressOnly(false);
-                } else if (!mTitleBar.isEditingUrl()) {
-                    mTitleBar.setShowProgressOnly(true);
-                }
-            }
-        }
-    }
-
-    @Override
     public void addTab(Tab tab) {
         mTabBar.onNewTab(tab);
     }

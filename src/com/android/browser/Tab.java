@@ -1958,12 +1958,6 @@ class Tab implements PictureListener {
         return mInPageLoad;
     }
 
-    // force mInLoad to be false. This should only be called before closing the
-    // tab to ensure BrowserActivity's pauseWebViewTimers() is called correctly.
-    void clearInPageLoad() {
-        mInPageLoad = false;
-    }
-
     /**
      * @return The Bundle with the tab's state if it can be saved, otherwise null
      */

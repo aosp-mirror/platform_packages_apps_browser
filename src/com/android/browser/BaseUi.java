@@ -224,6 +224,14 @@ public abstract class BaseUi implements UI {
     }
 
     @Override
+    public void onProgressChanged(Tab tab) {
+        int progress = tab.getLoadProgress();
+        if (tab.inForeground()) {
+            mTitleBar.setProgress(progress);
+        }
+    }
+
+    @Override
     public void bookmarkedStatusHasChanged(Tab tab) {
         if (tab.inForeground()) {
             boolean isBookmark = tab.isBookmarkedSite();
@@ -270,6 +278,7 @@ public abstract class BaseUi implements UI {
             if (mUseQuickControls) {
                 mPieControl.forceToTop(mContentView);
                 web.setTitleBar(null);
+                mTitleBar.hide();
             } else {
                 web.setTitleBar(mTitleBar);
                 mTitleBar.onScrollChanged();
