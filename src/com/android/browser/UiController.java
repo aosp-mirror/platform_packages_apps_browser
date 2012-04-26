@@ -59,6 +59,8 @@ public interface UiController {
 
     void closeTab(Tab tab);
 
+    void closeOtherTabs();
+
     void stopLoading();
 
     Intent createBookmarkCurrentPageIntent(boolean canBeAnEdit);

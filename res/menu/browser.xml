@@ -76,6 +76,9 @@
         <group
             android:id="@+id/COMBO_MENU">
             <item
+                android:id="@+id/close_other_tabs_id"
+                android:title="@string/close_other_tabs" />
+            <item
                 android:id="@+id/history_menu_id"
                 android:title="@string/tab_history"
                 android:alphabeticShortcut="h" />
