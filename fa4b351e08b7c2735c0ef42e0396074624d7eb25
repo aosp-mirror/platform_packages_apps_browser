@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "AAAFCX///7k\u003d",
+        "filename": "res/values/strings.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1010103
+      },
+      "writtenOn": "2012-04-26T17:16:18Z",
+      "side": 1,
+      "message": "Need to add [CHAR LIMIT\u003d?] to the end of this comment (look at the other strings for an example). This tells the translators how long of a string can fit in this space",
+      "revId": "fa4b351e08b7c2735c0ef42e0396074624d7eb25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "AAAFCX///7g\u003d",
+        "filename": "src/com/android/browser/Controller.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1477,
+      "author": {
+        "id": 1010103
+      },
+      "writtenOn": "2012-04-26T17:16:18Z",
+      "side": 1,
+      "message": "No need for the ternary, just isLastTab \u003d mTabControl.getTabCount() \u003c\u003d 1",
+      "revId": "fa4b351e08b7c2735c0ef42e0396074624d7eb25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
