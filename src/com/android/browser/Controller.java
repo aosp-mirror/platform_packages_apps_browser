@@ -1467,12 +1467,14 @@ public class Controller
     public void updateMenuState(Tab tab, Menu menu) {
         boolean canGoBack = false;
         boolean canGoForward = false;
+        boolean isLastTab = true;
         boolean isHome = false;
         boolean isDesktopUa = false;
         boolean isLive = false;
         if (tab != null) {
             canGoBack = tab.canGoBack();
             canGoForward = tab.canGoForward();
+            isLastTab = (mTabControl.getTabCount() > 1) ? false : true;
             isHome = mSettings.getHomePage().equals(tab.getUrl());
             isDesktopUa = mSettings.hasDesktopUseragent(tab.getWebView());
             isLive = !tab.isSnapshot();
@@ -1485,6 +1487,9 @@ public class Controller
 
         final MenuItem forward = menu.findItem(R.id.forward_menu_id);
         forward.setEnabled(canGoForward);
+
+        final MenuItem closeOthers = menu.findItem(R.id.close_other_tabs_id);
+        closeOthers.setEnabled(!isLastTab);
 
         final MenuItem source = menu.findItem(isInLoad() ? R.id.stop_menu_id
                 : R.id.reload_menu_id);
@@ -1544,6 +1549,10 @@ public class Controller
 
             case R.id.incognito_menu_id:
                 openIncognitoTab();
+                break;
+
+            case R.id.close_other_tabs_id:
+                closeOtherTabs();
                 break;
 
             case R.id.goto_menu_id:
@@ -2416,6 +2425,20 @@ public class Controller
             closeCurrentTab();
         } else {
             removeTab(tab);
+        }
+    }
+
+    /**
+     * Close all tabs except the current one
+     */
+    @Override
+    public void closeOtherTabs() {
+        int inactiveTabs = mTabControl.getTabCount() - 1;
+        for (int i = inactiveTabs; i >= 0; i--) {
+            Tab tab = mTabControl.getTab(i);
+            if (tab != mTabControl.getCurrentTab()) {
+                removeTab(tab);
+            }
         }
     }
 
