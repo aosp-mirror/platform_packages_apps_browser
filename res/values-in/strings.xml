@@ -186,9 +186,9 @@
     <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"Anda selalu dapat menyiapkan teks isi-otomatis dari layar Browser &gt; Setelan &gt; Umum."</string>
     <string name="disable_autofill" msgid="8305901059849400354">"Nonaktifkan isi-otomatis"</string>
     <string name="pref_privacy_security_title" msgid="3480313968942160914">"Privasi &amp; keamanan"</string>
-    <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Hapus tembolok"</string>
-    <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Hapus konten dan basis data yang disimpan dalam tembolok secara lokal"</string>
-    <string name="pref_privacy_clear_cache_dlg" msgid="4344512581716422465">"Hapus basis data dan konten dalam tembolok lokal?"</string>
+    <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Hapus cache"</string>
+    <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Hapus konten dan basis data yang disimpan dalam cache secara lokal"</string>
+    <string name="pref_privacy_clear_cache_dlg" msgid="4344512581716422465">"Hapus basis data dan konten dalam cache lokal?"</string>
     <string name="pref_privacy_cookies_title" msgid="6763274282214830526">"Kuki"</string>
     <string name="pref_privacy_clear_cookies" msgid="3095583579133780331">"Hapus semua data cookie"</string>
     <string name="pref_privacy_clear_cookies_summary" msgid="6962742063990677520">"Menghapus semua cookie browser"</string>
