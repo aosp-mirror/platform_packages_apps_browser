@@ -199,20 +199,6 @@ public class XLargeUi extends BaseUi {
         super.editUrl(clearInput, forceIME);
     }
 
-    @Override
-    protected void showTitleBar() {
-        if (canShowTitleBar()) {
-            mTitleBar.show();
-        }
-    }
-
-    @Override
-    protected void hideTitleBar() {
-        if (isTitleBarShowing()) {
-            mTitleBar.hide();
-        }
-    }
-
     // action mode callbacks
 
     @Override
