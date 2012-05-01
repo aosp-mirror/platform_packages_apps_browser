@@ -20,6 +20,7 @@ import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -96,6 +97,16 @@ public class TitleBar extends RelativeLayout {
         mSnapshotBar.setTitleBar(this);
     }
 
+    @Override
+    protected void onConfigurationChanged(Configuration config) {
+        super.onConfigurationChanged(config);
+        if (config.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            if (!mContext.getResources().getBoolean(R.bool.hide_title)) {
+                show();
+            }
+        }
+    }
+
     public BaseUi getUi() {
         return mBaseUi;
     }
@@ -159,6 +170,7 @@ public class TitleBar extends RelativeLayout {
         if (mUseQuickControls) {
             this.setVisibility(View.GONE);
         } else {
+            if (!mContext.getResources().getBoolean(R.bool.hide_title)) return;
             if (!mSkipTitleBarAnimations) {
                 cancelTitleBarAnimation(false);
                 int visibleHeight = getVisibleTitleHeight();
