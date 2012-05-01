@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    Copyright (C) 2011 The Android Open Source Project Licensed under the
+    Copyright (C) 2012 The Android Open Source Project Licensed under the
     Apache License, Version 2.0 (the "License"); you may not use this file
     except in compliance with the License. You may obtain a copy of the
     License at http://www.apache.org/licenses/LICENSE-2.0 Unless required by
@@ -12,11 +12,6 @@
 -->
 <resources
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <bool name="isTablet">false</bool>
-    <!--  hide the title bar -->
-    <bool name="hide_title">true</bool>
-    <bool name="hide_nav_buttons">true</bool>
-    <!-- Browser menu toggles -->
-    <bool name="menu_show_navigation">true</bool>
-    <bool name="menu_show_bookmarks">true</bool>
+    <!-- hide the title bar -->
+    <bool name="hide_title">false</bool>
 </resources>
