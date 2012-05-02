@@ -204,6 +204,7 @@ public class DownloadHandler {
         // old percent-encoded url.
         String cookies = CookieManager.getInstance().getCookie(url, privateBrowsing);
         request.addRequestHeader("cookie", cookies);
+        request.addRequestHeader("User-Agent", userAgent);
         request.setNotificationVisibility(
                 DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
         if (mimetype == null) {
