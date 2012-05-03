@@ -28,6 +28,7 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.os.FileUtils;
 import android.provider.BrowserContract;
+import android.text.TextUtils;
 
 import java.io.File;
 
@@ -216,7 +217,11 @@ public class SnapshotProvider extends ContentProvider {
                 selectionArgs, null, null, null);
         final Context context = getContext();
         while (c.moveToNext()) {
-            File f = context.getFileStreamPath(c.getString(0));
+            String filename = c.getString(0);
+            if (TextUtils.isEmpty(filename)) {
+                continue;
+            }
+            File f = context.getFileStreamPath(filename);
             if (f.exists()) {
                 if (!f.delete()) {
                     f.deleteOnExit();
