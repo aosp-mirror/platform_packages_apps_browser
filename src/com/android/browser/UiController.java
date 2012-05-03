@@ -67,12 +67,6 @@ public interface UiController {
 
     void bookmarkCurrentPage();
 
-    void startVoiceSearch();
-
-    boolean supportsVoiceSearch();
-
-    void showVoiceSearchResults(String title);
-
     void editUrl();
 
     void handleNewIntent(Intent intent);
