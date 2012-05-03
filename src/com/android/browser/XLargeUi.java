@@ -156,11 +156,6 @@ public class XLargeUi extends BaseUi {
             return;
         }
         mTabBar.onSetActiveTab(tab);
-        if (tab.isInVoiceSearchMode()) {
-            showVoiceTitleBar(tab.getVoiceDisplayTitle(), tab.getVoiceSearchResults());
-        } else {
-            revertVoiceTitleBar(tab);
-        }
         updateLockIconToLatest(tab);
         mTitleBar.setSkipTitleBarAnimations(false);
     }

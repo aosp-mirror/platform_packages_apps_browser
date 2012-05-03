@@ -28,14 +28,12 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Browser;
 import android.provider.MediaStore;
-import android.speech.RecognizerResultsIntent;
 import android.text.TextUtils;
 import android.util.Patterns;
 
 import com.android.browser.UI.ComboViews;
 import com.android.browser.search.SearchEngine;
 import com.android.common.Search;
-import com.android.common.speech.LoggingEvents;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -93,37 +91,11 @@ public class IntentHandler {
         // In case the SearchDialog is open.
         ((SearchManager) mActivity.getSystemService(Context.SEARCH_SERVICE))
                 .stopSearch();
-        boolean activateVoiceSearch = RecognizerResultsIntent
-                .ACTION_VOICE_SEARCH_RESULTS.equals(action);
         if (Intent.ACTION_VIEW.equals(action)
                 || NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)
                 || Intent.ACTION_SEARCH.equals(action)
                 || MediaStore.INTENT_ACTION_MEDIA_SEARCH.equals(action)
-                || Intent.ACTION_WEB_SEARCH.equals(action)
-                || activateVoiceSearch) {
-            if (current.isInVoiceSearchMode()) {
-                String title = current.getVoiceDisplayTitle();
-                if (title != null && title.equals(intent.getStringExtra(
-                        SearchManager.QUERY))) {
-                    // The user submitted the same search as the last voice
-                    // search, so do nothing.
-                    return;
-                }
-                if (Intent.ACTION_SEARCH.equals(action)
-                        && current.voiceSearchSourceIsGoogle()) {
-                    Intent logIntent = new Intent(
-                            LoggingEvents.ACTION_LOG_EVENT);
-                    logIntent.putExtra(LoggingEvents.EXTRA_EVENT,
-                            LoggingEvents.VoiceSearch.QUERY_UPDATED);
-                    logIntent.putExtra(
-                            LoggingEvents.VoiceSearch.EXTRA_QUERY_UPDATED_VALUE,
-                            intent.getDataString());
-                    mActivity.sendBroadcast(logIntent);
-                    // Note, onPageStarted will revert the voice title bar
-                    // When http://b/issue?id=2379215 is fixed, we should update
-                    // the title bar here.
-                }
-            }
+                || Intent.ACTION_WEB_SEARCH.equals(action)) {
             // If this was a search request (e.g. search query directly typed into the address bar),
             // pass it on to the default web search provider.
             if (handleWebSearchIntent(mActivity, mController, intent)) {
@@ -143,11 +115,9 @@ public class IntentHandler {
             /*
              * TODO: Don't allow javascript URIs
              * 0) If this is a javascript: URI, *always* open a new tab
-             * 1) If this is a voice search, re-use tab for appId
-             *    If there is no appId, use current tab
-             * 2) If the URL is already opened, switch to that tab
-             * 3-phone) Reuse tab with same appId
-             * 3-tablet) Open new tab
+             * 1) If the URL is already opened, switch to that tab
+             * 2-phone) Reuse tab with same appId
+             * 2-tablet) Open new tab
              */
             final String appId = intent
                     .getStringExtra(Browser.EXTRA_APPLICATION_ID);
@@ -167,12 +137,9 @@ public class IntentHandler {
                     return;
                 }
             }
-            if ((Intent.ACTION_VIEW.equals(action)
-                    // If a voice search has no appId, it means that it came
-                    // from the browser.  In that case, reuse the current tab.
-                    || (activateVoiceSearch && appId != null))
-                    && !mActivity.getPackageName().equals(appId)) {
-                if (activateVoiceSearch || !BrowserActivity.isTablet(mActivity)) {
+            if (Intent.ACTION_VIEW.equals(action)
+                     && !mActivity.getPackageName().equals(appId)) {
+                if (!BrowserActivity.isTablet(mActivity)) {
                     Tab appTab = mTabControl.getTabFromAppId(appId);
                     if (appTab != null) {
                         mController.reuseTab(appTab, urlData);
@@ -301,10 +268,6 @@ public class IntentHandler {
 
         String url = null;
         final String action = intent.getAction();
-        if (RecognizerResultsIntent.ACTION_VOICE_SEARCH_RESULTS.equals(
-                action)) {
-            return false;
-        }
         if (Intent.ACTION_VIEW.equals(action)) {
             Uri data = intent.getData();
             if (data != null) url = data.toString();
@@ -369,14 +332,12 @@ public class IntentHandler {
     static class UrlData {
         final String mUrl;
         final Map<String, String> mHeaders;
-        final Intent mVoiceIntent;
         final PreloadedTabControl mPreloadedTab;
         final String mSearchBoxQueryToSubmit;
 
         UrlData(String url) {
             this.mUrl = url;
             this.mHeaders = null;
-            this.mVoiceIntent = null;
             this.mPreloadedTab = null;
             this.mSearchBoxQueryToSubmit = null;
         }
@@ -389,18 +350,12 @@ public class IntentHandler {
                 PreloadedTabControl preloaded, String searchBoxQueryToSubmit) {
             this.mUrl = url;
             this.mHeaders = headers;
-            if (RecognizerResultsIntent.ACTION_VOICE_SEARCH_RESULTS
-                    .equals(intent.getAction())) {
-                this.mVoiceIntent = intent;
-            } else {
-                this.mVoiceIntent = null;
-            }
             this.mPreloadedTab = preloaded;
             this.mSearchBoxQueryToSubmit = searchBoxQueryToSubmit;
         }
 
         boolean isEmpty() {
-            return mVoiceIntent == null && (mUrl == null || mUrl.length() == 0);
+            return (mUrl == null || mUrl.length() == 0);
         }
 
         boolean isPreloaded() {

@@ -118,10 +118,6 @@ public class DefaultSearchEngine implements SearchEngine {
     public void close() {
     }
 
-    public boolean supportsVoiceSearch() {
-        return getName().equals(SearchEngine.GOOGLE);
-    }
-
     @Override
     public String toString() {
         return "ActivitySearchEngine{" + mSearchable + "}";

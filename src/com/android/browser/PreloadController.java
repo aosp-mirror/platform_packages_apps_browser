@@ -31,8 +31,6 @@ import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient.CustomViewCallback;
 import android.webkit.WebView;
 
-import java.util.List;
-
 public class PreloadController implements WebViewController {
 
     private static final boolean LOGD_ENABLED = false;
@@ -191,16 +189,6 @@ public class PreloadController implements WebViewController {
     @Override
     public void onUserCanceledSsl(Tab tab) {
         if (LOGD_ENABLED) Log.d(LOGTAG, "onUserCanceledSsl()");
-    }
-
-    @Override
-    public void activateVoiceSearchMode(String title, List<String> results) {
-        if (LOGD_ENABLED) Log.d(LOGTAG, "activateVoiceSearchMode()");
-    }
-
-    @Override
-    public void revertVoiceSearchMode(Tab tab) {
-        if (LOGD_ENABLED) Log.d(LOGTAG, "revertVoiceSearchMode()");
     }
 
     @Override

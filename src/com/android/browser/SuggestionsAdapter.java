@@ -16,10 +16,6 @@
 
 package com.android.browser;
 
-import com.android.browser.provider.BrowserProvider2;
-import com.android.browser.provider.BrowserProvider2.OmniboxSuggestions;
-import com.android.browser.search.SearchEngine;
-
 import android.app.SearchManager;
 import android.content.Context;
 import android.database.Cursor;
@@ -38,6 +34,9 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.browser.provider.BrowserProvider2.OmniboxSuggestions;
+import com.android.browser.search.SearchEngine;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,7 +51,6 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable,
     public static final int TYPE_SUGGEST_URL = 2;
     public static final int TYPE_SEARCH = 3;
     public static final int TYPE_SUGGEST = 4;
-    public static final int TYPE_VOICE_SEARCH = 5;
 
     private static final String[] COMBINED_PROJECTION = {
             OmniboxSuggestions._ID,
@@ -74,7 +72,6 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable,
     final int mLinesPortrait;
     final int mLinesLandscape;
     final Object mResultsLock = new Object();
-    List<String> mVoiceResults;
     boolean mIncognitoMode;
     BrowserSettings mSettings;
 
@@ -97,11 +94,6 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable,
 
         mFilter = new SuggestFilter();
         addSource(new CombinedCursor());
-    }
-
-    void setVoiceResults(List<String> voiceResults) {
-        mVoiceResults = voiceResults;
-        notifyDataSetChanged();
     }
 
     public void setLandscapeMode(boolean mode) {
@@ -135,20 +127,11 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable,
 
     @Override
     public int getCount() {
-        if (mVoiceResults != null) {
-            return mVoiceResults.size();
-        }
         return (mMixedResults == null) ? 0 : mMixedResults.getLineCount();
     }
 
     @Override
     public SuggestItem getItem(int position) {
-        if (mVoiceResults != null) {
-            SuggestItem item = new SuggestItem(mVoiceResults.get(position),
-                    null, TYPE_VOICE_SEARCH);
-            item.extra = Integer.toString(position);
-            return item;
-        }
         if (mMixedResults == null) {
             return null;
         }
@@ -192,7 +175,6 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable,
         switch (item.type) {
             case TYPE_SUGGEST:
             case TYPE_SEARCH:
-            case TYPE_VOICE_SEARCH:
                 id = R.drawable.ic_search_category_suggest;
                 break;
             case TYPE_BOOKMARK:
@@ -211,8 +193,7 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable,
             ic1.setImageDrawable(mContext.getResources().getDrawable(id));
         }
         ic2.setVisibility(((TYPE_SUGGEST == item.type)
-                || (TYPE_SEARCH == item.type)
-                || (TYPE_VOICE_SEARCH == item.type))
+                || (TYPE_SEARCH == item.type))
                 ? View.VISIBLE : View.GONE);
         div.setVisibility(ic2.getVisibility());
         ic2.setOnClickListener(this);
@@ -292,30 +273,25 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable,
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             FilterResults res = new FilterResults();
-            if (mVoiceResults == null) {
-                if (TextUtils.isEmpty(constraint) && !shouldProcessEmptyQuery()) {
-                    res.count = 0;
-                    res.values = null;
-                    return res;
-                }
-                startSuggestionsAsync(constraint);
-                List<SuggestItem> filterResults = new ArrayList<SuggestItem>();
-                if (constraint != null) {
-                    for (CursorSource sc : mSources) {
-                        sc.runQuery(constraint);
-                    }
-                    mixResults(filterResults);
-                }
-                synchronized (mResultsLock) {
-                    mFilterResults = filterResults;
-                }
-                SuggestionResults mixed = buildSuggestionResults();
-                res.count = mixed.getLineCount();
-                res.values = mixed;
-            } else {
-                res.count = mVoiceResults.size();
-                res.values = mVoiceResults;
+            if (TextUtils.isEmpty(constraint) && !shouldProcessEmptyQuery()) {
+                res.count = 0;
+                res.values = null;
+                return res;
             }
+            startSuggestionsAsync(constraint);
+            List<SuggestItem> filterResults = new ArrayList<SuggestItem>();
+            if (constraint != null) {
+                for (CursorSource sc : mSources) {
+                    sc.runQuery(constraint);
+                }
+                mixResults(filterResults);
+            }
+            synchronized (mResultsLock) {
+                mFilterResults = filterResults;
+            }
+            SuggestionResults mixed = buildSuggestionResults();
+            res.count = mixed.getLineCount();
+            res.values = mixed;
             return res;
         }
 

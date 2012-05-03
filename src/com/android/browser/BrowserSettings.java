@@ -429,17 +429,6 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         String searchEngineName = getSearchEngineName();
         if (force || mSearchEngine == null ||
                 !mSearchEngine.getName().equals(searchEngineName)) {
-            if (mSearchEngine != null) {
-                if (mSearchEngine.supportsVoiceSearch()) {
-                     // One or more tabs could have been in voice search mode.
-                     // Clear it, since the new SearchEngine may not support
-                     // it, or may handle it differently.
-                     for (int i = 0; i < mController.getTabControl().getTabCount(); i++) {
-                         mController.getTabControl().getTab(i).revertVoiceSearchMode();
-                     }
-                 }
-                mSearchEngine.close();
-             }
             mSearchEngine = SearchEngines.get(mContext, searchEngineName);
          }
     }

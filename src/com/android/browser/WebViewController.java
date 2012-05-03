@@ -89,10 +89,6 @@ public interface WebViewController {
 
     void onUserCanceledSsl(Tab tab);
 
-    void activateVoiceSearchMode(String title, List<String> results);
-
-    void revertVoiceSearchMode(Tab tab);
-
     boolean shouldShowErrorConsole();
 
     void onUpdatedSecurityState(Tab tab);

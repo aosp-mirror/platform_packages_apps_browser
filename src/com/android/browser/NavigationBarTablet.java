@@ -48,11 +48,9 @@ public class NavigationBarTablet extends NavigationBarBase {
     private ImageView mStar;
     private ImageView mUrlIcon;
     private ImageView mSearchButton;
-    private View mGoButton;
     private ImageView mStopButton;
     private View mAllButton;
     private View mClearButton;
-    private ImageView mVoiceSearch;
     private View mNavButtons;
     private Drawable mFocusDrawable;
     private Drawable mUnfocusDrawable;
@@ -100,9 +98,7 @@ public class NavigationBarTablet extends NavigationBarBase {
         mStar = (ImageView) findViewById(R.id.star);
         mStopButton = (ImageView) findViewById(R.id.stop);
         mSearchButton = (ImageView) findViewById(R.id.search);
-        mGoButton = findViewById(R.id.go);
         mClearButton = findViewById(R.id.clear);
-        mVoiceSearch = (ImageView) findViewById(R.id.voicesearch);
         mUrlContainer = findViewById(R.id.urlbar_focused);
         mBackButton.setOnClickListener(this);
         mForwardButton.setOnClickListener(this);
@@ -110,9 +106,7 @@ public class NavigationBarTablet extends NavigationBarBase {
         mAllButton.setOnClickListener(this);
         mStopButton.setOnClickListener(this);
         mSearchButton.setOnClickListener(this);
-        mGoButton.setOnClickListener(this);
         mClearButton.setOnClickListener(this);
-        mVoiceSearch.setOnClickListener(this);
         mUrlInput.setContainer(mUrlContainer);
     }
 
@@ -177,18 +171,11 @@ public class NavigationBarTablet extends NavigationBarBase {
         } else if (mAllButton == v) {
             mUiController.bookmarksOrHistoryPicker(ComboViews.Bookmarks);
         } else if (mSearchButton == v) {
-            mBaseUi.editUrl(true, false);
+            mBaseUi.editUrl(true, true);
         } else if (mStopButton == v) {
             stopOrRefresh();
-        } else if (mGoButton == v) {
-            if (!TextUtils.isEmpty(mUrlInput.getText())) {
-                onAction(mUrlInput.getText().toString(), null,
-                        UrlInputView.TYPED);
-            }
         } else if (mClearButton == v) {
             clearOrClose();
-        } else if (mVoiceSearch == v) {
-            mUiController.startVoiceSearch();
         } else {
             super.onClick(v);
         }
@@ -214,14 +201,10 @@ public class NavigationBarTablet extends NavigationBarBase {
         if (mUrlInput.hasFocus()) {
             mUrlIcon.setImageResource(R.drawable.ic_search_holo_dark);
         } else {
-            if (mInVoiceMode) {
-                mUrlIcon.setImageResource(R.drawable.ic_search_holo_dark);
-            } else {
-                if (mFaviconDrawable == null) {
-                    mFaviconDrawable = mBaseUi.getFaviconDrawable(null);
-                }
-                mUrlIcon.setImageDrawable(mFaviconDrawable);
+            if (mFaviconDrawable == null) {
+                mFaviconDrawable = mBaseUi.getFaviconDrawable(null);
             }
+            mUrlIcon.setImageDrawable(mFaviconDrawable);
         }
     }
 
@@ -236,13 +219,10 @@ public class NavigationBarTablet extends NavigationBarBase {
             mStar.setVisibility(View.GONE);
             mClearButton.setVisibility(View.VISIBLE);
             mUrlIcon.setImageResource(R.drawable.ic_search_holo_dark);
-            updateSearchMode(false);
         } else {
             if (mHideNavButtons) {
                 showNavButtons();
             }
-            mGoButton.setVisibility(View.GONE);
-            mVoiceSearch.setVisibility(View.GONE);
             showHideStar(mUiController.getCurrentTab());
             mClearButton.setVisibility(View.GONE);
             if (mTitleBar.useQuickControls()) {
@@ -277,28 +257,6 @@ public class NavigationBarTablet extends NavigationBarBase {
     public void onProgressStopped() {
         mStopButton.setImageDrawable(mReloadDrawable);
         mStopButton.setContentDescription(mRefreshDescription);
-    }
-
-    protected void updateSearchMode(boolean userEdited) {
-        setSearchMode(!userEdited || TextUtils.isEmpty(mUrlInput.getText()));
-    }
-
-    @Override
-    protected void setSearchMode(boolean voiceSearchEnabled) {
-        boolean showvoicebutton = voiceSearchEnabled &&
-                mUiController.supportsVoiceSearch();
-        mVoiceSearch.setVisibility(showvoicebutton ? View.VISIBLE :
-                View.GONE);
-        mGoButton.setVisibility(voiceSearchEnabled ? View.GONE :
-                View.VISIBLE);
-    }
-
-    @Override
-    public void setInVoiceMode(boolean voicemode, List<String> voiceResults) {
-        super.setInVoiceMode(voicemode, voiceResults);
-        if (voicemode) {
-            mUrlIcon.setImageDrawable(mSearchButton.getDrawable());
-        }
     }
 
     private void hideNavButtons() {
