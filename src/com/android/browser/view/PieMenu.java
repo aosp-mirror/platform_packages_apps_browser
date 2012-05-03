@@ -386,8 +386,10 @@ public class PieMenu extends FrameLayout {
                     deselect();
                 }
                 show(false);
-                if (!mAnimating && !handled && (item != null) && (item.getView() != null)) {
-                    item.getView().performClick();
+                if (!handled && (item != null) && (item.getView() != null)) {
+                    if ((item == mOpenItem) || !mAnimating) {
+                        item.getView().performClick();
+                    }
                 }
                 return true;
             }
