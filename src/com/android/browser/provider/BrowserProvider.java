@@ -16,10 +16,6 @@
 
 package com.android.browser.provider;
 
-import com.android.browser.BrowserSettings;
-import com.android.browser.R;
-import com.android.browser.search.SearchEngine;
-
 import android.app.SearchManager;
 import android.app.backup.BackupManager;
 import android.content.ContentProvider;
@@ -42,14 +38,16 @@ import android.os.Process;
 import android.preference.PreferenceManager;
 import android.provider.Browser;
 import android.provider.Browser.BookmarkColumns;
-import android.speech.RecognizerResultsIntent;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
 
+import com.android.browser.BrowserSettings;
+import com.android.browser.R;
+import com.android.browser.search.SearchEngine;
+
 import java.io.File;
 import java.io.FilenameFilter;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -751,105 +749,6 @@ public class BrowserProvider extends ContentProvider {
 
     }
 
-    private static class ResultsCursor extends AbstractCursor {
-        // Array indices for RESULTS_COLUMNS
-        private static final int RESULT_ACTION_ID = 1;
-        private static final int RESULT_DATA_ID = 2;
-        private static final int RESULT_TEXT_ID = 3;
-        private static final int RESULT_ICON_ID = 4;
-        private static final int RESULT_EXTRA_ID = 5;
-
-        private static final String[] RESULTS_COLUMNS = new String[] {
-                "_id",
-                SearchManager.SUGGEST_COLUMN_INTENT_ACTION,
-                SearchManager.SUGGEST_COLUMN_INTENT_DATA,
-                SearchManager.SUGGEST_COLUMN_TEXT_1,
-                SearchManager.SUGGEST_COLUMN_ICON_1,
-                SearchManager.SUGGEST_COLUMN_INTENT_EXTRA_DATA
-        };
-        private final ArrayList<String> mResults;
-        public ResultsCursor(ArrayList<String> results) {
-            mResults = results;
-        }
-        @Override
-        public int getCount() { return mResults.size(); }
-
-        @Override
-        public String[] getColumnNames() {
-            return RESULTS_COLUMNS;
-        }
-
-        @Override
-        public String getString(int column) {
-            switch (column) {
-                case RESULT_ACTION_ID:
-                    return RecognizerResultsIntent.ACTION_VOICE_SEARCH_RESULTS;
-                case RESULT_TEXT_ID:
-                // The data is used when the phone is in landscape mode.  We
-                // still want to show the result string.
-                case RESULT_DATA_ID:
-                    return mResults.get(mPos);
-                case RESULT_EXTRA_ID:
-                    // The Intent's extra data will store the index into
-                    // mResults so the BrowserActivity will know which result to
-                    // use.
-                    return Integer.toString(mPos);
-                case RESULT_ICON_ID:
-                    return Integer.valueOf(R.drawable.magnifying_glass)
-                            .toString();
-                default:
-                    return null;
-            }
-        }
-        @Override
-        public short getShort(int column) {
-            throw new UnsupportedOperationException();
-        }
-        @Override
-        public int getInt(int column) {
-            throw new UnsupportedOperationException();
-        }
-        @Override
-        public long getLong(int column) {
-            if ((mPos != -1) && column == 0) {
-                return mPos;        // use row# as the _id
-            }
-            throw new UnsupportedOperationException();
-        }
-        @Override
-        public float getFloat(int column) {
-            throw new UnsupportedOperationException();
-        }
-        @Override
-        public double getDouble(int column) {
-            throw new UnsupportedOperationException();
-        }
-        @Override
-        public boolean isNull(int column) {
-            throw new UnsupportedOperationException();
-        }
-    }
-
-    /** Contains custom suggestions results set by the UI */
-    private ResultsCursor mResultsCursor;
-    /** Locks access to {@link #mResultsCursor} */
-    private Object mResultsCursorLock = new Object();
-
-    /**
-     * Provide a set of results to be returned to query, intended to be used
-     * by the SearchDialog when the BrowserActivity is in voice search mode.
-     * @param results Strings to display in the dropdown from the SearchDialog
-     */
-    public /* package */ void setQueryResults(ArrayList<String> results) {
-        synchronized (mResultsCursorLock) {
-            if (results == null) {
-                mResultsCursor = null;
-            } else {
-                mResultsCursor = new ResultsCursor(results);
-            }
-        }
-    }
-
     @Override
     public Cursor query(Uri url, String[] projectionIn, String selection,
             String[] selectionArgs, String sortOrder)
@@ -857,15 +756,6 @@ public class BrowserProvider extends ContentProvider {
         int match = URI_MATCHER.match(url);
         if (match == -1) {
             throw new IllegalArgumentException("Unknown URL");
-        }
-
-        // If results for the suggestion are already ready just return them directly
-        synchronized (mResultsCursorLock) {
-            if (match == URI_MATCH_SUGGEST && mResultsCursor != null) {
-                Cursor results = mResultsCursor;
-                mResultsCursor = null;
-                return results;
-            }
         }
 
         if (match == URI_MATCH_SUGGEST || match == URI_MATCH_BOOKMARKS_SUGGEST) {

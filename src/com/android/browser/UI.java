@@ -93,10 +93,6 @@ public interface UI {
 
     public boolean isCustomViewShowing();
 
-    public void showVoiceTitleBar(String title, List<String> results);
-
-    public void revertVoiceTitleBar(Tab tab);
-
     public boolean onPrepareOptionsMenu(Menu menu);
 
     public void updateMenuState(Tab tab, Menu menu);

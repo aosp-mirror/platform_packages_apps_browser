@@ -146,11 +146,6 @@ public class PhoneUi extends BaseUi {
         } else {
             view.setTitleBar(mTitleBar);
         }
-        if (tab.isInVoiceSearchMode()) {
-            showVoiceTitleBar(tab.getVoiceDisplayTitle(), tab.getVoiceSearchResults());
-        } else {
-            revertVoiceTitleBar(tab);
-        }
         // update nav bar state
         mNavigationBar.onStateChanged(StateListener.STATE_NORMAL);
         updateLockIconToLatest(tab);

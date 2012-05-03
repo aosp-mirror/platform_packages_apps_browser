@@ -17,7 +17,6 @@
 package com.android.browser;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DownloadManager;
 import android.app.ProgressDialog;
@@ -56,7 +55,6 @@ import android.provider.BrowserContract;
 import android.provider.BrowserContract.Images;
 import android.provider.ContactsContract;
 import android.provider.ContactsContract.Intents.Insert;
-import android.speech.RecognizerIntent;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
@@ -1105,31 +1103,6 @@ public class Controller
     public void editUrl() {
         if (mOptionsMenuOpen) mActivity.closeOptionsMenu();
         mUi.editUrl(false, true);
-    }
-
-    public void startVoiceSearch() {
-        Intent intent = new Intent(RecognizerIntent.ACTION_WEB_SEARCH);
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-                RecognizerIntent.LANGUAGE_MODEL_WEB_SEARCH);
-        intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE,
-                mActivity.getComponentName().flattenToString());
-        intent.putExtra(SEND_APP_ID_EXTRA, false);
-        intent.putExtra(RecognizerIntent.EXTRA_WEB_SEARCH_ONLY, true);
-        mActivity.startActivity(intent);
-    }
-
-    @Override
-    public void activateVoiceSearchMode(String title, List<String> results) {
-        mUi.showVoiceTitleBar(title, results);
-    }
-
-    public void revertVoiceSearchMode(Tab tab) {
-        mUi.revertVoiceTitleBar(tab);
-    }
-
-    public boolean supportsVoiceSearch() {
-        SearchEngine searchEngine = getSettings().getSearchEngine();
-        return (searchEngine != null && searchEngine.supportsVoiceSearch());
     }
 
     public void showCustomView(Tab tab, View view, int requestedOrientation,
@@ -2541,9 +2514,7 @@ public class Controller
      */
     protected void loadUrlDataIn(Tab t, UrlData data) {
         if (data != null) {
-            if (data.mVoiceIntent != null) {
-                t.activateVoiceSearchMode(data.mVoiceIntent);
-            } else if (data.isPreloaded()) {
+            if (data.isPreloaded()) {
                 // this isn't called for preloaded tabs
             } else {
                 loadUrl(t, data.mUrl, data.mHeaders);
@@ -2598,47 +2569,6 @@ public class Controller
                 mActivity.moveTaskToBack(true);
             }
         }
-    }
-
-    /**
-     * Feed the previously stored results strings to the BrowserProvider so that
-     * the SearchDialog will show them instead of the standard searches.
-     * @param result String to show on the editable line of the SearchDialog.
-     */
-    @Override
-    public void showVoiceSearchResults(String result) {
-        ContentProviderClient client = mActivity.getContentResolver()
-                .acquireContentProviderClient(Browser.BOOKMARKS_URI);
-        ContentProvider prov = client.getLocalContentProvider();
-        BrowserProvider bp = (BrowserProvider) prov;
-        bp.setQueryResults(mTabControl.getCurrentTab().getVoiceSearchResults());
-        client.release();
-
-        Bundle bundle = createGoogleSearchSourceBundle(
-                GOOGLE_SEARCH_SOURCE_SEARCHKEY);
-        bundle.putBoolean(SearchManager.CONTEXT_IS_VOICE, true);
-        startSearch(result, false, bundle, false);
-    }
-
-    private void startSearch(String initialQuery, boolean selectInitialQuery,
-            Bundle appSearchData, boolean globalSearch) {
-        if (appSearchData == null) {
-            appSearchData = createGoogleSearchSourceBundle(
-                    GOOGLE_SEARCH_SOURCE_TYPE);
-        }
-
-        SearchEngine searchEngine = mSettings.getSearchEngine();
-        if (searchEngine != null && !searchEngine.supportsVoiceSearch()) {
-            appSearchData.putBoolean(SearchManager.DISABLE_VOICE_SEARCH, true);
-        }
-        mActivity.startSearch(initialQuery, selectInitialQuery, appSearchData,
-                globalSearch);
-    }
-
-    private Bundle createGoogleSearchSourceBundle(String source) {
-        Bundle bundle = new Bundle();
-        bundle.putString(Search.SOURCE, source);
-        return bundle;
     }
 
     /**

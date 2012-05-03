@@ -500,19 +500,6 @@ public abstract class BaseUi implements UI {
     }
 
     @Override
-    public void showVoiceTitleBar(String title, List<String> results) {
-        mNavigationBar.setInVoiceMode(true, results);
-        mNavigationBar.setDisplayTitle(title);
-    }
-
-    @Override
-    public void revertVoiceTitleBar(Tab tab) {
-        mNavigationBar.setInVoiceMode(false, null);
-        String url = tab.getUrl();
-        mNavigationBar.setDisplayTitle(url);
-    }
-
-    @Override
     public void showComboView(ComboViews startingView, Bundle extras) {
         Intent intent = new Intent(mActivity, ComboViewActivity.class);
         intent.putExtra(ComboViewActivity.EXTRA_INITIAL_VIEW, startingView.name());
@@ -625,7 +612,6 @@ public abstract class BaseUi implements UI {
         if (TextUtils.isEmpty(title)) {
             title = url;
         }
-        if (tab.isInVoiceSearchMode()) return;
         if (tab.inForeground()) {
             mNavigationBar.setDisplayTitle(url);
         }

@@ -55,7 +55,6 @@ public class UrlInputView extends AutoCompleteTextView
 
     static final String TYPED = "browser-type";
     static final String SUGGESTED = "browser-suggest";
-    static final String VOICE = "voice-search";
 
     static final int POST_DELAY = 100;
 
@@ -195,10 +194,6 @@ public class UrlInputView extends AutoCompleteTextView
         return mState;
     }
 
-    void setVoiceResults(List<String> voiceResults) {
-        mAdapter.setVoiceResults(voiceResults);
-    }
-
     @Override
     protected void onConfigurationChanged(Configuration config) {
         super.onConfigurationChanged(config);
@@ -298,8 +293,7 @@ public class UrlInputView extends AutoCompleteTextView
 
     @Override
     public void onSelect(String url, int type, String extra) {
-        finishInput(url, extra, (type == SuggestionsAdapter.TYPE_VOICE_SEARCH)
-                ? VOICE : SUGGESTED);
+        finishInput(url, extra, SUGGESTED);
     }
 
     @Override
