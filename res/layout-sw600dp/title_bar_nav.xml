@@ -103,22 +103,6 @@
             style="@style/HoloButton" />
     </LinearLayout>
     <ImageButton
-        android:id="@+id/go"
-        android:src="@drawable/ic_go_holo_dark"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:visibility="gone"
-        android:gravity="center_vertical"
-            android:contentDescription="@string/accessibility_button_go"
-        style="@style/HoloButton" />
-    <ImageButton
-        android:id="@+id/voicesearch"
-        android:src="@drawable/ic_voice_search_holo_dark"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-            android:contentDescription="@string/accessibility_button_voice"
-        style="@style/HoloButton" />
-    <ImageButton
         android:id="@+id/search"
         android:src="@drawable/ic_search_holo_dark"
         android:layout_width="wrap_content"

@@ -45,7 +45,6 @@ public class NavigationBarBase extends LinearLayout implements
     protected TitleBar mTitleBar;
     protected UiController mUiController;
     protected UrlInputView mUrlInput;
-    protected boolean mInVoiceMode = false;
 
     private ImageView mFavicon;
     private ImageView mLockIcon;
@@ -108,9 +107,6 @@ public class NavigationBarBase extends LinearLayout implements
         }
         if (hasFocus) {
             mBaseUi.showTitleBar();
-            if (mInVoiceMode) {
-                mUrlInput.forceFilter();
-            }
         } else if (!mUrlInput.needsUpdate()) {
             mUrlInput.dismissDropDown();
             mUrlInput.hideIME();
@@ -128,8 +124,6 @@ public class NavigationBarBase extends LinearLayout implements
     protected void setFocusState(boolean focus) {
     }
 
-    protected void setSearchMode(boolean voiceSearchEnabled) {}
-
     public boolean isEditingUrl() {
         return mUrlInput.hasFocus();
     }
@@ -142,13 +136,6 @@ public class NavigationBarBase extends LinearLayout implements
         if (!isEditingUrl()) {
             mUrlInput.setText(title, false);
         }
-    }
-
-    // voicesearch
-
-    public void setInVoiceMode(boolean voicemode, List<String> voiceResults) {
-        mInVoiceMode = voicemode;
-        mUrlInput.setVoiceResults(voiceResults);
     }
 
     void setIncognitoMode(boolean incognito) {
@@ -183,13 +170,7 @@ public class NavigationBarBase extends LinearLayout implements
             }
         }
         Intent i = new Intent();
-        String action = null;
-        if (UrlInputView.VOICE.equals(source)) {
-            action = RecognizerResultsIntent.ACTION_VOICE_SEARCH_RESULTS;
-            source = null;
-        } else {
-            action = Intent.ACTION_SEARCH;
-        }
+        String action = Intent.ACTION_SEARCH;
         i.setAction(action);
         i.putExtra(SearchManager.QUERY, text);
         if (extra != null) {
@@ -211,7 +192,7 @@ public class NavigationBarBase extends LinearLayout implements
         post(new Runnable() {
             public void run() {
                 clearFocus();
-                if ((currentTab != null) && !mInVoiceMode) {
+                if (currentTab != null) {
                     setDisplayTitle(currentTab.getUrl());
                 }
             }
@@ -258,8 +239,6 @@ public class NavigationBarBase extends LinearLayout implements
         }
         if (clearInput) {
             mUrlInput.setText("");
-        } else if (mInVoiceMode) {
-            mUrlInput.showDropDown();
         }
         if (forceIME) {
             mUrlInput.showIME();
@@ -283,12 +262,7 @@ public class NavigationBarBase extends LinearLayout implements
     public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
 
     @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
-        if (mUrlInput.hasFocus()) {
-            // clear voice mode when user types
-            setInVoiceMode(false, null);
-        }
-    }
+    public void onTextChanged(CharSequence s, int start, int before, int count) { }
 
     @Override
     public void afterTextChanged(Editable s) { }

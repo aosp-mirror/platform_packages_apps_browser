@@ -36,7 +36,6 @@ public class NavigationBarPhone extends NavigationBarBase implements
         StateListener, OnMenuItemClickListener, OnDismissListener {
 
     private ImageView mStopButton;
-    private ImageView mVoiceButton;
     private ImageView mMagnify;
     private ImageView mClearButton;
     private Drawable mStopDrawable;
@@ -70,8 +69,6 @@ public class NavigationBarPhone extends NavigationBarBase implements
         super.onFinishInflate();
         mStopButton = (ImageView) findViewById(R.id.stop);
         mStopButton.setOnClickListener(this);
-        mVoiceButton = (ImageView) findViewById(R.id.voice);
-        mVoiceButton.setOnClickListener(this);
         mClearButton = (ImageView) findViewById(R.id.clear);
         mClearButton.setOnClickListener(this);
         mMagnify = (ImageView) findViewById(R.id.magnify);
@@ -93,14 +90,6 @@ public class NavigationBarPhone extends NavigationBarBase implements
         mUrlInput.setStateListener(this);
         mNeedsMenu = !ViewConfiguration.get(getContext()).hasPermanentMenuKey();
         mIncognitoIcon = findViewById(R.id.incognito_icon);
-    }
-
-    @Override
-    protected void setSearchMode(boolean voiceSearchEnabled) {
-        boolean showvoicebutton = voiceSearchEnabled &&
-                mUiController.supportsVoiceSearch();
-        mVoiceButton.setVisibility(showvoicebutton ? View.VISIBLE :
-                View.GONE);
     }
 
     @Override
@@ -157,8 +146,6 @@ public class NavigationBarPhone extends NavigationBarBase implements
                     web.reload();
                 }
             }
-        } else if (v == mVoiceButton) {
-            mUiController.startVoiceSearch();
         } else if (v == mTabSwitcher) {
             ((PhoneUi) mBaseUi).toggleNavScreen();
         } else if (mMore == v) {
@@ -229,7 +216,6 @@ public class NavigationBarPhone extends NavigationBarBase implements
             mStopButton.setVisibility(View.GONE);
             mClearButton.setVisibility(View.GONE);
             mMagnify.setVisibility(View.GONE);
-            setSearchMode(mInVoiceMode);
             mTabSwitcher.setVisibility(View.VISIBLE);
             mTitleContainer.setBackgroundDrawable(null);
             mMore.setVisibility(mNeedsMenu ? View.VISIBLE : View.GONE);
@@ -239,7 +225,6 @@ public class NavigationBarPhone extends NavigationBarBase implements
             mStopButton.setVisibility(View.VISIBLE);
             mClearButton.setVisibility(View.GONE);
             mMagnify.setVisibility(View.GONE);
-            setSearchMode(true);
             mTabSwitcher.setVisibility(View.GONE);
             mMore.setVisibility(View.GONE);
             mTitleContainer.setBackgroundDrawable(mTextfieldBgDrawable);
@@ -249,7 +234,6 @@ public class NavigationBarPhone extends NavigationBarBase implements
             mStopButton.setVisibility(View.GONE);
             mClearButton.setVisibility(View.VISIBLE);
             mMagnify.setVisibility(View.VISIBLE);
-            setSearchMode(false);
             mTabSwitcher.setVisibility(View.GONE);
             mMore.setVisibility(View.GONE);
             mTitleContainer.setBackgroundDrawable(mTextfieldBgDrawable);
