@@ -104,7 +104,7 @@
     <string name="menu_save_snapshot" msgid="6935080344031126139">"Uložit ke čtení offline"</string>
     <string name="saving_snapshot" msgid="1693789062351182809">"Ukládání…"</string>
     <string name="snapshot_failed" msgid="4584580873565876033">"Uložení ke čtení offline se nezdařilo."</string>
-    <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"Počet záložek: <xliff:g id="BOOKMARK_COUNT">%d</xliff:g>"</string>
+    <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"Záložky: <xliff:g id="BOOKMARK_COUNT">%d</xliff:g>"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Prázdná složka"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Otevřít"</string>
     <string name="contextmenu_openlink_newwindow" msgid="1205313604181761403">"Otevřít na nové kartě"</string>
