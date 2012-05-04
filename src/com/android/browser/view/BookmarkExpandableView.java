@@ -228,7 +228,7 @@ public class BookmarkExpandableView extends ExpandableListView
                     || mAdapter.mChildren.get(groupPosition).getCount() <= childPosition) {
                 return;
             }
-            long id = (Long) v.getTag(R.id.child_id);
+            long id = mAdapter.mChildren.get(groupPosition).getItemId(childPosition);
             if (mOnChildClickListener != null) {
                 mOnChildClickListener.onChildClick(BookmarkExpandableView.this,
                         v, groupPosition, childPosition, id);
@@ -331,7 +331,6 @@ public class BookmarkExpandableView extends ExpandableListView
                     View v = childAdapter.getView(realChildPosition, cv, row);
                     v.setTag(R.id.group_position, groupPosition);
                     v.setTag(R.id.child_position, realChildPosition);
-                    v.setTag(R.id.child_id, childAdapter.getItemId(realChildPosition));
                     v.setOnClickListener(mChildClickListener);
                     v.setLongClickable(mLongClickable);
                     if (cv == null) {

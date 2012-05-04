@@ -49,6 +49,11 @@ public class BrowserBookmarksAdapter extends
     }
 
     @Override
+    protected long getItemId(Cursor c) {
+        return c.getLong(BookmarksLoader.COLUMN_INDEX_ID);
+    }
+
+    @Override
     public View newView(Context context, ViewGroup parent) {
         return mInflater.inflate(R.layout.bookmark_thumbnail, parent, false);
     }
