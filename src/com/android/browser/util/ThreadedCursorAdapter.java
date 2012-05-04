@@ -137,7 +137,9 @@ public abstract class ThreadedCursorAdapter<T> extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return position;
+        synchronized (mCursorLock) {
+            return getItemId(getItem(position));
+        }
     }
 
     private void loadRowObject(int position, LoadContainer container) {
@@ -207,4 +209,5 @@ public abstract class ThreadedCursorAdapter<T> extends BaseAdapter {
     public abstract void bindView(View view, T object);
     public abstract T getRowObject(Cursor c, T recycleObject);
     public abstract T getLoadingObject();
+    protected abstract long getItemId(Cursor c);
 }
