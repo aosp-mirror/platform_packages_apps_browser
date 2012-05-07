@@ -268,7 +268,7 @@
     <string name="pref_font_size_category" msgid="6683754355084218254">"Ukuran teks"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"Labs"</string>
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Kontrol cepat"</string>
-    <string name="pref_lab_quick_controls_summary" msgid="3149664132600968775">"Geser ibu jari dari ujung kiri atau kanan untuk membuka kontrol cepat dan menyembunyikan apl dan bilah URL"</string>
+    <string name="pref_lab_quick_controls_summary" msgid="3149664132600968775">"Geser jempol dari ujung kiri atau kanan untuk membuka kontrol cepat dan menyembunyikan aplikasi dan bilah URL"</string>
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Google Sekejap"</string>
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Gunakan Google Sekejap di Google Penelusuran agar hasilnya tampil selagi mengetik (ini dapat menambah pemakaian data)."</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"Layar penuh"</string>
