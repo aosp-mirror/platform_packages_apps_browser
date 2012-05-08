@@ -115,7 +115,9 @@ public class PieControl implements PieMenu.PieController, OnClickListener {
         int n = mUiController.getTabControl().getTabCount();
         mTabsCount.setText(Integer.toString(n));
         Tab tab = mUiController.getCurrentTab();
-        mForward.setEnabled(tab.canGoForward());
+        if (tab != null) {
+            mForward.setEnabled(tab.canGoForward());
+        }
         return true;
     }
 
