@@ -185,6 +185,7 @@ class Tab implements PictureListener {
     private int mCaptureHeight;
     private Bitmap mCapture;
     private Handler mHandler;
+    private boolean mUpdateThumbnail;
 
     /**
      * See {@link #clearBackStackWhenItemAdded(String)}.
@@ -334,6 +335,7 @@ class Tab implements PictureListener {
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             mInPageLoad = true;
+            mUpdateThumbnail = true;
             mPageLoadProgress = INITIAL_PROGRESS;
             mCurrentState = new PageState(mContext,
                     view.isPrivateBrowsingEnabled(), url, favicon);
@@ -792,6 +794,9 @@ class Tab implements PictureListener {
                 mInPageLoad = false;
             }
             mWebViewController.onProgressChanged(Tab.this);
+            if (mUpdateThumbnail && newProgress == 100) {
+                mUpdateThumbnail = false;
+            }
         }
 
         @Override
@@ -1201,6 +1206,10 @@ class Tab implements PictureListener {
                 }
             }
         };
+    }
+
+    public boolean shouldUpdateThumbnail() {
+        return mUpdateThumbnail;
     }
 
     /**
@@ -1925,7 +1934,6 @@ class Tab implements PictureListener {
 
     @Override
     public void onNewPicture(WebView view, Picture picture) {
-        //update screenshot
         postCapture();
     }
 

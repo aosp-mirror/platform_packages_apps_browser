@@ -847,6 +847,7 @@ public class Controller
 
     @Override
     public void onPageFinished(Tab tab) {
+        mCrashRecoveryHandler.backupState();
         mUi.onTabDataChanged(tab);
         // pause the WebView timer and release the wake lock if it is finished
         // while BrowserActivity is in pause state.
@@ -864,7 +865,6 @@ public class Controller
 
     @Override
     public void onProgressChanged(Tab tab) {
-        mCrashRecoveryHandler.backupState();
         int newProgress = tab.getLoadProgress();
 
         if (newProgress == 100) {
@@ -885,8 +885,9 @@ public class Controller
                 // Only update the bookmark screenshot if the user did not
                 // cancel the load early and there is not already
                 // a pending update for the tab.
-                if (tab.inForeground() && !didUserStopLoading()
-                        || !tab.inForeground()) {
+                if (tab.shouldUpdateThumbnail() &&
+                        (tab.inForeground() && !didUserStopLoading()
+                        || !tab.inForeground())) {
                     if (!mHandler.hasMessages(UPDATE_BOOKMARK_THUMBNAIL, tab)) {
                         mHandler.sendMessageDelayed(mHandler.obtainMessage(
                                 UPDATE_BOOKMARK_THUMBNAIL, 0, 0, tab),
