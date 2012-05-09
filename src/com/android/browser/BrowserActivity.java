@@ -193,7 +193,9 @@ public class BrowserActivity extends Activity {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        mController.onConfgurationChanged(newConfig);
+        if (mController != null) {
+            mController.onConfgurationChanged(newConfig);
+        }
     }
 
     @Override
