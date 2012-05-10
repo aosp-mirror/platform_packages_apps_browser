@@ -84,6 +84,16 @@ public class MockContentResolver2 extends ContentResolver {
         return true;
     }
 
+    /** @hide */
+    protected IContentProvider acquireUnstableProvider(Context c, String name) {
+        return acquireProvider(c, name);
+    }
+
+    /** @hide */
+    public boolean releaseUnstableProvider(IContentProvider icp) {
+        return releaseProvider(icp);
+    }
+
     @Override
     public void notifyChange(Uri uri, ContentObserver observer,
             boolean syncToNetwork) {
