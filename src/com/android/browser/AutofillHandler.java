@@ -26,6 +26,7 @@ import android.os.AsyncTask;
 import android.os.Message;
 import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
+import android.util.Log;
 import android.webkit.WebSettingsClassic.AutoFillProfile;
 
 import java.util.concurrent.CountDownLatch;
@@ -42,6 +43,8 @@ public class AutofillHandler {
 
     private CountDownLatch mLoaded = new CountDownLatch(1);
     private Context mContext;
+
+    private static final String LOGTAG = "AutofillHandler";
 
     public AutofillHandler(Context context) {
         mContext = context.getApplicationContext();
@@ -62,18 +65,24 @@ public class AutofillHandler {
          new LoadFromDb().start();
     }
 
-    public void waitForLoad() {
+    private void waitForLoad() {
         try {
             mLoaded.await();
-        } catch (InterruptedException e) {}
+        } catch (InterruptedException e) {
+            Log.w(LOGTAG, "Caught exception while waiting for AutofillProfile to load.");
+        }
     }
 
     private class LoadFromDb extends Thread {
 
         @Override
         public void run() {
-            SharedPreferences p =
-                    PreferenceManager.getDefaultSharedPreferences(mContext);
+            // Note the lack of synchronization over mAutoFillActiveProfileId and
+            // mAutoFillProfile here. This is because we control all other access
+            // to these members through the public functions of this class, and they
+            // all wait for this thread via the mLoaded CountDownLatch.
+
+            SharedPreferences p = PreferenceManager.getDefaultSharedPreferences(mContext);
 
             // Read the last active AutoFill profile id.
             mAutoFillActiveProfileId = p.getInt(
@@ -82,7 +91,9 @@ public class AutofillHandler {
 
             // Load the autofill profile data from the database. We use a database separate
             // to the browser preference DB to make it easier to support multiple profiles
-            // and switching between them.
+            // and switching between them. Note that this may block startup if this DB lookup
+            // is extremely slow. We do this to ensure that if there's a profile set, the
+            // user never sees the "setup Autofill" option.
             AutoFillProfileDatabase autoFillDb = AutoFillProfileDatabase.getInstance(mContext);
             Cursor c = autoFillDb.getProfile(mAutoFillActiveProfileId);
 
@@ -116,12 +127,19 @@ public class AutofillHandler {
             c.close();
             autoFillDb.close();
 
+            // At this point we've loaded the profile if there was one, so let any thread
+            // waiting on initialization continue.
+            mLoaded.countDown();
+
+            // Synchronization note: strictly speaking, it's possible that mAutoFillProfile
+            // may get a value after we check below, but that's OK. This check is only an
+            // optimisation, and we do a proper synchronized check further down when it comes
+            // to actually setting the inferred profile.
             if (mAutoFillProfile == null) {
-                // We did not load a profile from disk. Try to populate one with the user's
+                // We did not load a profile from disk. Try to infer one from the user's
                 // "me" contact.
                 final Uri profileUri = Uri.withAppendedPath(ContactsContract.Profile.CONTENT_URI,
                         ContactsContract.Contacts.Data.CONTENT_DIRECTORY);
-
                 String name = getContactField(profileUri,
                         ContactsContract.CommonDataKinds.StructuredName.DISPLAY_NAME,
                         ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE);
@@ -143,13 +161,16 @@ public class AutofillHandler {
                     // When querying structured postal data, it often all comes back as a string
                     // inside the "street" field.
 
-                    mAutoFillProfile = new AutoFillProfile(
-                            1, name, email, company, null, null, null, null,
-                            null, null, phone);
+                    synchronized(AutofillHandler.this) {
+                        // Only use this profile if one hasn't been set inbetween the
+                        // inital import and this thread getting to this point.
+                        if (mAutoFillProfile == null) {
+                            setAutoFillProfile(new AutoFillProfile(1, name, email, company,
+                                    null, null, null, null, null, null, phone), null);
+                        }
+                    }
                 }
             }
-
-            mLoaded.countDown();
         }
 
         private String getContactField(Uri uri, String field, String itemType) {
@@ -174,7 +195,8 @@ public class AutofillHandler {
         }
     }
 
-    public void setAutoFillProfile(AutoFillProfile profile, Message msg) {
+    public synchronized void setAutoFillProfile(AutoFillProfile profile, Message msg) {
+        waitForLoad();
         int profileId = NO_AUTOFILL_PROFILE_SET;
         if (profile != null) {
             profileId = profile.getUniqueId();
@@ -193,11 +215,12 @@ public class AutofillHandler {
         setActiveAutoFillProfileId(profileId);
     }
 
-    public AutoFillProfile getAutoFillProfile() {
+    public synchronized AutoFillProfile getAutoFillProfile() {
+        waitForLoad();
         return mAutoFillProfile;
     }
 
-    private void setActiveAutoFillProfileId(int activeProfileId) {
+    private synchronized void setActiveAutoFillProfileId(int activeProfileId) {
         mAutoFillActiveProfileId = activeProfileId;
         Editor ed = PreferenceManager.
             getDefaultSharedPreferences(mContext).edit();
@@ -234,9 +257,11 @@ public class AutofillHandler {
         @Override
         protected Void doInBackground(AutoFillProfile... values) {
             mAutoFillProfileDb = AutoFillProfileDatabase.getInstance(mContext);
-            assert mAutoFillActiveProfileId != NO_AUTOFILL_PROFILE_SET;
-            AutoFillProfile newProfile = values[0];
-            mAutoFillProfileDb.addOrUpdateProfile(mAutoFillActiveProfileId, newProfile);
+            synchronized (AutofillHandler.this) {
+                assert mAutoFillActiveProfileId != NO_AUTOFILL_PROFILE_SET;
+                AutoFillProfile newProfile = values[0];
+                mAutoFillProfileDb.addOrUpdateProfile(mAutoFillActiveProfileId, newProfile);
+            }
             return null;
         }
     }
