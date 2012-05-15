@@ -69,7 +69,7 @@
     <string name="add_to_other_folder_menu_option" msgid="5947586525822134105">"Anden mappe"</string>
     <string name="name" msgid="5462672162695365387">"Etiket"</string>
     <string name="http" msgid="2163722670597250102">"http://"</string>
-    <string name="save_to_bookmarks" msgid="1679286010089780932">"Gemt i bogmærker"</string>
+    <string name="save_to_bookmarks" msgid="1679286010089780932">"Gem i bogmærker"</string>
     <string name="bookmark_this_page" msgid="7530739804320811054">"Tilføj bogmærke"</string>
     <string name="remove" msgid="7820112494467011374">"Fjern"</string>
     <string name="edit_bookmark" msgid="5024089053490231905">"Rediger bogmærke"</string>
@@ -129,9 +129,9 @@
     <string name="pref_content_load_images" msgid="2125616852957377561">"Indlæs billeder"</string>
     <string name="pref_content_load_images_summary" msgid="5055874125248398584">"Vis billeder på websider"</string>
     <string name="pref_content_block_popups" msgid="4158524847764470895">"Bloker pop op-vinduer"</string>
-    <string name="pref_content_javascript" msgid="4570972030299516843">"Aktiver Javascript"</string>
+    <string name="pref_content_javascript" msgid="4570972030299516843">"Aktivér Javascript"</string>
     <string name="pref_content_open_in_background" msgid="824123779725118663">"Åbn i baggrunden"</string>
-    <string name="pref_content_plugins" msgid="7231944644794301582">"Aktiver plugins"</string>
+    <string name="pref_content_plugins" msgid="7231944644794301582">"Aktivér plugins"</string>
   <string-array name="pref_content_plugins_choices">
     <item msgid="6745108155096660725">"Altid slået til"</item>
     <item msgid="2484126708670016519">"Påkrævet"</item>
@@ -193,8 +193,8 @@
     <string name="pref_privacy_clear_cookies" msgid="3095583579133780331">"Ryd alle cookiedata"</string>
     <string name="pref_privacy_clear_cookies_summary" msgid="6962742063990677520">"Ryd alle browsercookies"</string>
     <string name="pref_privacy_clear_cookies_dlg" msgid="1493252163164621278">"Vil du slette alle cookies?"</string>
-    <string name="pref_privacy_clear_history" msgid="8723795508825198477">"Ryd oversigt"</string>
-    <string name="pref_privacy_clear_history_summary" msgid="6868501330708940734">"Ryd browserens navigationsoversigt"</string>
+    <string name="pref_privacy_clear_history" msgid="8723795508825198477">"Ryd historik"</string>
+    <string name="pref_privacy_clear_history_summary" msgid="6868501330708940734">"Ryd browserens navigationshistorik"</string>
     <string name="pref_privacy_clear_history_dlg" msgid="6934317391642846227">"Vil du slette browserens navigationshistorik?"</string>
     <string name="pref_privacy_formdata_title" msgid="6549813837982050424">"Formulardata"</string>
     <string name="pref_privacy_clear_form_data" msgid="4232668196344383987">"Ryd formulardata"</string>
@@ -204,11 +204,11 @@
     <string name="pref_privacy_clear_passwords_summary" msgid="8856782718942903335">"Ryd alle gemte adgangskoder"</string>
     <string name="pref_privacy_clear_passwords_dlg" msgid="5836576259947160045">"Vil du slette alle gemte adgangskoder?"</string>
     <string name="pref_privacy_location_title" msgid="7458378016606081067">"Placering"</string>
-    <string name="pref_privacy_enable_geolocation" msgid="1395040170290765686">"Aktiver placering"</string>
+    <string name="pref_privacy_enable_geolocation" msgid="1395040170290765686">"Aktivér placering"</string>
     <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"Tillad, at websites anmoder om adgang til din placering"</string>
     <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"Ryd placeringsadgang"</string>
     <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"Placeringsadgang for alle websites ryddes"</string>
-    <string name="pref_privacy_clear_geolocation_access_dlg" msgid="3190928760598034346">"Vil du rydde websitets placeringsadgang?"</string>
+    <string name="pref_privacy_clear_geolocation_access_dlg" msgid="3190928760598034346">"Vil du rydde placeringsadgang for websites?"</string>
     <string name="pref_security_passwords_title" msgid="5734190542383756711">"Adgangskoder"</string>
     <string name="pref_security_remember_passwords" msgid="6492957683454529549">"Husk adgangskoder"</string>
     <string name="pref_security_remember_passwords_summary" msgid="256388703356349137">"Gem brugernavne og adgangskoder til websites"</string>
@@ -296,7 +296,7 @@
     <string name="browserFrameFormResubmitMessage" msgid="5244059279866705254">"Den side, du prøver at få vist, indeholder data, der allerede er indsendt (\"POSTDATA\"). Hvis du sender dataene igen, gentages alle handlinger, som formularen på siden udførte (som f.eks. en søgning eller et onlinekøb)."</string>
     <string name="loadSuspendedTitle" msgid="6453376579109644551">"Ingen forbindelse"</string>
     <string name="loadSuspended" msgid="3843343290039218668">"Browseren kan ikke indlæse denne side, fordi der ikke er nogen internetforbindelse."</string>
-    <string name="clear_history" msgid="5998307092715979619">"Ryd oversigt"</string>
+    <string name="clear_history" msgid="5998307092715979619">"Ryd historik"</string>
     <string name="browser_history" msgid="2979476257919939232">"Nyligt besøgte sider"</string>
     <string name="empty_history" msgid="7013369425484218985">"Ingen browserhistorik."</string>
     <string name="go_home" msgid="109129207276086793">"Startside"</string>
