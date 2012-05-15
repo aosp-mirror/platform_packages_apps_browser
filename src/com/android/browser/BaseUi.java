@@ -527,12 +527,14 @@ public abstract class BaseUi implements UI {
         decor.addView(mFullscreenContainer, COVER_SCREEN_PARAMS);
         mCustomView = view;
         setFullscreen(true);
+        ((BrowserWebView) getWebView()).setVisibility(View.INVISIBLE);
         mCustomViewCallback = callback;
         mActivity.setRequestedOrientation(requestedOrientation);
     }
 
     @Override
     public void onHideCustomView() {
+        ((BrowserWebView) getWebView()).setVisibility(View.VISIBLE);
         if (mCustomView == null)
             return;
         setFullscreen(false);
