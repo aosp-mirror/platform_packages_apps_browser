@@ -510,12 +510,10 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     }
 
     public AutoFillProfile getAutoFillProfile() {
-        mAutofillHandler.waitForLoad();
         return mAutofillHandler.getAutoFillProfile();
     }
 
     public void setAutoFillProfile(AutoFillProfile profile, Message msg) {
-        mAutofillHandler.waitForLoad();
         mAutofillHandler.setAutoFillProfile(profile, msg);
         // Auto-fill will reuse the same profile ID when making edits to the profile,
         // so we need to force a settings sync (otherwise the SharedPreferences
