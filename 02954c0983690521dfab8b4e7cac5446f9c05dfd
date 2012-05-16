@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "AAAFX3//+2g\u003d",
+        "filename": "src/com/android/browser/PhoneUi.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1005051
+      },
+      "writtenOn": "2012-05-16T20:13:49Z",
+      "side": 1,
+      "message": "Trailing whitespace.",
+      "revId": "02954c0983690521dfab8b4e7cac5446f9c05dfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
