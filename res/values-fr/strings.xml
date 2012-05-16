@@ -169,9 +169,9 @@
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"Adresse e-mail :"</string>
     <string name="autofill_profile_editor_company_name" msgid="2813443159949210417">"Nom de la société :"</string>
     <string name="autofill_profile_editor_address_line_1" msgid="836433242509243081">"Ligne d\'adresse 1 :"</string>
-    <string name="autofill_profile_editor_address_line_1_hint" msgid="5965659598509327172">"Adresse postale, boîte postale, \"À l\'attention de\""</string>
+    <string name="autofill_profile_editor_address_line_1_hint" msgid="5965659598509327172">"Adresse postale, boîte postale, \"Aux soins de\""</string>
     <string name="autofill_profile_editor_address_line_2" msgid="8194745202893822479">"Ligne d\'adresse 2 :"</string>
-    <string name="autofill_profile_editor_address_line_2_hint" msgid="8529642768127569254">"Résidence, bloc, bâtiment, appartement, étage, etc."</string>
+    <string name="autofill_profile_editor_address_line_2_hint" msgid="8529642768127569254">"Résidence, bâtiment, appartement, étage, etc."</string>
     <string name="autofill_profile_editor_city" msgid="7306716145784997135">"Ville :"</string>
     <string name="autofill_profile_editor_state" msgid="2150403366835080407">"État/Province/Région :"</string>
     <string name="autofill_profile_editor_zip_code" msgid="283668573295656671">"Code postal :"</string>
