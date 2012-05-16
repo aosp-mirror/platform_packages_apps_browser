@@ -429,7 +429,8 @@ public class Controller
         mUi = ui;
     }
 
-    BrowserSettings getSettings() {
+    @Override
+    public BrowserSettings getSettings() {
         return mSettings;
     }
 

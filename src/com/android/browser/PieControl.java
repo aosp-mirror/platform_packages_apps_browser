@@ -118,6 +118,15 @@ public class PieControl implements PieMenu.PieController, OnClickListener {
         if (tab != null) {
             mForward.setEnabled(tab.canGoForward());
         }
+        WebView view = mUiController.getCurrentWebView();
+        if (view != null) {
+            ImageView icon = (ImageView) mRDS.getView();
+            if (mUiController.getSettings().hasDesktopUseragent(view)) {
+                icon.setImageResource(R.drawable.ic_mobile);
+            } else {
+                icon.setImageResource(R.drawable.ic_desktop_holo_dark);
+            }
+        }
         return true;
     }
 
