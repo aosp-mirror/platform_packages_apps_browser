@@ -139,7 +139,8 @@ public class IntentHandler {
             }
             if (Intent.ACTION_VIEW.equals(action)
                      && !mActivity.getPackageName().equals(appId)) {
-                if (!BrowserActivity.isTablet(mActivity)) {
+                if (!BrowserActivity.isTablet(mActivity)
+                        && !mSettings.allowAppTabs()) {
                     Tab appTab = mTabControl.getTabFromAppId(appId);
                     if (appTab != null) {
                         mController.reuseTab(appTab, urlData);

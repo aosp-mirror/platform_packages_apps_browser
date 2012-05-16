@@ -284,6 +284,8 @@
     <string name="menu_preferences">Settings</string>
     <!-- Settings screen, section title -->
     <string name="pref_content_title">Page content</string>
+    <!-- Settings label [CHAR LIMIT=40]-->
+    <string name="pref_allow_apptabs">Allow multiple tabs per app</string>
     <!-- Settings label -->
     <string name="pref_content_load_images">Load images</string>
     <!-- Settings label -->

@@ -652,6 +652,10 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         return mPrefs.getString(PREF_SEARCH_ENGINE, SearchEngine.GOOGLE);
     }
 
+    public boolean allowAppTabs() {
+        return mPrefs.getBoolean(PREF_ALLOW_APP_TABS, false);
+    }
+
     public boolean openInBackground() {
         return mPrefs.getBoolean(PREF_OPEN_IN_BACKGROUND, false);
     }
