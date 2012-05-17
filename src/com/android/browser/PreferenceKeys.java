@@ -46,6 +46,7 @@ public interface PreferenceKeys {
     static final String PREF_RESET_DEFAULT_PREFERENCES = "reset_default_preferences";
     static final String PREF_SEARCH_ENGINE = "search_engine";
     static final String PREF_WEBSITE_SETTINGS = "website_settings";
+    static final String PREF_ALLOW_APP_TABS = "allow_apptabs";
 
     // ----------------------
     // Keys for debug_preferences.xml
