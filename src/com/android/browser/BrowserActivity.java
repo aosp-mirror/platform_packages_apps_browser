@@ -166,7 +166,9 @@ public class BrowserActivity extends Activity {
         if (LOGV_ENABLED) {
             Log.v(LOGTAG, "BrowserActivity.onSaveInstanceState: this=" + this);
         }
-        mController.onSaveInstanceState(outState);
+        if (mController != null) {
+            mController.onSaveInstanceState(outState);
+        }
     }
 
     @Override
