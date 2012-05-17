@@ -197,6 +197,8 @@
     <string name="goto_dot">Go</string>
     <!-- Menu item to switch to text selection mode for copy and paste. -->
     <string name="select_dot">Select text</string>
+    <!-- Menu item to close all other tabs [CHAR LIMIT=40] -->
+    <string name="close_other_tabs">Close other tabs</string>
     <!-- Menu item to open the bookmarks page. This is a shorter version that
             is displayed with an icon -->
     <string name="bookmarks">Bookmarks</string>
