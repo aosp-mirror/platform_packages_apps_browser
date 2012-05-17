@@ -105,4 +105,6 @@ public interface UiController {
 
     void toggleUserAgent();
 
+    BrowserSettings getSettings();
+
 }
