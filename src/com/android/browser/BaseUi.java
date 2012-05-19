@@ -91,6 +91,7 @@ public abstract class BaseUi implements UI {
     protected FrameLayout mContentView;
     protected FrameLayout mCustomViewContainer;
     protected FrameLayout mFullscreenContainer;
+    private FrameLayout mFixedTitlebarContainer;
 
     private View mCustomView;
     private WebChromeClient.CustomViewCallback mCustomViewCallback;
@@ -126,6 +127,8 @@ public abstract class BaseUi implements UI {
                 .getDecorView().findViewById(android.R.id.content);
         LayoutInflater.from(mActivity)
                 .inflate(R.layout.custom_screen, frameLayout);
+        mFixedTitlebarContainer = (FrameLayout) frameLayout.findViewById(
+                R.id.fixed_titlebar_container);
         mContentView = (FrameLayout) frameLayout.findViewById(
                 R.id.main_content);
         mCustomViewContainer = (FrameLayout) frameLayout.findViewById(
@@ -843,5 +846,18 @@ public abstract class BaseUi implements UI {
             return true;
         }
 
+    }
+
+    public void addFixedTitleBar(View view) {
+        mFixedTitlebarContainer.addView(view);
+    }
+
+    public void setContentViewMarginTop(int margin) {
+        LinearLayout.LayoutParams params =
+                (LinearLayout.LayoutParams) mContentView.getLayoutParams();
+        if (params.topMargin != margin) {
+            params.topMargin = margin;
+            mContentView.setLayoutParams(params);
+        }
     }
 }
