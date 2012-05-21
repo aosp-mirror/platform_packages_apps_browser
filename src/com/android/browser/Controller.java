@@ -1553,6 +1553,10 @@ public class Controller
                 openIncognitoTab();
                 break;
 
+            case R.id.close_other_tabs_id:
+                closeOtherTabs();
+                break;
+
             case R.id.goto_menu_id:
                 editUrl();
                 break;
@@ -2471,6 +2475,20 @@ public class Controller
             closeCurrentTab();
         } else {
             removeTab(tab);
+        }
+    }
+
+    /**
+     * Close all tabs except the current one
+     */
+    @Override
+    public void closeOtherTabs() {
+        int inactiveTabs = mTabControl.getTabCount() - 1;
+        for (int i = inactiveTabs; i >= 0; i--) {
+            Tab tab = mTabControl.getTab(i);
+            if (tab != mTabControl.getCurrentTab()) {
+                removeTab(tab);
+            }
         }
     }
 
