@@ -17,11 +17,11 @@
     <dimen name="widgetColumnWidth">130dip</dimen>
     <dimen name="favicon_padded_size">28dip</dimen>
     <dimen name="add_bookmark_width">500dip</dimen>
-    <!-- For the most visited page -->
-    <dimen name="mv_max_width">1010dp</dimen>
-    <dimen name="mv_item_width">231dp</dimen>
-    <dimen name="mv_item_width_portrait">213dp</dimen>
-    <dimen name="mv_border_width">3dp</dimen>
+    <!-- For the most visited page (we use px as these are adjusted by the browser) -->
+    <dimen name="mv_max_width">1010px</dimen>
+    <dimen name="mv_item_width">231px</dimen>
+    <dimen name="mv_item_width_portrait">213px</dimen>
+    <dimen name="mv_border_width">3px</dimen>
     <!-- For the combined Bookmarks History view -->
     <dimen name="combo_paddingTop">50dip</dimen>
     <dimen name="combo_horizontalSpacing">8dip</dimen>
