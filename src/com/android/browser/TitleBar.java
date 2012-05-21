@@ -45,7 +45,7 @@ public class TitleBar extends RelativeLayout {
 
     private UiController mUiController;
     private BaseUi mBaseUi;
-    private FrameLayout mParent;
+    private FrameLayout mContentView;
     private PageProgressView mProgress;
 
     private AutologinBar mAutoLogin;
@@ -58,15 +58,16 @@ public class TitleBar extends RelativeLayout {
     private boolean mInLoad;
     private boolean mSkipTitleBarAnimations;
     private Animator mTitleBarAnimator;
+    private boolean mIsFixedTitleBar;
 
     public TitleBar(Context context, UiController controller, BaseUi ui,
-            FrameLayout parent) {
+            FrameLayout contentView) {
         super(context, null);
         mUiController = controller;
         mBaseUi = ui;
-        mParent = parent;
+        mContentView = contentView;
         initLayout(context);
-        mParent.addView(this, makeLayoutParams());
+        setFixedTitleBar(!mContext.getResources().getBoolean(R.bool.hide_title));
     }
 
     private void initLayout(Context context) {
@@ -100,10 +101,34 @@ public class TitleBar extends RelativeLayout {
     @Override
     protected void onConfigurationChanged(Configuration config) {
         super.onConfigurationChanged(config);
-        if (config.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            if (!mContext.getResources().getBoolean(R.bool.hide_title)) {
-                show();
-            }
+        setFixedTitleBar(!mContext.getResources().getBoolean(R.bool.hide_title));
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        if (mIsFixedTitleBar) {
+            int margin = getMeasuredHeight() - calculateEmbeddedHeight();
+            mBaseUi.setContentViewMarginTop(-margin);
+        }
+    }
+
+    private void setFixedTitleBar(boolean isFixed) {
+        // If getParent() returns null, we are initializing
+        ViewGroup parent = (ViewGroup)getParent();
+        if (mIsFixedTitleBar == isFixed && parent != null) return;
+        mIsFixedTitleBar = isFixed;
+        setSkipTitleBarAnimations(true);
+        show();
+        setSkipTitleBarAnimations(false);
+        if (parent != null) {
+            parent.removeView(this);
+        }
+        if (mIsFixedTitleBar) {
+            mBaseUi.addFixedTitleBar(this);
+        } else {
+            mContentView.addView(this, makeLayoutParams());
+            mBaseUi.setContentViewMarginTop(0);
         }
     }
 
@@ -145,23 +170,21 @@ public class TitleBar extends RelativeLayout {
     }
 
     void show() {
-        if (mUseQuickControls) {
+        cancelTitleBarAnimation(false);
+        if (mUseQuickControls || mSkipTitleBarAnimations) {
             this.setVisibility(View.VISIBLE);
             this.setTranslationY(0);
         } else {
-            if (!mSkipTitleBarAnimations) {
-                cancelTitleBarAnimation(false);
-                int visibleHeight = getVisibleTitleHeight();
-                float startPos = (-getEmbeddedHeight() + visibleHeight);
-                if (getTranslationY() != 0) {
-                    startPos = Math.max(startPos, getTranslationY());
-                }
-                mTitleBarAnimator = ObjectAnimator.ofFloat(this,
-                        "translationY",
-                        startPos, 0);
-                setupTitleBarAnimator(mTitleBarAnimator);
-                mTitleBarAnimator.start();
+            int visibleHeight = getVisibleTitleHeight();
+            float startPos = (-getEmbeddedHeight() + visibleHeight);
+            if (getTranslationY() != 0) {
+                startPos = Math.max(startPos, getTranslationY());
             }
+            mTitleBarAnimator = ObjectAnimator.ofFloat(this,
+                    "translationY",
+                    startPos, 0);
+            setupTitleBarAnimator(mTitleBarAnimator);
+            mTitleBarAnimator.start();
         }
         mShowing = true;
     }
@@ -170,7 +193,7 @@ public class TitleBar extends RelativeLayout {
         if (mUseQuickControls) {
             this.setVisibility(View.GONE);
         } else {
-            if (!mContext.getResources().getBoolean(R.bool.hide_title)) return;
+            if (mIsFixedTitleBar) return;
             if (!mSkipTitleBarAnimations) {
                 cancelTitleBarAnimation(false);
                 int visibleHeight = getVisibleTitleHeight();
@@ -263,7 +286,11 @@ public class TitleBar extends RelativeLayout {
     }
 
     public int getEmbeddedHeight() {
-        if (mUseQuickControls) return 0;
+        if (mUseQuickControls || mIsFixedTitleBar) return 0;
+        return calculateEmbeddedHeight();
+    }
+
+    private int calculateEmbeddedHeight() {
         int height = mNavBar.getHeight();
         if (mAutoLogin != null && mAutoLogin.getVisibility() == View.VISIBLE) {
             height += mAutoLogin.getHeight();
@@ -397,7 +424,7 @@ public class TitleBar extends RelativeLayout {
     }
 
     public void onScrollChanged() {
-        if (!mShowing) {
+        if (!mShowing && !mIsFixedTitleBar) {
             setTranslationY(getVisibleTitleHeight() - getEmbeddedHeight());
         }
     }
