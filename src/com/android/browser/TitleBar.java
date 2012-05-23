@@ -67,7 +67,7 @@ public class TitleBar extends RelativeLayout {
         mBaseUi = ui;
         mContentView = contentView;
         initLayout(context);
-        setFixedTitleBar(!mContext.getResources().getBoolean(R.bool.hide_title));
+        setFixedTitleBar();
     }
 
     private void initLayout(Context context) {
@@ -101,7 +101,7 @@ public class TitleBar extends RelativeLayout {
     @Override
     protected void onConfigurationChanged(Configuration config) {
         super.onConfigurationChanged(config);
-        setFixedTitleBar(!mContext.getResources().getBoolean(R.bool.hide_title));
+        setFixedTitleBar();
     }
 
     @Override
@@ -110,10 +110,14 @@ public class TitleBar extends RelativeLayout {
         if (mIsFixedTitleBar) {
             int margin = getMeasuredHeight() - calculateEmbeddedHeight();
             mBaseUi.setContentViewMarginTop(-margin);
+        } else {
+            mBaseUi.setContentViewMarginTop(0);
         }
     }
 
-    private void setFixedTitleBar(boolean isFixed) {
+    private void setFixedTitleBar() {
+        boolean isFixed = !mUseQuickControls
+                && !mContext.getResources().getBoolean(R.bool.hide_title);
         // If getParent() returns null, we are initializing
         ViewGroup parent = (ViewGroup)getParent();
         if (mIsFixedTitleBar == isFixed && parent != null) return;
@@ -142,6 +146,7 @@ public class TitleBar extends RelativeLayout {
 
     public void setUseQuickControls(boolean use) {
         mUseQuickControls = use;
+        setFixedTitleBar();
         if (use) {
             this.setVisibility(View.GONE);
         } else {
