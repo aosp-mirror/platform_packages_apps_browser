@@ -185,7 +185,8 @@
 
         <activity android:name="AddBookmarkPage" android:label="Save bookmark"
                   android:theme="@style/DialogWhenLarge"
-                  android:configChanges="orientation|keyboardHidden|screenSize">
+                  android:configChanges="orientation|keyboardHidden|screenSize"
+                  android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.INSERT" />
                 <category android:name="android.intent.category.DEFAULT" />
