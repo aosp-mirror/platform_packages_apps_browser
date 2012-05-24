@@ -259,6 +259,7 @@ public class Controller
     }
 
     void start(final Intent intent) {
+        WebViewClassic.setShouldMonitorWebCoreThread();
         // mCrashRecoverHandler has any previously saved state.
         mCrashRecoveryHandler.startRecovery(intent);
     }
