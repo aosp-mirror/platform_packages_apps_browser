@@ -94,6 +94,8 @@
     <string name="open_all_in_new_window" msgid="455786763426575293">"Otevřít vše na nových kartách"</string>
     <string name="goto_dot" msgid="3895839050522602723">"Přejít"</string>
     <string name="select_dot" msgid="6299170761900561967">"Vybrat text"</string>
+    <!-- no translation found for close_other_tabs (7693157495148282778) -->
+    <skip />
     <string name="bookmarks" msgid="1961279134885867815">"Záložky"</string>
     <string name="shortcut_bookmark" msgid="3974876480401135895">"Záložka"</string>
     <string name="shortcut_bookmark_title" msgid="7570786275916681296">"Zvolte záložku"</string>
@@ -126,6 +128,7 @@
     <string name="browser_bookmarks_page_bookmarks_text" msgid="6787605028726162673">"Záložky"</string>
     <string name="menu_preferences" msgid="6709237687234102240">"Nastavení"</string>
     <string name="pref_content_title" msgid="3834107397725342174">"Obsah stránky"</string>
+    <string name="pref_allow_apptabs" msgid="1325989799080202871">"Povolit více karet na aplikaci"</string>
     <string name="pref_content_load_images" msgid="2125616852957377561">"Načíst obrázky"</string>
     <string name="pref_content_load_images_summary" msgid="5055874125248398584">"Zobrazovat na webových stránkách obrázky"</string>
     <string name="pref_content_block_popups" msgid="4158524847764470895">"Blokovat vyskakovací okna"</string>
@@ -159,7 +162,7 @@
     <string name="pref_autofill_profile_editor" msgid="8934844472922113166">"Text pro automatické vyplňování"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="4864447251676856190">"Nastavte text, který se má vyplňovat do webových formulářů"</string>
     <string name="pref_autologin_title" msgid="4421187193809267096">"Automatické přihlašování Google"</string>
-    <string name="pref_autologin_progress" msgid="8333244467048833461">"Přihlašování do webů Google pomocí uživatelského jména <xliff:g id="ID_1">%s</xliff:g>"</string>
+    <string name="pref_autologin_progress" msgid="8333244467048833461">"Přihlašování na Google pomocí uživatelského jména <xliff:g id="ID_1">%s</xliff:g>"</string>
     <string name="autologin_bar_text" msgid="3684581827167173371">"Přihlásit se jako"</string>
     <string name="autologin_bar_login_text" msgid="3336615320510851879">"Přihlásit se"</string>
     <string name="autologin_bar_hide_text" msgid="3629355974385859580">"Skrýt"</string>
@@ -371,7 +374,7 @@
     <string name="instant_search_label" msgid="8769284297650716935">"Google s dynamickým vyhledáváním (experimentální funkce)"</string>
     <string name="preview" msgid="6450823514561689038">"Náhled"</string>
     <string name="local_bookmarks" msgid="533816851415228520">"Lokální"</string>
-    <string name="ua_switcher_desktop" msgid="220097077327558435">"Vyžádat web pro počítače"</string>
+    <string name="ua_switcher_desktop" msgid="220097077327558435">"Verze webu pro PC"</string>
     <string name="permission_preload_label" msgid="4856971662337877316">"Předběžné načítání výsledků"</string>
     <string name="empty_snapshots_folder" msgid="7675378008107026013">"Žádné uložené stránky."</string>
     <string name="remove_snapshot" msgid="1624447424544976849">"Smazat uloženou stránku"</string>

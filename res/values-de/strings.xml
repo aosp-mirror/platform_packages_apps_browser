@@ -70,7 +70,7 @@
     <string name="name" msgid="5462672162695365387">"Label"</string>
     <string name="http" msgid="2163722670597250102">"http://"</string>
     <string name="save_to_bookmarks" msgid="1679286010089780932">"Als Lesezeichen speichern"</string>
-    <string name="bookmark_this_page" msgid="7530739804320811054">"Diese Seite als Lesezeichen speichern"</string>
+    <string name="bookmark_this_page" msgid="7530739804320811054">"Seite als Lesezeichen speichern"</string>
     <string name="remove" msgid="7820112494467011374">"Entfernen"</string>
     <string name="edit_bookmark" msgid="5024089053490231905">"Lesezeichen bearbeiten"</string>
     <string name="create_shortcut_bookmark" msgid="1995095662095484289">"Verknüpfung auf dem Startbildschirm erstellen"</string>
@@ -94,6 +94,8 @@
     <string name="open_all_in_new_window" msgid="455786763426575293">"Alle in jeweils neuem Tab öffnen"</string>
     <string name="goto_dot" msgid="3895839050522602723">"Los"</string>
     <string name="select_dot" msgid="6299170761900561967">"Text auswählen"</string>
+    <!-- no translation found for close_other_tabs (7693157495148282778) -->
+    <skip />
     <string name="bookmarks" msgid="1961279134885867815">"Lesezeichen"</string>
     <string name="shortcut_bookmark" msgid="3974876480401135895">"Lesezeichen"</string>
     <string name="shortcut_bookmark_title" msgid="7570786275916681296">"Lesezeichen auswählen"</string>
@@ -126,6 +128,7 @@
     <string name="browser_bookmarks_page_bookmarks_text" msgid="6787605028726162673">"Lesezeichen"</string>
     <string name="menu_preferences" msgid="6709237687234102240">"Einstellungen"</string>
     <string name="pref_content_title" msgid="3834107397725342174">"Seiteninhalt"</string>
+    <string name="pref_allow_apptabs" msgid="1325989799080202871">"Mehrere Tabs pro App zulassen"</string>
     <string name="pref_content_load_images" msgid="2125616852957377561">"Bilder laden"</string>
     <string name="pref_content_load_images_summary" msgid="5055874125248398584">"Bilder auf Webseiten anzeigen"</string>
     <string name="pref_content_block_popups" msgid="4158524847764470895">"Pop-ups blockieren"</string>
@@ -149,7 +152,7 @@
     <item msgid="6092441301001006473">"Meistbesuchte Websites"</item>
     <item msgid="6569304572171444894">"Andere"</item>
   </string-array>
-    <string name="pref_content_autofit" msgid="8260474534053660809">"Autom. Anpassung"</string>
+    <string name="pref_content_autofit" msgid="8260474534053660809">"Automatisch anpassen"</string>
     <string name="pref_content_autofit_summary" msgid="324810555822572112">"Webseiten an den Bildschirm anpassen"</string>
     <string name="pref_general_title" msgid="1946872771219249323">"Allgemein"</string>
     <string name="pref_general_sync_title" msgid="3138637035975860324">"Synchronisierung"</string>
@@ -157,7 +160,7 @@
     <string name="pref_autofill_enabled" msgid="1015751713312396713">"Automatisch ausfüllen"</string>
     <string name="pref_autofill_enabled_summary" msgid="7659954073892471496">"Webformulare mit einer einzigen Berührung ausfüllen"</string>
     <string name="pref_autofill_profile_editor" msgid="8934844472922113166">"AutoFill-Text"</string>
-    <string name="pref_autofill_profile_editor_summary" msgid="4864447251676856190">"AutoFill-Text für Webformulare einrichten"</string>
+    <string name="pref_autofill_profile_editor_summary" msgid="4864447251676856190">"AutoFill-Text für Webformulare festlegen"</string>
     <string name="pref_autologin_title" msgid="4421187193809267096">"Automatische Google-Anmeldung"</string>
     <string name="pref_autologin_progress" msgid="8333244467048833461">"Anmeldung in Google Sites mit <xliff:g id="ID_1">%s</xliff:g>..."</string>
     <string name="autologin_bar_text" msgid="3684581827167173371">"Anmelden als"</string>
@@ -183,7 +186,7 @@
     <string name="autofill_profile_successful_delete" msgid="1790262652460723127">"AutoFill-Text gelöscht"</string>
     <string name="autofill_profile_editor_delete_profile" msgid="3098369314558164153">"Löschen"</string>
     <string name="autofill_setup_dialog_message" msgid="7123905786076456503">"Webformulare dieser Art können vom Browser automatisch ausgefüllt werden. Möchten Sie Formulare automatisch ausfüllen?"</string>
-    <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"Den AutoFill-Text können Sie jederzeit im Browser unter &gt; \"Einstellungen\" &gt; \"Allgemein\" einrichten."</string>
+    <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"Den AutoFill-Text können Sie jederzeit im Browser unter &gt; \"Einstellungen\" &gt; \"Allgemein\" festlegen."</string>
     <string name="disable_autofill" msgid="8305901059849400354">"AutoFill deaktivieren"</string>
     <string name="pref_privacy_security_title" msgid="3480313968942160914">"Datenschutz &amp; Sicherheit"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Cache leeren"</string>
@@ -208,7 +211,7 @@
     <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"Standortzugriff für Websites zulassen"</string>
     <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"Standortzugriff löschen"</string>
     <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"Standortzugriff für alle Websites löschen"</string>
-    <string name="pref_privacy_clear_geolocation_access_dlg" msgid="3190928760598034346">"Standortzugriff für Website löschen?"</string>
+    <string name="pref_privacy_clear_geolocation_access_dlg" msgid="3190928760598034346">"Standortzugriff für Websites löschen?"</string>
     <string name="pref_security_passwords_title" msgid="5734190542383756711">"Passwörter"</string>
     <string name="pref_security_remember_passwords" msgid="6492957683454529549">"Passwörter merken"</string>
     <string name="pref_security_remember_passwords_summary" msgid="256388703356349137">"Nutzernamen und Passwörter für Websites speichern"</string>
@@ -228,7 +231,7 @@
     <string name="pref_min_font_size" msgid="8811125835817449131">"Mindestschriftgröße"</string>
     <string name="pref_min_font_size_value" msgid="2924708480509060209">"<xliff:g id="FONT_SIZE">%d</xliff:g> pt"</string>
     <string name="pref_text_zoom" msgid="5171056101805125497">"Text-Skalierung"</string>
-    <string name="pref_zoom_on_double_tap" msgid="902786475250741795">"Zoomen mit zweimaligem Tippen"</string>
+    <string name="pref_zoom_on_double_tap" msgid="902786475250741795">"Zoomen mit 2-maligem Tippen"</string>
     <string name="pref_force_userscalable" msgid="5641500562399892621">"Zoom zwingend aktivieren"</string>
     <string name="pref_force_userscalable_summary" msgid="3613242300617172230">"Anfrage zur Steuerung des Zoomverhaltens überschreiben"</string>
     <string name="pref_inverted_category" msgid="1280639705117152207">"Negativkontrast"</string>
@@ -280,7 +283,7 @@
     <item msgid="1791664748778640002">"Nur bei WLAN"</item>
     <item msgid="3944061253437827617">"Immer"</item>
   </string-array>
-    <string name="pref_data_preload_summary" msgid="3809168910751382727">"Browser kann vertrauenswürdige Suchergebnisse vorab im Hintergrund laden"</string>
+    <string name="pref_data_preload_summary" msgid="3809168910751382727">"Vertrauenswürdige Suchergebnisse vorab im Hintergrund laden"</string>
     <string name="pref_data_preload_dialogtitle" msgid="8421297746110796536">"Suchergebnisse vorabladen"</string>
     <string name="pref_link_prefetch_title" msgid="4123685219009241072">"Webseiten vorab laden"</string>
   <string-array name="pref_link_prefetch_choices">
@@ -288,14 +291,14 @@
     <item msgid="1908465963242077428">"Nur bei WLAN"</item>
     <item msgid="7647277566998527142">"Immer"</item>
   </string-array>
-    <string name="pref_link_prefetch_summary" msgid="6558181497993206817">"Browser kann verlinkte Webseiten vorab im Hintergrund laden."</string>
+    <string name="pref_link_prefetch_summary" msgid="6558181497993206817">"Verlinkte Webseiten vorab im Hintergrund laden"</string>
     <string name="pref_link_prefetch_dialogtitle" msgid="3804646141622839765">"Webseiten vorab laden"</string>
     <string name="browserFrameNetworkErrorLabel" msgid="8102515020625680714">"Verbindungsproblem"</string>
     <string name="browserFrameFileErrorLabel" msgid="4703792279852977350">"Dateifehler"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2385512101948178841"></string>
     <string name="browserFrameFormResubmitMessage" msgid="5244059279866705254">"Die Seite, die Sie anzeigen möchten, enthält Daten, die bereits gesendet wurden (\"POST-DATEN\"). Wenn Sie die Daten erneut senden, wird jede Aktion (z. B. eine Suche oder ein Online-Kauf) wiederholt, die das Formular auf der Seite ausgeführt hat."</string>
     <string name="loadSuspendedTitle" msgid="6453376579109644551">"Keine Verbindung"</string>
-    <string name="loadSuspended" msgid="3843343290039218668">"Der Browser kann diese Seite nicht laden, da keine Internetverbindung besteht."</string>
+    <string name="loadSuspended" msgid="3843343290039218668">"Seite kann nicht geladen werden, da keine Internetverbindung besteht."</string>
     <string name="clear_history" msgid="5998307092715979619">"Verlauf löschen"</string>
     <string name="browser_history" msgid="2979476257919939232">"Zuletzt besuchte Seiten"</string>
     <string name="empty_history" msgid="7013369425484218985">"Kein Browserverlauf"</string>

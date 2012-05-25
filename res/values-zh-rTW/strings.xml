@@ -94,6 +94,8 @@
     <string name="open_all_in_new_window" msgid="455786763426575293">"在新分頁中開啟所有書籤"</string>
     <string name="goto_dot" msgid="3895839050522602723">"前往"</string>
     <string name="select_dot" msgid="6299170761900561967">"選取文字"</string>
+    <!-- no translation found for close_other_tabs (7693157495148282778) -->
+    <skip />
     <string name="bookmarks" msgid="1961279134885867815">"書籤"</string>
     <string name="shortcut_bookmark" msgid="3974876480401135895">"書籤"</string>
     <string name="shortcut_bookmark_title" msgid="7570786275916681296">"選擇書籤"</string>
@@ -126,6 +128,7 @@
     <string name="browser_bookmarks_page_bookmarks_text" msgid="6787605028726162673">"書籤"</string>
     <string name="menu_preferences" msgid="6709237687234102240">"設定"</string>
     <string name="pref_content_title" msgid="3834107397725342174">"網頁內容"</string>
+    <string name="pref_allow_apptabs" msgid="1325989799080202871">"允許單一應用程式開啟多個分頁"</string>
     <string name="pref_content_load_images" msgid="2125616852957377561">"載入圖片"</string>
     <string name="pref_content_load_images_summary" msgid="5055874125248398584">"顯示網頁上的圖片"</string>
     <string name="pref_content_block_popups" msgid="4158524847764470895">"封鎖彈出式視窗"</string>
@@ -285,7 +288,7 @@
     <string name="pref_link_prefetch_title" msgid="4123685219009241072">"網頁預先載入"</string>
   <string-array name="pref_link_prefetch_choices">
     <item msgid="4889781230398008031">"一律不預先載入"</item>
-    <item msgid="1908465963242077428">"僅限 WiFi 連線"</item>
+    <item msgid="1908465963242077428">"僅限 Wi-Fi 連線時載入"</item>
     <item msgid="7647277566998527142">"一律預先載入"</item>
   </string-array>
     <string name="pref_link_prefetch_summary" msgid="6558181497993206817">"允許瀏覽器在背景預先載入已連結的網頁"</string>

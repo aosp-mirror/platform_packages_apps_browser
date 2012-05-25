@@ -128,6 +128,8 @@
     <skip />
     <string name="goto_dot" msgid="3895839050522602723">"Dai"</string>
     <string name="select_dot" msgid="6299170761900561967">"Selecziunar text"</string>
+    <!-- no translation found for close_other_tabs (7693157495148282778) -->
+    <skip />
     <string name="bookmarks" msgid="1961279134885867815">"Segnapaginas"</string>
     <string name="shortcut_bookmark" msgid="3974876480401135895">"Segnapagina"</string>
     <!-- no translation found for shortcut_bookmark_title (7570786275916681296) -->
@@ -169,6 +171,8 @@
     <string name="browser_bookmarks_page_bookmarks_text" msgid="6787605028726162673">"Segnapaginas"</string>
     <string name="menu_preferences" msgid="6709237687234102240">"Parameters"</string>
     <!-- no translation found for pref_content_title (3834107397725342174) -->
+    <skip />
+    <!-- no translation found for pref_allow_apptabs (1325989799080202871) -->
     <skip />
     <string name="pref_content_load_images" msgid="2125616852957377561">"Chargiar ils maletgs"</string>
     <string name="pref_content_load_images_summary" msgid="5055874125248398584">"Mussar ils maletgs da las paginas web"</string>
