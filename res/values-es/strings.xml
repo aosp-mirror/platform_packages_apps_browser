@@ -126,6 +126,7 @@
     <string name="browser_bookmarks_page_bookmarks_text" msgid="6787605028726162673">"Marcadores"</string>
     <string name="menu_preferences" msgid="6709237687234102240">"Ajustes"</string>
     <string name="pref_content_title" msgid="3834107397725342174">"Contenido de la página"</string>
+    <string name="pref_allow_apptabs" msgid="1325989799080202871">"Permitir varias pestañas por aplicación"</string>
     <string name="pref_content_load_images" msgid="2125616852957377561">"Cargar imágenes"</string>
     <string name="pref_content_load_images_summary" msgid="5055874125248398584">"Mostrar imágenes en las páginas web"</string>
     <string name="pref_content_block_popups" msgid="4158524847764470895">"Bloquear pop-ups"</string>
@@ -139,7 +140,7 @@
   </string-array>
     <string name="pref_content_open_in_background_summary" msgid="955411158407739504">"Abrir nuevas pestañas detrás de la actual"</string>
     <string name="pref_content_homepage" msgid="3324574611613105696">"Establecer página de inicio"</string>
-    <string name="pref_content_search_engine" msgid="1620101310821644144">"Establecer motor de búsqueda"</string>
+    <string name="pref_content_search_engine" msgid="1620101310821644144">"Motor de búsqueda"</string>
     <string name="pref_content_search_engine_summary" msgid="304003941861818133">"Elige un motor de búsqueda."</string>
     <string name="pref_set_homepage_to" msgid="7838684355145561242">"Establecer en:"</string>
   <string-array name="pref_homepage_choices">
@@ -238,7 +239,7 @@
     <string name="pref_default_zoom" msgid="8076142259097187395">"Zoom predeterminado"</string>
   <string-array name="pref_default_zoom_choices">
     <item msgid="549583171195154919">"Lejos"</item>
-    <item msgid="5619034257768161024">"Media distancia"</item>
+    <item msgid="5619034257768161024">"Normal"</item>
     <item msgid="3840999588443167001">"Cerca"</item>
   </string-array>
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"Zoom predeterminado"</string>
@@ -247,8 +248,8 @@
     <string name="pref_extras_title" msgid="7075456173747370647">"Avanzados"</string>
     <string name="pref_extras_website_settings" msgid="67866640052455549">"Ajustes del sitio web"</string>
     <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"Ajustes avanzados de sitios web individuales"</string>
-    <string name="pref_extras_reset_default_title" msgid="3579760449455761762">"Restablecer valores predeterminados"</string>
-    <string name="pref_extras_reset_default" msgid="8904000515846202110">"Restablecer valores predeterminados"</string>
+    <string name="pref_extras_reset_default_title" msgid="3579760449455761762">"Valores predeterminados"</string>
+    <string name="pref_extras_reset_default" msgid="8904000515846202110">"Restablecer valores"</string>
     <string name="pref_extras_reset_default_summary" msgid="4247870778270414501">"Restaurar ajustes predeterminados"</string>
     <string name="pref_extras_reset_default_dlg" msgid="7922814420184322450">"¿Restablecer valores predeterminados?"</string>
     <string name="pref_development_title" msgid="3263854204533056480">"Depurar"</string>

@@ -126,6 +126,7 @@
     <string name="browser_bookmarks_page_bookmarks_text" msgid="6787605028726162673">"书签"</string>
     <string name="menu_preferences" msgid="6709237687234102240">"设置"</string>
     <string name="pref_content_title" msgid="3834107397725342174">"网页内容"</string>
+    <string name="pref_allow_apptabs" msgid="1325989799080202871">"允许为每个应用设置多个标签"</string>
     <string name="pref_content_load_images" msgid="2125616852957377561">"载入图片"</string>
     <string name="pref_content_load_images_summary" msgid="5055874125248398584">"显示网页上的图片"</string>
     <string name="pref_content_block_popups" msgid="4158524847764470895">"阻止弹出式窗口"</string>
@@ -276,7 +277,7 @@
     <string name="pref_data_title" msgid="7255058703417796578">"带宽管理"</string>
     <string name="pref_data_preload_title" msgid="4479320472980292873">"搜索结果预加载"</string>
   <string-array name="pref_data_preload_choices">
-    <item msgid="5180466923190095508">"从不"</item>
+    <item msgid="5180466923190095508">"永不"</item>
     <item msgid="1791664748778640002">"仅限 Wi-Fi"</item>
     <item msgid="3944061253437827617">"始终"</item>
   </string-array>
@@ -360,8 +361,8 @@
     <string name="import_bookmarks_dialog_confirm_delete" msgid="2204771572755630570">"要删除此设备上的当前书签，并开始与 <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g> 同步书签吗？"</string>
     <string name="import_bookmarks_dialog_confirm_add" msgid="8942794112340838111">"要添加此设备上的当前书签，并开始与 <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g> 同步书签吗？"</string>
     <string name="import_bookmarks_dialog_remove" msgid="5984607822851800902">"删除书签"</string>
-    <string name="import_bookmarks_wizard_next" msgid="7578143961884352676">"下一页"</string>
-    <string name="import_bookmarks_wizard_previous" msgid="8551440353688257031">"上一页"</string>
+    <string name="import_bookmarks_wizard_next" msgid="7578143961884352676">"下一步"</string>
+    <string name="import_bookmarks_wizard_previous" msgid="8551440353688257031">"上一步"</string>
     <string name="import_bookmarks_wizard_cancel" msgid="4936061122806506634">"取消"</string>
     <string name="import_bookmarks_wizard_done" msgid="1446247092194489191">"完成"</string>
     <string name="import_bookmarks_dialog_add" msgid="1743359725294101189">"将书签添加到 Google 帐户中"</string>

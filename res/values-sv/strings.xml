@@ -126,6 +126,7 @@
     <string name="browser_bookmarks_page_bookmarks_text" msgid="6787605028726162673">"Bokmärken"</string>
     <string name="menu_preferences" msgid="6709237687234102240">"Inställningar"</string>
     <string name="pref_content_title" msgid="3834107397725342174">"Sidinnehåll"</string>
+    <string name="pref_allow_apptabs" msgid="1325989799080202871">"Tillåt flera flikar per app"</string>
     <string name="pref_content_load_images" msgid="2125616852957377561">"Överför bilder"</string>
     <string name="pref_content_load_images_summary" msgid="5055874125248398584">"Visa bilder på webbsidor"</string>
     <string name="pref_content_block_popups" msgid="4158524847764470895">"Blockera popupfönster"</string>

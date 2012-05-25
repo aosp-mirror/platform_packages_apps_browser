@@ -126,6 +126,7 @@
     <string name="browser_bookmarks_page_bookmarks_text" msgid="6787605028726162673">"الإشارات"</string>
     <string name="menu_preferences" msgid="6709237687234102240">"الإعدادات"</string>
     <string name="pref_content_title" msgid="3834107397725342174">"محتوى الصفحة"</string>
+    <string name="pref_allow_apptabs" msgid="1325989799080202871">"السماح بعلامات تبويب متعددة لكل تطبيق"</string>
     <string name="pref_content_load_images" msgid="2125616852957377561">"تحميل الصور"</string>
     <string name="pref_content_load_images_summary" msgid="5055874125248398584">"عرض الصور على صفحات الويب"</string>
     <string name="pref_content_block_popups" msgid="4158524847764470895">"حظر النوافذ المنبثقة"</string>
@@ -206,7 +207,7 @@
     <string name="pref_privacy_location_title" msgid="7458378016606081067">"الموقع"</string>
     <string name="pref_privacy_enable_geolocation" msgid="1395040170290765686">"تمكين الموقع"</string>
     <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"السماح للمواقع الإلكترونية بطلب الدخول إلى موقعك الجغرافي"</string>
-    <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"محو إمكانية الدخول إلى الموقع الجغرافي"</string>
+    <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"محو إمكانية الدخول إلى الموقع"</string>
     <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"محو إمكانية الدخول إلى الموقع الجغرافي بالنسبة إلى جميع مواقع الويب"</string>
     <string name="pref_privacy_clear_geolocation_access_dlg" msgid="3190928760598034346">"هل تريد محو إمكانية دخول موقع الويب إلى الموقع الجغرافي؟"</string>
     <string name="pref_security_passwords_title" msgid="5734190542383756711">"كلمات المرور"</string>
@@ -337,7 +338,7 @@
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"تذكّر التفضيل"</string>
     <string name="geolocation_permissions_prompt_toast_allowed" msgid="7201417941112726112">"يتعذر على موقع الويب هذا الدخول إلى موقعك الجغرافي. يمكنك تغيير هذا من الإعدادات &gt; متقدمة &gt; شاشة موقع الويب."</string>
     <string name="geolocation_permissions_prompt_toast_disallowed" msgid="156443445797377409">"يتعذر على موقع الويب هذا الدخول إلى موقعك الجغرافي. يمكنك تغيير هذا من الإعدادات -&gt; متقدمة -&gt; إعدادات موقع الويب."</string>
-    <string name="geolocation_settings_page_title" msgid="1745477985097536528">"محو إمكانية الدخول إلى الموقع الجغرافي"</string>
+    <string name="geolocation_settings_page_title" msgid="1745477985097536528">"محو إمكانية الدخول إلى الموقع"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"يمكن لهذا الموقع الإلكتروني الدخول إلى موقعك الجغرافي حاليًا"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="7941769772784366199">"لا يمكن لموقع الويب هذا الدخول إلى موقعك الجغرافي حاليًا"</string>
     <string name="geolocation_settings_page_dialog_message" msgid="8772923416296868537">"هل تريد محو إمكانية الدخول إلى الموقع الجغرافي لموقع الويب هذا؟"</string>
