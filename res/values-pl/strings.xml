@@ -126,6 +126,7 @@
     <string name="browser_bookmarks_page_bookmarks_text" msgid="6787605028726162673">"Zakładki"</string>
     <string name="menu_preferences" msgid="6709237687234102240">"Ustawienia"</string>
     <string name="pref_content_title" msgid="3834107397725342174">"Treść strony"</string>
+    <string name="pref_allow_apptabs" msgid="1325989799080202871">"Zezwalaj na wiele kart na aplikację"</string>
     <string name="pref_content_load_images" msgid="2125616852957377561">"Wczytuj obrazy"</string>
     <string name="pref_content_load_images_summary" msgid="5055874125248398584">"Wyświetlaj obrazy na stronach internetowych"</string>
     <string name="pref_content_block_popups" msgid="4158524847764470895">"Blokuj wyskakujące okna"</string>
@@ -137,7 +138,7 @@
     <item msgid="2484126708670016519">"Na żądanie"</item>
     <item msgid="8547442717307793863">"Wyłączona"</item>
   </string-array>
-    <string name="pref_content_open_in_background_summary" msgid="955411158407739504">"Otwieraj nowe karty za bieżącą."</string>
+    <string name="pref_content_open_in_background_summary" msgid="955411158407739504">"Otwieraj nowe karty za bieżącą"</string>
     <string name="pref_content_homepage" msgid="3324574611613105696">"Ustaw stronę główną"</string>
     <string name="pref_content_search_engine" msgid="1620101310821644144">"Ustaw wyszukiwarkę"</string>
     <string name="pref_content_search_engine_summary" msgid="304003941861818133">"Wybierz wyszukiwarkę."</string>
@@ -150,7 +151,7 @@
     <item msgid="6569304572171444894">"Inna"</item>
   </string-array>
     <string name="pref_content_autofit" msgid="8260474534053660809">"Autodopasowanie stron"</string>
-    <string name="pref_content_autofit_summary" msgid="324810555822572112">"Formatuj strony internetowe, aby dopasować je do ekranu."</string>
+    <string name="pref_content_autofit_summary" msgid="324810555822572112">"Formatuj strony internetowe, aby dopasować je do ekranu"</string>
     <string name="pref_general_title" msgid="1946872771219249323">"Ogólne"</string>
     <string name="pref_general_sync_title" msgid="3138637035975860324">"Synchronizacja"</string>
     <string name="pref_general_autofill_title" msgid="547881256865816858">"Autouzupełnianie"</string>
@@ -172,7 +173,7 @@
     <string name="autofill_profile_editor_address_line_1_hint" msgid="5965659598509327172">"Adres, skrzynka pocztowa, adres korespondencyjny"</string>
     <string name="autofill_profile_editor_address_line_2" msgid="8194745202893822479">"Adres, wiersz 2:"</string>
     <string name="autofill_profile_editor_address_line_2_hint" msgid="8529642768127569254">"Mieszkanie, apartament, wydział, budynek, piętro itp."</string>
-    <string name="autofill_profile_editor_city" msgid="7306716145784997135">"Miasto/miejscowość:"</string>
+    <string name="autofill_profile_editor_city" msgid="7306716145784997135">"Miejscowość:"</string>
     <string name="autofill_profile_editor_state" msgid="2150403366835080407">"Województwo / region:"</string>
     <string name="autofill_profile_editor_zip_code" msgid="283668573295656671">"Kod pocztowy:"</string>
     <string name="autofill_profile_editor_country" msgid="7234470301239156656">"Kraj:"</string>
@@ -243,7 +244,7 @@
   </string-array>
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"Powiększenie domyślne"</string>
     <string name="pref_content_load_page" msgid="2219810141690955452">"Podgląd otwartej strony"</string>
-    <string name="pref_content_load_page_summary" msgid="9168803276420332955">"Pokaż widok ogólny nowo otwartych stron."</string>
+    <string name="pref_content_load_page_summary" msgid="9168803276420332955">"Pokaż widok ogólny nowo otwartych stron"</string>
     <string name="pref_extras_title" msgid="7075456173747370647">"Zaawansowane"</string>
     <string name="pref_extras_website_settings" msgid="67866640052455549">"Ustawienia witryn"</string>
     <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"Ustawienia zaawansowane dla poszczególnych witryn"</string>
@@ -282,14 +283,14 @@
   </string-array>
     <string name="pref_data_preload_summary" msgid="3809168910751382727">"Zezwalaj przeglądarce na wstępne wczytywanie wyników wyszukiwania w tle"</string>
     <string name="pref_data_preload_dialogtitle" msgid="8421297746110796536">"Wstępne wczytywanie wyników"</string>
-    <string name="pref_link_prefetch_title" msgid="4123685219009241072">"Wstępne wczytywanie strony internetowej"</string>
+    <string name="pref_link_prefetch_title" msgid="4123685219009241072">"Wstępne wczytywanie stron"</string>
   <string-array name="pref_link_prefetch_choices">
     <item msgid="4889781230398008031">"Nigdy"</item>
     <item msgid="1908465963242077428">"Tylko przez Wi-Fi"</item>
     <item msgid="7647277566998527142">"Zawsze"</item>
   </string-array>
-    <string name="pref_link_prefetch_summary" msgid="6558181497993206817">"Zezwalaj przeglądarce na wstępne wczytywanie w tle stron internetowych, do których istnieją linki"</string>
-    <string name="pref_link_prefetch_dialogtitle" msgid="3804646141622839765">"Wstępne wczytywanie strony internetowej"</string>
+    <string name="pref_link_prefetch_summary" msgid="6558181497993206817">"Zezwalaj przeglądarce na wstępne wczytywanie podlinkowanych stron internetowych w tle"</string>
+    <string name="pref_link_prefetch_dialogtitle" msgid="3804646141622839765">"Wstępne wczytywanie stron"</string>
     <string name="browserFrameNetworkErrorLabel" msgid="8102515020625680714">"Problem z połączeniem"</string>
     <string name="browserFrameFileErrorLabel" msgid="4703792279852977350">"Problem z plikiem"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2385512101948178841"></string>

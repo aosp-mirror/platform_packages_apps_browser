@@ -126,6 +126,7 @@
     <string name="browser_bookmarks_page_bookmarks_text" msgid="6787605028726162673">"बुकमार्क"</string>
     <string name="menu_preferences" msgid="6709237687234102240">"सेटिंग"</string>
     <string name="pref_content_title" msgid="3834107397725342174">"पृष्ठ सामग्री"</string>
+    <string name="pref_allow_apptabs" msgid="1325989799080202871">"हर एप्‍लि. हेतु एकाधिक टैब की अनुमति दें"</string>
     <string name="pref_content_load_images" msgid="2125616852957377561">"छवियां लोड करें"</string>
     <string name="pref_content_load_images_summary" msgid="5055874125248398584">"वेब पृष्ठों पर छवियां दिखाएं"</string>
     <string name="pref_content_block_popups" msgid="4158524847764470895">"पॉप-अप अवरुद्ध करें"</string>
