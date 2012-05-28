@@ -1316,6 +1316,7 @@ class Tab implements PictureListener {
             dismissSubWindow();
             // save the WebView to call destroy() after detach it from the tab
             WebView webView = mMainView;
+            mSettings.removeWebSettings(webView.getSettings());
             setWebView(null);
             webView.destroy();
         }

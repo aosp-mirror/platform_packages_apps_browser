@@ -154,6 +154,20 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         }
     }
 
+    public void removeWebSettings(WebSettings settingsToRemove) {
+        synchronized (mManagedSettings) {
+            Iterator<WeakReference<WebSettings>> iter = mManagedSettings.iterator();
+            while (iter.hasNext()) {
+                WeakReference<WebSettings> ref = iter.next();
+                WebSettings settings = ref.get();
+                if (settings == settingsToRemove) {
+                    iter.remove();
+                    return;
+                }
+            }
+        }
+    }
+
     public void startManagingSettings(WebSettings settings) {
         WebSettingsClassic settingsClassic = (WebSettingsClassic) settings;
         if (mNeedsSharedSync) {
