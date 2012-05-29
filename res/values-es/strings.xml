@@ -216,7 +216,7 @@
     <string name="pref_security_save_form_data" msgid="1213669802810198893">"Recordar formularios"</string>
     <string name="pref_security_save_form_data_summary" msgid="4994074685153708026">"Recordar datos introducidos en formularios"</string>
     <string name="pref_security_show_security_warning" msgid="8901135676266754559">"Mostrar advertencias"</string>
-    <string name="pref_security_show_security_warning_summary" msgid="5260098316025397525">"Mostrar advertencia si se produce una incidencia relacionada con la seguridad del sitio"</string>
+    <string name="pref_security_show_security_warning_summary" msgid="5260098316025397525">"Mostrar advertencia si se produce un problema relacionado con la seguridad del sitio"</string>
     <string name="pref_security_accept_cookies" msgid="3201367661925047989">"Aceptar cookies"</string>
     <string name="pref_security_accept_cookies_summary" msgid="1907951236154433751">"Permitir que los sitios guarden y consulten datos de cookies"</string>
   <string-array name="pref_text_size_choices">
@@ -292,7 +292,7 @@
     <string name="pref_link_prefetch_summary" msgid="6558181497993206817">"Permitir que el navegador cargue páginas web vinculadas en segundo plano"</string>
     <string name="pref_link_prefetch_dialogtitle" msgid="3804646141622839765">"Carga previa de páginas web"</string>
     <string name="browserFrameNetworkErrorLabel" msgid="8102515020625680714">"Error de conexión"</string>
-    <string name="browserFrameFileErrorLabel" msgid="4703792279852977350">"Incidencia relacionada con el archivo"</string>
+    <string name="browserFrameFileErrorLabel" msgid="4703792279852977350">"Problema relacionado con el archivo"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2385512101948178841"></string>
     <string name="browserFrameFormResubmitMessage" msgid="5244059279866705254">"La página que intentas ver contiene datos que ya se han enviado (\"POSTDATA\"). Si vuelves a enviarlos, se repetirá cualquier acción que haya hecho el formulario en la página (por ejemplo, búsquedas o compras online)."</string>
     <string name="loadSuspendedTitle" msgid="6453376579109644551">"Sin conexión"</string>

@@ -54,7 +54,7 @@
     <string name="stop" msgid="5687251076030630074">"Zastavit"</string>
     <string name="reload" msgid="8585220783228408062">"Aktualizovat"</string>
     <string name="back" msgid="8414603107175713668">"Zpět"</string>
-    <string name="forward" msgid="4288210890526641577">"Předat dál"</string>
+    <string name="forward" msgid="4288210890526641577">"Vpřed"</string>
     <string name="save" msgid="5922311934992468496">"OK"</string>
     <string name="do_not_save" msgid="6777633870113477714">"Zrušit"</string>
     <string name="location" msgid="3411848697912600125">"Adresa"</string>
@@ -186,7 +186,7 @@
     <string name="autofill_setup_dialog_message" msgid="7123905786076456503">"Podobné webové formuláře může prohlížeč vyplňovat automaticky. Chcete nastavit automatické vyplňování textu?"</string>
     <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"Automatické vyplňování můžete kdykoliv nastavit na obrazovce Prohlížeč &gt; Nastavení &gt; Obecné."</string>
     <string name="disable_autofill" msgid="8305901059849400354">"Vypnout automatické vyplňování"</string>
-    <string name="pref_privacy_security_title" msgid="3480313968942160914">"Ochrana osobních údajů a zabezpečení"</string>
+    <string name="pref_privacy_security_title" msgid="3480313968942160914">"Ochrana soukromí a zabezpečení"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Vymazat mezipaměť"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Vymazat všechen obsah a databáze uložené do místní mezipaměti"</string>
     <string name="pref_privacy_clear_cache_dlg" msgid="4344512581716422465">"Vymazat všechen obsah a databáze uložené v místní mezipaměti?"</string>
