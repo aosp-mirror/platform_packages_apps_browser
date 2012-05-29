@@ -94,6 +94,10 @@ public class MockContentResolver2 extends ContentResolver {
         return releaseProvider(icp);
     }
 
+    /** @hide */
+    public void unstableProviderDied(IContentProvider icp) {
+    }
+
     @Override
     public void notifyChange(Uri uri, ContentObserver observer,
             boolean syncToNetwork) {
