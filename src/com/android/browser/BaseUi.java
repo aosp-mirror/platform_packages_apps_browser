@@ -113,6 +113,7 @@ public abstract class BaseUi implements UI {
     protected TitleBar mTitleBar;
     private NavigationBarBase mNavigationBar;
     protected PieControl mPieControl;
+    private boolean mBlockFocusAnimations;
 
     public BaseUi(Activity browser, UiController controller) {
         mActivity = browser;
@@ -264,6 +265,8 @@ public abstract class BaseUi implements UI {
     @Override
     public void setActiveTab(final Tab tab) {
         if (tab == null) return;
+        // block unnecessary focus change animations during tab switch
+        mBlockFocusAnimations = true;
         mHandler.removeMessages(MSG_HIDE_TITLEBAR);
         if ((tab != mActiveTab) && (mActiveTab != null)) {
             removeTabFromContentView(mActiveTab);
@@ -294,6 +297,7 @@ public abstract class BaseUi implements UI {
         onProgressChanged(tab);
         mNavigationBar.setIncognitoMode(tab.isPrivateBrowsingEnabled());
         updateAutoLogin(tab, false);
+        mBlockFocusAnimations = false;
     }
 
     protected void updateUrlBarAutoShowManagerTarget() {
@@ -860,4 +864,10 @@ public abstract class BaseUi implements UI {
             mContentView.setLayoutParams(params);
         }
     }
+
+    @Override
+    public boolean blockFocusAnimations() {
+        return mBlockFocusAnimations;
+    }
+
 }
