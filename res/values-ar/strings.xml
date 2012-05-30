@@ -94,8 +94,7 @@
     <string name="open_all_in_new_window" msgid="455786763426575293">"فتح الكل في علامات تبويب جديدة"</string>
     <string name="goto_dot" msgid="3895839050522602723">"تنفيذ"</string>
     <string name="select_dot" msgid="6299170761900561967">"تحديد نص"</string>
-    <!-- no translation found for close_other_tabs (7693157495148282778) -->
-    <skip />
+    <string name="close_other_tabs" msgid="7693157495148282778">"إغلاق علامات التبويب الأخرى"</string>
     <string name="bookmarks" msgid="1961279134885867815">"الإشارات"</string>
     <string name="shortcut_bookmark" msgid="3974876480401135895">"إشارة"</string>
     <string name="shortcut_bookmark_title" msgid="7570786275916681296">"اختيار إشارة مرجعية"</string>
