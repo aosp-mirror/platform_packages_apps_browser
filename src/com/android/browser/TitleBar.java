@@ -405,8 +405,10 @@ public class TitleBar extends RelativeLayout {
 
     @Override
     public View focusSearch(View focused, int dir) {
-        if (FOCUS_DOWN == dir && hasFocus()) {
-            return getCurrentWebView();
+        WebView web = getCurrentWebView();
+        if (FOCUS_DOWN == dir && hasFocus()
+                && web.hasFocusable() && web.getParent() != null) {
+            return web;
         }
         return super.focusSearch(focused, dir);
     }
