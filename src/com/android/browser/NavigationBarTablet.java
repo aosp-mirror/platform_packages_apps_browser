@@ -259,34 +259,49 @@ public class NavigationBarTablet extends NavigationBarBase {
         mStopButton.setContentDescription(mRefreshDescription);
     }
 
+    private AnimatorSet mAnimation;
+
     private void hideNavButtons() {
+        if (mBaseUi.blockFocusAnimations()) {
+            mNavButtons.setVisibility(View.GONE);
+            return;
+        }
         int awidth = mNavButtons.getMeasuredWidth();
         Animator anim1 = ObjectAnimator.ofFloat(mNavButtons, View.TRANSLATION_X, 0, - awidth);
         Animator anim2 = ObjectAnimator.ofInt(mUrlContainer, "left", mUrlContainer.getLeft(),
                 mUrlContainer.getPaddingLeft());
         Animator anim3 = ObjectAnimator.ofFloat(mNavButtons, View.ALPHA, 1f, 0f);
-        AnimatorSet combo = new AnimatorSet();
-        combo.playTogether(anim1, anim2, anim3);
-        combo.addListener(new AnimatorListenerAdapter() {
+        mAnimation = new AnimatorSet();
+        mAnimation.playTogether(anim1, anim2, anim3);
+        mAnimation.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
                 mNavButtons.setVisibility(View.GONE);
+                mAnimation = null;
             }
         });
-        combo.setDuration(150);
-        combo.start();
+        mAnimation.setDuration(150);
+        mAnimation.start();
     }
 
     private void showNavButtons() {
-        int awidth = mNavButtons.getMeasuredWidth();
-        Animator anim1 = ObjectAnimator.ofFloat(mNavButtons, View.TRANSLATION_X, -awidth, 0);
-        Animator anim2 = ObjectAnimator.ofInt(mUrlContainer, "left", 0, awidth);
-        Animator anim3 = ObjectAnimator.ofFloat(mNavButtons, View.ALPHA, 0f, 1f);
-        AnimatorSet combo = new AnimatorSet();
-        combo.playTogether(anim1, anim2, anim3);
+        if (mAnimation != null) {
+            mAnimation.cancel();
+        }
         mNavButtons.setVisibility(View.VISIBLE);
-        combo.setDuration(150);
-        combo.start();
+        if (!mBaseUi.blockFocusAnimations()) {
+            int awidth = mNavButtons.getMeasuredWidth();
+            Animator anim1 = ObjectAnimator.ofFloat(mNavButtons,
+                    View.TRANSLATION_X, -awidth, 0);
+            Animator anim2 = ObjectAnimator.ofInt(mUrlContainer, "left", 0,
+                    awidth);
+            Animator anim3 = ObjectAnimator.ofFloat(mNavButtons, View.ALPHA,
+                    0f, 1f);
+            AnimatorSet combo = new AnimatorSet();
+            combo.playTogether(anim1, anim2, anim3);
+            combo.setDuration(150);
+            combo.start();
+        }
     }
 
     private void showHideStar(Tab tab) {
