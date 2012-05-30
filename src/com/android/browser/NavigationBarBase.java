@@ -134,7 +134,9 @@ public class NavigationBarBase extends LinearLayout implements
 
     void setDisplayTitle(String title) {
         if (!isEditingUrl()) {
-            mUrlInput.setText(title, false);
+            if (!title.equals(mUrlInput.getText().toString())) {
+                mUrlInput.setText(title, false);
+            }
         }
     }
 
