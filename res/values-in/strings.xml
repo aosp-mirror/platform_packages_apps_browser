@@ -94,8 +94,7 @@
     <string name="open_all_in_new_window" msgid="455786763426575293">"Buka semua di tab baru"</string>
     <string name="goto_dot" msgid="3895839050522602723">"Buka"</string>
     <string name="select_dot" msgid="6299170761900561967">"Pilih teks"</string>
-    <!-- no translation found for close_other_tabs (7693157495148282778) -->
-    <skip />
+    <string name="close_other_tabs" msgid="7693157495148282778">"Tutup tab lain"</string>
     <string name="bookmarks" msgid="1961279134885867815">"Bookmark"</string>
     <string name="shortcut_bookmark" msgid="3974876480401135895">"Bookmark"</string>
     <string name="shortcut_bookmark_title" msgid="7570786275916681296">"Pilih bookmark"</string>

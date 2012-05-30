@@ -94,8 +94,7 @@
     <string name="open_all_in_new_window" msgid="455786763426575293">"Fungua zote kwenye vichupo vipya"</string>
     <string name="goto_dot" msgid="3895839050522602723">"Nenda"</string>
     <string name="select_dot" msgid="6299170761900561967">"Chagua maandishi"</string>
-    <!-- no translation found for close_other_tabs (7693157495148282778) -->
-    <skip />
+    <string name="close_other_tabs" msgid="7693157495148282778">"Funga vichupo vingine"</string>
     <string name="bookmarks" msgid="1961279134885867815">"Alamisho"</string>
     <string name="shortcut_bookmark" msgid="3974876480401135895">"Alamisho"</string>
     <string name="shortcut_bookmark_title" msgid="7570786275916681296">"Chagua alamisho"</string>
