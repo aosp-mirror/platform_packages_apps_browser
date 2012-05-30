@@ -34,6 +34,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 
+import com.android.browser.stub.NullController;
 import com.google.common.annotations.VisibleForTesting;
 
 public class BrowserActivity extends Activity {
@@ -47,8 +48,7 @@ public class BrowserActivity extends Activity {
 
     private final static boolean LOGV_ENABLED = Browser.LOGV_ENABLED;
 
-    private Controller mController;
-    private UI mUi;
+    private ActivityController mController = NullController.INSTANCE;
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -69,14 +69,7 @@ public class BrowserActivity extends Activity {
             finish();
             return;
         }
-        mController = new Controller(this);
-        boolean xlarge = isTablet(this);
-        if (xlarge) {
-            mUi = new XLargeUi(this, mController);
-        } else {
-            mUi = new PhoneUi(this, mController);
-        }
-        mController.setUi(mUi);
+        mController = createController();
 
         Intent intent = (icicle == null) ? getIntent() : null;
         mController.start(intent);
@@ -86,9 +79,22 @@ public class BrowserActivity extends Activity {
         return context.getResources().getBoolean(R.bool.isTablet);
     }
 
+    private Controller createController() {
+        Controller controller = new Controller(this);
+        boolean xlarge = isTablet(this);
+        UI ui = null;
+        if (xlarge) {
+            ui = new XLargeUi(this, controller);
+        } else {
+            ui = new PhoneUi(this, controller);
+        }
+        controller.setUi(ui);
+        return controller;
+    }
+
     @VisibleForTesting
     Controller getController() {
-        return mController;
+        return (Controller) mController;
     }
 
     @Override
@@ -132,9 +138,7 @@ public class BrowserActivity extends Activity {
         if (LOGV_ENABLED) {
             Log.v(LOGTAG, "BrowserActivity.onResume: this=" + this);
         }
-        if (mController != null) {
-            mController.onResume();
-        }
+        mController.onResume();
     }
 
     @Override
@@ -166,16 +170,12 @@ public class BrowserActivity extends Activity {
         if (LOGV_ENABLED) {
             Log.v(LOGTAG, "BrowserActivity.onSaveInstanceState: this=" + this);
         }
-        if (mController != null) {
-            mController.onSaveInstanceState(outState);
-        }
+        mController.onSaveInstanceState(outState);
     }
 
     @Override
     protected void onPause() {
-        if (mController != null) {
-            mController.onPause();
-        }
+        mController.onPause();
         super.onPause();
     }
 
@@ -185,19 +185,14 @@ public class BrowserActivity extends Activity {
             Log.v(LOGTAG, "BrowserActivity.onDestroy: this=" + this);
         }
         super.onDestroy();
-        if (mController != null) {
-            mController.onDestroy();
-        }
-        mUi = null;
-        mController = null;
+        mController.onDestroy();
+        mController = NullController.INSTANCE;
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        if (mController != null) {
-            mController.onConfgurationChanged(newConfig);
-        }
+        mController.onConfgurationChanged(newConfig);
     }
 
     @Override
@@ -209,7 +204,7 @@ public class BrowserActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        return (mController != null) && mController.onCreateOptionsMenu(menu);
+        return mController.onCreateOptionsMenu(menu);
     }
 
     @Override
