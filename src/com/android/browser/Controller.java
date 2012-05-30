@@ -20,10 +20,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.DownloadManager;
 import android.app.ProgressDialog;
-import android.app.SearchManager;
 import android.content.ClipboardManager;
-import android.content.ContentProvider;
-import android.content.ContentProviderClient;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -84,11 +81,8 @@ import android.widget.Toast;
 
 import com.android.browser.IntentHandler.UrlData;
 import com.android.browser.UI.ComboViews;
-import com.android.browser.provider.BrowserProvider;
 import com.android.browser.provider.BrowserProvider2.Thumbnails;
 import com.android.browser.provider.SnapshotProvider.Snapshots;
-import com.android.browser.search.SearchEngine;
-import com.android.common.Search;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -108,7 +102,7 @@ import java.util.Map;
  * Controller for browser
  */
 public class Controller
-        implements WebViewController, UiController {
+        implements WebViewController, UiController, ActivityController {
 
     private static final String LOGTAG = "Controller";
     private static final String SEND_APP_ID_EXTRA =
@@ -258,7 +252,8 @@ public class Controller
         openIconDatabase();
     }
 
-    void start(final Intent intent) {
+    @Override
+    public void start(final Intent intent) {
         WebViewClassic.setShouldMonitorWebCoreThread();
         // mCrashRecoverHandler has any previously saved state.
         mCrashRecoveryHandler.startRecovery(intent);
@@ -607,7 +602,8 @@ public class Controller
 
     // lifecycle
 
-    protected void onConfgurationChanged(Configuration config) {
+    @Override
+    public void onConfgurationChanged(Configuration config) {
         mConfigChanged = true;
         // update the menu in case of a locale change
         mActivity.invalidateOptionsMenu();
@@ -625,7 +621,8 @@ public class Controller
         mIntentHandler.onNewIntent(intent);
     }
 
-    protected void onPause() {
+    @Override
+    public void onPause() {
         if (mUi.isCustomViewShowing()) {
             hideCustomView();
         }
@@ -659,7 +656,8 @@ public class Controller
         }
     }
 
-    void onSaveInstanceState(Bundle outState) {
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
         // Save all the tabs
         Bundle saveState = createSaveState();
 
@@ -683,7 +681,8 @@ public class Controller
         return saveState;
     }
 
-    void onResume() {
+    @Override
+    public void onResume() {
         if (!mActivityPaused) {
             Log.e(LOGTAG, "BrowserActivity is already resumed.");
             return;
@@ -739,7 +738,8 @@ public class Controller
         return false;
     }
 
-    void onDestroy() {
+    @Override
+    public void onDestroy() {
         if (mUploadHandler != null && !mUploadHandler.handled()) {
             mUploadHandler.onResult(Activity.RESULT_CANCELED, null);
             mUploadHandler = null;
@@ -765,7 +765,8 @@ public class Controller
         return mActivityPaused;
     }
 
-    protected void onLowMemory() {
+    @Override
+    public void onLowMemory() {
         mTabControl.freeMemory();
     }
 
@@ -1103,11 +1104,13 @@ public class Controller
     }
 
     // callback from phone title bar
+    @Override
     public void editUrl() {
         if (mOptionsMenuOpen) mActivity.closeOptionsMenu();
         mUi.editUrl(false, true);
     }
 
+    @Override
     public void showCustomView(Tab tab, View view, int requestedOrientation,
             WebChromeClient.CustomViewCallback callback) {
         if (tab.inForeground()) {
@@ -1135,7 +1138,8 @@ public class Controller
         }
     }
 
-    protected void onActivityResult(int requestCode, int resultCode,
+    @Override
+    public void onActivityResult(int requestCode, int resultCode,
             Intent intent) {
         if (getCurrentTopWebView() == null) return;
         switch (requestCode) {
@@ -1238,7 +1242,8 @@ public class Controller
     // menu handling and state
     // TODO: maybe put into separate handler
 
-    protected boolean onCreateOptionsMenu(Menu menu) {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
         if (mMenuState == EMPTY_MENU) {
             return false;
         }
@@ -1247,7 +1252,8 @@ public class Controller
         return true;
     }
 
-    protected void onCreateContextMenu(ContextMenu menu, View v,
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v,
             ContextMenuInfo menuInfo) {
         if (v instanceof TitleBar) {
             return;
@@ -1445,7 +1451,8 @@ public class Controller
         }
     }
 
-    boolean onPrepareOptionsMenu(Menu menu) {
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
         updateInLoadMenuItems(menu, getCurrentTab());
         // hold on to the menu reference here; it is used by the page callbacks
         // to update the menu based on loading state
@@ -1529,6 +1536,7 @@ public class Controller
         mUi.updateMenuState(tab, menu);
     }
 
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (null == getCurrentTopWebView()) {
             return false;
@@ -1784,6 +1792,7 @@ public class Controller
         mPageDialogsHandler.showPageInfo(mTabControl.getCurrentTab(), false, null);
     }
 
+    @Override
     public boolean onContextItemSelected(MenuItem item) {
         // Let the History and Bookmark fragments handle menus they created.
         if (item.getGroupId() == R.id.CONTEXT_MENU) {
@@ -1831,6 +1840,7 @@ public class Controller
         mActivity.openOptionsMenu();
     }
 
+    @Override
     public boolean onMenuOpened(int featureId, Menu menu) {
         if (mOptionsMenuOpen) {
             if (mConfigChanged) {
@@ -1859,11 +1869,13 @@ public class Controller
         return true;
     }
 
+    @Override
     public void onOptionsMenuClosed(Menu menu) {
         mOptionsMenuOpen = false;
         mUi.onOptionsMenuClosed(isInLoad());
     }
 
+    @Override
     public void onContextMenuClosed(Menu menu) {
         mUi.onContextMenuClosed(menu, isInLoad());
     }
@@ -1899,7 +1911,8 @@ public class Controller
 
     // action mode
 
-    void onActionModeStarted(ActionMode mode) {
+    @Override
+    public void onActionModeStarted(ActionMode mode) {
         mUi.onActionModeStarted(mode);
         mActionMode = mode;
     }
@@ -1926,6 +1939,7 @@ public class Controller
      * Called by find and select when they are finished.  Replace title bars
      * as necessary.
      */
+    @Override
     public void onActionModeFinished(ActionMode mode) {
         if (!isInCustomActionMode()) return;
         mUi.onActionModeFinished(isInLoad());
@@ -1980,6 +1994,7 @@ public class Controller
     }
 
     // file chooser
+    @Override
     public void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType, String capture) {
         mUploadHandler = new UploadHandler(this);
         mUploadHandler.openFileChooser(uploadMsg, acceptType, capture);
@@ -2114,6 +2129,7 @@ public class Controller
     private class Copy implements OnMenuItemClickListener {
         private CharSequence mText;
 
+        @Override
         public boolean onMenuItemClick(MenuItem item) {
             copy(mText);
             return true;
@@ -2131,6 +2147,7 @@ public class Controller
         private static final String FALLBACK_EXTENSION = "dat";
         private static final String IMAGE_BASE_FORMAT = "yyyy-MM-dd-HH-mm-ss-";
 
+        @Override
         public boolean onMenuItemClick(MenuItem item) {
             if (DataUri.isDataUri(mText)) {
                 saveDataUri();
@@ -2163,7 +2180,7 @@ public class Controller
                  manager.addCompletedDownload(target.getName(),
                         mActivity.getTitle().toString(), false,
                         uri.getMimeType(), target.getAbsolutePath(),
-                        (long)uri.getData().length, true);
+                        uri.getData().length, true);
             } catch (IOException e) {
                 Log.e(LOGTAG, "Could not save data URL");
             } finally {
@@ -2201,6 +2218,7 @@ public class Controller
     private static class SelectText implements OnMenuItemClickListener {
         private WebViewClassic mWebView;
 
+        @Override
         public boolean onMenuItemClick(MenuItem item) {
             if (mWebView != null) {
                 return mWebView.selectText();
@@ -2274,6 +2292,7 @@ public class Controller
 
     // Remove the sub window if it exists. Also called by TabControl when the
     // user clicks the 'X' to dismiss a sub window.
+    @Override
     public void dismissSubWindow(Tab tab) {
         removeSubWindow(tab);
         // dismiss the subwindow. This will destroy the WebView.
@@ -2611,7 +2630,8 @@ public class Controller
      * @param event
      * @return true if handled, false to pass to super
      */
-    boolean onKeyDown(int keyCode, KeyEvent event) {
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
         boolean noModifiers = event.hasNoModifiers();
         // Even if MENU is already held down, we need to call to super to open
         // the IME on long press.
@@ -2722,7 +2742,8 @@ public class Controller
          return mUi.dispatchKey(keyCode, event);
     }
 
-    boolean onKeyLongPress(int keyCode, KeyEvent event) {
+    @Override
+    public boolean onKeyLongPress(int keyCode, KeyEvent event) {
         switch(keyCode) {
         case KeyEvent.KEYCODE_BACK:
             if (mUi.isWebShowing()) {
@@ -2734,7 +2755,8 @@ public class Controller
         return false;
     }
 
-    boolean onKeyUp(int keyCode, KeyEvent event) {
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
         if (isMenuOrCtrlKey(keyCode)) {
             mMenuIsDown = false;
             if (KeyEvent.KEYCODE_MENU == keyCode
@@ -2758,6 +2780,7 @@ public class Controller
         return mMenuIsDown;
     }
 
+    @Override
     public void setupAutoFill(Message message) {
         // Open the settings activity at the AutoFill profile fragment so that
         // the user can create a new profile. When they return, we will dispatch
@@ -2769,6 +2792,7 @@ public class Controller
         mActivity.startActivityForResult(intent, AUTOFILL_SETUP);
     }
 
+    @Override
     public boolean onSearchRequested() {
         mUi.editUrl(false, true);
         return true;
@@ -2784,22 +2808,27 @@ public class Controller
         mBlockEvents = block;
     }
 
+    @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
         return mBlockEvents;
     }
 
+    @Override
     public boolean dispatchKeyShortcutEvent(KeyEvent event) {
         return mBlockEvents;
     }
 
+    @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         return mBlockEvents;
     }
 
+    @Override
     public boolean dispatchTrackballEvent(MotionEvent ev) {
         return mBlockEvents;
     }
 
+    @Override
     public boolean dispatchGenericMotionEvent(MotionEvent ev) {
         return mBlockEvents;
     }
