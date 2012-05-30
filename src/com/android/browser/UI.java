@@ -146,4 +146,6 @@ public interface UI {
 
     public boolean shouldCaptureThumbnails();
 
+    boolean blockFocusAnimations();
+
 }
