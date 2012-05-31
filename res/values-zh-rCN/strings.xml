@@ -94,8 +94,7 @@
     <string name="open_all_in_new_window" msgid="455786763426575293">"在新标签页中打开全部书签"</string>
     <string name="goto_dot" msgid="3895839050522602723">"转至"</string>
     <string name="select_dot" msgid="6299170761900561967">"选择文本"</string>
-    <!-- no translation found for close_other_tabs (7693157495148282778) -->
-    <skip />
+    <string name="close_other_tabs" msgid="7693157495148282778">"关闭其他标签"</string>
     <string name="bookmarks" msgid="1961279134885867815">"书签"</string>
     <string name="shortcut_bookmark" msgid="3974876480401135895">"书签"</string>
     <string name="shortcut_bookmark_title" msgid="7570786275916681296">"选择书签"</string>
@@ -128,7 +127,7 @@
     <string name="browser_bookmarks_page_bookmarks_text" msgid="6787605028726162673">"书签"</string>
     <string name="menu_preferences" msgid="6709237687234102240">"设置"</string>
     <string name="pref_content_title" msgid="3834107397725342174">"网页内容"</string>
-    <string name="pref_allow_apptabs" msgid="1325989799080202871">"允许为每个应用设置多个标签"</string>
+    <string name="pref_allow_apptabs" msgid="1325989799080202871">"允许一个应用使用多个标签页"</string>
     <string name="pref_content_load_images" msgid="2125616852957377561">"载入图片"</string>
     <string name="pref_content_load_images_summary" msgid="5055874125248398584">"显示网页上的图片"</string>
     <string name="pref_content_block_popups" msgid="4158524847764470895">"阻止弹出式窗口"</string>

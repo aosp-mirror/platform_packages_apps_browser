@@ -94,8 +94,7 @@
     <string name="open_all_in_new_window" msgid="455786763426575293">"Открыть все в новых вкладках"</string>
     <string name="goto_dot" msgid="3895839050522602723">"Поиск"</string>
     <string name="select_dot" msgid="6299170761900561967">"Выбрать текст"</string>
-    <!-- no translation found for close_other_tabs (7693157495148282778) -->
-    <skip />
+    <string name="close_other_tabs" msgid="7693157495148282778">"Закрыть другие вкладки"</string>
     <string name="bookmarks" msgid="1961279134885867815">"Закладки"</string>
     <string name="shortcut_bookmark" msgid="3974876480401135895">"Закладка"</string>
     <string name="shortcut_bookmark_title" msgid="7570786275916681296">"Выберите закладку"</string>
