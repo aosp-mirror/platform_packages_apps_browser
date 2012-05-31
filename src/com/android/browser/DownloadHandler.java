@@ -163,7 +163,7 @@ public class DownloadHandler {
 
             new AlertDialog.Builder(activity)
                 .setTitle(title)
-                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setIconAttribute(android.R.attr.alertDialogIcon)
                 .setMessage(msg)
                 .setPositiveButton(R.string.ok, null)
                 .show();
