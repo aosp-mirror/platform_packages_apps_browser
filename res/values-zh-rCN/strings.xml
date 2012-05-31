@@ -126,7 +126,7 @@
     <string name="browser_bookmarks_page_bookmarks_text" msgid="6787605028726162673">"书签"</string>
     <string name="menu_preferences" msgid="6709237687234102240">"设置"</string>
     <string name="pref_content_title" msgid="3834107397725342174">"网页内容"</string>
-    <string name="pref_allow_apptabs" msgid="1325989799080202871">"允许为每个应用设置多个标签"</string>
+    <string name="pref_allow_apptabs" msgid="1325989799080202871">"允许一个应用使用多个标签页"</string>
     <string name="pref_content_load_images" msgid="2125616852957377561">"载入图片"</string>
     <string name="pref_content_load_images_summary" msgid="5055874125248398584">"显示网页上的图片"</string>
     <string name="pref_content_block_popups" msgid="4158524847764470895">"阻止弹出式窗口"</string>
