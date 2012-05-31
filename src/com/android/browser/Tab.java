@@ -515,7 +515,7 @@ class Tab implements PictureListener {
                 new AlertDialog.Builder(mContext)
                     .setTitle(R.string.security_warning)
                     .setMessage(R.string.ssl_warnings_header)
-                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setIconAttribute(android.R.attr.alertDialogIcon)
                     .setPositiveButton(R.string.ssl_continue,
                         new DialogInterface.OnClickListener() {
                             @Override
@@ -716,7 +716,7 @@ class Tab implements PictureListener {
             if (dialog && mSubView != null) {
                 new AlertDialog.Builder(mContext)
                         .setTitle(R.string.too_many_subwindows_dialog_title)
-                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setIconAttribute(android.R.attr.alertDialogIcon)
                         .setMessage(R.string.too_many_subwindows_dialog_message)
                         .setPositiveButton(R.string.ok, null)
                         .show();
@@ -724,7 +724,7 @@ class Tab implements PictureListener {
             } else if (!mWebViewController.getTabControl().canCreateNewTab()) {
                 new AlertDialog.Builder(mContext)
                         .setTitle(R.string.too_many_windows_dialog_title)
-                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setIconAttribute(android.R.attr.alertDialogIcon)
                         .setMessage(R.string.too_many_windows_dialog_message)
                         .setPositiveButton(R.string.ok, null)
                         .show();
@@ -757,7 +757,7 @@ class Tab implements PictureListener {
             // Build a confirmation dialog to display to the user.
             final AlertDialog d =
                     new AlertDialog.Builder(mContext)
-                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setIconAttribute(android.R.attr.alertDialogIcon)
                     .setMessage(R.string.popup_window_attempt)
                     .setPositiveButton(R.string.allow, allowListener)
                     .setNegativeButton(R.string.block, blockListener)

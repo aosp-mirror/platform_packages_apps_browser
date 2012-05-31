@@ -128,7 +128,7 @@ public class HttpAuthenticationDialog {
 
         mDialog = new AlertDialog.Builder(mContext)
                 .setTitle(title)
-                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setIconAttribute(android.R.attr.alertDialogIcon)
                 .setView(v)
                 .setPositiveButton(R.string.action, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
