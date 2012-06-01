@@ -94,8 +94,7 @@
     <string name="open_all_in_new_window" msgid="455786763426575293">"Otvori sve u novim karticama"</string>
     <string name="goto_dot" msgid="3895839050522602723">"Idi"</string>
     <string name="select_dot" msgid="6299170761900561967">"Odabir teksta"</string>
-    <!-- no translation found for close_other_tabs (7693157495148282778) -->
-    <skip />
+    <string name="close_other_tabs" msgid="7693157495148282778">"Zatvori ostale kartice"</string>
     <string name="bookmarks" msgid="1961279134885867815">"Oznake"</string>
     <string name="shortcut_bookmark" msgid="3974876480401135895">"Oznaka"</string>
     <string name="shortcut_bookmark_title" msgid="7570786275916681296">"Odaberite oznaku"</string>
