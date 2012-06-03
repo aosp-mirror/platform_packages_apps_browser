@@ -442,7 +442,7 @@ http://www.opensearch.org/Specifications/OpenSearch/1.1/Draft_4#OpenSearch_1.1_p
     <item>http://1.im.cz/szn/img/favicon.ico</item>
     <item>http://search.seznam.cz/?q={searchTerms}</item>
     <item>UTF-8</item>
-    <item>http:///suggest.fulltext.seznam.cz/?dict=fulltext_ff&amp;phrase={searchTerms}&amp;encoding={inputEncoding}&amp;response_encoding=utf-8</item>
+    <item>http://suggest.fulltext.seznam.cz/?dict=fulltext_ff&amp;phrase={searchTerms}&amp;encoding={inputEncoding}&amp;response_encoding=utf-8</item>
   </string-array>
   <string-array name="centrum_cz" translatable="false">
     <item>Centrum.cz</item>
