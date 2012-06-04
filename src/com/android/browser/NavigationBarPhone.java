@@ -38,6 +38,7 @@ public class NavigationBarPhone extends NavigationBarBase implements
     private ImageView mStopButton;
     private ImageView mMagnify;
     private ImageView mClearButton;
+    private ImageView mVoiceButton;
     private Drawable mStopDrawable;
     private Drawable mRefreshDrawable;
     private String mStopDescription;
@@ -71,6 +72,8 @@ public class NavigationBarPhone extends NavigationBarBase implements
         mStopButton.setOnClickListener(this);
         mClearButton = (ImageView) findViewById(R.id.clear);
         mClearButton.setOnClickListener(this);
+        mVoiceButton = (ImageView) findViewById(R.id.voice);
+        mVoiceButton.setOnClickListener(this);
         mMagnify = (ImageView) findViewById(R.id.magnify);
         mTabSwitcher = findViewById(R.id.tab_switcher);
         mTabSwitcher.setOnClickListener(this);
@@ -154,6 +157,8 @@ public class NavigationBarPhone extends NavigationBarBase implements
             mUrlInput.setText("");
         } else if (mComboIcon == v) {
             mUiController.showPageInfo();
+        } else if (mVoiceButton == v) {
+            mUiController.startVoiceRecognizer();
         } else {
             super.onClick(v);
         }
@@ -215,6 +220,7 @@ public class NavigationBarPhone extends NavigationBarBase implements
             mComboIcon.setVisibility(View.VISIBLE);
             mStopButton.setVisibility(View.GONE);
             mClearButton.setVisibility(View.GONE);
+            mVoiceButton.setVisibility(View.GONE);
             mMagnify.setVisibility(View.GONE);
             mTabSwitcher.setVisibility(View.VISIBLE);
             mTitleContainer.setBackgroundDrawable(null);
@@ -224,6 +230,7 @@ public class NavigationBarPhone extends NavigationBarBase implements
             mComboIcon.setVisibility(View.GONE);
             mStopButton.setVisibility(View.VISIBLE);
             mClearButton.setVisibility(View.GONE);
+            mVoiceButton.setVisibility(View.VISIBLE);
             mMagnify.setVisibility(View.GONE);
             mTabSwitcher.setVisibility(View.GONE);
             mMore.setVisibility(View.GONE);
@@ -233,6 +240,7 @@ public class NavigationBarPhone extends NavigationBarBase implements
             mComboIcon.setVisibility(View.GONE);
             mStopButton.setVisibility(View.GONE);
             mClearButton.setVisibility(View.VISIBLE);
+            mVoiceButton.setVisibility(View.GONE);
             mMagnify.setVisibility(View.VISIBLE);
             mTabSwitcher.setVisibility(View.GONE);
             mMore.setVisibility(View.GONE);

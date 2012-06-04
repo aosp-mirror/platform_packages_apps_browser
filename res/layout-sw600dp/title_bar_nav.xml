@@ -98,7 +98,14 @@
             android:layout_height="match_parent"
             android:contentDescription="@string/accessibility_button_clear"
             style="@style/HoloButton" />
-    </LinearLayout>
+        <ImageButton
+            android:id="@+id/voice"
+            android:src="@drawable/ic_voice_search_holo_dark"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/accessibility_button_voice"
+            style="@style/HoloButton" />
+        </LinearLayout>
     <ImageButton
         android:id="@+id/search"
         android:src="@drawable/ic_search_holo_dark"

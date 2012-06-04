@@ -21,7 +21,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.speech.RecognizerResultsIntent;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
@@ -34,8 +33,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.android.browser.UrlInputView.UrlInputListener;
-
-import java.util.List;
 
 public class NavigationBarBase extends LinearLayout implements
         OnClickListener, UrlInputListener, OnFocusChangeListener,
@@ -129,7 +126,10 @@ public class NavigationBarBase extends LinearLayout implements
     }
 
     void stopEditingUrl() {
-        mUrlInput.clearFocus();
+        WebView currentTopWebView = mUiController.getCurrentTopWebView();
+        if (currentTopWebView != null) {
+            currentTopWebView.requestFocus();
+        }
     }
 
     void setDisplayTitle(String title) {
@@ -156,10 +156,7 @@ public class NavigationBarBase extends LinearLayout implements
      */
     @Override
     public void onAction(String text, String extra, String source) {
-        WebView currentTopWebView = mUiController.getCurrentTopWebView();
-        if (currentTopWebView != null) {
-            currentTopWebView.requestFocus();
-        }
+        stopEditingUrl();
         if (UrlInputView.TYPED.equals(source)) {
             String url = UrlUtils.smartUrlFilter(text, false);
             Tab t = mBaseUi.getActiveTab();
@@ -220,7 +217,7 @@ public class NavigationBarBase extends LinearLayout implements
     public boolean dispatchKeyEventPreIme(KeyEvent evt) {
         if (evt.getKeyCode() == KeyEvent.KEYCODE_BACK) {
             // catch back key in order to do slightly more cleanup than usual
-            mUrlInput.clearFocus();
+            stopEditingUrl();
             return true;
         }
         return super.dispatchKeyEventPreIme(evt);
@@ -260,6 +257,11 @@ public class NavigationBarBase extends LinearLayout implements
     public void onTabDataChanged(Tab tab) {
     }
 
+    public void onVoiceResult(String s) {
+        startEditingUrl(true, true);
+        onCopySuggestion(s);
+    }
+
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
 
@@ -268,4 +270,5 @@ public class NavigationBarBase extends LinearLayout implements
 
     @Override
     public void afterTextChanged(Editable s) { }
+
 }
