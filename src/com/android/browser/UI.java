@@ -148,4 +148,5 @@ public interface UI {
 
     boolean blockFocusAnimations();
 
+    void onVoiceResult(String result);
 }
