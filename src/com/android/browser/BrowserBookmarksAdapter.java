@@ -93,7 +93,7 @@ public class BrowserBookmarksAdapter extends
             thumb.setBackground(null);
         } else {
             thumb.setScaleType(ScaleType.CENTER_CROP);
-            if (item.thumbnail == null) {
+            if (item.thumbnail == null || !item.has_thumbnail) {
                 thumb.setImageResource(R.drawable.browser_thumbnail);
             } else {
                 thumb.setImageDrawable(item.thumbnail);
@@ -111,6 +111,7 @@ public class BrowserBookmarksAdapter extends
         Bitmap thumbnail = item.thumbnail != null ? item.thumbnail.getBitmap() : null;
         thumbnail = BrowserBookmarksPage.getBitmap(c,
                 BookmarksLoader.COLUMN_INDEX_THUMBNAIL, thumbnail);
+        item.has_thumbnail = thumbnail != null;
         if (thumbnail != null
                 && (item.thumbnail == null || item.thumbnail.getBitmap() != thumbnail)) {
             item.thumbnail = new BitmapDrawable(mContext.getResources(), thumbnail);
