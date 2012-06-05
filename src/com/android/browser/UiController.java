@@ -107,4 +107,8 @@ public interface UiController {
 
     BrowserSettings getSettings();
 
+    boolean supportsVoice();
+
+    void startVoiceRecognizer();
+
 }

@@ -32,10 +32,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.android.browser.UI.ComboViews;
+import com.android.browser.UrlInputView.StateListener;
 
-import java.util.List;
-
-public class NavigationBarTablet extends NavigationBarBase {
+public class NavigationBarTablet extends NavigationBarBase implements StateListener {
 
     private Drawable mStopDrawable;
     private Drawable mReloadDrawable;
@@ -51,6 +50,7 @@ public class NavigationBarTablet extends NavigationBarBase {
     private ImageView mStopButton;
     private View mAllButton;
     private View mClearButton;
+    private View mVoiceButton;
     private View mNavButtons;
     private Drawable mFocusDrawable;
     private Drawable mUnfocusDrawable;
@@ -99,6 +99,7 @@ public class NavigationBarTablet extends NavigationBarBase {
         mStopButton = (ImageView) findViewById(R.id.stop);
         mSearchButton = (ImageView) findViewById(R.id.search);
         mClearButton = findViewById(R.id.clear);
+        mVoiceButton = findViewById(R.id.voice);
         mUrlContainer = findViewById(R.id.urlbar_focused);
         mBackButton.setOnClickListener(this);
         mForwardButton.setOnClickListener(this);
@@ -107,7 +108,9 @@ public class NavigationBarTablet extends NavigationBarBase {
         mStopButton.setOnClickListener(this);
         mSearchButton.setOnClickListener(this);
         mClearButton.setOnClickListener(this);
+        mVoiceButton.setOnClickListener(this);
         mUrlInput.setContainer(mUrlContainer);
+        mUrlInput.setStateListener(this);
     }
 
     public void onConfigurationChanged(Configuration config) {
@@ -176,6 +179,8 @@ public class NavigationBarTablet extends NavigationBarBase {
             stopOrRefresh();
         } else if (mClearButton == v) {
             clearOrClose();
+        } else if (mVoiceButton == v) {
+            mUiController.startVoiceRecognizer();
         } else {
             super.onClick(v);
         }
@@ -217,14 +222,12 @@ public class NavigationBarTablet extends NavigationBarBase {
             }
             mSearchButton.setVisibility(View.GONE);
             mStar.setVisibility(View.GONE);
-            mClearButton.setVisibility(View.VISIBLE);
             mUrlIcon.setImageResource(R.drawable.ic_search_holo_dark);
         } else {
             if (mHideNavButtons) {
                 showNavButtons();
             }
             showHideStar(mUiController.getCurrentTab());
-            mClearButton.setVisibility(View.GONE);
             if (mTitleBar.useQuickControls()) {
                 mSearchButton.setVisibility(View.GONE);
             } else {
@@ -289,6 +292,7 @@ public class NavigationBarTablet extends NavigationBarBase {
             mAnimation.cancel();
         }
         mNavButtons.setVisibility(View.VISIBLE);
+        mNavButtons.setTranslationX(0);
         if (!mBaseUi.blockFocusAnimations()) {
             int awidth = mNavButtons.getMeasuredWidth();
             Animator anim1 = ObjectAnimator.ofFloat(mNavButtons,
@@ -313,6 +317,25 @@ public class NavigationBarTablet extends NavigationBarBase {
                 starVisibility = View.GONE;
             }
             mStar.setVisibility(starVisibility);
+        }
+    }
+
+    @Override
+    public void onStateChanged(int state) {
+        switch(state) {
+        case STATE_NORMAL:
+            mClearButton.setVisibility(View.GONE);
+            mVoiceButton.setVisibility(View.GONE);
+
+            break;
+        case STATE_HIGHLIGHTED:
+            mClearButton.setVisibility(View.GONE);
+            mVoiceButton.setVisibility(View.VISIBLE);
+            break;
+        case STATE_EDITED:
+            mClearButton.setVisibility(View.VISIBLE);
+            mVoiceButton.setVisibility(View.GONE);
+            break;
         }
     }
 

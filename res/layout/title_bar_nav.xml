@@ -89,6 +89,15 @@
             style="@style/Suggestions"
             android:background="@null" />
         <ImageView
+            android:id="@+id/voice"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingRight="4dip"
+            android:contentDescription="@string/accessibility_button_voice"
+            android:src="@drawable/ic_voice_search_holo_dark"
+            style="@style/HoloButton"
+            android:visibility="gone" />
+        <ImageView
             android:id="@+id/clear"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"

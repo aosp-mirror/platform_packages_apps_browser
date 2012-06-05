@@ -870,4 +870,9 @@ public abstract class BaseUi implements UI {
         return mBlockFocusAnimations;
     }
 
+    @Override
+    public void onVoiceResult(String result) {
+        mNavigationBar.onVoiceResult(result);
+    }
+
 }
