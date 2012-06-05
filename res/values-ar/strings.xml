@@ -54,7 +54,7 @@
     <string name="stop" msgid="5687251076030630074">"إيقاف"</string>
     <string name="reload" msgid="8585220783228408062">"تحديث"</string>
     <string name="back" msgid="8414603107175713668">"رجوع"</string>
-    <string name="forward" msgid="4288210890526641577">"إعادة توجيه"</string>
+    <string name="forward" msgid="4288210890526641577">"للأمام"</string>
     <string name="save" msgid="5922311934992468496">"موافق"</string>
     <string name="do_not_save" msgid="6777633870113477714">"إلغاء"</string>
     <string name="location" msgid="3411848697912600125">"العنوان"</string>
@@ -102,7 +102,7 @@
     <string name="menu_view_download" msgid="2124570321712995120">"التنزيلات"</string>
     <string name="copy_page_url" msgid="1188679152608889555">"نسخ عنوان URL للصفحة"</string>
     <string name="share_page" msgid="593756995297268343">"مشاركة الصفحة"</string>
-    <string name="menu_save_snapshot" msgid="6935080344031126139">"حفظ للقراءة في وضع عدم الاتصال"</string>
+    <string name="menu_save_snapshot" msgid="6935080344031126139">"حفظ للقراءة بلا اتصال"</string>
     <string name="saving_snapshot" msgid="1693789062351182809">"جارٍ الحفظ..."</string>
     <string name="snapshot_failed" msgid="4584580873565876033">"تعذر الحفظ للقراءة في وضع عدم الاتصال."</string>
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"<xliff:g id="BOOKMARK_COUNT">%d</xliff:g> من الإشارات المرجعية"</string>
@@ -373,7 +373,7 @@
     <string name="instant_search_label" msgid="8769284297650716935">"Google مع البحث الفوري (ميزات اختبارية)"</string>
     <string name="preview" msgid="6450823514561689038">"معاينة"</string>
     <string name="local_bookmarks" msgid="533816851415228520">"محلية"</string>
-    <string name="ua_switcher_desktop" msgid="220097077327558435">"طلب موقع ويب لسطح المكتب"</string>
+    <string name="ua_switcher_desktop" msgid="220097077327558435">"طلب موقع ويب الكمبيوتر"</string>
     <string name="permission_preload_label" msgid="4856971662337877316">"تحميل النتائج مسبقًا"</string>
     <string name="empty_snapshots_folder" msgid="7675378008107026013">"ليست هناك أية صفحات محفوظة."</string>
     <string name="remove_snapshot" msgid="1624447424544976849">"حذف الصفحة المحفوظة"</string>
