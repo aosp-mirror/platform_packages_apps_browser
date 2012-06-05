@@ -21,5 +21,6 @@ public class BrowserBookmarksAdapterItem {
     public String url;
     public CharSequence title;
     public BitmapDrawable thumbnail;
+    public boolean has_thumbnail;
     public boolean is_folder;
 }
