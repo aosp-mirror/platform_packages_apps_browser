@@ -94,8 +94,7 @@
     <string name="open_all_in_new_window" msgid="455786763426575293">"Åpne alle i nye faner"</string>
     <string name="goto_dot" msgid="3895839050522602723">"Gå til"</string>
     <string name="select_dot" msgid="6299170761900561967">"Velg tekst"</string>
-    <!-- no translation found for close_other_tabs (7693157495148282778) -->
-    <skip />
+    <string name="close_other_tabs" msgid="7693157495148282778">"Lukk de andre fanene"</string>
     <string name="bookmarks" msgid="1961279134885867815">"Bokmerker"</string>
     <string name="shortcut_bookmark" msgid="3974876480401135895">"Bokmerke"</string>
     <string name="shortcut_bookmark_title" msgid="7570786275916681296">"Velg et bokmerke"</string>
