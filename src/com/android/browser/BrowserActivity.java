@@ -43,6 +43,7 @@ public class BrowserActivity extends Activity {
     public static final String ACTION_SHOW_BROWSER = "show_browser";
     public static final String ACTION_RESTART = "--restart--";
     private static final String EXTRA_STATE = "state";
+    public static final String EXTRA_DISABLE_URL_OVERRIDE = "disable_url_override";
 
     private final static String LOGTAG = "browser";
 

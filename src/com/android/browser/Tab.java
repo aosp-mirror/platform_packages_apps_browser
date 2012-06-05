@@ -156,6 +156,7 @@ class Tab implements PictureListener {
     // If true, the tab is in page loading state (after onPageStarted,
     // before onPageFinsihed)
     private boolean mInPageLoad;
+    private boolean mDisableOverrideUrlLoading;
     // The last reported progress of the current page
     private int mPageLoadProgress;
     // The time the load started, used to find load page time
@@ -373,6 +374,7 @@ class Tab implements PictureListener {
 
         @Override
         public void onPageFinished(WebView view, String url) {
+            mDisableOverrideUrlLoading = false;
             if (!isPrivateBrowsingEnabled()) {
                 LogTag.logPageFinishedLoading(
                         url, SystemClock.uptimeMillis() - mLoadStartTime);
@@ -384,7 +386,7 @@ class Tab implements PictureListener {
         // return true if want to hijack the url to let another app to handle it
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            if (mInForeground) {
+            if (!mDisableOverrideUrlLoading && mInForeground) {
                 return mWebViewController.shouldOverrideUrlLoading(Tab.this,
                         view, url);
             } else {
@@ -1893,6 +1895,10 @@ class Tab implements PictureListener {
             mWebViewController.onPageStarted(this, mMainView, null);
             mMainView.loadUrl(url, headers);
         }
+    }
+
+    public void disableUrlOverridingForLoad() {
+        mDisableOverrideUrlLoading = true;
     }
 
     protected void capture() {

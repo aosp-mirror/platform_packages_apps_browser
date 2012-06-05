@@ -2574,6 +2574,9 @@ public class Controller
             if (data.isPreloaded()) {
                 // this isn't called for preloaded tabs
             } else {
+                if (t != null && data.mDisableUrlOverride) {
+                    t.disableUrlOverridingForLoad();
+                }
                 loadUrl(t, data.mUrl, data.mHeaders);
             }
         }
