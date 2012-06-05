@@ -52,6 +52,7 @@ import android.provider.BrowserContract;
 import android.provider.BrowserContract.Images;
 import android.provider.ContactsContract;
 import android.provider.ContactsContract.Intents.Insert;
+import android.speech.RecognizerIntent;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
@@ -129,6 +130,7 @@ public class Controller
     final static int PREFERENCES_PAGE = 3;
     final static int FILE_SELECTED = 4;
     final static int AUTOFILL_SETUP = 5;
+    final static int VOICE_RESULT = 6;
 
     private final static int WAKELOCK_TIMEOUT = 5 * 60 * 1000; // 5 minutes
 
@@ -215,6 +217,8 @@ public class Controller
     private CrashRecoveryHandler mCrashRecoveryHandler;
 
     private boolean mBlockEvents;
+
+    private String mVoiceResult;
 
     public Controller(Activity browser) {
         mActivity = browser;
@@ -700,6 +704,10 @@ public class Controller
         mNetworkHandler.onResume();
         WebView.enablePlatformNotifications();
         NfcHandler.register(mActivity, this);
+        if (mVoiceResult != null) {
+            mUi.onVoiceResult(mVoiceResult);
+            mVoiceResult = null;
+        }
     }
 
     private void releaseWakeLock() {
@@ -1187,6 +1195,15 @@ public class Controller
                             ComboViewActivity.EXTRA_OPEN_SNAPSHOT, -1);
                     if (id >= 0) {
                         createNewSnapshotTab(id, true);
+                    }
+                }
+                break;
+            case VOICE_RESULT:
+                if (resultCode == Activity.RESULT_OK && intent != null) {
+                    ArrayList<String> results = intent.getStringArrayListExtra(
+                            RecognizerIntent.EXTRA_RESULTS);
+                    if (results.size() >= 1) {
+                        mVoiceResult = results.get(0);
                     }
                 }
                 break;
@@ -2819,6 +2836,23 @@ public class Controller
     @Override
     public boolean shouldCaptureThumbnails() {
         return mUi.shouldCaptureThumbnails();
+    }
+
+    @Override
+    public boolean supportsVoice() {
+        PackageManager pm = mActivity.getPackageManager();
+        List activities = pm.queryIntentActivities(new Intent(
+                RecognizerIntent.ACTION_RECOGNIZE_SPEECH), 0);
+        return activities.size() != 0;
+    }
+
+    @Override
+    public void startVoiceRecognizer() {
+        Intent voice = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        voice.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, 
+                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        voice.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 1);
+        mActivity.startActivityForResult(voice, VOICE_RESULT);
     }
 
     @Override
