@@ -646,6 +646,20 @@ class Tab implements PictureListener {
             }
         }
 
+        @Override
+        public boolean overrideContentDetector(String url) {
+            try {
+                Intent intent = UrlHandler.intentForContentDetectorUrl(mContext, url);
+                if (intent != null) {
+                    mContext.startActivity(intent);
+                }
+            } catch (Exception e) {
+                // We could get this for a variety of reasons - from no activity found
+                // to failed to start it. But regardless we don't care, so swallow it
+            }
+            return true;
+        }
+
         /**
          * Updates the security state. This method is called when we discover
          * another resource to be loaded for this page (for example,
@@ -1354,6 +1368,10 @@ class Tab implements PictureListener {
         public void onUnhandledKeyEvent(WebView view,
                 android.view.KeyEvent event) {
             mClient.onUnhandledKeyEvent(view, event);
+        }
+        @Override
+        public boolean overrideContentDetector(String url) {
+            return mClient.overrideContentDetector(url);
         }
     }
 
