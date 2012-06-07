@@ -29,7 +29,6 @@ import android.os.Message;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.ActionMode;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -97,11 +96,6 @@ public class PhoneUi extends BaseUi {
 
     private boolean showingNavScreen() {
         return mNavScreen != null && mNavScreen.getVisibility() == View.VISIBLE;
-    }
-
-    @Override
-    public boolean dispatchKey(int code, KeyEvent event) {
-        return false;
     }
 
     @Override
