@@ -64,6 +64,7 @@ import android.webkit.WebView;
 import android.webkit.WebView.PictureListener;
 import android.webkit.WebViewClassic;
 import android.webkit.WebViewClient;
+import android.webkit.WebViewClientClassicExt;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
@@ -322,7 +323,7 @@ class Tab implements PictureListener {
     // WebViewClient implementation for the main WebView
     // -------------------------------------------------------------------------
 
-    private final WebViewClient mWebViewClient = new WebViewClient() {
+    private final WebViewClientClassicExt mWebViewClient = new WebViewClientClassicExt() {
         private Message mDontResend;
         private Message mResend;
 
@@ -1045,12 +1046,12 @@ class Tab implements PictureListener {
 
     // Subclass of WebViewClient used in subwindows to notify the main
     // WebViewClient of certain WebView activities.
-    private static class SubWindowClient extends WebViewClient {
+    private static class SubWindowClient extends WebViewClientClassicExt {
         // The main WebViewClient.
-        private final WebViewClient mClient;
+        private final WebViewClientClassicExt mClient;
         private final WebViewController mController;
 
-        SubWindowClient(WebViewClient client, WebViewController controller) {
+        SubWindowClient(WebViewClientClassicExt client, WebViewController controller) {
             mClient = client;
             mController = controller;
         }
