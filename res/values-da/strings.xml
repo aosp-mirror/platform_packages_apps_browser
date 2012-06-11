@@ -365,7 +365,7 @@
     <string name="import_bookmarks_wizard_next" msgid="7578143961884352676">"Næste"</string>
     <string name="import_bookmarks_wizard_previous" msgid="8551440353688257031">"Forrige"</string>
     <string name="import_bookmarks_wizard_cancel" msgid="4936061122806506634">"Annuller"</string>
-    <string name="import_bookmarks_wizard_done" msgid="1446247092194489191">"Udfør"</string>
+    <string name="import_bookmarks_wizard_done" msgid="1446247092194489191">"Afslut"</string>
     <string name="import_bookmarks_dialog_add" msgid="1743359725294101189">"Føj bogmærker til Google-konto"</string>
     <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"Føj dine Android-bogmærker til bogmærker for <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>"</string>
     <string name="menu_share_url" msgid="5851814357333739700">"Del"</string>
