@@ -27,6 +27,7 @@ import android.content.Context;
 import android.net.Proxy;
 import android.net.http.AndroidHttpClient;
 import android.os.Environment;
+import android.util.Log;
 import android.webkit.MimeTypeMap;
 import android.webkit.URLUtil;
 
@@ -43,6 +44,8 @@ import java.io.IOException;
  *
  */
 class FetchUrlMimeType extends Thread {
+
+    private final static String LOGTAG = "FetchUrlMimeType";
 
     private Context mContext;
     private DownloadManager.Request mRequest;
@@ -64,9 +67,16 @@ class FetchUrlMimeType extends Thread {
         // User agent is likely to be null, though the AndroidHttpClient
         // seems ok with that.
         AndroidHttpClient client = AndroidHttpClient.newInstance(mUserAgent);
-        HttpHost httpHost = Proxy.getPreferredHttpHost(mContext, mUri);
-        if (httpHost != null) {
-            ConnRouteParams.setDefaultProxy(client.getParams(), httpHost);
+        HttpHost httpHost;
+        try {
+            httpHost = Proxy.getPreferredHttpHost(mContext, mUri);
+            if (httpHost != null) {
+                ConnRouteParams.setDefaultProxy(client.getParams(), httpHost);
+            }
+        } catch (IllegalArgumentException ex) {
+            Log.e(LOGTAG,"Download failed: " + ex);
+            client.close();
+            return;
         }
         HttpHead request = new HttpHead(mUri);
 

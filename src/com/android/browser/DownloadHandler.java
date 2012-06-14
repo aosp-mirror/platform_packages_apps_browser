@@ -106,7 +106,7 @@ public class DownloadHandler {
 
         boolean needed = false;
         for (char c : chars) {
-            if (c == '[' || c == ']') {
+            if (c == '[' || c == ']' || c == '|') {
                 needed = true;
                 break;
             }
@@ -117,7 +117,7 @@ public class DownloadHandler {
 
         StringBuilder sb = new StringBuilder("");
         for (char c : chars) {
-            if (c == '[' || c == ']') {
+            if (c == '[' || c == ']' || c == '|') {
                 sb.append('%');
                 sb.append(Integer.toHexString(c));
             } else {
