@@ -175,6 +175,7 @@ public class UrlHandler {
           return false;
       }
       try {
+          intent.putExtra(BrowserActivity.EXTRA_DISABLE_URL_OVERRIDE, true);
           if (mActivity.startActivityIfNeeded(intent, -1)) {
               // before leaving BrowserActivity, close the empty child tab.
               // If a new tab is created through JavaScript open to load this

@@ -335,12 +335,14 @@ public class IntentHandler {
         final Map<String, String> mHeaders;
         final PreloadedTabControl mPreloadedTab;
         final String mSearchBoxQueryToSubmit;
+        final boolean mDisableUrlOverride;
 
         UrlData(String url) {
             this.mUrl = url;
             this.mHeaders = null;
             this.mPreloadedTab = null;
             this.mSearchBoxQueryToSubmit = null;
+            this.mDisableUrlOverride = false;
         }
 
         UrlData(String url, Map<String, String> headers, Intent intent) {
@@ -353,6 +355,12 @@ public class IntentHandler {
             this.mHeaders = headers;
             this.mPreloadedTab = preloaded;
             this.mSearchBoxQueryToSubmit = searchBoxQueryToSubmit;
+            if (intent != null) {
+                mDisableUrlOverride = intent.getBooleanExtra(
+                        BrowserActivity.EXTRA_DISABLE_URL_OVERRIDE, false);
+            } else {
+                mDisableUrlOverride = false;
+            }
         }
 
         boolean isEmpty() {
