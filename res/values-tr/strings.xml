@@ -314,14 +314,14 @@
     <string name="too_many_windows_dialog_message" msgid="3644234634638290304">"Mevcut sekmelerden birini kapatmadan yeni bir sekme açılamaz."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Pop-up pencere zaten açık"</string>
     <string name="too_many_subwindows_dialog_message" msgid="2164725447981195556">"Aynı anda yalnızca bir tane pop-up açık olabilir."</string>
-    <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"USB dep br kullanılamıyor"</string>
+    <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"USB bellek kullanılamıyor"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"SD kart yok"</string>
-    <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"<xliff:g id="FILENAME">%s</xliff:g> adlı dosyanın indirilebilmesi için USB depolama birimi gerekiyor."</string>
+    <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"<xliff:g id="FILENAME">%s</xliff:g> adlı dosyanın indirilebilmesi için USB bellek gerekiyor."</string>
     <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"<xliff:g id="FILENAME">%s</xliff:g> dosyasını indirmek için bir SD kart gerekli."</string>
-    <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"USB dep br kullanılamıyor"</string>
+    <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"USB bellek kullanılamıyor"</string>
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"SD kart kullanılamıyor"</string>
-    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="8412543086906716875">"USB depolama birimi meşgul. İndirme işlemlerine izin vermek için bildirim alanında USB Depolama Birimini Kapat seçeneğini dokunun."</string>
-    <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"SD kart meşgul. İndirme işlemlerine izin vermek için bildirim alanında USB Depolama Birimini Kapat seçeneğine dokunun."</string>
+    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="8412543086906716875">"USB bellek meşgul. İndirme işlemlerine izin vermek için bildirim alanında USB Belleği Kapat seçeneğine dokunun."</string>
+    <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"SD kart meşgul. İndirme işlemlerine izin vermek için bildirim alanında USB Belleği Kapat seçeneğine dokunun."</string>
     <string name="cannot_download" msgid="8150552478556798780">"Yalnızca \"http\" veya \"https\" URL\'leri indirilebilir."</string>
     <string name="download_pending" msgid="2599683668575349559">"İndirme işlemi başlatılıyor…"</string>
     <string name="search_the_web" msgid="6046130189241962337">"Web\'de ara"</string>

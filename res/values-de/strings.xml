@@ -161,7 +161,7 @@
     <string name="pref_autofill_profile_editor" msgid="8934844472922113166">"AutoFill-Text"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="4864447251676856190">"AutoFill-Text für Webformulare festlegen"</string>
     <string name="pref_autologin_title" msgid="4421187193809267096">"Automatische Google-Anmeldung"</string>
-    <string name="pref_autologin_progress" msgid="8333244467048833461">"Anmeldung in Google Sites mit <xliff:g id="ID_1">%s</xliff:g>..."</string>
+    <string name="pref_autologin_progress" msgid="8333244467048833461">"Anmeldung bei Google-Websites mit <xliff:g id="ID_1">%s</xliff:g>..."</string>
     <string name="autologin_bar_text" msgid="3684581827167173371">"Anmelden als"</string>
     <string name="autologin_bar_login_text" msgid="3336615320510851879">"Anmelden"</string>
     <string name="autologin_bar_hide_text" msgid="3629355974385859580">"Ausblenden"</string>
