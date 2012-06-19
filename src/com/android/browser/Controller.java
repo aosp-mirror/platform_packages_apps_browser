@@ -1269,8 +1269,11 @@ public class Controller
                     "We should not show context menu when nothing is touched");
             return;
         }
-        if (type == WebView.HitTestResult.EDIT_TEXT_TYPE) {
-            // let TextView handles context menu
+        if (type == WebView.HitTestResult.EDIT_TEXT_TYPE
+                || type == WebView.HitTestResult.PHONE_TYPE
+                || type == WebView.HitTestResult.EMAIL_TYPE
+                || type == WebView.HitTestResult.GEO_TYPE) {
+            // We don't have a context menu for these
             return;
         }
 
@@ -1282,22 +1285,13 @@ public class Controller
 
         // Show the correct menu group
         final String extra = result.getExtra();
-        menu.setGroupVisible(R.id.PHONE_MENU,
-                type == WebView.HitTestResult.PHONE_TYPE);
-        menu.setGroupVisible(R.id.EMAIL_MENU,
-                type == WebView.HitTestResult.EMAIL_TYPE);
-        menu.setGroupVisible(R.id.GEO_MENU,
-                type == WebView.HitTestResult.GEO_TYPE);
         menu.setGroupVisible(R.id.IMAGE_MENU,
                 type == WebView.HitTestResult.IMAGE_TYPE
                 || type == WebView.HitTestResult.SRC_IMAGE_ANCHOR_TYPE);
         menu.setGroupVisible(R.id.ANCHOR_MENU,
                 type == WebView.HitTestResult.SRC_ANCHOR_TYPE
                 || type == WebView.HitTestResult.SRC_IMAGE_ANCHOR_TYPE);
-        boolean hitText = type == WebView.HitTestResult.SRC_ANCHOR_TYPE
-                || type == WebView.HitTestResult.PHONE_TYPE
-                || type == WebView.HitTestResult.EMAIL_TYPE
-                || type == WebView.HitTestResult.GEO_TYPE;
+        boolean hitText = type == WebView.HitTestResult.SRC_ANCHOR_TYPE;
         menu.setGroupVisible(R.id.SELECT_TEXT_MENU, hitText);
         if (hitText) {
             menu.findItem(R.id.select_text_menu_id)
@@ -1305,37 +1299,6 @@ public class Controller
         }
         // Setup custom handling depending on the type
         switch (type) {
-            case WebView.HitTestResult.PHONE_TYPE:
-                menu.setHeaderTitle(Uri.decode(extra));
-                menu.findItem(R.id.dial_context_menu_id).setIntent(
-                        new Intent(Intent.ACTION_VIEW, Uri
-                                .parse(WebView.SCHEME_TEL + extra)));
-                menu.findItem(R.id.copy_phone_context_menu_id)
-                        .setOnMenuItemClickListener(
-                        new Copy(extra));
-                break;
-
-            case WebView.HitTestResult.EMAIL_TYPE:
-                menu.setHeaderTitle(extra);
-                menu.findItem(R.id.email_context_menu_id).setIntent(
-                        new Intent(Intent.ACTION_VIEW, Uri
-                                .parse(WebView.SCHEME_MAILTO + extra)));
-                menu.findItem(R.id.copy_mail_context_menu_id)
-                        .setOnMenuItemClickListener(
-                        new Copy(extra));
-                break;
-
-            case WebView.HitTestResult.GEO_TYPE:
-                menu.setHeaderTitle(extra);
-                menu.findItem(R.id.map_context_menu_id).setIntent(
-                        new Intent(Intent.ACTION_VIEW, Uri
-                                .parse(WebView.SCHEME_GEO
-                                        + URLEncoder.encode(extra))));
-                menu.findItem(R.id.copy_geo_context_menu_id)
-                        .setOnMenuItemClickListener(
-                        new Copy(extra));
-                break;
-
             case WebView.HitTestResult.SRC_ANCHOR_TYPE:
             case WebView.HitTestResult.SRC_IMAGE_ANCHOR_TYPE:
                 menu.setHeaderTitle(extra);
@@ -2048,19 +2011,6 @@ public class Controller
                 return null;
             }
         }.execute();
-    }
-
-    private class Copy implements OnMenuItemClickListener {
-        private CharSequence mText;
-
-        public boolean onMenuItemClick(MenuItem item) {
-            copy(mText);
-            return true;
-        }
-
-        public Copy(CharSequence toCopy) {
-            mText = toCopy;
-        }
     }
 
     private static class Download implements OnMenuItemClickListener {
