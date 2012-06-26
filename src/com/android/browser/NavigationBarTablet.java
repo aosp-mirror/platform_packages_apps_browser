@@ -322,19 +322,19 @@ public class NavigationBarTablet extends NavigationBarBase implements StateListe
 
     @Override
     public void onStateChanged(int state) {
+        mVoiceButton.setVisibility(View.GONE);
         switch(state) {
         case STATE_NORMAL:
             mClearButton.setVisibility(View.GONE);
-            mVoiceButton.setVisibility(View.GONE);
-
             break;
         case STATE_HIGHLIGHTED:
             mClearButton.setVisibility(View.GONE);
-            mVoiceButton.setVisibility(View.VISIBLE);
+            if ((mUiController != null) && mUiController.supportsVoice()) {
+                mVoiceButton.setVisibility(View.VISIBLE);
+            }
             break;
         case STATE_EDITED:
             mClearButton.setVisibility(View.VISIBLE);
-            mVoiceButton.setVisibility(View.GONE);
             break;
         }
     }

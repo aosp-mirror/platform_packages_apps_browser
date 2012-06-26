@@ -215,12 +215,12 @@ public class NavigationBarPhone extends NavigationBarBase implements
 
     @Override
     public void onStateChanged(int state) {
+        mVoiceButton.setVisibility(View.GONE);
         switch(state) {
         case StateListener.STATE_NORMAL:
             mComboIcon.setVisibility(View.VISIBLE);
             mStopButton.setVisibility(View.GONE);
             mClearButton.setVisibility(View.GONE);
-            mVoiceButton.setVisibility(View.GONE);
             mMagnify.setVisibility(View.GONE);
             mTabSwitcher.setVisibility(View.VISIBLE);
             mTitleContainer.setBackgroundDrawable(null);
@@ -230,7 +230,9 @@ public class NavigationBarPhone extends NavigationBarBase implements
             mComboIcon.setVisibility(View.GONE);
             mStopButton.setVisibility(View.VISIBLE);
             mClearButton.setVisibility(View.GONE);
-            mVoiceButton.setVisibility(View.VISIBLE);
+            if ((mUiController != null) && mUiController.supportsVoice()) {
+                mVoiceButton.setVisibility(View.VISIBLE);
+            }
             mMagnify.setVisibility(View.GONE);
             mTabSwitcher.setVisibility(View.GONE);
             mMore.setVisibility(View.GONE);
@@ -240,7 +242,6 @@ public class NavigationBarPhone extends NavigationBarBase implements
             mComboIcon.setVisibility(View.GONE);
             mStopButton.setVisibility(View.GONE);
             mClearButton.setVisibility(View.VISIBLE);
-            mVoiceButton.setVisibility(View.GONE);
             mMagnify.setVisibility(View.VISIBLE);
             mTabSwitcher.setVisibility(View.GONE);
             mMore.setVisibility(View.GONE);
