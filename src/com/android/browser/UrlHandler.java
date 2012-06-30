@@ -18,8 +18,6 @@ package com.android.browser;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
@@ -340,24 +338,6 @@ public class UrlHandler {
             return true;
         }
         return false;
-    }
-
-    public static Intent intentForContentDetectorUrl(Context context, String url) {
-        Uri uri = Uri.parse(url);
-        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        intent.addCategory(Intent.CATEGORY_BROWSABLE);
-        PackageManager pm = context.getPackageManager();
-        ComponentName resolvedName = intent.resolveActivity(pm);
-        if (resolvedName != null && !"android".equals(resolvedName.getPackageName())) {
-            intent.setComponent(resolvedName);
-            return intent;
-        }
-        List<ResolveInfo> activities = pm.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
-        if (activities.size() == 0) {
-            return null;
-        }
-        intent.setPackage(activities.get(0).activityInfo.applicationInfo.packageName);
-        return intent;
     }
 
 }
