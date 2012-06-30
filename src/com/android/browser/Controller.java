@@ -1310,6 +1310,11 @@ public class Controller
                 menu.findItem(R.id.dial_context_menu_id).setIntent(
                         new Intent(Intent.ACTION_VIEW, Uri
                                 .parse(WebView.SCHEME_TEL + extra)));
+                Intent addIntent = new Intent(Intent.ACTION_INSERT_OR_EDIT);
+                addIntent.putExtra(Insert.PHONE, Uri.decode(extra));
+                addIntent.setType(ContactsContract.Contacts.CONTENT_ITEM_TYPE);
+                menu.findItem(R.id.add_contact_context_menu_id).setIntent(
+                        addIntent);
                 menu.findItem(R.id.copy_phone_context_menu_id)
                         .setOnMenuItemClickListener(
                         new Copy(extra));

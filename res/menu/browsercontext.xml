@@ -18,6 +18,8 @@
     <group android:id="@+id/PHONE_MENU">
         <item android:id="@+id/dial_context_menu_id"
             android:title="@string/contextmenu_dial_dot"/>
+        <item android:id="@+id/add_contact_context_menu_id"
+            android:title="@string/contextmenu_add_contact"/>
         <item android:id="@+id/copy_phone_context_menu_id"
             android:title="@string/contextmenu_copy"/>
     </group>
