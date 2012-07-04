@@ -138,9 +138,6 @@ public class BrowserProvider2 extends SQLiteContentProvider {
     private static final String ZERO_QUERY_SUGGEST_SELECTION =
             TABLE_HISTORY + "." + History.DATE_LAST_VISITED + " != 0";
 
-    private static final String SUGGEST_ORDER_BY =
-            TABLE_HISTORY + "." + History.DATE_LAST_VISITED + " DESC";
-
     private static final String IMAGE_PRUNE =
             "url_key NOT IN (SELECT url FROM bookmarks " +
             "WHERE url IS NOT NULL AND deleted == 0) AND url_key NOT IN " +
@@ -1158,7 +1155,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
         }
         Cursor c = mOpenHelper.getReadableDatabase().query(TABLE_BOOKMARKS_JOIN_HISTORY,
                 SUGGEST_PROJECTION, selection, selectionArgs, null, null,
-                SUGGEST_ORDER_BY, null);
+                null, null);
 
         return new SuggestionsCursor(c);
     }
