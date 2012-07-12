@@ -65,7 +65,7 @@
     <string name="delete_folder" msgid="2046483129024501116">"حذف پوشه"</string>
     <string name="no_subfolders" msgid="3303645239686962674">"پوشه فرعی وجود ندارد."</string>
     <string name="add_to_bookmarks_menu_option" msgid="4449323955122214389">"نشانک ها"</string>
-    <string name="add_to_homescreen_menu_option" msgid="1461447829242963790">"صفحه اصلی"</string>
+    <string name="add_to_homescreen_menu_option" msgid="1461447829242963790">"صفحهٔ اصلی"</string>
     <string name="add_to_other_folder_menu_option" msgid="5947586525822134105">"پوشه دیگر"</string>
     <string name="name" msgid="5462672162695365387">"برچسب"</string>
     <string name="http" msgid="2163722670597250102">"http://"</string>
@@ -73,15 +73,15 @@
     <string name="bookmark_this_page" msgid="7530739804320811054">"این صفحه نشانک گذاری شود"</string>
     <string name="remove" msgid="7820112494467011374">"حذف"</string>
     <string name="edit_bookmark" msgid="5024089053490231905">"ویرایش نشانک"</string>
-    <string name="create_shortcut_bookmark" msgid="1995095662095484289">"افزودن میانبر به صفحه اصلی"</string>
+    <string name="create_shortcut_bookmark" msgid="1995095662095484289">"افزودن میانبر به صفحهٔ اصلی"</string>
     <string name="open_bookmark" msgid="8473581305759935790">"باز کردن"</string>
     <string name="remove_bookmark" msgid="8407495852801410891">"حذف نشانک"</string>
     <string name="remove_from_bookmarks" msgid="4374080666576982775">"حذف از نشانک ها"</string>
     <string name="remove_history_item" msgid="5021424935726728618">"حذف از سابقه"</string>
-    <string name="set_as_homepage" msgid="4752937379414905560">"تنظیم بعنوان صفحه اصلی"</string>
+    <string name="set_as_homepage" msgid="4752937379414905560">"تنظیم بعنوان صفحهٔ اصلی"</string>
     <string name="bookmark_saved" msgid="2766434679871317557">"ذخیره شده در نشانک ها."</string>
     <string name="bookmark_not_saved" msgid="1077732557310662080">"نشانک ذخیره نشد."</string>
-    <string name="homepage_set" msgid="8768087280310966395">"تنظیم صفحه اصلی."</string>
+    <string name="homepage_set" msgid="8768087280310966395">"تنظیم صفحهٔ اصلی."</string>
     <string name="bookmark_needs_title" msgid="6245900436119218187">"نشانک باید دارای یک نام باشد."</string>
     <string name="bookmark_needs_url" msgid="7809876865972755158">"نشانک باید دارای یک مکان باشد."</string>
     <string name="bookmark_url_not_valid" msgid="4917440933384496211">"این URL معتبر نیست."</string>
@@ -109,7 +109,7 @@
     <string name="contextheader_folder_empty" msgid="974171637803391651">"پوشه خالی"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"باز کردن"</string>
     <string name="contextmenu_openlink_newwindow" msgid="1205313604181761403">"باز کردن در برگه جدید"</string>
-    <string name="contextmenu_openlink_newwindow_background" msgid="4690381019116746687">"باز کردن در برگه پس زمینه جدید"</string>
+    <string name="contextmenu_openlink_newwindow_background" msgid="4690381019116746687">"باز کردن در برگه پس‌زمینه جدید"</string>
     <string name="contextmenu_savelink" msgid="5508554930832538184">"ذخیره پیوند"</string>
     <string name="contextmenu_sharelink" msgid="5392275392280130331">"اشتراک گذاری پیوند"</string>
     <string name="contextmenu_copy" msgid="398860586635404030">"کپی"</string>
@@ -132,7 +132,7 @@
     <string name="pref_content_load_images_summary" msgid="5055874125248398584">"نمایش تصاویر در صفحات وب"</string>
     <string name="pref_content_block_popups" msgid="4158524847764470895">"انسداد پنجره های بازشو"</string>
     <string name="pref_content_javascript" msgid="4570972030299516843">"فعال کردن جاوا اسکریپت"</string>
-    <string name="pref_content_open_in_background" msgid="824123779725118663">"باز کردن در پس زمینه"</string>
+    <string name="pref_content_open_in_background" msgid="824123779725118663">"باز کردن در پس‌زمینه"</string>
     <string name="pref_content_plugins" msgid="7231944644794301582">"فعال کردن افزونه ها"</string>
   <string-array name="pref_content_plugins_choices">
     <item msgid="6745108155096660725">"همیشه روشن"</item>
@@ -140,7 +140,7 @@
     <item msgid="8547442717307793863">"خاموش"</item>
   </string-array>
     <string name="pref_content_open_in_background_summary" msgid="955411158407739504">"بازکردن برگه‌های جدید پشت برگه کنونی"</string>
-    <string name="pref_content_homepage" msgid="3324574611613105696">"تنظیم صفحه اصلی"</string>
+    <string name="pref_content_homepage" msgid="3324574611613105696">"تنظیم صفحهٔ اصلی"</string>
     <string name="pref_content_search_engine" msgid="1620101310821644144">"تنظیم موتور جستجو"</string>
     <string name="pref_content_search_engine_summary" msgid="304003941861818133">"انتخاب یک موتور جستجو"</string>
     <string name="pref_set_homepage_to" msgid="7838684355145561242">"تنظیم به"</string>
@@ -233,7 +233,7 @@
     <string name="pref_zoom_on_double_tap" msgid="902786475250741795">"بزرگنمایی با دوضربه"</string>
     <string name="pref_force_userscalable" msgid="5641500562399892621">"فعال کردن اجباری بزرگنمایی"</string>
     <string name="pref_force_userscalable_summary" msgid="3613242300617172230">"لغو درخواست یک وب سایت برای کنترل رفتار بزرگنمایی"</string>
-    <string name="pref_inverted_category" msgid="1280639705117152207">"اجرای صفحه نمایش معکوس"</string>
+    <string name="pref_inverted_category" msgid="1280639705117152207">"اجرای صفحهٔ نمایش معکوس"</string>
     <string name="pref_inverted" msgid="7613556986776824112">"اجرای معکوس"</string>
     <string name="pref_inverted_summary" msgid="7357225897413923085">"سیاه تبدیل به سفید می‌شود و بالعکس"</string>
     <string name="pref_inverted_contrast" msgid="8527441236225288169">"کنتراست"</string>
@@ -282,7 +282,7 @@
     <item msgid="1791664748778640002">"فقط در Wi-Fi"</item>
     <item msgid="3944061253437827617">"همیشه"</item>
   </string-array>
-    <string name="pref_data_preload_summary" msgid="3809168910751382727">"به مرورگر اجازه داده شود نتایج جستجوی با اطمینان بالا را از قبل در پس زمینه بارگیری کند"</string>
+    <string name="pref_data_preload_summary" msgid="3809168910751382727">"به مرورگر اجازه داده شود نتایج جستجوی با اطمینان بالا را از قبل در پس‌زمینه بارگیری کند"</string>
     <string name="pref_data_preload_dialogtitle" msgid="8421297746110796536">"پیش بارگیری نتیجه جستجو"</string>
     <string name="pref_link_prefetch_title" msgid="4123685219009241072">"پیش بارگیری صفحه وب"</string>
   <string-array name="pref_link_prefetch_choices">
@@ -290,7 +290,7 @@
     <item msgid="1908465963242077428">"فقط در Wi-Fi"</item>
     <item msgid="7647277566998527142">"همیشه"</item>
   </string-array>
-    <string name="pref_link_prefetch_summary" msgid="6558181497993206817">"اجازه دادن به مرورگر برای پیش بارگیری صفحات وب مرتبط در پس زمینه"</string>
+    <string name="pref_link_prefetch_summary" msgid="6558181497993206817">"اجازه دادن به مرورگر برای پیش بارگیری صفحات وب مرتبط در پس‌زمینه"</string>
     <string name="pref_link_prefetch_dialogtitle" msgid="3804646141622839765">"پیش بارگیری صفحه وب"</string>
     <string name="browserFrameNetworkErrorLabel" msgid="8102515020625680714">"مشکل اتصال"</string>
     <string name="browserFrameFileErrorLabel" msgid="4703792279852977350">"مشکل فایل"</string>
@@ -301,7 +301,7 @@
     <string name="clear_history" msgid="5998307092715979619">"پاک کردن سابقه"</string>
     <string name="browser_history" msgid="2979476257919939232">"صفحات بازدید شده اخیر"</string>
     <string name="empty_history" msgid="7013369425484218985">"سابقه مرورگر موجود نیست."</string>
-    <string name="go_home" msgid="109129207276086793">"صفحه اصلی"</string>
+    <string name="go_home" msgid="109129207276086793">"صفحهٔ اصلی"</string>
     <string name="add_new_bookmark" msgid="3158497555612337238">"افزودن نشانک"</string>
     <string name="add_bookmark_short" msgid="3783984330998103735">"افزودن"</string>
     <string name="search_hint" msgid="4647356319916631820">"جستجو یا تایپ URL"</string>
@@ -337,8 +337,8 @@
     <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"اشتراک گذاری موقعیت مکانی"</string>
     <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"عدم پذیرش"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"به خاطر سپردن موارد برگزیده"</string>
-    <string name="geolocation_permissions_prompt_toast_allowed" msgid="7201417941112726112">"این سایت می‌تواند به موقعیت مکانی شما دسترسی داشته باشد. این را در تنظیمات &amp;gt؛ پیشرفته &amp;gt؛ صفحه نمایش وب سایت تغییر دهید."</string>
-    <string name="geolocation_permissions_prompt_toast_disallowed" msgid="156443445797377409">"این سایت نمی‌تواند به موقعیت مکانی شما دسترسی داشته باشد. این را در تنظیمات &amp;gt؛ پیشرفته &gt; صفحه نمایش وب سایت تغییر دهید."</string>
+    <string name="geolocation_permissions_prompt_toast_allowed" msgid="7201417941112726112">"این سایت می‌تواند به موقعیت مکانی شما دسترسی داشته باشد. این را در تنظیمات &amp;gt؛ پیشرفته &amp;gt؛ صفحهٔ نمایش وب سایت تغییر دهید."</string>
+    <string name="geolocation_permissions_prompt_toast_disallowed" msgid="156443445797377409">"این سایت نمی‌تواند به موقعیت مکانی شما دسترسی داشته باشد. این را در تنظیمات &amp;gt؛ پیشرفته &gt; صفحهٔ نمایش وب سایت تغییر دهید."</string>
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"پاک کردن دسترسی به موقعیت مکانی"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"این سایت در حال حاضر می تواند به موقعیت مکانی شما دسترسی پیدا کند"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="7941769772784366199">"این سایت در حال حاضر نمی‌تواند به موقعیت مکانی شما دسترسی پیدا کند"</string>
@@ -371,7 +371,7 @@
     <string name="menu_share_url" msgid="5851814357333739700">"اشتراک گذاری"</string>
     <string name="max_tabs_warning" msgid="4122034303809457570">"برگه بیشتری در دسترس نیست"</string>
     <string name="instant_search_label" msgid="8769284297650716935">"Google با Instant (ویژگی های آزمایشی)"</string>
-    <string name="preview" msgid="6450823514561689038">"پیش نمایش"</string>
+    <string name="preview" msgid="6450823514561689038">"پیش‌نمایش"</string>
     <string name="local_bookmarks" msgid="533816851415228520">"محلی"</string>
     <string name="ua_switcher_desktop" msgid="220097077327558435">"درخواست سایت دسکتاپ"</string>
     <string name="permission_preload_label" msgid="4856971662337877316">"پیش بارگیری نتایج"</string>
