@@ -74,18 +74,18 @@
     <string name="remove" msgid="7820112494467011374">"حذف"</string>
     <string name="edit_bookmark" msgid="5024089053490231905">"ویرایش نشانک"</string>
     <string name="create_shortcut_bookmark" msgid="1995095662095484289">"افزودن میانبر به صفحهٔ اصلی"</string>
-    <string name="open_bookmark" msgid="8473581305759935790">"باز کردن"</string>
+    <string name="open_bookmark" msgid="8473581305759935790">"باز شود"</string>
     <string name="remove_bookmark" msgid="8407495852801410891">"حذف نشانک"</string>
     <string name="remove_from_bookmarks" msgid="4374080666576982775">"حذف از نشانک ها"</string>
     <string name="remove_history_item" msgid="5021424935726728618">"حذف از سابقه"</string>
-    <string name="set_as_homepage" msgid="4752937379414905560">"تنظیم بعنوان صفحهٔ اصلی"</string>
+    <string name="set_as_homepage" msgid="4752937379414905560">"تنظیم به‌عنوان صفحهٔ اصلی"</string>
     <string name="bookmark_saved" msgid="2766434679871317557">"ذخیره شده در نشانک ها."</string>
     <string name="bookmark_not_saved" msgid="1077732557310662080">"نشانک ذخیره نشد."</string>
     <string name="homepage_set" msgid="8768087280310966395">"تنظیم صفحهٔ اصلی."</string>
     <string name="bookmark_needs_title" msgid="6245900436119218187">"نشانک باید دارای یک نام باشد."</string>
     <string name="bookmark_needs_url" msgid="7809876865972755158">"نشانک باید دارای یک مکان باشد."</string>
     <string name="bookmark_url_not_valid" msgid="4917440933384496211">"این URL معتبر نیست."</string>
-    <string name="bookmark_cannot_save_url" msgid="7836064647943671126">"این URL قابل نشانک‌گذاری نمی‌باشد."</string>
+    <string name="bookmark_cannot_save_url" msgid="7836064647943671126">"این URL قابل نشانک‌گذاری نیست."</string>
     <string name="bookmark_page" msgid="6845189305130307274">"نشانک گذاری آخرین صفحه مشاهده شده"</string>
     <string name="bookmark_thumbnail_view" msgid="3164068314718522138">"تصاویر کوچک"</string>
     <string name="bookmark_list_view" msgid="7848510619500937839">"لیست"</string>
@@ -107,7 +107,7 @@
     <string name="snapshot_failed" msgid="4584580873565876033">"برای خواندن آفلاین قابل ذخیره نیست."</string>
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"<xliff:g id="BOOKMARK_COUNT">%d</xliff:g> نشانک"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"پوشه خالی"</string>
-    <string name="contextmenu_openlink" msgid="7237961252214188935">"باز کردن"</string>
+    <string name="contextmenu_openlink" msgid="7237961252214188935">"باز شود"</string>
     <string name="contextmenu_openlink_newwindow" msgid="1205313604181761403">"باز کردن در برگه جدید"</string>
     <string name="contextmenu_openlink_newwindow_background" msgid="4690381019116746687">"باز کردن در برگه پس‌زمینه جدید"</string>
     <string name="contextmenu_savelink" msgid="5508554930832538184">"ذخیره پیوند"</string>
@@ -116,7 +116,7 @@
     <string name="contextmenu_copylink" msgid="5153657160294534270">"کپی URL پیوند"</string>
     <string name="contextmenu_download_image" msgid="4243829645180686912">"ذخیره تصویر"</string>
     <string name="contextmenu_view_image" msgid="3870625602053600905">"مشاهده تصویر"</string>
-    <string name="contextmenu_set_wallpaper" msgid="3691902960115350686">"تنظیم بعنوان تصویر زمینه"</string>
+    <string name="contextmenu_set_wallpaper" msgid="3691902960115350686">"تنظیم به‌عنوان تصویر زمینه"</string>
     <string name="contextmenu_dial_dot" msgid="5856550683415933806">"شماره گیری..."</string>
     <string name="contextmenu_add_contact" msgid="3183511922223645716">"افزودن مخاطب"</string>
     <string name="contextmenu_send_mail" msgid="1014513374828775660">"ارسال ایمیل"</string>
@@ -147,7 +147,7 @@
   <string-array name="pref_homepage_choices">
     <item msgid="844041670142910837">"صفحه فعلی"</item>
     <item msgid="4430498748295169195">"صفحه خالی"</item>
-    <item msgid="5747608191946904074">"صفحه پیش فرض"</item>
+    <item msgid="5747608191946904074">"صفحه پیش‌فرض"</item>
     <item msgid="6092441301001006473">"سایت‌هایی که بیشتر بازدید شده"</item>
     <item msgid="6569304572171444894">"موارد دیگر"</item>
   </string-array>
@@ -162,7 +162,7 @@
     <string name="pref_autofill_profile_editor_summary" msgid="4864447251676856190">"تنظیم نوشتار برای تکمیل خودکار در فرم‌های وب"</string>
     <string name="pref_autologin_title" msgid="4421187193809267096">"ورود خودکار به Google"</string>
     <string name="pref_autologin_progress" msgid="8333244467048833461">"ورود به سیستم سایت های Google با استفاده از <xliff:g id="ID_1">%s</xliff:g>"</string>
-    <string name="autologin_bar_text" msgid="3684581827167173371">"ورود به سیستم بعنوان"</string>
+    <string name="autologin_bar_text" msgid="3684581827167173371">"ورود به سیستم به‌عنوان"</string>
     <string name="autologin_bar_login_text" msgid="3336615320510851879">"ورود به سیستم"</string>
     <string name="autologin_bar_hide_text" msgid="3629355974385859580">"پنهان کردن"</string>
     <string name="autologin_bar_error" msgid="7470001207395920811">"ورود به سیستم ممکن نیست."</string>
@@ -184,7 +184,7 @@
     <string name="autofill_profile_successful_save" msgid="5691459703493331983">"نوشتاری که بطور خودکار تکمیل شده ذخیره شد."</string>
     <string name="autofill_profile_successful_delete" msgid="1790262652460723127">"تکمیل خودکار نوشتار حذف شد."</string>
     <string name="autofill_profile_editor_delete_profile" msgid="3098369314558164153">"حذف"</string>
-    <string name="autofill_setup_dialog_message" msgid="7123905786076456503">"این مرورگر میتواند بصورت خودکار فرمهای وب را تکمیل کند، مانند این فرم. میخواهید ویژگی پر شدن خودکار متن را تنظیم کنید؟"</string>
+    <string name="autofill_setup_dialog_message" msgid="7123905786076456503">"این مرورگر می‌تواند به‌صورت خودکار فرمهای وب را تکمیل کند، مانند این فرم. می‌خواهید ویژگی پر شدن خودکار متن را تنظیم کنید؟"</string>
     <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"شما همیشه می‌توانید تکمیل خودکار نوشتار خود را از مرورگر &amp;gt؛ تنظیمات &amp;gt؛ صفحه عمومی تنظیم کنید."</string>
     <string name="disable_autofill" msgid="8305901059849400354">"غیرفعال کردن تکمیل خودکار"</string>
     <string name="pref_privacy_security_title" msgid="3480313968942160914">"حریم خصوصی و امنیت"</string>
@@ -192,14 +192,14 @@
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"پاک کردن پایگاه های داده و محتوای موجود در حافظه پنهان محلی"</string>
     <string name="pref_privacy_clear_cache_dlg" msgid="4344512581716422465">"محتوای موجود در حافظه پنهان محلی و پایگاه داده‌ها حذف شود؟"</string>
     <string name="pref_privacy_cookies_title" msgid="6763274282214830526">"کوکی ها"</string>
-    <string name="pref_privacy_clear_cookies" msgid="3095583579133780331">"پاک کردن همه داده های کوکی"</string>
+    <string name="pref_privacy_clear_cookies" msgid="3095583579133780331">"پاک کردن همه داده‌های کوکی"</string>
     <string name="pref_privacy_clear_cookies_summary" msgid="6962742063990677520">"پاک کردن همه کوکی های مرورگر"</string>
     <string name="pref_privacy_clear_cookies_dlg" msgid="1493252163164621278">"تمام کوکی‌ها حذف شوند؟"</string>
     <string name="pref_privacy_clear_history" msgid="8723795508825198477">"پاک کردن سابقه"</string>
     <string name="pref_privacy_clear_history_summary" msgid="6868501330708940734">"پاک کردن سابقه پیمایش مرورگر"</string>
     <string name="pref_privacy_clear_history_dlg" msgid="6934317391642846227">"سابقه پیمایش مرورگر حذف شود؟"</string>
     <string name="pref_privacy_formdata_title" msgid="6549813837982050424">"اطلاعات فرم"</string>
-    <string name="pref_privacy_clear_form_data" msgid="4232668196344383987">"پاک کردن داده های فرم"</string>
+    <string name="pref_privacy_clear_form_data" msgid="4232668196344383987">"پاک کردن داده‌های فرم"</string>
     <string name="pref_privacy_clear_form_data_summary" msgid="7702091143640546200">"پاک کردن همه داده‌های ذخیره شده فرم"</string>
     <string name="pref_privacy_clear_form_data_dlg" msgid="8205626042241338983">"همه داده‌های ذخیره شده فرم حذف شود؟"</string>
     <string name="pref_privacy_clear_passwords" msgid="4750234112289277480">"پاک کردن رمزهای ورود"</string>
@@ -213,9 +213,9 @@
     <string name="pref_privacy_clear_geolocation_access_dlg" msgid="3190928760598034346">"دسترسی موقعیت مکانی وب سایت پاک شود؟"</string>
     <string name="pref_security_passwords_title" msgid="5734190542383756711">"رمزهای ورود"</string>
     <string name="pref_security_remember_passwords" msgid="6492957683454529549">"به خاطر سپردن رمزهای ورود"</string>
-    <string name="pref_security_remember_passwords_summary" msgid="256388703356349137">"ذخیره نام های کاربری و رمزهای ورود برای وب سایت ها"</string>
-    <string name="pref_security_save_form_data" msgid="1213669802810198893">"به خاطر سپردن داده های فرم"</string>
-    <string name="pref_security_save_form_data_summary" msgid="4994074685153708026">"داده هایی که در فرم ها تایپ می کنم برای استفاده بعدی به خاطر سپرده شود"</string>
+    <string name="pref_security_remember_passwords_summary" msgid="256388703356349137">"ذخیره نام‌های کاربری و رمزهای ورود برای وب سایت ها"</string>
+    <string name="pref_security_save_form_data" msgid="1213669802810198893">"به خاطر سپردن داده‌های فرم"</string>
+    <string name="pref_security_save_form_data_summary" msgid="4994074685153708026">"داده هایی که در فرم ها تایپ می‌کنم برای استفاده بعدی به خاطر سپرده شود"</string>
     <string name="pref_security_show_security_warning" msgid="8901135676266754559">"نمایش اخطارهای امنیتی"</string>
     <string name="pref_security_show_security_warning_summary" msgid="5260098316025397525">"نمایش اخطار در صورت وجود مشکل در امنیت یک سایت"</string>
     <string name="pref_security_accept_cookies" msgid="3201367661925047989">"پذیرش کوکی ها"</string>
@@ -227,7 +227,7 @@
     <item msgid="5043128215356351184">"بزرگ"</item>
     <item msgid="7201512237890458902">"بسیار بزرگ"</item>
   </string-array>
-    <string name="pref_min_font_size" msgid="8811125835817449131">"حداقل اندازه قلم"</string>
+    <string name="pref_min_font_size" msgid="8811125835817449131">"حداقل اندازهٔ قلم"</string>
     <string name="pref_min_font_size_value" msgid="2924708480509060209">"<xliff:g id="FONT_SIZE">%d</xliff:g>PT"</string>
     <string name="pref_text_zoom" msgid="5171056101805125497">"مقیاس‌بندی نوشتار"</string>
     <string name="pref_zoom_on_double_tap" msgid="902786475250741795">"بزرگنمایی با دوضربه"</string>
@@ -237,22 +237,22 @@
     <string name="pref_inverted" msgid="7613556986776824112">"اجرای معکوس"</string>
     <string name="pref_inverted_summary" msgid="7357225897413923085">"سیاه تبدیل به سفید می‌شود و بالعکس"</string>
     <string name="pref_inverted_contrast" msgid="8527441236225288169">"کنتراست"</string>
-    <string name="pref_default_zoom" msgid="8076142259097187395">"بزرگنمایی پیش فرض"</string>
+    <string name="pref_default_zoom" msgid="8076142259097187395">"بزرگنمایی پیش‌فرض"</string>
   <string-array name="pref_default_zoom_choices">
     <item msgid="549583171195154919">"دور"</item>
     <item msgid="5619034257768161024">"متوسط"</item>
     <item msgid="3840999588443167001">"بستن"</item>
   </string-array>
-    <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"بزرگنمایی پیش فرض"</string>
+    <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"بزرگنمایی پیش‌فرض"</string>
     <string name="pref_content_load_page" msgid="2219810141690955452">"باز کردن صفحات در نمای کلی"</string>
     <string name="pref_content_load_page_summary" msgid="9168803276420332955">"نمایش نمای کلی صفحاتی که به‌تازگی باز شده‌اند"</string>
     <string name="pref_extras_title" msgid="7075456173747370647">"پیشرفته"</string>
     <string name="pref_extras_website_settings" msgid="67866640052455549">"تنظیمات وب سایت"</string>
     <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"تنظیمات پیشرفته برای وب سایت های تکی"</string>
-    <string name="pref_extras_reset_default_title" msgid="3579760449455761762">"تنظیم مجدد پیش فرض ها"</string>
-    <string name="pref_extras_reset_default" msgid="8904000515846202110">"بازنشانی به پیش فرض"</string>
-    <string name="pref_extras_reset_default_summary" msgid="4247870778270414501">"بازیابی تنظیمات پیش فرض"</string>
-    <string name="pref_extras_reset_default_dlg" msgid="7922814420184322450">"بازگرداندن تنظیمات به مقادیر پیش فرض؟"</string>
+    <string name="pref_extras_reset_default_title" msgid="3579760449455761762">"تنظیم مجدد پیش‌فرض ها"</string>
+    <string name="pref_extras_reset_default" msgid="8904000515846202110">"بازنشانی به پیش‌فرض"</string>
+    <string name="pref_extras_reset_default_summary" msgid="4247870778270414501">"بازیابی تنظیمات پیش‌فرض"</string>
+    <string name="pref_extras_reset_default_dlg" msgid="7922814420184322450">"بازگرداندن تنظیمات به مقادیر پیش‌فرض؟"</string>
     <string name="pref_development_title" msgid="3263854204533056480">"رفع خطا"</string>
     <string name="pref_default_text_encoding" msgid="5742965543955558478">"رمزگذاری متن"</string>
   <string-array name="pref_default_text_encoding_choices">
@@ -308,39 +308,39 @@
     <string name="search_button_text" msgid="5235226933877634410">"برو"</string>
     <string name="search_settings_description" msgid="1422401062529014107">"نشاک ها و سابقه وب"</string>
     <string name="popup_window_attempt" msgid="31565781154067629">"به این سایت اجازه می‌دهید یک پنجره بازشو باز کند؟"</string>
-    <string name="allow" msgid="1157313689171991335">"اجازه"</string>
+    <string name="allow" msgid="1157313689171991335">"اجازه داده شود"</string>
     <string name="block" msgid="9172175889884707800">"مسدود کردن"</string>
     <string name="too_many_windows_dialog_title" msgid="5709782301477380438">"تعداد برگه‌ها به حداکثر مجاز رسیده است"</string>
     <string name="too_many_windows_dialog_message" msgid="3644234634638290304">"تا یک برگه را نبندید نمی‌توانید برگه جدیدی باز کنید."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"پنجره بازشو از قبل باز است"</string>
     <string name="too_many_subwindows_dialog_message" msgid="2164725447981195556">"هر بار فقط یک پنجره بازشو می‌تواند باز شود."</string>
-    <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"حافظه USB در دسترس نیست"</string>
+    <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"حافظهٔ USB در دسترس نیست"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"کارت SD موجود نیست"</string>
-    <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"برای دانلود <xliff:g id="FILENAME">%s</xliff:g> به حافظه USB احتیاج دارید."</string>
+    <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"برای دانلود <xliff:g id="FILENAME">%s</xliff:g> به حافظهٔ USB احتیاج دارید."</string>
     <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"یک کارت SD برای دانلود <xliff:g id="FILENAME">%s</xliff:g> لازم است."</string>
-    <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"حافظه USB در دسترس نیست"</string>
+    <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"حافظهٔ USB در دسترس نیست"</string>
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"کارت SD موجود نیست"</string>
-    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="8412543086906716875">"حافظه USB مشغول است. برای انجام دانلودها، خاموش کردن حافظه USB را در اعلان لمس کنید."</string>
-    <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"کارت SD مشغول است. برای انجام دانلودها، خاموش کردن حافظه USB را در اعلان لمس کنید."</string>
-    <string name="cannot_download" msgid="8150552478556798780">"فقط می تواند URL های \"http\" یا \"https\" را دانلود کند."</string>
+    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="8412543086906716875">"حافظهٔ USB مشغول است. برای انجام دانلودها، خاموش کردن حافظهٔ USB را در اعلان لمس کنید."</string>
+    <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"کارت SD مشغول است. برای انجام دانلودها، خاموش کردن حافظهٔ USB را در اعلان لمس کنید."</string>
+    <string name="cannot_download" msgid="8150552478556798780">"فقط می‌تواند URL های \"http\" یا \"https\" را دانلود کند."</string>
     <string name="download_pending" msgid="2599683668575349559">"شروع دانلود..."</string>
     <string name="search_the_web" msgid="6046130189241962337">"جستجوی وب"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"حافظه مرورگر پر است"</string>
     <string name="webstorage_outofspace_notification_text" msgid="47273584426988640">"برای آزاد کردن فضا لمس کنید."</string>
-    <string name="webstorage_clear_data_title" msgid="689484577124333977">"پاک کردن داده های ذخیره شده"</string>
+    <string name="webstorage_clear_data_title" msgid="689484577124333977">"پاک کردن داده‌های ذخیره شده"</string>
     <string name="webstorage_clear_data_dialog_message" msgid="6200681632891775881">"تمام داده‌های ذخیره شده توسط این سایت حذف شود؟"</string>
     <string name="webstorage_clear_data_dialog_ok_button" msgid="6682570951259237542">"تأیید"</string>
     <string name="webstorage_clear_data_dialog_cancel_button" msgid="2028867751958942762">"لغو"</string>
     <string name="webstorage_origin_summary_mb_stored" msgid="1985885826292236210">"مگابایت ذخیره شده در تلفن شما"</string>
-    <string name="loading_video" msgid="7886324933131962321">"در حال بارگیری ویدیو..."</string>
-    <string name="geolocation_permissions_prompt_message" msgid="356796102004052471">"<xliff:g id="WEBSITE_ORIGIN">%s</xliff:g> می خواهد موقعیت مکانی شما را بشناسد"</string>
+    <string name="loading_video" msgid="7886324933131962321">"در حال بارگیری ویدئو..."</string>
+    <string name="geolocation_permissions_prompt_message" msgid="356796102004052471">"<xliff:g id="WEBSITE_ORIGIN">%s</xliff:g> می‌خواهد موقعیت مکانی شما را بشناسد"</string>
     <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"اشتراک گذاری موقعیت مکانی"</string>
     <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"عدم پذیرش"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"به خاطر سپردن موارد برگزیده"</string>
     <string name="geolocation_permissions_prompt_toast_allowed" msgid="7201417941112726112">"این سایت می‌تواند به موقعیت مکانی شما دسترسی داشته باشد. این را در تنظیمات &amp;gt؛ پیشرفته &amp;gt؛ صفحهٔ نمایش وب سایت تغییر دهید."</string>
     <string name="geolocation_permissions_prompt_toast_disallowed" msgid="156443445797377409">"این سایت نمی‌تواند به موقعیت مکانی شما دسترسی داشته باشد. این را در تنظیمات &amp;gt؛ پیشرفته &gt; صفحهٔ نمایش وب سایت تغییر دهید."</string>
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"پاک کردن دسترسی به موقعیت مکانی"</string>
-    <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"این سایت در حال حاضر می تواند به موقعیت مکانی شما دسترسی پیدا کند"</string>
+    <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"این سایت در حال حاضر می‌تواند به موقعیت مکانی شما دسترسی پیدا کند"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="7941769772784366199">"این سایت در حال حاضر نمی‌تواند به موقعیت مکانی شما دسترسی پیدا کند"</string>
     <string name="geolocation_settings_page_dialog_message" msgid="8772923416296868537">"دسترسی موقعیت مکانی برای این وب سایت پاک شود؟"</string>
     <string name="geolocation_settings_page_dialog_ok_button" msgid="2113465477131017852">"تأیید"</string>
