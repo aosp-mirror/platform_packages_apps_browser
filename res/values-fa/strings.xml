@@ -19,9 +19,9 @@
     <string name="application_name" msgid="1935869255545976415">"مرورگر"</string>
     <string name="choose_upload" msgid="3649366287575002063">"انتخاب فایل برای آپلود"</string>
     <string name="uploads_disabled" msgid="463761197575372994">"آپلودهای فایل غیر فعال هستند."</string>
-    <string name="new_tab" msgid="7971857320679510529">"برگه جدید"</string>
+    <string name="new_tab" msgid="7971857320679510529">"برگهٔ جدید"</string>
     <string name="new_incognito_tab" msgid="3606197964239039478">"برگه ناشناس جدید"</string>
-    <string name="tab_bookmarks" msgid="2305793036003473653">"نشانک ها"</string>
+    <string name="tab_bookmarks" msgid="2305793036003473653">"نشانک‌ها"</string>
     <string name="tab_most_visited" msgid="1077402532455000703">"بیشتر بازدید شده"</string>
     <string name="tab_history" msgid="1979267558744613746">"سابقه"</string>
     <string name="tab_snapshots" msgid="1449241204980265186">"صفحات ذخیره شده"</string>
@@ -64,7 +64,7 @@
     <string name="edit_folder" msgid="621817453133656156">"ویرایشگر پوشه"</string>
     <string name="delete_folder" msgid="2046483129024501116">"حذف پوشه"</string>
     <string name="no_subfolders" msgid="3303645239686962674">"پوشه فرعی وجود ندارد."</string>
-    <string name="add_to_bookmarks_menu_option" msgid="4449323955122214389">"نشانک ها"</string>
+    <string name="add_to_bookmarks_menu_option" msgid="4449323955122214389">"نشانک‌ها"</string>
     <string name="add_to_homescreen_menu_option" msgid="1461447829242963790">"صفحهٔ اصلی"</string>
     <string name="add_to_other_folder_menu_option" msgid="5947586525822134105">"پوشه دیگر"</string>
     <string name="name" msgid="5462672162695365387">"برچسب"</string>
@@ -76,10 +76,10 @@
     <string name="create_shortcut_bookmark" msgid="1995095662095484289">"افزودن میانبر به صفحهٔ اصلی"</string>
     <string name="open_bookmark" msgid="8473581305759935790">"باز شود"</string>
     <string name="remove_bookmark" msgid="8407495852801410891">"حذف نشانک"</string>
-    <string name="remove_from_bookmarks" msgid="4374080666576982775">"حذف از نشانک ها"</string>
+    <string name="remove_from_bookmarks" msgid="4374080666576982775">"حذف از نشانک‌ها"</string>
     <string name="remove_history_item" msgid="5021424935726728618">"حذف از سابقه"</string>
     <string name="set_as_homepage" msgid="4752937379414905560">"تنظیم به‌عنوان صفحهٔ اصلی"</string>
-    <string name="bookmark_saved" msgid="2766434679871317557">"ذخیره شده در نشانک ها."</string>
+    <string name="bookmark_saved" msgid="2766434679871317557">"ذخیره شده در نشانک‌ها."</string>
     <string name="bookmark_not_saved" msgid="1077732557310662080">"نشانک ذخیره نشد."</string>
     <string name="homepage_set" msgid="8768087280310966395">"تنظیم صفحهٔ اصلی."</string>
     <string name="bookmark_needs_title" msgid="6245900436119218187">"نشانک باید دارای یک نام باشد."</string>
@@ -95,7 +95,7 @@
     <string name="goto_dot" msgid="3895839050522602723">"برو"</string>
     <string name="select_dot" msgid="6299170761900561967">"انتخاب متن"</string>
     <string name="close_other_tabs" msgid="7693157495148282778">"بستن سایر برگه‌ها"</string>
-    <string name="bookmarks" msgid="1961279134885867815">"نشانک ها"</string>
+    <string name="bookmarks" msgid="1961279134885867815">"نشانک‌ها"</string>
     <string name="shortcut_bookmark" msgid="3974876480401135895">"نشانک"</string>
     <string name="shortcut_bookmark_title" msgid="7570786275916681296">"یک نشانک انتخاب کنید"</string>
     <string name="history" msgid="2451240511251410032">"سابقه"</string>
@@ -108,7 +108,7 @@
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"<xliff:g id="BOOKMARK_COUNT">%d</xliff:g> نشانک"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"پوشه خالی"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"باز شود"</string>
-    <string name="contextmenu_openlink_newwindow" msgid="1205313604181761403">"باز کردن در برگه جدید"</string>
+    <string name="contextmenu_openlink_newwindow" msgid="1205313604181761403">"باز کردن در برگهٔ جدید"</string>
     <string name="contextmenu_openlink_newwindow_background" msgid="4690381019116746687">"باز کردن در برگه پس‌زمینه جدید"</string>
     <string name="contextmenu_savelink" msgid="5508554930832538184">"ذخیره پیوند"</string>
     <string name="contextmenu_sharelink" msgid="5392275392280130331">"اشتراک گذاری پیوند"</string>
@@ -124,16 +124,16 @@
     <string name="choosertitle_sharevia" msgid="4600490613341909086">"اشتراک از طریق"</string>
     <string name="clear" msgid="7070043081700011461">"پاک کردن"</string>
     <string name="replace" msgid="4843033491070384047">"جایگزینی"</string>
-    <string name="browser_bookmarks_page_bookmarks_text" msgid="6787605028726162673">"نشانک ها"</string>
+    <string name="browser_bookmarks_page_bookmarks_text" msgid="6787605028726162673">"نشانک‌ها"</string>
     <string name="menu_preferences" msgid="6709237687234102240">"تنظیمات HTML"</string>
     <string name="pref_content_title" msgid="3834107397725342174">"محتوای صفحه"</string>
     <string name="pref_allow_apptabs" msgid="1325989799080202871">"چندین برگه در هر برنامه مجاز باشد"</string>
     <string name="pref_content_load_images" msgid="2125616852957377561">"بارگیری تصاویر"</string>
     <string name="pref_content_load_images_summary" msgid="5055874125248398584">"نمایش تصاویر در صفحات وب"</string>
-    <string name="pref_content_block_popups" msgid="4158524847764470895">"انسداد پنجره های بازشو"</string>
+    <string name="pref_content_block_popups" msgid="4158524847764470895">"انسداد پنجره‌های بازشو"</string>
     <string name="pref_content_javascript" msgid="4570972030299516843">"فعال کردن جاوا اسکریپت"</string>
     <string name="pref_content_open_in_background" msgid="824123779725118663">"باز کردن در پس‌زمینه"</string>
-    <string name="pref_content_plugins" msgid="7231944644794301582">"فعال کردن افزونه ها"</string>
+    <string name="pref_content_plugins" msgid="7231944644794301582">"فعال کردن افزونه‌ها"</string>
   <string-array name="pref_content_plugins_choices">
     <item msgid="6745108155096660725">"همیشه روشن"</item>
     <item msgid="2484126708670016519">"در صورت درخواست"</item>
@@ -161,7 +161,7 @@
     <string name="pref_autofill_profile_editor" msgid="8934844472922113166">"تکمیل خودکار نوشتار"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="4864447251676856190">"تنظیم نوشتار برای تکمیل خودکار در فرم‌های وب"</string>
     <string name="pref_autologin_title" msgid="4421187193809267096">"ورود خودکار به Google"</string>
-    <string name="pref_autologin_progress" msgid="8333244467048833461">"ورود به سیستم سایت های Google با استفاده از <xliff:g id="ID_1">%s</xliff:g>"</string>
+    <string name="pref_autologin_progress" msgid="8333244467048833461">"ورود به سیستم سایت‌های Google با استفاده از <xliff:g id="ID_1">%s</xliff:g>"</string>
     <string name="autologin_bar_text" msgid="3684581827167173371">"ورود به سیستم به‌عنوان"</string>
     <string name="autologin_bar_login_text" msgid="3336615320510851879">"ورود به سیستم"</string>
     <string name="autologin_bar_hide_text" msgid="3629355974385859580">"پنهان کردن"</string>
@@ -191,9 +191,9 @@
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"پاک کردن حافظه پنهان"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"پاک کردن پایگاه های داده و محتوای موجود در حافظه پنهان محلی"</string>
     <string name="pref_privacy_clear_cache_dlg" msgid="4344512581716422465">"محتوای موجود در حافظه پنهان محلی و پایگاه داده‌ها حذف شود؟"</string>
-    <string name="pref_privacy_cookies_title" msgid="6763274282214830526">"کوکی ها"</string>
+    <string name="pref_privacy_cookies_title" msgid="6763274282214830526">"کوکی‌ها"</string>
     <string name="pref_privacy_clear_cookies" msgid="3095583579133780331">"پاک کردن همه داده‌های کوکی"</string>
-    <string name="pref_privacy_clear_cookies_summary" msgid="6962742063990677520">"پاک کردن همه کوکی های مرورگر"</string>
+    <string name="pref_privacy_clear_cookies_summary" msgid="6962742063990677520">"پاک کردن همه کوکی‌های مرورگر"</string>
     <string name="pref_privacy_clear_cookies_dlg" msgid="1493252163164621278">"تمام کوکی‌ها حذف شوند؟"</string>
     <string name="pref_privacy_clear_history" msgid="8723795508825198477">"پاک کردن سابقه"</string>
     <string name="pref_privacy_clear_history_summary" msgid="6868501330708940734">"پاک کردن سابقه پیمایش مرورگر"</string>
@@ -207,18 +207,18 @@
     <string name="pref_privacy_clear_passwords_dlg" msgid="5836576259947160045">"کلیه گذرواژه‌های ذخیره شده حذف شود؟"</string>
     <string name="pref_privacy_location_title" msgid="7458378016606081067">"موقعیت مکانی"</string>
     <string name="pref_privacy_enable_geolocation" msgid="1395040170290765686">"فعال کردن موقعیت مکانی"</string>
-    <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"اجازه به سایت ها برای درخواست دسترسی به موقعیت مکانی شما"</string>
+    <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"اجازه به سایت‌ها برای درخواست دسترسی به موقعیت مکانی شما"</string>
     <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"پاک کردن دسترسی به موقعیت مکانی"</string>
-    <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"پاک کردن دسترسی به موقعیت مکانی برای همه وب سایت ها"</string>
+    <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"پاک کردن دسترسی به موقعیت مکانی برای همه وب سایت‌ها"</string>
     <string name="pref_privacy_clear_geolocation_access_dlg" msgid="3190928760598034346">"دسترسی موقعیت مکانی وب سایت پاک شود؟"</string>
     <string name="pref_security_passwords_title" msgid="5734190542383756711">"رمزهای ورود"</string>
     <string name="pref_security_remember_passwords" msgid="6492957683454529549">"به خاطر سپردن رمزهای ورود"</string>
-    <string name="pref_security_remember_passwords_summary" msgid="256388703356349137">"ذخیره نام‌های کاربری و رمزهای ورود برای وب سایت ها"</string>
+    <string name="pref_security_remember_passwords_summary" msgid="256388703356349137">"ذخیره نام‌های کاربری و رمزهای ورود برای وب سایت‌ها"</string>
     <string name="pref_security_save_form_data" msgid="1213669802810198893">"به خاطر سپردن داده‌های فرم"</string>
-    <string name="pref_security_save_form_data_summary" msgid="4994074685153708026">"داده هایی که در فرم ها تایپ می‌کنم برای استفاده بعدی به خاطر سپرده شود"</string>
+    <string name="pref_security_save_form_data_summary" msgid="4994074685153708026">"داده‌هایی که در فرم‌ها تایپ می‌کنم برای استفاده بعدی به خاطر سپرده شود"</string>
     <string name="pref_security_show_security_warning" msgid="8901135676266754559">"نمایش اخطارهای امنیتی"</string>
     <string name="pref_security_show_security_warning_summary" msgid="5260098316025397525">"نمایش اخطار در صورت وجود مشکل در امنیت یک سایت"</string>
-    <string name="pref_security_accept_cookies" msgid="3201367661925047989">"پذیرش کوکی ها"</string>
+    <string name="pref_security_accept_cookies" msgid="3201367661925047989">"پذیرش کوکی‌ها"</string>
     <string name="pref_security_accept_cookies_summary" msgid="1907951236154433751">"اجازه به سایت‌ها برای ذخیره و خواندن داده‌های کوکی"</string>
   <string-array name="pref_text_size_choices">
     <item msgid="4952686548944739548">"خیلی کوچک"</item>
@@ -248,7 +248,7 @@
     <string name="pref_content_load_page_summary" msgid="9168803276420332955">"نمایش نمای کلی صفحاتی که به‌تازگی باز شده‌اند"</string>
     <string name="pref_extras_title" msgid="7075456173747370647">"پیشرفته"</string>
     <string name="pref_extras_website_settings" msgid="67866640052455549">"تنظیمات وب سایت"</string>
-    <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"تنظیمات پیشرفته برای وب سایت های تکی"</string>
+    <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"تنظیمات پیشرفته برای وب سایت‌های تکی"</string>
     <string name="pref_extras_reset_default_title" msgid="3579760449455761762">"تنظیم مجدد پیش‌فرض ها"</string>
     <string name="pref_extras_reset_default" msgid="8904000515846202110">"بازنشانی به پیش‌فرض"</string>
     <string name="pref_extras_reset_default_summary" msgid="4247870778270414501">"بازیابی تنظیمات پیش‌فرض"</string>
@@ -269,7 +269,7 @@
     <string name="pref_accessibility_title" msgid="5127836981587423215">"قابلیت دسترسی"</string>
     <string name="pref_font_size_category" msgid="6683754355084218254">"اندازه نوشتار"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"Labs"</string>
-    <string name="pref_lab_quick_controls" msgid="3267606522082281367">"کنترل های سریع"</string>
+    <string name="pref_lab_quick_controls" msgid="3267606522082281367">"کنترل‌های سریع"</string>
     <string name="pref_lab_quick_controls_summary" msgid="3149664132600968775">"برای باز کردن کنترل‌های سریع و پنهان کردن برنامه‌ها و نوارهای URL انگشت شست را از لبه چپ یا راست بلغزانید"</string>
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Google Instant"</string>
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"هنگام استفاده از جستجوی Google، برای نمایش نتایج در حین تایپ از Google Instant استفاده کنید (ممکن است مصرف داده بالا برود)."</string>
@@ -350,27 +350,27 @@
     <string name="website_settings_clear_all_dialog_ok_button" msgid="7858504776529106243">"تأیید"</string>
     <string name="website_settings_clear_all_dialog_cancel_button" msgid="1896757051856611674">"لغو"</string>
     <string name="progress_dialog_setting_wallpaper" msgid="2031391201442335889">"تنظیم تصویر زمینه..."</string>
-    <string name="defaultBookmarksUpButton" msgid="2303951020715704735">"نشانک ها"</string>
+    <string name="defaultBookmarksUpButton" msgid="2303951020715704735">"نشانک‌ها"</string>
     <string name="empty_bookmarks_folder" msgid="6239830231917618556">"نشانکی موجود نیست."</string>
     <string name="other_bookmarks" msgid="8021889794475657319">"نشانک‌های دیگر"</string>
     <string name="rlz_access_point" msgid="7165847807377650632">"Y1"</string>
     <string name="account_chooser_dialog_title" msgid="3314204833188808194">"انتخاب حساب"</string>
     <string name="import_bookmarks_dialog_title" msgid="3325557652271172128">"همگام سازی با حساب Google"</string>
-    <string name="import_bookmarks_dialog_description" msgid="2362897194870789609">"نشانک‌های موجود در این دستگاه هنوز با یک حساب Google مرتبط نشده‌‌اند. این نشانک‌ها را با افزودن آنها به یک حساب ذخیره کنید. اگر نمی‌خواهید این نشانک‌ها را همگام‌سازی کنید، آنها را حذف نمایید."</string>
+    <string name="import_bookmarks_dialog_description" msgid="2362897194870789609">"نشانک‌های موجود در این دستگاه هنوز با یک حساب Google مرتبط نشده‌‌اند. این نشانک‌ها را با افزودن آن‌ها به یک حساب ذخیره کنید. اگر نمی‌خواهید این نشانک‌ها را همگام‌سازی کنید، آن‌ها را حذف نمایید."</string>
     <string name="import_bookmarks_dialog_select_add_account" msgid="7643058662272484895">"اکنون نشانک‌های موجود در این دستگاه را اضافه کرده و شروع به همگام‌سازی با حساب Google کنید"</string>
-    <string name="import_bookmarks_dialog_delete_select_account" msgid="4333848003180415516">"نشانک‌های کنونی موجود در این دستگاه را حذف کرده و شروع به همگام‌سازی آنها با حساب Google کنید"</string>
-    <string name="import_bookmarks_dialog_confirm_delete" msgid="2204771572755630570">"نشانک‌های کنونی موجود در این دستگاه را حذف کرده و شروع به همگام‌سازی آنها با <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g> می‌کنید؟"</string>
-    <string name="import_bookmarks_dialog_confirm_add" msgid="8942794112340838111">"نشانک‌های کنونی موجود در این دستگاه را اضافه کرده و شروع به همگام‌سازی آنها با <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g> می‌کنید؟"</string>
-    <string name="import_bookmarks_dialog_remove" msgid="5984607822851800902">"حذف نشانک ها"</string>
+    <string name="import_bookmarks_dialog_delete_select_account" msgid="4333848003180415516">"نشانک‌های کنونی موجود در این دستگاه را حذف کرده و شروع به همگام‌سازی آن‌ها با حساب Google کنید"</string>
+    <string name="import_bookmarks_dialog_confirm_delete" msgid="2204771572755630570">"نشانک‌های کنونی موجود در این دستگاه را حذف کرده و شروع به همگام‌سازی آن‌ها با <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g> می‌کنید؟"</string>
+    <string name="import_bookmarks_dialog_confirm_add" msgid="8942794112340838111">"نشانک‌های کنونی موجود در این دستگاه را اضافه کرده و شروع به همگام‌سازی آن‌ها با <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g> می‌کنید؟"</string>
+    <string name="import_bookmarks_dialog_remove" msgid="5984607822851800902">"حذف نشانک‌ها"</string>
     <string name="import_bookmarks_wizard_next" msgid="7578143961884352676">"بعدی"</string>
     <string name="import_bookmarks_wizard_previous" msgid="8551440353688257031">"قبلی"</string>
     <string name="import_bookmarks_wizard_cancel" msgid="4936061122806506634">"لغو"</string>
     <string name="import_bookmarks_wizard_done" msgid="1446247092194489191">"انجام شد"</string>
     <string name="import_bookmarks_dialog_add" msgid="1743359725294101189">"افزودن نشانک‌ها به حساب Google"</string>
-    <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"افزودن نشانک های Android خود به نشانک های <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>"</string>
+    <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"افزودن نشانک‌های Android خود به نشانک‌های <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>"</string>
     <string name="menu_share_url" msgid="5851814357333739700">"اشتراک گذاری"</string>
     <string name="max_tabs_warning" msgid="4122034303809457570">"برگه بیشتری در دسترس نیست"</string>
-    <string name="instant_search_label" msgid="8769284297650716935">"Google با Instant (ویژگی های آزمایشی)"</string>
+    <string name="instant_search_label" msgid="8769284297650716935">"Google با Instant (ویژگی‌های آزمایشی)"</string>
     <string name="preview" msgid="6450823514561689038">"پیش‌نمایش"</string>
     <string name="local_bookmarks" msgid="533816851415228520">"محلی"</string>
     <string name="ua_switcher_desktop" msgid="220097077327558435">"درخواست سایت دسکتاپ"</string>
@@ -387,7 +387,7 @@
     <string name="accessibility_button_voice" msgid="152016375096083337">"شروع جستجوی صوتی"</string>
     <string name="accessibility_button_bookmarks" msgid="7435055677299151649">"نشانک‌ها"</string>
     <string name="accessibility_button_closetab" msgid="6954807842756927737">"بستن برگه"</string>
-    <string name="accessibility_button_newtab" msgid="4116986240706315748">"باز کردن برگه جدید"</string>
+    <string name="accessibility_button_newtab" msgid="4116986240706315748">"باز کردن برگهٔ جدید"</string>
     <string name="accessibility_button_newincognitotab" msgid="5254901889040012964">"باز کردن برگه حالت ناشناس جدید"</string>
     <string name="accessibility_button_clear" msgid="6943152307986161598">"پاک کردن ورودی"</string>
     <string name="accessibility_button_uaswitch" msgid="6286804719724282339">"تغییر نماینده کاربر"</string>
