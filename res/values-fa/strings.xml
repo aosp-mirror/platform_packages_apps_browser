@@ -101,7 +101,7 @@
     <string name="history" msgid="2451240511251410032">"سابقه"</string>
     <string name="menu_view_download" msgid="2124570321712995120">"دانلودها"</string>
     <string name="copy_page_url" msgid="1188679152608889555">"کپی URL صفحه"</string>
-    <string name="share_page" msgid="593756995297268343">"اشتراک گذاری صفحه"</string>
+    <string name="share_page" msgid="593756995297268343">"اشتراک‌گذاری صفحه"</string>
     <string name="menu_save_snapshot" msgid="6935080344031126139">"ذخیره برای مطالعه در حالت آفلاین"</string>
     <string name="saving_snapshot" msgid="1693789062351182809">"در حال ذخیره…"</string>
     <string name="snapshot_failed" msgid="4584580873565876033">"برای خواندن آفلاین قابل ذخیره نیست."</string>
@@ -111,7 +111,7 @@
     <string name="contextmenu_openlink_newwindow" msgid="1205313604181761403">"باز کردن در برگهٔ جدید"</string>
     <string name="contextmenu_openlink_newwindow_background" msgid="4690381019116746687">"باز کردن در برگه پس‌زمینه جدید"</string>
     <string name="contextmenu_savelink" msgid="5508554930832538184">"ذخیره پیوند"</string>
-    <string name="contextmenu_sharelink" msgid="5392275392280130331">"اشتراک گذاری پیوند"</string>
+    <string name="contextmenu_sharelink" msgid="5392275392280130331">"اشتراک‌گذاری پیوند"</string>
     <string name="contextmenu_copy" msgid="398860586635404030">"کپی"</string>
     <string name="contextmenu_copylink" msgid="5153657160294534270">"کپی URL پیوند"</string>
     <string name="contextmenu_download_image" msgid="4243829645180686912">"ذخیره تصویر"</string>
@@ -334,7 +334,7 @@
     <string name="webstorage_origin_summary_mb_stored" msgid="1985885826292236210">"مگابایت ذخیره شده در تلفن شما"</string>
     <string name="loading_video" msgid="7886324933131962321">"در حال بارگیری ویدئو..."</string>
     <string name="geolocation_permissions_prompt_message" msgid="356796102004052471">"<xliff:g id="WEBSITE_ORIGIN">%s</xliff:g> می‌خواهد موقعیت مکانی شما را بشناسد"</string>
-    <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"اشتراک گذاری موقعیت مکانی"</string>
+    <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"اشتراک‌گذاری موقعیت مکانی"</string>
     <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"عدم پذیرش"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"به خاطر سپردن موارد برگزیده"</string>
     <string name="geolocation_permissions_prompt_toast_allowed" msgid="7201417941112726112">"این سایت می‌تواند به موقعیت مکانی شما دسترسی داشته باشد. این را در تنظیمات &amp;gt؛ پیشرفته &amp;gt؛ صفحهٔ نمایش وب سایت تغییر دهید."</string>
@@ -368,7 +368,7 @@
     <string name="import_bookmarks_wizard_done" msgid="1446247092194489191">"انجام شد"</string>
     <string name="import_bookmarks_dialog_add" msgid="1743359725294101189">"افزودن نشانک‌ها به حساب Google"</string>
     <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"افزودن نشانک‌های Android خود به نشانک‌های <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>"</string>
-    <string name="menu_share_url" msgid="5851814357333739700">"اشتراک گذاری"</string>
+    <string name="menu_share_url" msgid="5851814357333739700">"اشتراک‌گذاری"</string>
     <string name="max_tabs_warning" msgid="4122034303809457570">"برگه بیشتری در دسترس نیست"</string>
     <string name="instant_search_label" msgid="8769284297650716935">"Google با Instant (ویژگی‌های آزمایشی)"</string>
     <string name="preview" msgid="6450823514561689038">"پیش‌نمایش"</string>
