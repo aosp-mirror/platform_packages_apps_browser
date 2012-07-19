@@ -27,6 +27,6 @@
     android:inputType="textUri"
     android:imeOptions="actionGo"
     android:searchSuggestAuthority="browser"
-    android:searchSuggestSelection="url LIKE ?"
+    android:searchSuggestSelection="history.url LIKE ?"
     android:searchSuggestIntentAction="android.intent.action.VIEW"
 />
