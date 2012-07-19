@@ -204,7 +204,7 @@
     <string name="pref_privacy_clear_form_data_dlg" msgid="8205626042241338983">"همه داده‌های ذخیره شده فرم حذف شود؟"</string>
     <string name="pref_privacy_clear_passwords" msgid="4750234112289277480">"پاک کردن رمزهای ورود"</string>
     <string name="pref_privacy_clear_passwords_summary" msgid="8856782718942903335">"پاک کردن همه رمزهای ورود ذخیره شده"</string>
-    <string name="pref_privacy_clear_passwords_dlg" msgid="5836576259947160045">"کلیه گذرواژه‌های ذخیره شده حذف شود؟"</string>
+    <string name="pref_privacy_clear_passwords_dlg" msgid="5836576259947160045">"همهٔ گذرواژه‌های ذخیره شده حذف شود؟"</string>
     <string name="pref_privacy_location_title" msgid="7458378016606081067">"موقعیت مکانی"</string>
     <string name="pref_privacy_enable_geolocation" msgid="1395040170290765686">"فعال کردن موقعیت مکانی"</string>
     <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"اجازه به سایت‌ها برای درخواست دسترسی به موقعیت مکانی شما"</string>
@@ -263,7 +263,7 @@
     <item msgid="891615911084608570">"ژاپنی (ISO-2022-JP)"</item>
     <item msgid="5589150448475151241">"ژاپنی (SHIFT_JIS)"</item>
     <item msgid="7356792686950371843">"ژاپنی (EUC-JP)"</item>
-    <item msgid="2193955365569270096">"کره ای (EUC-KR)"</item>
+    <item msgid="2193955365569270096">"کره‌ای (EUC-KR)"</item>
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"رمزگذاری متن"</string>
     <string name="pref_accessibility_title" msgid="5127836981587423215">"قابلیت دسترسی"</string>
