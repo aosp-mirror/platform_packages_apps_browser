@@ -36,7 +36,7 @@
     <string name="ok" msgid="1509280796718850364">"تأیید"</string>
     <string name="title_bar_loading" msgid="7438217780834640678">"در حال بارگیری..."</string>
     <string name="page_info" msgid="4048529256302257195">"اطلاعات صفحه"</string>
-    <string name="page_info_view" msgid="5303490449842635158">"مشاهده اطلاعات صفحه"</string>
+    <string name="page_info_view" msgid="5303490449842635158">"مشاهدهٔ اطلاعات صفحه"</string>
     <string name="page_info_address" msgid="2222306609532903254">"آدرس:"</string>
     <string name="ssl_warnings_header" msgid="79744901983636370">"در گواهی امنیت این سایت مشکلاتی روی داده است."</string>
     <string name="ssl_continue" msgid="8031515015829358457">"ادامه"</string>
@@ -188,9 +188,9 @@
     <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"شما همیشه می‌توانید تکمیل خودکار نوشتار خود را از مرورگر &amp;gt؛ تنظیمات &amp;gt؛ صفحه عمومی تنظیم کنید."</string>
     <string name="disable_autofill" msgid="8305901059849400354">"غیرفعال کردن تکمیل خودکار"</string>
     <string name="pref_privacy_security_title" msgid="3480313968942160914">"حریم خصوصی و امنیت"</string>
-    <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"پاک کردن حافظه پنهان"</string>
-    <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"پاک کردن پایگاه های داده و محتوای موجود در حافظه پنهان محلی"</string>
-    <string name="pref_privacy_clear_cache_dlg" msgid="4344512581716422465">"محتوای موجود در حافظه پنهان محلی و پایگاه داده‌ها حذف شود؟"</string>
+    <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"پاک کردن حافظهٔ پنهان"</string>
+    <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"پاک کردن پایگاه های داده و محتوای موجود در حافظهٔ پنهان محلی"</string>
+    <string name="pref_privacy_clear_cache_dlg" msgid="4344512581716422465">"محتوای موجود در حافظهٔ پنهان محلی و پایگاه داده‌ها حذف شود؟"</string>
     <string name="pref_privacy_cookies_title" msgid="6763274282214830526">"کوکی‌ها"</string>
     <string name="pref_privacy_clear_cookies" msgid="3095583579133780331">"پاک کردن همه داده‌های کوکی"</string>
     <string name="pref_privacy_clear_cookies_summary" msgid="6962742063990677520">"پاک کردن همه کوکی‌های مرورگر"</string>
@@ -276,22 +276,22 @@
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"تمام صفحه"</string>
     <string name="pref_lab_fullscreen_summary" msgid="7694738112219376740">"استفاده از حالت تمام صفحه برای مخفی کردن نوار وضعیت"</string>
     <string name="pref_data_title" msgid="7255058703417796578">"مدیریت پهنای باند"</string>
-    <string name="pref_data_preload_title" msgid="4479320472980292873">"پیش بارگیری نتیجه جستجو"</string>
+    <string name="pref_data_preload_title" msgid="4479320472980292873">"پیش بارگیری نتیجهٔ جستجو"</string>
   <string-array name="pref_data_preload_choices">
     <item msgid="5180466923190095508">"هیچوقت"</item>
     <item msgid="1791664748778640002">"فقط در Wi-Fi"</item>
     <item msgid="3944061253437827617">"همیشه"</item>
   </string-array>
     <string name="pref_data_preload_summary" msgid="3809168910751382727">"به مرورگر اجازه داده شود نتایج جستجوی با اطمینان بالا را از قبل در پس‌زمینه بارگیری کند"</string>
-    <string name="pref_data_preload_dialogtitle" msgid="8421297746110796536">"پیش بارگیری نتیجه جستجو"</string>
-    <string name="pref_link_prefetch_title" msgid="4123685219009241072">"پیش بارگیری صفحه وب"</string>
+    <string name="pref_data_preload_dialogtitle" msgid="8421297746110796536">"پیش بارگیری نتیجهٔ جستجو"</string>
+    <string name="pref_link_prefetch_title" msgid="4123685219009241072">"پیش بارگیری صفحهٔ وب"</string>
   <string-array name="pref_link_prefetch_choices">
     <item msgid="4889781230398008031">"هرگز"</item>
     <item msgid="1908465963242077428">"فقط در Wi-Fi"</item>
     <item msgid="7647277566998527142">"همیشه"</item>
   </string-array>
     <string name="pref_link_prefetch_summary" msgid="6558181497993206817">"اجازه دادن به مرورگر برای پیش بارگیری صفحات وب مرتبط در پس‌زمینه"</string>
-    <string name="pref_link_prefetch_dialogtitle" msgid="3804646141622839765">"پیش بارگیری صفحه وب"</string>
+    <string name="pref_link_prefetch_dialogtitle" msgid="3804646141622839765">"پیش بارگیری صفحهٔ وب"</string>
     <string name="browserFrameNetworkErrorLabel" msgid="8102515020625680714">"مشکل اتصال"</string>
     <string name="browserFrameFileErrorLabel" msgid="4703792279852977350">"مشکل فایل"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2385512101948178841"></string>
