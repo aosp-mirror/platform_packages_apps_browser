@@ -384,7 +384,7 @@
     <string name="accessibility_button_stop" msgid="6793644120043222148">"Stoppen met het laden van de pagina"</string>
     <string name="accessibility_button_addbookmark" msgid="4787844912630006181">"Bladwijzer voor pagina toevoegen"</string>
     <string name="accessibility_button_search" msgid="5357014102136055376">"Zoeken"</string>
-    <string name="accessibility_button_voice" msgid="152016375096083337">"Spraakgestuurde zoekopdracht starten"</string>
+    <string name="accessibility_button_voice" msgid="152016375096083337">"Zoeken met je stem"</string>
     <string name="accessibility_button_bookmarks" msgid="7435055677299151649">"Bladwijzers"</string>
     <string name="accessibility_button_closetab" msgid="6954807842756927737">"Tabblad sluiten"</string>
     <string name="accessibility_button_newtab" msgid="4116986240706315748">"Nieuw tabblad openen"</string>
