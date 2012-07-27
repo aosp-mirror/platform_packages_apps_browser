@@ -571,7 +571,7 @@ class TabControl {
             }
             final WebView subview = t.getSubWebView();
             if (subview != null) {
-                webview.stopLoading();
+                subview.stopLoading();
             }
         }
     }
