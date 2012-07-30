@@ -94,8 +94,7 @@
     <string name="open_all_in_new_window" msgid="455786763426575293">"सभी को नए टैब में खोलें"</string>
     <string name="goto_dot" msgid="3895839050522602723">"जाएं"</string>
     <string name="select_dot" msgid="6299170761900561967">"पाठ का चयन करें"</string>
-    <!-- no translation found for close_other_tabs (7693157495148282778) -->
-    <skip />
+    <string name="close_other_tabs" msgid="7693157495148282778">"अन्य टैब बंद करें"</string>
     <string name="bookmarks" msgid="1961279134885867815">"बुकमार्क"</string>
     <string name="shortcut_bookmark" msgid="3974876480401135895">"बुकमार्क"</string>
     <string name="shortcut_bookmark_title" msgid="7570786275916681296">"कोई बुकमार्क चुनें"</string>
