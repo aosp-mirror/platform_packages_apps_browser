@@ -130,7 +130,12 @@ public class WallpaperHandler extends Thread
                 }
                 Bitmap scaledWallpaper = BitmapFactory.decodeStream(inputstream,
                         null, options);
-                wm.setBitmap(scaledWallpaper);
+                if (scaledWallpaper != null) {
+                    wm.setBitmap(scaledWallpaper);
+                } else {
+                    Log.e(LOGTAG, "Unable to set new wallpaper, " +
+                            "decodeStream returned null.");
+                }
             }
         } catch (IOException e) {
             Log.e(LOGTAG, "Unable to set new wallpaper");
