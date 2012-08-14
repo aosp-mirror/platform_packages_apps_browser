@@ -596,7 +596,7 @@ public class WebsiteSettingsFragment extends ListFragment implements OnClickList
                                     notifyDataSetChanged();
                                 }})
                             .setNegativeButton(R.string.webstorage_clear_data_dialog_cancel_button, null)
-                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setIconAttribute(android.R.attr.alertDialogIcon)
                             .show();
                         break;
                     case Site.FEATURE_GEOLOCATION:
@@ -614,7 +614,7 @@ public class WebsiteSettingsFragment extends ListFragment implements OnClickList
                                     notifyDataSetChanged();
                                 }})
                             .setNegativeButton(R.string.geolocation_settings_page_dialog_cancel_button, null)
-                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setIconAttribute(android.R.attr.alertDialogIcon)
                             .show();
                         break;
                 }
@@ -695,7 +695,7 @@ public class WebsiteSettingsFragment extends ListFragment implements OnClickList
                                     finish();
                                 }})
                     .setNegativeButton(R.string.website_settings_clear_all_dialog_cancel_button, null)
-                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setIconAttribute(android.R.attr.alertDialogIcon)
                     .show();
             break;
         }
