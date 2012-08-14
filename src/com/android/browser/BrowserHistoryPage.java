@@ -293,7 +293,7 @@ public class BrowserHistoryPage extends Fragment
         final ClearHistoryTask clear = new ClearHistoryTask(resolver);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
                 .setMessage(R.string.pref_privacy_clear_history_dlg)
-                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setIconAttribute(android.R.attr.alertDialogIcon)
                 .setNegativeButton(R.string.cancel, null)
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                      @Override

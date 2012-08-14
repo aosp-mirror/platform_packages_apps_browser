@@ -234,7 +234,7 @@ public class BookmarkUtils {
             final Context context, final Message msg) {
 
         new AlertDialog.Builder(context)
-                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setIconAttribute(android.R.attr.alertDialogIcon)
                 .setMessage(context.getString(R.string.delete_bookmark_warning,
                         title))
                 .setPositiveButton(R.string.ok,
