@@ -114,8 +114,8 @@
     <string name="contextmenu_sharelink" msgid="5392275392280130331">"लिंक शेयर करें"</string>
     <string name="contextmenu_copy" msgid="398860586635404030">"प्रतिलिपि बनाएं"</string>
     <string name="contextmenu_copylink" msgid="5153657160294534270">"लिंक URL की प्रतिलिपि बनाएं"</string>
-    <string name="contextmenu_download_image" msgid="4243829645180686912">"छवि सहेजें"</string>
-    <string name="contextmenu_view_image" msgid="3870625602053600905">"छवि देखें"</string>
+    <string name="contextmenu_download_image" msgid="4243829645180686912">"चित्र सहेजें"</string>
+    <string name="contextmenu_view_image" msgid="3870625602053600905">"चित्र देखें"</string>
     <string name="contextmenu_set_wallpaper" msgid="3691902960115350686">"वॉलपेपर के रूप में सेट करें"</string>
     <string name="contextmenu_dial_dot" msgid="5856550683415933806">"डायल करें…"</string>
     <string name="contextmenu_add_contact" msgid="3183511922223645716">"संपर्क जोड़ें"</string>
