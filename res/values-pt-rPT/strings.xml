@@ -102,9 +102,9 @@
     <string name="menu_view_download" msgid="2124570321712995120">"Transferências"</string>
     <string name="copy_page_url" msgid="1188679152608889555">"Copiar URL da página"</string>
     <string name="share_page" msgid="593756995297268343">"Partilhar página"</string>
-    <string name="menu_save_snapshot" msgid="6935080344031126139">"Guardar para leitura off-line"</string>
+    <string name="menu_save_snapshot" msgid="6935080344031126139">"Guardar para leitura offline"</string>
     <string name="saving_snapshot" msgid="1693789062351182809">"A guardar..."</string>
-    <string name="snapshot_failed" msgid="4584580873565876033">"Não foi possível guardar para leitura off-line."</string>
+    <string name="snapshot_failed" msgid="4584580873565876033">"Não foi possível guardar para leitura offline."</string>
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"<xliff:g id="BOOKMARK_COUNT">%d</xliff:g> marcadores"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Pasta vazia"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Abrir"</string>
