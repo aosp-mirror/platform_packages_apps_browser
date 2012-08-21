@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "AAAIxn///zM\u003d",
+        "filename": "src/com/android/browser/NavTabScroller.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 1000660
+      },
+      "writtenOn": "2012-08-21T17:18:53Z",
+      "side": 1,
+      "message": "Unfortunate overflow across 100 columns.",
+      "revId": "24446bd31bcdb41a30f916a4c3f6b84a8fbaded9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
