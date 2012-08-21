@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "AAAIwn///2w\u003d",
+        "filename": "src/com/android/browser/PhoneUi.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1010103
+      },
+      "writtenOn": "2012-08-21T17:48:39Z",
+      "side": 1,
+      "message": "Can you please clarify why this is needed? How can you hit this path?",
+      "revId": "2230a3146c4d99ab5927c8f740c5bd09927e9da6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
