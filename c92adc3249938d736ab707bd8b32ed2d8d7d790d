@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "AAAIw3///3k\u003d",
+        "filename": "src/com/android/browser/Tab.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1317,
+      "author": {
+        "id": 1000660
+      },
+      "writtenOn": "2012-08-21T17:19:36Z",
+      "side": 1,
+      "message": "This brace should be on the same line as the \"if\"",
+      "revId": "c92adc3249938d736ab707bd8b32ed2d8d7d790d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
