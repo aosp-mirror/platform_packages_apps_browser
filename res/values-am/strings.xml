@@ -38,7 +38,7 @@
     <string name="page_info" msgid="4048529256302257195">"የገፅ መረጃ"</string>
     <string name="page_info_view" msgid="5303490449842635158">"የገፅ መረጃ ዕይ"</string>
     <string name="page_info_address" msgid="2222306609532903254">"አድራሻ:"</string>
-    <string name="ssl_warnings_header" msgid="79744901983636370">"ለዚህ ድረ ገፅ የደህንነት ምስክሩ ላይ ችግሮች አሉ።"</string>
+    <string name="ssl_warnings_header" msgid="79744901983636370">"ለእዚህ ድረ ገፅ የደህንነት ምስክሩ ላይ ችግሮች አሉ።"</string>
     <string name="ssl_continue" msgid="8031515015829358457">"ቀጥል"</string>
     <string name="security_warning" msgid="6607795404322797541">"የደህንነት ቅንብሮች"</string>
     <string name="view_certificate" msgid="1472768887529093862">"ምስክሮች ዕይ"</string>
@@ -342,7 +342,7 @@
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"የስፍራ መድረሻ አጥራ"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"ይህ ድረ ገፅ በአሁኑ ጊዜ የእርስዎን ስፍራ መድረስ ይችላል"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="7941769772784366199">"ይህ ጣቢያ በአሁኑ ጊዜ የአንተን ስፍራ መድረስ  አይችልም"</string>
-    <string name="geolocation_settings_page_dialog_message" msgid="8772923416296868537">"ለዚህ ድር ጣቢያ የስፍራ ድረስ አጽዳ"</string>
+    <string name="geolocation_settings_page_dialog_message" msgid="8772923416296868537">"ለእዚህ ድር ጣቢያ የስፍራ ድረስ አጽዳ"</string>
     <string name="geolocation_settings_page_dialog_ok_button" msgid="2113465477131017852">"እሺ"</string>
     <string name="geolocation_settings_page_dialog_cancel_button" msgid="7941036504673409747">"ይቅር"</string>
     <string name="website_settings_clear_all" msgid="8739804325997655980">"ሁሉንም አጥራ"</string>
