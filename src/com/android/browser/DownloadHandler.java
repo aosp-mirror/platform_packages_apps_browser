@@ -195,8 +195,17 @@ public class DownloadHandler {
         request.setMimeType(mimetype);
         // set downloaded file destination to /sdcard/Download.
         // or, should it be set to one of several Environment.DIRECTORY* dirs depending on mimetype?
-        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, filename);
-        // let this downloaded file be scanned by MediaScanner - so that it can 
+        try {
+            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, filename);
+        } catch (IllegalStateException ex) {
+            // This only happens when directory Downloads can't be created or it isn't a directory
+            // this is most commonly due to temporary problems with sdcard so show appropriate string
+            Log.w(LOGTAG, "Exception trying to create Download dir:", ex);
+            Toast.makeText(activity, R.string.download_sdcard_busy_dlg_title,
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+        // let this downloaded file be scanned by MediaScanner - so that it can
         // show up in Gallery app, for example.
         request.allowScanningByMediaScanner();
         request.setDescription(webAddress.getHost());
