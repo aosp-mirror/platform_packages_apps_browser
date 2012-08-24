@@ -373,7 +373,7 @@
     <string name="instant_search_label" msgid="8769284297650716935">"使用 Google 互動智慧搜尋 (研究室)"</string>
     <string name="preview" msgid="6450823514561689038">"預覽"</string>
     <string name="local_bookmarks" msgid="533816851415228520">"本機"</string>
-    <string name="ua_switcher_desktop" msgid="220097077327558435">"要求桌面版網站"</string>
+    <string name="ua_switcher_desktop" msgid="220097077327558435">"要求電腦版網站"</string>
     <string name="permission_preload_label" msgid="4856971662337877316">"預先載入結果"</string>
     <string name="empty_snapshots_folder" msgid="7675378008107026013">"沒有已儲存的網頁。"</string>
     <string name="remove_snapshot" msgid="1624447424544976849">"刪除儲存的頁面"</string>
