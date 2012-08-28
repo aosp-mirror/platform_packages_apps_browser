@@ -25,6 +25,6 @@
     android:searchSettingsDescription="@string/search_settings_description"
     android:searchSuggestAuthority="browser"
     android:searchSuggestPath="bookmarks"
-    android:searchSuggestSelection="url LIKE ?"
+    android:searchSuggestSelection="bookmarks.url LIKE ?"
     android:searchSuggestIntentAction="android.intent.action.VIEW"
 />
