@@ -46,9 +46,9 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewStub;
+import android.webkit.BrowserDownloadListener;
 import android.webkit.ClientCertRequestHandler;
 import android.webkit.ConsoleMessage;
-import android.webkit.DownloadListener;
 import android.webkit.GeolocationPermissions;
 import android.webkit.HttpAuthHandler;
 import android.webkit.SslErrorHandler;
@@ -172,7 +172,7 @@ class Tab implements PictureListener {
     private ErrorConsoleView mErrorConsole;
     // The listener that gets invoked when a download is started from the
     // mMainView
-    private final DownloadListener mDownloadListener;
+    private final BrowserDownloadListener mDownloadListener;
     // Listener used to know when we move forward or back in the history list.
     private final WebBackForwardListClient mWebBackForwardListClient;
     private DataController mDataController;
@@ -1160,12 +1160,12 @@ class Tab implements PictureListener {
         mInPageLoad = false;
         mInForeground = false;
 
-        mDownloadListener = new DownloadListener() {
+        mDownloadListener = new BrowserDownloadListener() {
             public void onDownloadStart(String url, String userAgent,
-                    String contentDisposition, String mimetype,
+                    String contentDisposition, String mimetype, String referer,
                     long contentLength) {
                 mWebViewController.onDownloadStart(Tab.this, url, userAgent, contentDisposition,
-                        mimetype, contentLength);
+                        mimetype, referer, contentLength);
             }
         };
         mWebBackForwardListClient = new WebBackForwardListClient() {
@@ -1354,12 +1354,12 @@ class Tab implements PictureListener {
                     mWebChromeClient));
             // Set a different DownloadListener for the mSubView, since it will
             // just need to dismiss the mSubView, rather than close the Tab
-            mSubView.setDownloadListener(new DownloadListener() {
+            mSubView.setDownloadListener(new BrowserDownloadListener() {
                 public void onDownloadStart(String url, String userAgent,
-                        String contentDisposition, String mimetype,
+                        String contentDisposition, String mimetype, String referer,
                         long contentLength) {
                     mWebViewController.onDownloadStart(Tab.this, url, userAgent,
-                            contentDisposition, mimetype, contentLength);
+                            contentDisposition, mimetype, referer, contentLength);
                     if (mSubView.copyBackForwardList().getSize() == 0) {
                         // This subwindow was opened for the sole purpose of
                         // downloading a file. Remove it.
