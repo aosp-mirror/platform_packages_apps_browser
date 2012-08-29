@@ -73,7 +73,7 @@ public interface WebViewController {
             final String host, final String realm);
 
     void onDownloadStart(Tab tab, String url, String useragent, String contentDisposition,
-            String mimeType, long contentLength);
+            String mimeType, String referer, long contentLength);
 
     void showCustomView(Tab tab, View view, int requestedOrientation,
             WebChromeClient.CustomViewCallback callback);
