@@ -1126,6 +1126,19 @@ class Tab implements PictureListener {
             mClient.onProgressChanged(view, newProgress);
         }
         @Override
+        public void onShowCustomView(View view, CustomViewCallback callback) {
+            mClient.onShowCustomView(view, callback);
+        }
+        @Override
+        public void onShowCustomView(View view, int requestedOrientation,
+            CustomViewCallback callback) {
+            mClient.onShowCustomView(view, requestedOrientation, callback);
+        }
+        @Override
+        public void onHideCustomView() {
+            mClient.onHideCustomView();
+        }
+        @Override
         public boolean onCreateWindow(WebView view, boolean dialog,
                 boolean userGesture, android.os.Message resultMsg) {
             return mClient.onCreateWindow(view, dialog, userGesture, resultMsg);
@@ -1136,6 +1149,10 @@ class Tab implements PictureListener {
                 Log.e(LOGTAG, "Can't close the window");
             }
             mWebViewController.dismissSubWindow(Tab.this);
+        }
+        @Override
+        public View getVideoLoadingProgressView() {
+            return mClient.getVideoLoadingProgressView();
         }
     }
 
