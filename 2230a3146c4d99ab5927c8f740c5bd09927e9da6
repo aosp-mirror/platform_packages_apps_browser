@@ -16,6 +16,24 @@
       "revId": "2230a3146c4d99ab5927c8f740c5bd09927e9da6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "AAAI7X///9Q\u003d",
+        "filename": "src/com/android/browser/PhoneUi.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1015388
+      },
+      "writtenOn": "2012-09-03T07:10:27Z",
+      "side": 1,
+      "message": "Click HW search key(if has on phone) at NavScreen, it will enter this path. At this case we don\u0027t hope to pop IME.",
+      "parentUuid": "AAAIwn///2w\u003d",
+      "revId": "2230a3146c4d99ab5927c8f740c5bd09927e9da6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
