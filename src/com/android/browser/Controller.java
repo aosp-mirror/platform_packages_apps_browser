@@ -860,11 +860,6 @@ public class Controller
     public void onPageFinished(Tab tab) {
         mCrashRecoveryHandler.backupState();
         mUi.onTabDataChanged(tab);
-        // pause the WebView timer and release the wake lock if it is finished
-        // while BrowserActivity is in pause state.
-        if (mActivityPaused && pauseWebViewTimers(tab)) {
-            releaseWakeLock();
-        }
 
         // Performance probe
         if (false) {
@@ -889,6 +884,10 @@ public class Controller
             // onPageFinished has executed)
             if (tab.inPageLoad()) {
                 updateInLoadMenuItems(mCachedMenu, tab);
+            } else if (mActivityPaused && pauseWebViewTimers(tab)) {
+                // pause the WebView timer and release the wake lock if it is
+                // finished while BrowserActivity is in pause state.
+                releaseWakeLock();
             }
             if (!tab.isPrivateBrowsingEnabled()
                     && !TextUtils.isEmpty(tab.getUrl())
