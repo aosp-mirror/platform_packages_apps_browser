@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "AAAI63//7VI\u003d",
+        "filename": "src/com/android/browser/BrowserSettings.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 1010103
+      },
+      "writtenOn": "2012-09-04T21:31:56Z",
+      "side": 1,
+      "message": "instead call updateSearchEngine(false);",
+      "revId": "969e659adbbbec9774569e2d25564effd442bed8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "AAAI6n//7wo\u003d",
+        "filename": "src/com/android/browser/BrowserSettings.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 1010103
+      },
+      "writtenOn": "2012-09-04T21:31:56Z",
+      "side": 1,
+      "message": "This call will actually delete the autofill profile, which as that is user data I am inclined to say should not be done.",
+      "revId": "969e659adbbbec9774569e2d25564effd442bed8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "AAAI6n//7w4\u003d",
+        "filename": "src/com/android/browser/BrowserSettings.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 1010103
+      },
+      "writtenOn": "2012-09-04T21:31:56Z",
+      "side": 1,
+      "message": "mCustomUserAgents should not be cleared - it is used for the \"request desktop site\" feature and is a property of a tab, not the browser settings.",
+      "revId": "969e659adbbbec9774569e2d25564effd442bed8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
