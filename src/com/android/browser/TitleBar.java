@@ -26,6 +26,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
+import android.view.accessibility.AccessibilityManager;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
@@ -47,6 +48,7 @@ public class TitleBar extends RelativeLayout {
     private BaseUi mBaseUi;
     private FrameLayout mContentView;
     private PageProgressView mProgress;
+    private AccessibilityManager mAccessibilityManager;
 
     private AutologinBar mAutoLogin;
     private NavigationBarBase mNavBar;
@@ -66,6 +68,7 @@ public class TitleBar extends RelativeLayout {
         mUiController = controller;
         mBaseUi = ui;
         mContentView = contentView;
+        mAccessibilityManager = (AccessibilityManager) context.getSystemService(Context.ACCESSIBILITY_SERVICE);
         initLayout(context);
         setFixedTitleBar();
     }
@@ -118,6 +121,7 @@ public class TitleBar extends RelativeLayout {
     private void setFixedTitleBar() {
         boolean isFixed = !mUseQuickControls
                 && !mContext.getResources().getBoolean(R.bool.hide_title);
+        isFixed |= mAccessibilityManager.isEnabled();
         // If getParent() returns null, we are initializing
         ViewGroup parent = (ViewGroup)getParent();
         if (mIsFixedTitleBar == isFixed && parent != null) return;
@@ -434,6 +438,10 @@ public class TitleBar extends RelativeLayout {
         if (!mShowing && !mIsFixedTitleBar) {
             setTranslationY(getVisibleTitleHeight() - getEmbeddedHeight());
         }
+    }
+
+    public void onResume() {
+        setFixedTitleBar();
     }
 
 }

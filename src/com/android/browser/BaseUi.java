@@ -171,6 +171,7 @@ public abstract class BaseUi implements UI {
         if (ct != null) {
             setActiveTab(ct);
         }
+        mTitleBar.onResume();
     }
 
     protected boolean isActivityPaused() {
