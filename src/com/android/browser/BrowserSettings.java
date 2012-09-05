@@ -506,7 +506,12 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
                 .clear()
                 .putLong(GoogleAccountLogin.PREF_AUTOLOGIN_TIME, gal)
                 .apply();
+        resetCachedValues();
         syncManagedSettings();
+    }
+
+    private void resetCachedValues() {
+        updateSearchEngine(false);
     }
 
     public AutoFillProfile getAutoFillProfile() {
