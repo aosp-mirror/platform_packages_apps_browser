@@ -754,6 +754,10 @@ public class Controller
             mUploadHandler.onResult(Activity.RESULT_CANCELED, null);
             mUploadHandler = null;
         }
+        if (sThumbnailBitmap != null) {
+            sThumbnailBitmap.recycle();
+            sThumbnailBitmap = null;
+        }
         if (mTabControl == null) return;
         mUi.onDestroy();
         // Remove the current tab and sub window
