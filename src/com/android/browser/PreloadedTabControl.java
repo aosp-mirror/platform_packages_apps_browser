@@ -18,7 +18,6 @@ package com.android.browser;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
-import android.webkit.SearchBox;
 
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -39,83 +38,16 @@ public class PreloadedTabControl {
         mTab = t;
     }
 
-    private void maybeSetQuery(final String query, SearchBox sb) {
-        if (!TextUtils.equals(mLastQuery, query)) {
-            if (sb != null) {
-                if (LOGD_ENABLED) Log.d(LOGTAG, "Changing searchbox query to " + query);
-                sb.setVerbatim(true);
-                sb.setQuery(query);
-                sb.onchange(new SearchBox.SearchBoxListener() {
-                    @Override
-                    public void onChangeComplete(boolean called) {
-                        if (mDestroyed) return;
-                        if (LOGD_ENABLED) Log.d(LOGTAG, "Changed searchbox query: " + called);
-                        if (called) {
-                            mLastQuery = query;
-                        }
-                    }
-                });
-            } else {
-                if (LOGD_ENABLED) Log.d(LOGTAG, "Cannot set query: no searchbox interface");
-            }
-        }
-    }
-
     public void setQuery(String query) {
-        maybeSetQuery(query, mTab.getWebViewClassic().getSearchBox());
+        if (LOGD_ENABLED) Log.d(LOGTAG, "Cannot set query: no searchbox interface");
     }
 
     public boolean searchBoxSubmit(final String query,
             final String fallbackUrl, final Map<String, String> fallbackHeaders) {
-        final SearchBox sb = mTab.getWebViewClassic().getSearchBox();
-        if (sb == null) {
-            // no searchbox, cannot submit. Fallback to regular tab creation
-            if (LOGD_ENABLED) Log.d(LOGTAG, "No searchbox, cannot submit query");
-            return false;
-        }
-        maybeSetQuery(query, sb);
-        if (LOGD_ENABLED) Log.d(LOGTAG, "Submitting query " + query);
-        final String currentUrl = mTab.getUrl();
-        sb.onsubmit(new SearchBox.SearchBoxListener() {
-            @Override
-            public void onSubmitComplete(boolean called) {
-                if (mDestroyed) return;
-                if (LOGD_ENABLED) Log.d(LOGTAG, "Query submitted: " + called);
-                if (!called) {
-                    if (LOGD_ENABLED) Log.d(LOGTAG, "Query not submitted; falling back");
-                    loadUrl(fallbackUrl, fallbackHeaders);
-                    // make sure that the failed, preloaded URL is cleared from the back stack
-                    mTab.clearBackStackWhenItemAdded(Pattern.compile(
-                            "^" + Pattern.quote(fallbackUrl) + "$"));
-                } else {
-                    // ignore the next fragment change, to avoid leaving a blank page in the browser
-                    // after the query has been submitted.
-                    String currentWithoutFragment = Uri.parse(currentUrl)
-                            .buildUpon()
-                            .fragment(null)
-                            .toString();
-                    mTab.clearBackStackWhenItemAdded(
-                            Pattern.compile(
-                                    "^" +
-                                    Pattern.quote(currentWithoutFragment) +
-                                    "(\\#.*)?" +
-                                    "$"));
-                }
-            }});
-        return true;
+        return false;
     }
 
     public void searchBoxCancel() {
-        SearchBox sb = mTab.getWebViewClassic().getSearchBox();
-        if (sb != null) {
-            mLastQuery = null;
-            sb.oncancel(new SearchBox.SearchBoxListener(){
-                @Override
-                public void onCancelComplete(boolean called) {
-                    if (LOGD_ENABLED) Log.d(LOGTAG, "Query cancelled: " + called);
-                }
-            });
-        }
     }
 
     public void loadUrlIfChanged(String url, Map<String, String> headers) {
