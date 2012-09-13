@@ -270,7 +270,7 @@
     <string name="pref_font_size_category" msgid="6683754355084218254">"Ukubwa wa maandishi"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"Maabara"</string>
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Vidhibiti vya Haraka"</string>
-    <string name="pref_lab_quick_controls_summary" msgid="3149664132600968775">"Telea gumba kutoka pambizo ya kushoto au kulia ili kufungua vidhibiti na kuficha prog na mwambaa za URL"</string>
+    <string name="pref_lab_quick_controls_summary" msgid="3149664132600968775">"Telea gumba kutoka pambizo ya kushoto au kulia ili kufungua vidhibiti na kuficha programu na mwambaa za URL"</string>
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Google Instant"</string>
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Tumia Google Instant unapotumia Utafutaji wa Google, ili kuonyesha matokeo unapoendelea kuchapa (hii inaweza kuongeza matumizi ya data)."</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"Skrini nzima"</string>
@@ -297,7 +297,7 @@
     <string name="browserFrameFormResubmitLabel" msgid="2385512101948178841"></string>
     <string name="browserFrameFormResubmitMessage" msgid="5244059279866705254">"Ukurasa unaojaribu kuangalia ina data ambayo tayari imewasilishwa (\"POSTDATA\"). Ukituma data tena, kitendo chochote ambacho fomu kwenye ukurasa ilitekeleza (kama vile utafutaji au ununuzi kwenye wavuti) kitarudiwa."</string>
     <string name="loadSuspendedTitle" msgid="6453376579109644551">"Hakuna muunganisho"</string>
-    <string name="loadSuspended" msgid="3843343290039218668">"Kivinjari haiwezi kupakia ukurasa huu kwa sababu hakuna muunganisho wa Tovuti."</string>
+    <string name="loadSuspended" msgid="3843343290039218668">"Kivinjari haiwezi kupakia ukurasa huu kwa sababu hakuna muunganisho wa Intaneti."</string>
     <string name="clear_history" msgid="5998307092715979619">"Futa historia"</string>
     <string name="browser_history" msgid="2979476257919939232">"Kurasa zilizotembelewa hivi karibuni"</string>
     <string name="empty_history" msgid="7013369425484218985">"Hakuna historia ya kivinjari."</string>
