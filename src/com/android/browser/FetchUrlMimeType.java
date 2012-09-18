@@ -121,6 +121,7 @@ class FetchUrlMimeType extends Thread {
                        MimeTypeMap.getSingleton().getMimeTypeFromExtension(
                            MimeTypeMap.getFileExtensionFromUrl(mUri));
                if (newMimeType != null) {
+                   mimeType = newMimeType;
                    mRequest.setMimeType(newMimeType);
                }
            }
