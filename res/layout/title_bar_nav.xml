@@ -46,6 +46,7 @@
             android:id="@+id/iconcombo"
             android:layout_width="44dip"
             android:layout_height="match_parent"
+            android:contentDescription="@string/page_info"
             style="@style/HoloButton">
             <ImageView
                 android:id="@+id/favicon"
