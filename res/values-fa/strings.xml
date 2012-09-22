@@ -355,7 +355,7 @@
     <string name="other_bookmarks" msgid="8021889794475657319">"نشانک‌های دیگر"</string>
     <string name="rlz_access_point" msgid="7165847807377650632">"Y1"</string>
     <string name="account_chooser_dialog_title" msgid="3314204833188808194">"انتخاب حساب"</string>
-    <string name="import_bookmarks_dialog_title" msgid="3325557652271172128">"همگام سازی با حساب Google"</string>
+    <string name="import_bookmarks_dialog_title" msgid="3325557652271172128">"همگام‌سازی با حساب Google"</string>
     <string name="import_bookmarks_dialog_description" msgid="2362897194870789609">"نشانک‌های موجود در این دستگاه هنوز با یک حساب Google مرتبط نشده‌‌اند. این نشانک‌ها را با افزودن آن‌ها به یک حساب ذخیره کنید. اگر نمی‌خواهید این نشانک‌ها را همگام‌سازی کنید، آن‌ها را حذف نمایید."</string>
     <string name="import_bookmarks_dialog_select_add_account" msgid="7643058662272484895">"اکنون نشانک‌های موجود در این دستگاه را اضافه کرده و شروع به همگام‌سازی با حساب Google کنید"</string>
     <string name="import_bookmarks_dialog_delete_select_account" msgid="4333848003180415516">"نشانک‌های کنونی موجود در این دستگاه را حذف کرده و شروع به همگام‌سازی آن‌ها با حساب Google کنید"</string>
@@ -397,4 +397,6 @@
     <string name="accessibility_state_incognito" msgid="5786038488425202355">"صفحه حالت ناشناس"</string>
     <string name="accessibility_state_frozen" msgid="8041539250447035570">"صفحه ذخیره شده"</string>
     <string name="accessibility_transition_navscreen" msgid="2734915619351519547">"مدیریت برگه"</string>
+    <!-- no translation found for accessibility_button_bookmarks_folder_up (9179389954714270505) -->
+    <skip />
 </resources>

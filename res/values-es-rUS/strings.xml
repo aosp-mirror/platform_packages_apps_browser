@@ -110,7 +110,7 @@
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Abrir"</string>
     <string name="contextmenu_openlink_newwindow" msgid="1205313604181761403">"Abrir en pestaña nueva"</string>
     <string name="contextmenu_openlink_newwindow_background" msgid="4690381019116746687">"Abrir vínculo en nueva pestaña en segundo plano"</string>
-    <string name="contextmenu_savelink" msgid="5508554930832538184">"Guardar enlace"</string>
+    <string name="contextmenu_savelink" msgid="5508554930832538184">"Guardar vínculo"</string>
     <string name="contextmenu_sharelink" msgid="5392275392280130331">"Compartir vínculo"</string>
     <string name="contextmenu_copy" msgid="398860586635404030">"Copiar"</string>
     <string name="contextmenu_copylink" msgid="5153657160294534270">"Copiar URL de vínculo"</string>
@@ -397,4 +397,6 @@
     <string name="accessibility_state_incognito" msgid="5786038488425202355">"Página de incógnito"</string>
     <string name="accessibility_state_frozen" msgid="8041539250447035570">"Página guardada"</string>
     <string name="accessibility_transition_navscreen" msgid="2734915619351519547">"Administración de pestañas"</string>
+    <!-- no translation found for accessibility_button_bookmarks_folder_up (9179389954714270505) -->
+    <skip />
 </resources>
