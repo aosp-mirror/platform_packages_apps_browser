@@ -20,13 +20,12 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:background="@drawable/bg_urlbar">
-    <ImageButton
+    <ImageView
         android:id="@+id/date_icon"
         android:src="@drawable/ic_search_category_history"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:paddingLeft="16dip"
-        style="@style/HoloButton" />
+        android:paddingLeft="16dip" />
     <TextView
         android:id="@+id/date"
         android:layout_width="wrap_content"
@@ -51,5 +50,6 @@
         android:scaleType="center"
         android:paddingRight="16dip"
         style="@style/HoloButton"
-        android:src="@drawable/ic_bookmarks_history_holo_dark" />
+        android:src="@drawable/ic_bookmarks_history_holo_dark" 
+        android:contentDescription="@string/accessibility_button_bookmarks" />
 </com.android.browser.SnapshotBar>
