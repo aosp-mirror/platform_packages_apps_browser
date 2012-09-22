@@ -38,7 +38,7 @@
     <string name="page_info" msgid="4048529256302257195">"የገፅ መረጃ"</string>
     <string name="page_info_view" msgid="5303490449842635158">"የገፅ መረጃ ዕይ"</string>
     <string name="page_info_address" msgid="2222306609532903254">"አድራሻ:"</string>
-    <string name="ssl_warnings_header" msgid="79744901983636370">"ለዚህ ድረ ገፅ የደህንነት ምስክሩ ላይ ችግሮች አሉ።"</string>
+    <string name="ssl_warnings_header" msgid="79744901983636370">"ለእዚህ ድረ ገፅ የደህንነት ምስክሩ ላይ ችግሮች አሉ።"</string>
     <string name="ssl_continue" msgid="8031515015829358457">"ቀጥል"</string>
     <string name="security_warning" msgid="6607795404322797541">"የደህንነት ቅንብሮች"</string>
     <string name="view_certificate" msgid="1472768887529093862">"ምስክሮች ዕይ"</string>
@@ -342,7 +342,7 @@
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"የስፍራ መድረሻ አጥራ"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"ይህ ድረ ገፅ በአሁኑ ጊዜ የእርስዎን ስፍራ መድረስ ይችላል"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="7941769772784366199">"ይህ ጣቢያ በአሁኑ ጊዜ የአንተን ስፍራ መድረስ  አይችልም"</string>
-    <string name="geolocation_settings_page_dialog_message" msgid="8772923416296868537">"ለዚህ ድር ጣቢያ የስፍራ ድረስ አጽዳ"</string>
+    <string name="geolocation_settings_page_dialog_message" msgid="8772923416296868537">"ለእዚህ ድር ጣቢያ የስፍራ ድረስ አጽዳ"</string>
     <string name="geolocation_settings_page_dialog_ok_button" msgid="2113465477131017852">"እሺ"</string>
     <string name="geolocation_settings_page_dialog_cancel_button" msgid="7941036504673409747">"ይቅር"</string>
     <string name="website_settings_clear_all" msgid="8739804325997655980">"ሁሉንም አጥራ"</string>
@@ -355,7 +355,7 @@
     <string name="other_bookmarks" msgid="8021889794475657319">"ሌሎች እልባቶች"</string>
     <string name="rlz_access_point" msgid="7165847807377650632">"y1"</string>
     <string name="account_chooser_dialog_title" msgid="3314204833188808194">"መለያ ምረጥ"</string>
-    <string name="import_bookmarks_dialog_title" msgid="3325557652271172128">"ከGoogle መለያ ጋር አሳምር"</string>
+    <string name="import_bookmarks_dialog_title" msgid="3325557652271172128">"ከGoogle መለያ ጋር አስምር"</string>
     <string name="import_bookmarks_dialog_description" msgid="2362897194870789609">"ዕልባቶች በዚህ መሣሪያ ላይ ከ Google መለያጋር ገና አልተጎዳኙም። እነዚህን ዕልባቶች ወደ መለያ በማከል አስቀምጥ።ለማመሳሰል ካልፈለግክ እነዚህን ዕልባቶች ሰርዝ።"</string>
     <string name="import_bookmarks_dialog_select_add_account" msgid="7643058662272484895">"በዚህ መሣሪያ ላይ ዕልባቶችን አክል እና በGoogle መለያ ማሳመር ጀምር።"</string>
     <string name="import_bookmarks_dialog_delete_select_account" msgid="4333848003180415516">"በዚህ መሣሪያ ላይ ዕልባቶችን አክል እና በGoogle መለያ ማሳመር ጀምር።"</string>
@@ -397,4 +397,6 @@
     <string name="accessibility_state_incognito" msgid="5786038488425202355">"የIncognito ገፅ"</string>
     <string name="accessibility_state_frozen" msgid="8041539250447035570">"የተቀመጠ ገፅ"</string>
     <string name="accessibility_transition_navscreen" msgid="2734915619351519547">"የትር አስተዳደር"</string>
+    <!-- no translation found for accessibility_button_bookmarks_folder_up (9179389954714270505) -->
+    <skip />
 </resources>

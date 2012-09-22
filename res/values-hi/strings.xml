@@ -93,9 +93,8 @@
     <string name="delete_bookmark_warning" msgid="7825328496411904321">"\"<xliff:g id="BOOKMARK">%s</xliff:g>\" बुकमार्क हटाएं?"</string>
     <string name="open_all_in_new_window" msgid="455786763426575293">"सभी को नए टैब में खोलें"</string>
     <string name="goto_dot" msgid="3895839050522602723">"जाएं"</string>
-    <string name="select_dot" msgid="6299170761900561967">"पाठ का चयन करें"</string>
-    <!-- no translation found for close_other_tabs (7693157495148282778) -->
-    <skip />
+    <string name="select_dot" msgid="6299170761900561967">"पाठ को चुनें"</string>
+    <string name="close_other_tabs" msgid="7693157495148282778">"अन्य टैब बंद करें"</string>
     <string name="bookmarks" msgid="1961279134885867815">"बुकमार्क"</string>
     <string name="shortcut_bookmark" msgid="3974876480401135895">"बुकमार्क"</string>
     <string name="shortcut_bookmark_title" msgid="7570786275916681296">"कोई बुकमार्क चुनें"</string>
@@ -115,8 +114,8 @@
     <string name="contextmenu_sharelink" msgid="5392275392280130331">"लिंक शेयर करें"</string>
     <string name="contextmenu_copy" msgid="398860586635404030">"प्रतिलिपि बनाएं"</string>
     <string name="contextmenu_copylink" msgid="5153657160294534270">"लिंक URL की प्रतिलिपि बनाएं"</string>
-    <string name="contextmenu_download_image" msgid="4243829645180686912">"छवि सहेजें"</string>
-    <string name="contextmenu_view_image" msgid="3870625602053600905">"छवि देखें"</string>
+    <string name="contextmenu_download_image" msgid="4243829645180686912">"चित्र सहेजें"</string>
+    <string name="contextmenu_view_image" msgid="3870625602053600905">"चित्र देखें"</string>
     <string name="contextmenu_set_wallpaper" msgid="3691902960115350686">"वॉलपेपर के रूप में सेट करें"</string>
     <string name="contextmenu_dial_dot" msgid="5856550683415933806">"डायल करें…"</string>
     <string name="contextmenu_add_contact" msgid="3183511922223645716">"संपर्क जोड़ें"</string>
@@ -398,4 +397,6 @@
     <string name="accessibility_state_incognito" msgid="5786038488425202355">"गुप्त पृष्ठ"</string>
     <string name="accessibility_state_frozen" msgid="8041539250447035570">"सहेजे गए पृष्ठ"</string>
     <string name="accessibility_transition_navscreen" msgid="2734915619351519547">"टैब प्रबंधन"</string>
+    <!-- no translation found for accessibility_button_bookmarks_folder_up (9179389954714270505) -->
+    <skip />
 </resources>

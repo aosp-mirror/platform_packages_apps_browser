@@ -271,8 +271,8 @@
     <string name="pref_lab_title" msgid="5571091610359629423">"Labs"</string>
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Kontrol cepat"</string>
     <string name="pref_lab_quick_controls_summary" msgid="3149664132600968775">"Geser jempol dari ujung kiri atau kanan untuk membuka kontrol cepat dan menyembunyikan aplikasi dan bilah URL"</string>
-    <string name="pref_use_instant_search" msgid="1119176077760723740">"Google Sekejap"</string>
-    <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Gunakan Google Sekejap di Google Penelusuran agar hasilnya tampil selagi mengetik (ini dapat menambah pemakaian data)."</string>
+    <string name="pref_use_instant_search" msgid="1119176077760723740">"Google Instan"</string>
+    <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Gunakan Google Instan di Google Penelusuran agar hasilnya tampil selagi mengetik (ini dapat menambah pemakaian data)."</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"Layar penuh"</string>
     <string name="pref_lab_fullscreen_summary" msgid="7694738112219376740">"Gunakan mode layar lebar untuk menyembunyikan bilah status"</string>
     <string name="pref_data_title" msgid="7255058703417796578">"Pengelolaan bandwidth"</string>
@@ -370,7 +370,7 @@
     <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"Tambahkan bookmark Android ke bookmark untuk <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>"</string>
     <string name="menu_share_url" msgid="5851814357333739700">"Bagikan"</string>
     <string name="max_tabs_warning" msgid="4122034303809457570">"Tidak ada lagi tab yang tersedia"</string>
-    <string name="instant_search_label" msgid="8769284297650716935">"Google dengan Sekejap (Labs)"</string>
+    <string name="instant_search_label" msgid="8769284297650716935">"Google dengan Instan (Labs)"</string>
     <string name="preview" msgid="6450823514561689038">"Pratinjau"</string>
     <string name="local_bookmarks" msgid="533816851415228520">"Lokal"</string>
     <string name="ua_switcher_desktop" msgid="220097077327558435">"Minta situs desktop"</string>
@@ -397,4 +397,6 @@
     <string name="accessibility_state_incognito" msgid="5786038488425202355">"Laman samaran"</string>
     <string name="accessibility_state_frozen" msgid="8041539250447035570">"Laman tersimpan"</string>
     <string name="accessibility_transition_navscreen" msgid="2734915619351519547">"Pengelolaan tab"</string>
+    <!-- no translation found for accessibility_button_bookmarks_folder_up (9179389954714270505) -->
+    <skip />
 </resources>
