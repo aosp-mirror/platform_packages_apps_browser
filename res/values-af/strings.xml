@@ -397,4 +397,6 @@
     <string name="accessibility_state_incognito" msgid="5786038488425202355">"Incognito-bladsy"</string>
     <string name="accessibility_state_frozen" msgid="8041539250447035570">"Gestoorde bladsy"</string>
     <string name="accessibility_transition_navscreen" msgid="2734915619351519547">"Oortjiebestuur"</string>
+    <!-- no translation found for accessibility_button_bookmarks_folder_up (9179389954714270505) -->
+    <skip />
 </resources>

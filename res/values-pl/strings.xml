@@ -397,4 +397,5 @@
     <string name="accessibility_state_incognito" msgid="5786038488425202355">"Strona incognito"</string>
     <string name="accessibility_state_frozen" msgid="8041539250447035570">"Zapisana strona"</string>
     <string name="accessibility_transition_navscreen" msgid="2734915619351519547">"Zarządzanie kartami"</string>
+    <string name="accessibility_button_bookmarks_folder_up" msgid="9179389954714270505">"Poprzedni folder"</string>
 </resources>

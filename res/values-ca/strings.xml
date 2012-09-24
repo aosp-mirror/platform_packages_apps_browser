@@ -282,7 +282,7 @@
     <item msgid="1791664748778640002">"Només en Wi-Fi"</item>
     <item msgid="3944061253437827617">"Sempre"</item>
   </string-array>
-    <string name="pref_data_preload_summary" msgid="3809168910751382727">"Permet al naveg. carregar prèv. resultats cerca fiabilitat alta en process. fons"</string>
+    <string name="pref_data_preload_summary" msgid="3809168910751382727">"Permet que el naveg. carregui resultats de cerca fiables en segon pla"</string>
     <string name="pref_data_preload_dialogtitle" msgid="8421297746110796536">"Càrrega prèvia de resultats de la cerca"</string>
     <string name="pref_link_prefetch_title" msgid="4123685219009241072">"Càrrega prèvia de pàgines web"</string>
   <string-array name="pref_link_prefetch_choices">
@@ -397,4 +397,5 @@
     <string name="accessibility_state_incognito" msgid="5786038488425202355">"Pàgina d\'incògnit"</string>
     <string name="accessibility_state_frozen" msgid="8041539250447035570">"Pàgina desada"</string>
     <string name="accessibility_transition_navscreen" msgid="2734915619351519547">"Gestió de pestanyes"</string>
+    <string name="accessibility_button_bookmarks_folder_up" msgid="9179389954714270505">"Carpeta anterior"</string>
 </resources>
