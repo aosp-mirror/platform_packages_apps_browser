@@ -50,6 +50,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:src="@drawable/ic_tab_close"
+        android:contentDescription="@string/cancel"
         />
   </LinearLayout>
 </LinearLayout>
