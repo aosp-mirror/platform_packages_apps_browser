@@ -397,6 +397,5 @@
     <string name="accessibility_state_incognito" msgid="5786038488425202355">"Inkognito puslapis"</string>
     <string name="accessibility_state_frozen" msgid="8041539250447035570">"Išsaugotas puslapis"</string>
     <string name="accessibility_transition_navscreen" msgid="2734915619351519547">"Skirtuko valdymas"</string>
-    <!-- no translation found for accessibility_button_bookmarks_folder_up (9179389954714270505) -->
-    <skip />
+    <string name="accessibility_button_bookmarks_folder_up" msgid="9179389954714270505">"Ankstesnis aplankas"</string>
 </resources>
