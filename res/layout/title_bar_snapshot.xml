@@ -25,14 +25,13 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:paddingLeft="8dip" />
-    <ImageButton
+    <ImageView
         android:id="@+id/favicon"
         android:layout_width="52dip"
         android:layout_height="match_parent"
         android:paddingLeft="16dip"
         android:paddingRight="16dip"
-        android:scaleType="fitCenter"
-        style="@style/HoloButton" />
+        android:scaleType="fitCenter" />
     <FrameLayout
         android:id="@+id/toggle_container"
         android:layout_width="0dip"
@@ -58,6 +57,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:src="@drawable/ic_windows_holo_dark"
+        android:contentDescription="@string/accessibility_button_navscreen"
         style="@style/HoloButton" />
     <ImageButton
         android:id="@+id/more"
@@ -65,5 +65,6 @@
         android:layout_height="match_parent"
         style="@style/HoloButton"
         android:gravity="center_vertical"
-        android:src="@*android:drawable/ic_menu_moreoverflow_normal_holo_dark" />
+        android:src="@*android:drawable/ic_menu_moreoverflow_normal_holo_dark"
+        android:contentDescription="@string/accessibility_button_more" />
 </com.android.browser.SnapshotBar>
