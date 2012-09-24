@@ -179,6 +179,8 @@ public class BreadCrumbView extends LinearLayout implements OnClickListener {
                 LayoutParams.MATCH_PARENT));
         mBackButton.setOnClickListener(this);
         mBackButton.setVisibility(View.GONE);
+        mBackButton.setContentDescription(mContext.getText(
+                R.string.accessibility_button_bookmarks_folder_up));
         addView(mBackButton, 0);
     }
 
