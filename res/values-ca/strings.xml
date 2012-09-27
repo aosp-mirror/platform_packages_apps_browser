@@ -70,7 +70,7 @@
     <string name="name" msgid="5462672162695365387">"Etiqueta"</string>
     <string name="http" msgid="2163722670597250102">"http://"</string>
     <string name="save_to_bookmarks" msgid="1679286010089780932">"S\'ha desat als marcadors"</string>
-    <string name="bookmark_this_page" msgid="7530739804320811054">"Af. pàg. a marc."</string>
+    <string name="bookmark_this_page" msgid="7530739804320811054">"Af. pàg. a adreces d\'interès"</string>
     <string name="remove" msgid="7820112494467011374">"Elimina"</string>
     <string name="edit_bookmark" msgid="5024089053490231905">"Edita l\'adreça d\'interès"</string>
     <string name="create_shortcut_bookmark" msgid="1995095662095484289">"Afegeix una drecera a la pàgina d\'inici"</string>
@@ -80,7 +80,7 @@
     <string name="remove_history_item" msgid="5021424935726728618">"Elimina de l\'historial"</string>
     <string name="set_as_homepage" msgid="4752937379414905560">"Defineix com a pàgina d\'inici"</string>
     <string name="bookmark_saved" msgid="2766434679871317557">"S\'ha desat a les adreces d\'interès."</string>
-    <string name="bookmark_not_saved" msgid="1077732557310662080">"No s\'ha pogut desar el marcador."</string>
+    <string name="bookmark_not_saved" msgid="1077732557310662080">"No s\'ha pogut desar l\'adreça d\'interès."</string>
     <string name="homepage_set" msgid="8768087280310966395">"S\'ha definit la pàgina d\'inici."</string>
     <string name="bookmark_needs_title" msgid="6245900436119218187">"L\'adreça d\'interès ha de tenir un nom."</string>
     <string name="bookmark_needs_url" msgid="7809876865972755158">"L\'adreça d\'interès ha de tenir una ubicació."</string>
@@ -90,14 +90,14 @@
     <string name="bookmark_thumbnail_view" msgid="3164068314718522138">"Miniatures"</string>
     <string name="bookmark_list_view" msgid="7848510619500937839">"Llista"</string>
     <string name="current_page" msgid="7510129573681663135">"de "</string>
-    <string name="delete_bookmark_warning" msgid="7825328496411904321">"Vols suprimir el marcador \"<xliff:g id="BOOKMARK">%s</xliff:g>\"?"</string>
+    <string name="delete_bookmark_warning" msgid="7825328496411904321">"Vols suprimir l\'adreça d\'interès \"<xliff:g id="BOOKMARK">%s</xliff:g>\"?"</string>
     <string name="open_all_in_new_window" msgid="455786763426575293">"Obre-ho tot en pestanyes noves"</string>
     <string name="goto_dot" msgid="3895839050522602723">"Vés"</string>
     <string name="select_dot" msgid="6299170761900561967">"Selecciona text"</string>
     <string name="close_other_tabs" msgid="7693157495148282778">"Tanca les altres pestanyes"</string>
     <string name="bookmarks" msgid="1961279134885867815">"Adreces d\'interès"</string>
     <string name="shortcut_bookmark" msgid="3974876480401135895">"Adreça d\'interès"</string>
-    <string name="shortcut_bookmark_title" msgid="7570786275916681296">"Selecció d\'un marcador"</string>
+    <string name="shortcut_bookmark_title" msgid="7570786275916681296">"Selecció d\'una adreça d\'interès"</string>
     <string name="history" msgid="2451240511251410032">"Historial"</string>
     <string name="menu_view_download" msgid="2124570321712995120">"Baixades"</string>
     <string name="copy_page_url" msgid="1188679152608889555">"Copia l\'URL de la pàgina"</string>
@@ -302,7 +302,7 @@
     <string name="browser_history" msgid="2979476257919939232">"Pàgines visitades recentment"</string>
     <string name="empty_history" msgid="7013369425484218985">"No hi ha historial del navegador."</string>
     <string name="go_home" msgid="109129207276086793">"Pàgina d\'inici"</string>
-    <string name="add_new_bookmark" msgid="3158497555612337238">"Afegeix un marcador"</string>
+    <string name="add_new_bookmark" msgid="3158497555612337238">"Afegeix una adreça d\'interès"</string>
     <string name="add_bookmark_short" msgid="3783984330998103735">"Afegeix"</string>
     <string name="search_hint" msgid="4647356319916631820">"Cerqueu o escriviu l\'URL"</string>
     <string name="search_button_text" msgid="5235226933877634410">"Vés"</string>
@@ -351,7 +351,7 @@
     <string name="website_settings_clear_all_dialog_cancel_button" msgid="1896757051856611674">"Cancel·la"</string>
     <string name="progress_dialog_setting_wallpaper" msgid="2031391201442335889">"S\'està establint el fons de pantalla..."</string>
     <string name="defaultBookmarksUpButton" msgid="2303951020715704735">"Marcadors"</string>
-    <string name="empty_bookmarks_folder" msgid="6239830231917618556">"No hi ha cap marcador."</string>
+    <string name="empty_bookmarks_folder" msgid="6239830231917618556">"No hi ha cap adreça d\'interès."</string>
     <string name="other_bookmarks" msgid="8021889794475657319">"Altres marcadors"</string>
     <string name="rlz_access_point" msgid="7165847807377650632">"Y1"</string>
     <string name="account_chooser_dialog_title" msgid="3314204833188808194">"Tria d\'un compte"</string>
@@ -382,7 +382,7 @@
     <string name="accessibility_button_forward" msgid="1236827218480658168">"Vés endavant"</string>
     <string name="accessibility_button_refresh" msgid="1023441396241841313">"Actualitza la pàgina"</string>
     <string name="accessibility_button_stop" msgid="6793644120043222148">"Atura la càrrega de la pàgina"</string>
-    <string name="accessibility_button_addbookmark" msgid="4787844912630006181">"Afegeix aquesta pàgina a marcadors"</string>
+    <string name="accessibility_button_addbookmark" msgid="4787844912630006181">"Afegeix aquesta pàgina a les adreces d\'interès"</string>
     <string name="accessibility_button_search" msgid="5357014102136055376">"Cerca"</string>
     <string name="accessibility_button_voice" msgid="152016375096083337">"Inicia la cerca per veu"</string>
     <string name="accessibility_button_bookmarks" msgid="7435055677299151649">"Marcadors"</string>

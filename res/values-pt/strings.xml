@@ -306,7 +306,7 @@
     <string name="add_bookmark_short" msgid="3783984330998103735">"Adicionar"</string>
     <string name="search_hint" msgid="4647356319916631820">"Pesquisar ou digitar URL"</string>
     <string name="search_button_text" msgid="5235226933877634410">"Ir"</string>
-    <string name="search_settings_description" msgid="1422401062529014107">"Favoritos e histórico da web"</string>
+    <string name="search_settings_description" msgid="1422401062529014107">"Favoritos e histórico da Web"</string>
     <string name="popup_window_attempt" msgid="31565781154067629">"Permitir que este site abra uma janela pop-up?"</string>
     <string name="allow" msgid="1157313689171991335">"Permitir"</string>
     <string name="block" msgid="9172175889884707800">"Bloquear"</string>
