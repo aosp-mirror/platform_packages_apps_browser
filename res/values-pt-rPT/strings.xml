@@ -52,7 +52,7 @@
     <string name="ssl_unknown" msgid="5679243486524754571">"Erro: certificado desconhecido."</string>
     <string name="stopping" msgid="4839698519340302982">"A interromper..."</string>
     <string name="stop" msgid="5687251076030630074">"Parar"</string>
-    <string name="reload" msgid="8585220783228408062">"Actualizar"</string>
+    <string name="reload" msgid="8585220783228408062">"Atualizar"</string>
     <string name="back" msgid="8414603107175713668">"Anterior"</string>
     <string name="forward" msgid="4288210890526641577">"Avançar"</string>
     <string name="save" msgid="5922311934992468496">"OK"</string>
@@ -131,7 +131,7 @@
     <string name="pref_content_load_images" msgid="2125616852957377561">"Carregar imagens"</string>
     <string name="pref_content_load_images_summary" msgid="5055874125248398584">"Apresentar imagens em páginas Web"</string>
     <string name="pref_content_block_popups" msgid="4158524847764470895">"Bloquear pop-ups"</string>
-    <string name="pref_content_javascript" msgid="4570972030299516843">"Activar JavaScript"</string>
+    <string name="pref_content_javascript" msgid="4570972030299516843">"Ativar JavaScript"</string>
     <string name="pref_content_open_in_background" msgid="824123779725118663">"Abrir em segundo plano"</string>
     <string name="pref_content_plugins" msgid="7231944644794301582">"Activar plug-ins"</string>
   <string-array name="pref_content_plugins_choices">
@@ -168,7 +168,7 @@
     <string name="autologin_bar_error" msgid="7470001207395920811">"Falha ao iniciar sessão."</string>
     <string name="autofill_profile_editor_heading" msgid="4798644544927738078">"Escreva o texto pretendido para preencher automaticamente formulários Web."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Nome completo:"</string>
-    <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"E-mail:"</string>
+    <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"Email:"</string>
     <string name="autofill_profile_editor_company_name" msgid="2813443159949210417">"Nome da empresa:"</string>
     <string name="autofill_profile_editor_address_line_1" msgid="836433242509243081">"Linha de endereço 1"</string>
     <string name="autofill_profile_editor_address_line_1_hint" msgid="5965659598509327172">"Endereço, caixa postal, c/o"</string>
@@ -206,7 +206,7 @@
     <string name="pref_privacy_clear_passwords_summary" msgid="8856782718942903335">"Limpar todas as palavras-passe guardadas"</string>
     <string name="pref_privacy_clear_passwords_dlg" msgid="5836576259947160045">"Eliminar todas as palavras-passe guardadas?"</string>
     <string name="pref_privacy_location_title" msgid="7458378016606081067">"Localização"</string>
-    <string name="pref_privacy_enable_geolocation" msgid="1395040170290765686">"Activar localização"</string>
+    <string name="pref_privacy_enable_geolocation" msgid="1395040170290765686">"Ativar localização"</string>
     <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"Permitir que os sites solicitem acesso à sua localização"</string>
     <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"Limpar acesso à localização"</string>
     <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"Limpar acesso à localização para todos os Web sites"</string>
@@ -357,8 +357,8 @@
     <string name="account_chooser_dialog_title" msgid="3314204833188808194">"Escolher conta"</string>
     <string name="import_bookmarks_dialog_title" msgid="3325557652271172128">"Sincronizar com conta Google"</string>
     <string name="import_bookmarks_dialog_description" msgid="2362897194870789609">"Os marcadores neste aparelho ainda não estão associados a uma conta Google. Guarde estes marcadores, adicionando-os a uma conta ou elimine-os se não pretender sincronizá-los."</string>
-    <string name="import_bookmarks_dialog_select_add_account" msgid="7643058662272484895">"Adicione marcadores atualmente neste aparelho e comece a sincronizar com a conta Google"</string>
-    <string name="import_bookmarks_dialog_delete_select_account" msgid="4333848003180415516">"Adicione marcadores atualmente neste aparelho e comece a sincronizar com a Conta Google"</string>
+    <string name="import_bookmarks_dialog_select_add_account" msgid="7643058662272484895">"Adicione marcadores atualmente neste dispositivo e comece a sincronizar com a conta Google"</string>
+    <string name="import_bookmarks_dialog_delete_select_account" msgid="4333848003180415516">"Adicione marcadores atualmente neste dispositivo e comece a sincronizar com a Conta Google"</string>
     <string name="import_bookmarks_dialog_confirm_delete" msgid="2204771572755630570">"Eliminar marcadores atualmente neste aparelho e começar a sincronizar marcadores com <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>?"</string>
     <string name="import_bookmarks_dialog_confirm_add" msgid="8942794112340838111">"Adicionar marcadores atualmente neste aparelho e começar a sincronizar marcadores com <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>?"</string>
     <string name="import_bookmarks_dialog_remove" msgid="5984607822851800902">"Eliminar marcadores"</string>
