@@ -27,10 +27,10 @@
     <string name="tab_snapshots" msgid="1449241204980265186">"Páginas guardadas"</string>
     <string name="added_to_bookmarks" msgid="4028710765672851635">"Añadido a marcadores"</string>
     <string name="removed_from_bookmarks" msgid="546648923924996722">"Eliminado de marcadores"</string>
-    <string name="sign_in_to" msgid="5939425800148759165">"Acceder a <xliff:g id="HOSTNAME">%s1</xliff:g> \"<xliff:g id="REALM">%s2</xliff:g>\""</string>
+    <string name="sign_in_to" msgid="5939425800148759165">"Iniciar sesión en <xliff:g id="HOSTNAME">%s1</xliff:g> \"<xliff:g id="REALM">%s2</xliff:g>\""</string>
     <string name="username" msgid="5057566336518215922">"Nombre"</string>
     <string name="password" msgid="1177138552305184404">"Contraseña"</string>
-    <string name="action" msgid="183105774472071343">"Acceder"</string>
+    <string name="action" msgid="183105774472071343">"Iniciar sesión"</string>
     <string name="bookmarks_search" msgid="5229596268214362873">"Navegador"</string>
     <string name="cancel" msgid="3017274947407233702">"Cancelar"</string>
     <string name="ok" msgid="1509280796718850364">"Aceptar"</string>
@@ -162,10 +162,10 @@
     <string name="pref_autofill_profile_editor_summary" msgid="4864447251676856190">"Configurar texto con el que quieres completar automáticamente los formularios web"</string>
     <string name="pref_autologin_title" msgid="4421187193809267096">"Acceso de Google automático"</string>
     <string name="pref_autologin_progress" msgid="8333244467048833461">"Accediendo a Google Sites mediante <xliff:g id="ID_1">%s</xliff:g>"</string>
-    <string name="autologin_bar_text" msgid="3684581827167173371">"Acceder como"</string>
-    <string name="autologin_bar_login_text" msgid="3336615320510851879">"Acceder"</string>
+    <string name="autologin_bar_text" msgid="3684581827167173371">"Iniciar sesión como"</string>
+    <string name="autologin_bar_login_text" msgid="3336615320510851879">"Iniciar sesión"</string>
     <string name="autologin_bar_hide_text" msgid="3629355974385859580">"Ocultar"</string>
-    <string name="autologin_bar_error" msgid="7470001207395920811">"No se ha podido acceder."</string>
+    <string name="autologin_bar_error" msgid="7470001207395920811">"No se ha podido iniciar sesión."</string>
     <string name="autofill_profile_editor_heading" msgid="4798644544927738078">"Escribe el texto con el que quieres completar automáticamente los formularios web."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Nombre completo:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"Correo:"</string>
