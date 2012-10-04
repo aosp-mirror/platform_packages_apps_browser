@@ -219,7 +219,7 @@
     <string name="pref_security_show_security_warning" msgid="8901135676266754559">"የደህንነት ማስጠንቀቂያዎችአሳይ"</string>
     <string name="pref_security_show_security_warning_summary" msgid="5260098316025397525">"ከድረ ገፅ ደህንነት ጋር ችግር ካለ ማስጠንቀቂያ አሳይ"</string>
     <string name="pref_security_accept_cookies" msgid="3201367661925047989">"ኩኪዎች ተቀበል"</string>
-    <string name="pref_security_accept_cookies_summary" msgid="1907951236154433751">"ድር ጣቢያዎች እንዲያስቀምጡ እና \"ኩኪ\" ውሂብ እንዲያነቡ ፍቀድ"</string>
+    <string name="pref_security_accept_cookies_summary" msgid="1907951236154433751">"ድረገፆች እንዲያስቀምጡ እና \"ኩኪ\" ውሂብ እንዲያነቡ ፍቀድ"</string>
   <string-array name="pref_text_size_choices">
     <item msgid="4952686548944739548">"ደቃቃ"</item>
     <item msgid="1950030433642671460">"አነስተኛ"</item>
