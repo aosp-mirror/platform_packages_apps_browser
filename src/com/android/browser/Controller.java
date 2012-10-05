@@ -98,6 +98,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -2229,7 +2230,7 @@ public class Controller
          */
         private File getTarget(DataUri uri) throws IOException {
             File dir = mActivity.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
-            DateFormat format = new SimpleDateFormat(IMAGE_BASE_FORMAT);
+            DateFormat format = new SimpleDateFormat(IMAGE_BASE_FORMAT, Locale.US);
             String nameBase = format.format(new Date());
             String mimeType = uri.getMimeType();
             MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
