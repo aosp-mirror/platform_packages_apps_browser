@@ -101,7 +101,7 @@
     <string name="history" msgid="2451240511251410032">"इतिहास"</string>
     <string name="menu_view_download" msgid="2124570321712995120">"डाउनलोड"</string>
     <string name="copy_page_url" msgid="1188679152608889555">"पृष्ठ url की प्रतिलिपि बनाएं"</string>
-    <string name="share_page" msgid="593756995297268343">"पृष्ठ शेयर करें"</string>
+    <string name="share_page" msgid="593756995297268343">"पृष्ठ साझा करें"</string>
     <string name="menu_save_snapshot" msgid="6935080344031126139">"ऑफ़लाइन पढ़ने के लिए सहेजें"</string>
     <string name="saving_snapshot" msgid="1693789062351182809">"सहेजा जा रहा है…"</string>
     <string name="snapshot_failed" msgid="4584580873565876033">"ऑफ़लाइन पढ़ने के लिए सहेजा नहीं जा सका."</string>
@@ -111,7 +111,7 @@
     <string name="contextmenu_openlink_newwindow" msgid="1205313604181761403">"नए टैब में खोलें"</string>
     <string name="contextmenu_openlink_newwindow_background" msgid="4690381019116746687">"नए पृष्ठभूमि टैब में खोलें"</string>
     <string name="contextmenu_savelink" msgid="5508554930832538184">"लिंक सहेजें"</string>
-    <string name="contextmenu_sharelink" msgid="5392275392280130331">"लिंक शेयर करें"</string>
+    <string name="contextmenu_sharelink" msgid="5392275392280130331">"लिंक साझा करें"</string>
     <string name="contextmenu_copy" msgid="398860586635404030">"प्रतिलिपि बनाएं"</string>
     <string name="contextmenu_copylink" msgid="5153657160294534270">"लिंक URL की प्रतिलिपि बनाएं"</string>
     <string name="contextmenu_download_image" msgid="4243829645180686912">"चित्र सहेजें"</string>
@@ -121,7 +121,7 @@
     <string name="contextmenu_add_contact" msgid="3183511922223645716">"संपर्क जोड़ें"</string>
     <string name="contextmenu_send_mail" msgid="1014513374828775660">"ईमेल भेजें"</string>
     <string name="contextmenu_map" msgid="7471390435434034912">"मानचित्र"</string>
-    <string name="choosertitle_sharevia" msgid="4600490613341909086">"इसके द्वारा शेयर करें"</string>
+    <string name="choosertitle_sharevia" msgid="4600490613341909086">"इसके द्वारा साझा करें"</string>
     <string name="clear" msgid="7070043081700011461">"साफ़ करें"</string>
     <string name="replace" msgid="4843033491070384047">"बदलें"</string>
     <string name="browser_bookmarks_page_bookmarks_text" msgid="6787605028726162673">"बुकमार्क"</string>
@@ -334,7 +334,7 @@
     <string name="webstorage_origin_summary_mb_stored" msgid="1985885826292236210">"आपके फ़ोन पर संग्रहीत MB"</string>
     <string name="loading_video" msgid="7886324933131962321">"वीडियो लोड हो रहा है..."</string>
     <string name="geolocation_permissions_prompt_message" msgid="356796102004052471">"<xliff:g id="WEBSITE_ORIGIN">%s</xliff:g> की इच्छा आपका स्थान जानने की है"</string>
-    <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"स्थान शेयर करें"</string>
+    <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"स्थान साझा करें"</string>
     <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"अस्वीकारें"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"प्राथमिकता याद रखें"</string>
     <string name="geolocation_permissions_prompt_toast_allowed" msgid="7201417941112726112">"यह साइट आपके स्‍थान पर पहुंच सकती है. इसे सेटिंग &gt; उन्‍नत &gt; वेबसाइट स्‍क्रीन पर बदलें."</string>
@@ -368,7 +368,7 @@
     <string name="import_bookmarks_wizard_done" msgid="1446247092194489191">"पूर्ण"</string>
     <string name="import_bookmarks_dialog_add" msgid="1743359725294101189">"Google खाते में बुकमार्क जोड़ें"</string>
     <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"<xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g> के बुकमार्क के लिए अपने Android बुकमार्क जोड़ें"</string>
-    <string name="menu_share_url" msgid="5851814357333739700">"शेयर करें"</string>
+    <string name="menu_share_url" msgid="5851814357333739700">"साझा करें"</string>
     <string name="max_tabs_warning" msgid="4122034303809457570">"और अधिक टैब उपलब्ध नहीं हैं"</string>
     <string name="instant_search_label" msgid="8769284297650716935">"झटपट के साथ Google (लैब)"</string>
     <string name="preview" msgid="6450823514561689038">"पूर्वावलोकन"</string>
