@@ -48,6 +48,8 @@
     <string name="password">Password</string>
     <!-- The label on the "sign in" button -->
     <string name="action">Sign in</string>
+    <!-- The name of the add bookmark page activity.-->
+    <string name="bookmarks_add_page">Save bookmark</string>
     <!-- The name of the bookmarks and history search suggestion source.  -->
     <string name="bookmarks_search">Browser</string>
     <!-- Label for a cancel button.  It is used for multiple cancel buttons in different contexts -->
