@@ -367,7 +367,7 @@
     <string name="import_bookmarks_wizard_cancel" msgid="4936061122806506634">"Abbrechen"</string>
     <string name="import_bookmarks_wizard_done" msgid="1446247092194489191">"Fertig"</string>
     <string name="import_bookmarks_dialog_add" msgid="1743359725294101189">"Lesezeichen zu Google-Konto hinzufügen"</string>
-    <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"Ihre Android-Lesezeichen den Lesezeichen für <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g> hinzufügen"</string>
+    <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"Ihre Android-Lesezeichen zu den Lesezeichen für <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g> hinzufügen"</string>
     <string name="menu_share_url" msgid="5851814357333739700">"Teilen"</string>
     <string name="max_tabs_warning" msgid="4122034303809457570">"Es sind keine weiteren Tabs verfügbar."</string>
     <string name="instant_search_label" msgid="8769284297650716935">"Google mit dynamischer Suche (Labs)"</string>
