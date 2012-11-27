@@ -520,7 +520,13 @@ public class PhoneUi extends BaseUi {
                         + ", height: " + height);
                 return null;
             }
-            return Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
+            Bitmap bm = null;
+            try {
+                bm = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
+            } catch (OutOfMemoryError e) {
+                Log.w(LOGTAG, "Can't generate bitmap due to OOM", e);
+            }
+            return bm;
         }
 
         public void set(Bitmap image) {
