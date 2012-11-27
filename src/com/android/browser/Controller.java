@@ -2064,9 +2064,15 @@ public class Controller
                 sThumbnailBitmap.recycle();
                 sThumbnailBitmap = null;
             }
-            sThumbnailBitmap =
-                    Bitmap.createBitmap(scaledWidth, scaledHeight, Bitmap.Config.RGB_565);
+            try {
+                sThumbnailBitmap =
+                        Bitmap.createBitmap(scaledWidth, scaledHeight, Bitmap.Config.RGB_565);
+            } catch (OutOfMemoryError e) {
+                Log.w(LOGTAG, "Can't generate thumbnail bitmap", e);
+                return null;
+            }
         }
+
         Canvas canvas = new Canvas(sThumbnailBitmap);
         int contentWidth = view.getContentWidth();
         float overviewScale = scaledWidth / (view.getScale() * contentWidth);
