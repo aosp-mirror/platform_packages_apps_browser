@@ -152,7 +152,7 @@
     <item msgid="6569304572171444894">"Друго"</item>
   </string-array>
     <string name="pref_content_autofit" msgid="8260474534053660809">"Аутоматски уклопи странице"</string>
-    <string name="pref_content_autofit_summary" msgid="324810555822572112">"Подешавање формата веб страница тако да се уклопе на екран"</string>
+    <string name="pref_content_autofit_summary" msgid="324810555822572112">"Подешавање формата веб-страница тако да се уклопе на екран"</string>
     <string name="pref_general_title" msgid="1946872771219249323">"Општa"</string>
     <string name="pref_general_sync_title" msgid="3138637035975860324">"Синхронизација"</string>
     <string name="pref_general_autofill_title" msgid="547881256865816858">"Аутоматско попуњавање"</string>
@@ -284,14 +284,14 @@
   </string-array>
     <string name="pref_data_preload_summary" msgid="3809168910751382727">"Дозволите да прегледач у позадини унапред учита јако поуздане резултате претраге"</string>
     <string name="pref_data_preload_dialogtitle" msgid="8421297746110796536">"Учитавање резултата претраге унапред"</string>
-    <string name="pref_link_prefetch_title" msgid="4123685219009241072">"Учитавање веб странице унапред"</string>
+    <string name="pref_link_prefetch_title" msgid="4123685219009241072">"Учитавање веб-странице унапред"</string>
   <string-array name="pref_link_prefetch_choices">
     <item msgid="4889781230398008031">"Никада"</item>
     <item msgid="1908465963242077428">"Само преко Wi-Fi-ја"</item>
     <item msgid="7647277566998527142">"Увек"</item>
   </string-array>
-    <string name="pref_link_prefetch_summary" msgid="6558181497993206817">"Дозволи да прегледач у позадини унапред учитава повезане веб странице"</string>
-    <string name="pref_link_prefetch_dialogtitle" msgid="3804646141622839765">"Учитавање веб странице унапред"</string>
+    <string name="pref_link_prefetch_summary" msgid="6558181497993206817">"Дозволи да прегледач у позадини унапред учитава повезане веб-странице"</string>
+    <string name="pref_link_prefetch_dialogtitle" msgid="3804646141622839765">"Учитавање веб-странице унапред"</string>
     <string name="browserFrameNetworkErrorLabel" msgid="8102515020625680714">"Проблем са везом"</string>
     <string name="browserFrameFileErrorLabel" msgid="4703792279852977350">"Проблем са датотеком"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2385512101948178841"></string>
@@ -306,7 +306,7 @@
     <string name="add_bookmark_short" msgid="3783984330998103735">"Додај"</string>
     <string name="search_hint" msgid="4647356319916631820">"Претражите или унесите URL адресу"</string>
     <string name="search_button_text" msgid="5235226933877634410">"Иди"</string>
-    <string name="search_settings_description" msgid="1422401062529014107">"Обележивачи и веб историја"</string>
+    <string name="search_settings_description" msgid="1422401062529014107">"Обележивачи и веб-историја"</string>
     <string name="popup_window_attempt" msgid="31565781154067629">"Желите ли да дозволите овом сајту да отвори искачући прозор?"</string>
     <string name="allow" msgid="1157313689171991335">"Дозволи"</string>
     <string name="block" msgid="9172175889884707800">"Блокирај"</string>

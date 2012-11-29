@@ -272,7 +272,7 @@
     <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Snelle bedieningselementen"</string>
     <string name="pref_lab_quick_controls_summary" msgid="3149664132600968775">"Duim schuiven vanaf zijkant: besturingselementen openen en balken verbergen."</string>
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Google Instant"</string>
-    <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Gebruik Google Instant bij Google Zoeken voor resultaten tijdens het typen (kan resulteren in meer gegevensverbruik)."</string>
+    <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Gebruik Google Dynamisch zoeken als u Google Zoeken gebruikt, voor resultaten tijdens het typen (kan resulteren in meer dataverbruik)."</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"Volledig scherm"</string>
     <string name="pref_lab_fullscreen_summary" msgid="7694738112219376740">"Modus voor volledig scherm gebruiken om de statusbalk te verbergen"</string>
     <string name="pref_data_title" msgid="7255058703417796578">"Bandbreedtebeheer"</string>
@@ -384,7 +384,7 @@
     <string name="accessibility_button_stop" msgid="6793644120043222148">"Stoppen met het laden van de pagina"</string>
     <string name="accessibility_button_addbookmark" msgid="4787844912630006181">"Bladwijzer voor pagina toevoegen"</string>
     <string name="accessibility_button_search" msgid="5357014102136055376">"Zoeken"</string>
-    <string name="accessibility_button_voice" msgid="152016375096083337">"Zoeken met je stem"</string>
+    <string name="accessibility_button_voice" msgid="152016375096083337">"Gesproken zoekopdracht"</string>
     <string name="accessibility_button_bookmarks" msgid="7435055677299151649">"Bladwijzers"</string>
     <string name="accessibility_button_closetab" msgid="6954807842756927737">"Tabblad sluiten"</string>
     <string name="accessibility_button_newtab" msgid="4116986240706315748">"Nieuw tabblad openen"</string>
