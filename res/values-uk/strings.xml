@@ -125,7 +125,7 @@
     <string name="clear" msgid="7070043081700011461">"Очистити"</string>
     <string name="replace" msgid="4843033491070384047">"Замінити"</string>
     <string name="browser_bookmarks_page_bookmarks_text" msgid="6787605028726162673">"Закладки"</string>
-    <string name="menu_preferences" msgid="6709237687234102240">"Налаштув-ня"</string>
+    <string name="menu_preferences" msgid="6709237687234102240">"Налаштування"</string>
     <string name="pref_content_title" msgid="3834107397725342174">"Вміст сторінки"</string>
     <string name="pref_allow_apptabs" msgid="1325989799080202871">"Дозволяти кілька вкладок на програму"</string>
     <string name="pref_content_load_images" msgid="2125616852957377561">"Завантаж. зобр."</string>
@@ -151,7 +151,7 @@
     <item msgid="6092441301001006473">"Найчастіше відвідувані сайти"</item>
     <item msgid="6569304572171444894">"Інша"</item>
   </string-array>
-    <string name="pref_content_autofit" msgid="8260474534053660809">"Автомат. припасув."</string>
+    <string name="pref_content_autofit" msgid="8260474534053660809">"Автоматичний розмір"</string>
     <string name="pref_content_autofit_summary" msgid="324810555822572112">"Форматувати веб-сторінки до розмірів екрана"</string>
     <string name="pref_general_title" msgid="1946872771219249323">"Загальні"</string>
     <string name="pref_general_sync_title" msgid="3138637035975860324">"Синхронізація"</string>
@@ -247,7 +247,7 @@
     <string name="pref_content_load_page" msgid="2219810141690955452">"Відкривати огляд сторінок"</string>
     <string name="pref_content_load_page_summary" msgid="9168803276420332955">"Показувати огляд щойно відкритих сторінок"</string>
     <string name="pref_extras_title" msgid="7075456173747370647">"Розширені"</string>
-    <string name="pref_extras_website_settings" msgid="67866640052455549">"Налашт-ня сайту"</string>
+    <string name="pref_extras_website_settings" msgid="67866640052455549">"Налаштування сайтів"</string>
     <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"Розширені налаштування для окремих сайтів"</string>
     <string name="pref_extras_reset_default_title" msgid="3579760449455761762">"Скинути налаштування за умовчанням"</string>
     <string name="pref_extras_reset_default" msgid="8904000515846202110">"Віднов. налашт. за умовч."</string>

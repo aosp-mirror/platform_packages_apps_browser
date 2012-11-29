@@ -297,7 +297,7 @@
     <string name="browserFrameFormResubmitLabel" msgid="2385512101948178841"></string>
     <string name="browserFrameFormResubmitMessage" msgid="5244059279866705254">"Die Seite, die Sie anzeigen möchten, enthält Daten, die bereits gesendet wurden (\"POST-DATEN\"). Wenn Sie die Daten erneut senden, wird jede Aktion (z. B. eine Suche oder ein Online-Kauf) wiederholt, die das Formular auf der Seite ausgeführt hat."</string>
     <string name="loadSuspendedTitle" msgid="6453376579109644551">"Keine Verbindung"</string>
-    <string name="loadSuspended" msgid="3843343290039218668">"Seite kann nicht geladen werden, da keine Internetverbindung besteht."</string>
+    <string name="loadSuspended" msgid="3843343290039218668">"Seite kann nicht geladen werden, weil keine Internetverbindung besteht."</string>
     <string name="clear_history" msgid="5998307092715979619">"Verlauf löschen"</string>
     <string name="browser_history" msgid="2979476257919939232">"Zuletzt besuchte Seiten"</string>
     <string name="empty_history" msgid="7013369425484218985">"Kein Browserverlauf"</string>
@@ -367,7 +367,7 @@
     <string name="import_bookmarks_wizard_cancel" msgid="4936061122806506634">"Abbrechen"</string>
     <string name="import_bookmarks_wizard_done" msgid="1446247092194489191">"Fertig"</string>
     <string name="import_bookmarks_dialog_add" msgid="1743359725294101189">"Lesezeichen zu Google-Konto hinzufügen"</string>
-    <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"Ihre Android-Lesezeichen den Lesezeichen für <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g> hinzufügen"</string>
+    <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"Ihre Android-Lesezeichen zu den Lesezeichen für <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g> hinzufügen"</string>
     <string name="menu_share_url" msgid="5851814357333739700">"Teilen"</string>
     <string name="max_tabs_warning" msgid="4122034303809457570">"Es sind keine weiteren Tabs verfügbar."</string>
     <string name="instant_search_label" msgid="8769284297650716935">"Google mit dynamischer Suche (Labs)"</string>
