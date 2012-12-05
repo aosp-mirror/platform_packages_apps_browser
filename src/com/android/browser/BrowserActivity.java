@@ -101,6 +101,15 @@ public class BrowserActivity extends Activity {
     @Override
     protected void onNewIntent(Intent intent) {
         if (shouldIgnoreIntents()) return;
+
+        if (mController == NullController.INSTANCE) {
+            if (LOGV_ENABLED) {
+                Log.v(LOGTAG,
+                        "Reinstance mController if mControll was a instance of NullController");
+            }
+            mController = createController();
+        }
+
         if (ACTION_RESTART.equals(intent.getAction())) {
             Bundle outState = new Bundle();
             mController.onSaveInstanceState(outState);
