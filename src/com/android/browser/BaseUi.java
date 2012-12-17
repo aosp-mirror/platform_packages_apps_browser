@@ -423,9 +423,9 @@ public abstract class BaseUi implements UI {
                 .findViewById(R.id.subwindow_close);
         final WebView cancelSubView = subView;
         cancel.setOnClickListener(new OnClickListener() {
+            @Override
             public void onClick(View v) {
-                WebViewClassic.fromWebView(cancelSubView).getWebChromeClient().onCloseWindow(
-                        cancelSubView);
+                ((BrowserWebView) cancelSubView).getWebChromeClient().onCloseWindow(cancelSubView);
             }
         });
         tab.setSubWebView(subView);

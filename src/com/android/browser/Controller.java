@@ -260,7 +260,7 @@ public class Controller
 
     @Override
     public void start(final Intent intent) {
-        WebViewClassic.setShouldMonitorWebCoreThread();
+        if (BrowserWebView.isClassic()) WebViewClassic.setShouldMonitorWebCoreThread();
         // mCrashRecoverHandler has any previously saved state.
         mCrashRecoveryHandler.startRecovery(intent);
     }
@@ -356,7 +356,7 @@ public class Controller
         }
         // Read JavaScript flags if it exists.
         String jsFlags = getSettings().getJsEngineFlags();
-        if (jsFlags.trim().length() != 0) {
+        if (jsFlags.trim().length() != 0 && BrowserWebView.isClassic()) {
             WebViewClassic.fromWebView(getCurrentWebView()).setJsFlags(jsFlags);
         }
         if (intent != null
@@ -1196,7 +1196,12 @@ public class Controller
                     long id = intent.getLongExtra(
                             ComboViewActivity.EXTRA_OPEN_SNAPSHOT, -1);
                     if (id >= 0) {
-                        createNewSnapshotTab(id, true);
+                        if (BrowserWebView.isClassic()) {
+                            createNewSnapshotTab(id, true);
+                        } else {
+                            Toast.makeText(mActivity, "Snapshot Tab requires WebViewClassic",
+                                Toast.LENGTH_LONG).show();
+                        }
                     }
                 }
                 break;
@@ -2257,7 +2262,9 @@ public class Controller
         }
 
         public SelectText(WebView webView) {
-            mWebView = WebViewClassic.fromWebView(webView);
+          if (BrowserWebView.isClassic()) {
+              mWebView = WebViewClassic.fromWebView(webView);
+          }
         }
 
     }
@@ -2545,7 +2552,7 @@ public class Controller
         // In case the user enters nothing.
         if (url != null && url.length() != 0 && tab != null && view != null) {
             url = UrlUtils.smartUrlFilter(url);
-            if (!WebViewClassic.fromWebView(view).getWebViewClient().
+            if (!((BrowserWebView) view).getWebViewClient().
                     shouldOverrideUrlLoading(view, url)) {
                 loadUrl(tab, url);
             }
@@ -2738,14 +2745,14 @@ public class Controller
                 }
                 break;
             case KeyEvent.KEYCODE_A:
-                if (ctrl) {
+                if (ctrl && BrowserWebView.isClassic()) {
                     WebViewClassic.fromWebView(webView).selectAll();
                     return true;
                 }
                 break;
 //          case KeyEvent.KEYCODE_B:    // menu
             case KeyEvent.KEYCODE_C:
-                if (ctrl) {
+                if (ctrl && BrowserWebView.isClassic()) {
                     WebViewClassic.fromWebView(webView).copySelection();
                     return true;
                 }

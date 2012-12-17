@@ -20,8 +20,12 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.view.View;
+import android.webkit.WebChromeClient;
+import android.webkit.WebStorage;
+import android.webkit.WebStorageClassic;
 import android.webkit.WebView;
 import android.webkit.WebViewClassic;
+import android.webkit.WebViewClient;
 
 import java.util.Map;
 
@@ -37,6 +41,8 @@ public class BrowserWebView extends WebView implements WebViewClassic.TitleBarDe
     private boolean mBackgroundRemoved = false;
     private TitleBar mTitleBar;
     private OnScrollChangedListener mOnScrollChangedListener;
+    private WebChromeClient mWebChromeClient;
+    private WebViewClient mWebViewClient;
 
     /**
      * @param context
@@ -74,6 +80,31 @@ public class BrowserWebView extends WebView implements WebViewClassic.TitleBarDe
         super(context);
     }
 
+    public static boolean isClassic() {
+        // Using WebStorage for convenience of access in a static method.
+        return WebStorage.getInstance() instanceof WebStorageClassic;
+    }
+
+    @Override
+    public void setWebChromeClient(WebChromeClient client) {
+        mWebChromeClient = client;
+        super.setWebChromeClient(client);
+    }
+
+    public WebChromeClient getWebChromeClient() {
+      return mWebChromeClient;
+    }
+
+    @Override
+    public void setWebViewClient(WebViewClient client) {
+        mWebViewClient = client;
+        super.setWebViewClient(client);
+    }
+
+    public WebViewClient getWebViewClient() {
+      return mWebViewClient;
+    }
+
     public void setTitleBar(TitleBar title) {
         mTitleBar = title;
     }
@@ -87,6 +118,7 @@ public class BrowserWebView extends WebView implements WebViewClassic.TitleBarDe
     // From TitleBarDelegate
     @Override
     public void onSetEmbeddedTitleBar(final View title) {
+        // TODO: Remove this method; it is never invoked.
     }
 
     public boolean hasTitleBar() {

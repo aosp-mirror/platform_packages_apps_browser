@@ -122,6 +122,7 @@ public class TitleBar extends RelativeLayout {
         boolean isFixed = !mUseQuickControls
                 && !mContext.getResources().getBoolean(R.bool.hide_title);
         isFixed |= mAccessibilityManager.isEnabled();
+        isFixed |= !BrowserWebView.isClassic();
         // If getParent() returns null, we are initializing
         ViewGroup parent = (ViewGroup)getParent();
         if (mIsFixedTitleBar == isFixed && parent != null) return;
