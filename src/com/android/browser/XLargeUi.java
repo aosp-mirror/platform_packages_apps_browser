@@ -117,7 +117,7 @@ public class XLargeUi extends BaseUi {
 
     void stopWebViewScrolling() {
         BrowserWebView web = (BrowserWebView) mUiController.getCurrentWebView();
-        if (web != null) {
+        if (web != null && BrowserWebView.isClassic()) {
             WebViewClassic.fromWebView(web).stopScroll();
         }
     }

@@ -1293,7 +1293,9 @@ class Tab implements PictureListener {
             // does a redirect after a period of time. The user could have
             // switched to another tab while waiting for the download to start.
             mMainView.setDownloadListener(mDownloadListener);
-            getWebViewClassic().setWebBackForwardListClient(mWebBackForwardListClient);
+            if (BrowserWebView.isClassic()) {
+                getWebViewClassic().setWebBackForwardListClient(mWebBackForwardListClient);
+            }
             TabControl tc = mWebViewController.getTabControl();
             if (tc != null && tc.getOnThumbnailUpdatedListener() != null) {
                 mMainView.setPictureListener(this);
@@ -1535,6 +1537,9 @@ class Tab implements PictureListener {
      * @return The main WebView of this tab.
      */
     WebViewClassic getWebViewClassic() {
+        if (!BrowserWebView.isClassic()) {
+            return null;
+        }
         return WebViewClassic.fromWebView(mMainView);
     }
 

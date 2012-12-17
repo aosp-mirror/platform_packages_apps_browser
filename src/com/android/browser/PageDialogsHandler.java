@@ -27,7 +27,6 @@ import android.view.View;
 import android.webkit.HttpAuthHandler;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebView;
-import android.webkit.WebViewClassic;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -298,7 +297,7 @@ public class PageDialogsHandler {
                                 mSSLCertificateOnErrorHandler = null;
                                 mSSLCertificateOnErrorError = null;
 
-                                WebViewClassic.fromWebView(view).getWebViewClient().
+                                ((BrowserWebView) view).getWebViewClient().
                                         onReceivedSslError(view, handler, error);
                             }
                         })
@@ -326,7 +325,7 @@ public class PageDialogsHandler {
                                 mSSLCertificateOnErrorHandler = null;
                                 mSSLCertificateOnErrorError = null;
 
-                                WebViewClassic.fromWebView(view).getWebViewClient().
+                                ((BrowserWebView) view).getWebViewClient().
                                         onReceivedSslError(view, handler, error);
                             }
                         })
