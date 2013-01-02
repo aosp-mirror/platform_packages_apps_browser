@@ -99,7 +99,7 @@
     <string name="shortcut_bookmark" msgid="3974876480401135895">"Alamisho"</string>
     <string name="shortcut_bookmark_title" msgid="7570786275916681296">"Chagua alamisho"</string>
     <string name="history" msgid="2451240511251410032">"Historia"</string>
-    <string name="menu_view_download" msgid="2124570321712995120">"Vipakuzi"</string>
+    <string name="menu_view_download" msgid="2124570321712995120">"Vipakuliwa"</string>
     <string name="copy_page_url" msgid="1188679152608889555">"Nakili URL ya ukurasa"</string>
     <string name="share_page" msgid="593756995297268343">"Shiriki ukurasa"</string>
     <string name="menu_save_snapshot" msgid="6935080344031126139">"Hifadhi kwa usomaji wa nje ya mtandao"</string>
@@ -320,8 +320,8 @@
     <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"Kadi ya SD inahitajika ili kupakua <xliff:g id="FILENAME">%s</xliff:g>"</string>
     <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"Hifadhi ya USB haipatikani"</string>
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"Kadi ya SD haipatikani"</string>
-    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="8412543086906716875">"Hifadhi ya USB ina shughuli. Ili kuruhusu vipakuzi, gusa \"Zima hifadhi ya USB\" katika arifa."</string>
-    <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"Kadi ya SD inashughuli. Kuruhusu vipakuzi, gusa \"Zima Hifadhi ya USB\" katika arifa."</string>
+    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="8412543086906716875">"Hifadhi ya USB inatumika. Ili kuruhusu vipakuliwa, gusa \"Zima hifadhi ya USB\" katika arifa."</string>
+    <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"Kadi ya SD inatumika. Kuruhusu vipakuliwa, gusa \"Zima Hifadhi ya USB\" katika arifa."</string>
     <string name="cannot_download" msgid="8150552478556798780">"Inaweza kupakua tu URLs za \"http\" au \"https\"."</string>
     <string name="download_pending" msgid="2599683668575349559">"Inaanza kupakua..."</string>
     <string name="search_the_web" msgid="6046130189241962337">"Tafuta wavuti"</string>
@@ -342,7 +342,7 @@
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Futa ufikiaji mahali"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Tovuti hii kwa sasa inaweza kufikia mahali ulipo"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="7941769772784366199">"Tovuti hii kwa sasa haiwezi kufikia mahali ulipo"</string>
-    <string name="geolocation_settings_page_dialog_message" msgid="8772923416296868537">"Futa ufikivu wa eneo ya wavuti hii?"</string>
+    <string name="geolocation_settings_page_dialog_message" msgid="8772923416296868537">"Idhini ya kufikia eneo kwa wavuti hii ifutwe?"</string>
     <string name="geolocation_settings_page_dialog_ok_button" msgid="2113465477131017852">"Sawa"</string>
     <string name="geolocation_settings_page_dialog_cancel_button" msgid="7941036504673409747">"Ghairi"</string>
     <string name="website_settings_clear_all" msgid="8739804325997655980">"Futa zote"</string>
