@@ -101,7 +101,7 @@
     <string name="history" msgid="2451240511251410032">"Verlauf"</string>
     <string name="menu_view_download" msgid="2124570321712995120">"Downloads"</string>
     <string name="copy_page_url" msgid="1188679152608889555">"Seiten-URL kopieren"</string>
-    <string name="share_page" msgid="593756995297268343">"Seitenlink teilen"</string>
+    <string name="share_page" msgid="593756995297268343">"Seite teilen"</string>
     <string name="menu_save_snapshot" msgid="6935080344031126139">"Für Offline-Lesen speichern"</string>
     <string name="saving_snapshot" msgid="1693789062351182809">"Wird gespeichert…"</string>
     <string name="snapshot_failed" msgid="4584580873565876033">"Speichern für Offline-Lesen fehlgeschlagen"</string>
