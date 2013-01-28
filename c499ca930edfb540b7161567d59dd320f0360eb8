@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "O3wONjos",
+        "filename": "src/com/android/browser/DownloadHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1012974
+      },
+      "writtenOn": "2013-01-28T20:59:03Z",
+      "side": 1,
+      "message": "I\u0027m not sure what this string says. Does it say to try again? Should we try again once if it\u0027s typically caused by a temporary issue?",
+      "revId": "c499ca930edfb540b7161567d59dd320f0360eb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
