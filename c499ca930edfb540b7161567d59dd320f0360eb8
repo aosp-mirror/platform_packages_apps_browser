@@ -16,6 +16,24 @@
       "revId": "c499ca930edfb540b7161567d59dd320f0360eb8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "PA9.NW4w",
+        "filename": "src/com/android/browser/DownloadHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1004424
+      },
+      "writtenOn": "2013-01-29T13:29:18Z",
+      "side": 1,
+      "message": "It state \"SD card unavailable\"",
+      "parentUuid": "O3wONjos",
+      "revId": "c499ca930edfb540b7161567d59dd320f0360eb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
