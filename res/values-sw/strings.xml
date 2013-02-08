@@ -19,7 +19,7 @@
     <string name="application_name" msgid="1935869255545976415">" Kivinjari"</string>
     <string name="choose_upload" msgid="3649366287575002063">"Chagua faili ya kupakia"</string>
     <string name="uploads_disabled" msgid="463761197575372994">"Upakiaji wa faili umelemazwa."</string>
-    <string name="new_tab" msgid="7971857320679510529">"Tabo mpya"</string>
+    <string name="new_tab" msgid="7971857320679510529">"Kichupo kipya"</string>
     <string name="new_incognito_tab" msgid="3606197964239039478">"Kichupo fiche kipya"</string>
     <string name="tab_bookmarks" msgid="2305793036003473653">"Alamisho"</string>
     <string name="tab_most_visited" msgid="1077402532455000703">"Zilizotembelewa sana"</string>
@@ -139,7 +139,7 @@
     <item msgid="2484126708670016519">"Inapohitajika"</item>
     <item msgid="8547442717307793863">"Zima"</item>
   </string-array>
-    <string name="pref_content_open_in_background_summary" msgid="955411158407739504">"Fungua tabo vipya nyuma ya tabo ya sasa"</string>
+    <string name="pref_content_open_in_background_summary" msgid="955411158407739504">"Fungua vichupo vipya nyuma ya hiki cha sasa"</string>
     <string name="pref_content_homepage" msgid="3324574611613105696">"Weka ukurasa wa kwanza"</string>
     <string name="pref_content_search_engine" msgid="1620101310821644144">"Weka injini tafuti"</string>
     <string name="pref_content_search_engine_summary" msgid="304003941861818133">"Chagua injini tafuti"</string>
@@ -311,7 +311,7 @@
     <string name="allow" msgid="1157313689171991335">"Ruhusu"</string>
     <string name="block" msgid="9172175889884707800">"Zuia"</string>
     <string name="too_many_windows_dialog_title" msgid="5709782301477380438">"Kikomo cha kichupo kimefikiwa"</string>
-    <string name="too_many_windows_dialog_message" msgid="3644234634638290304">"Imeshindwa kufungua tabo mpya hadi ufunge moja."</string>
+    <string name="too_many_windows_dialog_message" msgid="3644234634638290304">"Imeshindwa kufungua kichupo kipya hadi ufunge mojawapo ya vile ulivyofungua."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Dirisha ibukizi tayari limefunguliwa"</string>
     <string name="too_many_subwindows_dialog_message" msgid="2164725447981195556">"Kidukizo moja tu inaweza kufunguliwa kwa wakati."</string>
     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"Hifadhi ya USB haipatikani"</string>
