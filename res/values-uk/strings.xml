@@ -306,7 +306,7 @@
     <string name="add_bookmark_short" msgid="3783984330998103735">"Додати"</string>
     <string name="search_hint" msgid="4647356319916631820">"Знайд. або введіть URL"</string>
     <string name="search_button_text" msgid="5235226933877634410">"Викон."</string>
-    <string name="search_settings_description" msgid="1422401062529014107">"Закладки й іст. веб-пошуку"</string>
+    <string name="search_settings_description" msgid="1422401062529014107">"Закладки й історія пошуку"</string>
     <string name="popup_window_attempt" msgid="31565781154067629">"Дозволити цьому сайту відкрити спливаюче вікно?"</string>
     <string name="allow" msgid="1157313689171991335">"Дозвол."</string>
     <string name="block" msgid="9172175889884707800">"Блокув."</string>
