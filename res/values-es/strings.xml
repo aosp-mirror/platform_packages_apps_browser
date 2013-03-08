@@ -34,7 +34,7 @@
     <string name="bookmarks_search" msgid="5229596268214362873">"Navegador"</string>
     <string name="cancel" msgid="3017274947407233702">"Cancelar"</string>
     <string name="ok" msgid="1509280796718850364">"Aceptar"</string>
-    <string name="title_bar_loading" msgid="7438217780834640678">"Cargando..."</string>
+    <string name="title_bar_loading" msgid="7438217780834640678">"Cargando\u2026"</string>
     <string name="page_info" msgid="4048529256302257195">"Información de la página"</string>
     <string name="page_info_view" msgid="5303490449842635158">"Ver información de página"</string>
     <string name="page_info_address" msgid="2222306609532903254">"Dirección:"</string>
@@ -50,7 +50,7 @@
     <string name="ssl_date_invalid" msgid="3705563379257285534">"La fecha de este certificado no es válida."</string>
     <string name="ssl_invalid" msgid="9041704741505449967">"Este certificado no es válido."</string>
     <string name="ssl_unknown" msgid="5679243486524754571">"Error de certificado desconocido"</string>
-    <string name="stopping" msgid="4839698519340302982">"Deteniendo..."</string>
+    <string name="stopping" msgid="4839698519340302982">"Deteniendo\u2026"</string>
     <string name="stop" msgid="5687251076030630074">"Detener"</string>
     <string name="reload" msgid="8585220783228408062">"Actualizar"</string>
     <string name="back" msgid="8414603107175713668">"Atrás"</string>
@@ -103,7 +103,7 @@
     <string name="copy_page_url" msgid="1188679152608889555">"Copiar URL de página"</string>
     <string name="share_page" msgid="593756995297268343">"Compartir página"</string>
     <string name="menu_save_snapshot" msgid="6935080344031126139">"Disponible sin conexión"</string>
-    <string name="saving_snapshot" msgid="1693789062351182809">"Guardando…"</string>
+    <string name="saving_snapshot" msgid="1693789062351182809">"Guardando\u2026"</string>
     <string name="snapshot_failed" msgid="4584580873565876033">"No se ha podido guardar para leer sin conexión."</string>
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"<xliff:g id="BOOKMARK_COUNT">%d</xliff:g> marcadores"</string>
     <string name="contextheader_folder_empty" msgid="974171637803391651">"Carpeta vacía"</string>
@@ -117,7 +117,7 @@
     <string name="contextmenu_download_image" msgid="4243829645180686912">"Guardar imagen"</string>
     <string name="contextmenu_view_image" msgid="3870625602053600905">"Ver imagen"</string>
     <string name="contextmenu_set_wallpaper" msgid="3691902960115350686">"Establecer como fondo de pantalla"</string>
-    <string name="contextmenu_dial_dot" msgid="5856550683415933806">"Llamar…"</string>
+    <string name="contextmenu_dial_dot" msgid="5856550683415933806">"Llamar\u2026"</string>
     <string name="contextmenu_add_contact" msgid="3183511922223645716">"Añadir contacto"</string>
     <string name="contextmenu_send_mail" msgid="1014513374828775660">"Enviar correo"</string>
     <string name="contextmenu_map" msgid="7471390435434034912">"Mapa"</string>
@@ -323,7 +323,7 @@
     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="8412543086906716875">"El almacenamiento USB está ocupado. Para permitir las descargas, toca Desactivar almacenamiento USB en la notificación."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"La tarjeta SD está ocupada. Para permitir las descargas, toca Desactivar almacenamiento USB en la notificación."</string>
     <string name="cannot_download" msgid="8150552478556798780">"Solo se pueden descargar URL del tipo \"http\" o \"https\"."</string>
-    <string name="download_pending" msgid="2599683668575349559">"Iniciando descarga…"</string>
+    <string name="download_pending" msgid="2599683668575349559">"Iniciando descarga\u2026"</string>
     <string name="search_the_web" msgid="6046130189241962337">"Buscar en la Web"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Espacio de almacenamiento del navegador agotado"</string>
     <string name="webstorage_outofspace_notification_text" msgid="47273584426988640">"Toca para liberar espacio."</string>
@@ -332,7 +332,7 @@
     <string name="webstorage_clear_data_dialog_ok_button" msgid="6682570951259237542">"Aceptar"</string>
     <string name="webstorage_clear_data_dialog_cancel_button" msgid="2028867751958942762">"Cancelar"</string>
     <string name="webstorage_origin_summary_mb_stored" msgid="1985885826292236210">"MB almacenados en tu teléfono"</string>
-    <string name="loading_video" msgid="7886324933131962321">"Cargando vídeo..."</string>
+    <string name="loading_video" msgid="7886324933131962321">"Cargando vídeo\u2026"</string>
     <string name="geolocation_permissions_prompt_message" msgid="356796102004052471">"<xliff:g id="WEBSITE_ORIGIN">%s</xliff:g> quiere saber tu ubicación."</string>
     <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"Aceptar"</string>
     <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"Rechazar"</string>
@@ -349,7 +349,7 @@
     <string name="website_settings_clear_all_dialog_message" msgid="1551164275687475061">"¿Eliminar todos los datos de sitios web y los permisos de ubicación?"</string>
     <string name="website_settings_clear_all_dialog_ok_button" msgid="7858504776529106243">"Aceptar"</string>
     <string name="website_settings_clear_all_dialog_cancel_button" msgid="1896757051856611674">"Cancelar"</string>
-    <string name="progress_dialog_setting_wallpaper" msgid="2031391201442335889">"Estableciendo fondo de pantalla..."</string>
+    <string name="progress_dialog_setting_wallpaper" msgid="2031391201442335889">"Estableciendo fondo de pantalla\u2026"</string>
     <string name="defaultBookmarksUpButton" msgid="2303951020715704735">"Marcadores"</string>
     <string name="empty_bookmarks_folder" msgid="6239830231917618556">"No hay marcadores."</string>
     <string name="other_bookmarks" msgid="8021889794475657319">"Otros marcadores"</string>
@@ -365,7 +365,7 @@
     <string name="import_bookmarks_wizard_next" msgid="7578143961884352676">"Siguiente"</string>
     <string name="import_bookmarks_wizard_previous" msgid="8551440353688257031">"Anterior"</string>
     <string name="import_bookmarks_wizard_cancel" msgid="4936061122806506634">"Cancelar"</string>
-    <string name="import_bookmarks_wizard_done" msgid="1446247092194489191">"Ok"</string>
+    <string name="import_bookmarks_wizard_done" msgid="1446247092194489191">"Aceptar"</string>
     <string name="import_bookmarks_dialog_add" msgid="1743359725294101189">"Añadir marcadores a la cuenta de Google"</string>
     <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"Añadir tus marcadores de Android a marcadores de <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>"</string>
     <string name="menu_share_url" msgid="5851814357333739700">"Compartir"</string>
