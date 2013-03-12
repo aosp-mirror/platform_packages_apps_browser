@@ -184,7 +184,7 @@
                     android:resource="@xml/bookmarks_searchable" />
         </activity>
 
-        <activity android:name="AddBookmarkPage" android:label="Save bookmark"
+        <activity android:name="AddBookmarkPage" android:label="@string/bookmarks_add_page"
                   android:theme="@style/DialogWhenLarge"
                   android:configChanges="orientation|keyboardHidden|screenSize"
                   android:windowSoftInputMode="adjustResize">
