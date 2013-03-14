@@ -40,6 +40,9 @@ import android.os.Message;
 import android.provider.Browser;
 import android.provider.BrowserContract;
 
+import android.database.Cursor;
+import android.util.Log;
+
 public class BookmarkUtils {
     private final static String LOGTAG = "BookmarkUtils";
 
@@ -229,9 +232,10 @@ public class BookmarkUtils {
      * @param title Title of the bookmark, to be displayed in the confirmation method.
      * @param context Package Context for strings, dialog, ContentResolver
      * @param msg Message to send if the bookmark is deleted.
+     * @param isFolder The item is folder or not
      */
     static void displayRemoveBookmarkDialog( final long id, final String title,
-            final Context context, final Message msg) {
+            final Context context, final Message msg, final boolean isFolder) {
 
         new AlertDialog.Builder(context)
                 .setIconAttribute(android.R.attr.alertDialogIcon)
@@ -247,10 +251,14 @@ public class BookmarkUtils {
                                 Runnable runnable = new Runnable(){
                                     @Override
                                     public void run() {
-                                        Uri uri = ContentUris.withAppendedId(
-                                                BrowserContract.Bookmarks.CONTENT_URI,
-                                                id);
-                                        context.getContentResolver().delete(uri, null, null);
+                                        if (!isFolder) {
+                                            Uri uri = ContentUris.withAppendedId(
+                                                    BrowserContract.Bookmarks.CONTENT_URI,
+                                                    id);
+                                            context.getContentResolver().delete(uri, null, null);
+                                        } else {
+                                            loadFolderAndDelete(id, context);
+                                        }
                                     }
                                 };
                                 new Thread(runnable).start();
@@ -258,5 +266,51 @@ public class BookmarkUtils {
                         })
                 .setNegativeButton(R.string.cancel, null)
                 .show();
+    }
+
+    /**
+     * Delete bookmark items recursively inside the folder.
+     * @param id Id of the bookmark to remove
+     * @param context Package Context for ContentResolver
+     */
+    private static void loadFolderAndDelete(final long id, final Context context) {
+        Cursor c = null;
+        Uri uri = getBookmarksUri(context);
+        final String[] PROJECTION = new String[] {
+            BrowserContract.Bookmarks._ID,
+            BrowserContract.Bookmarks.IS_FOLDER
+        };
+        final int BOOKMARK_INDEX_ID = 0;
+        final int BOOKMARK_INDEX_IS_FOLDER = 1;
+        try {
+            c = context.getContentResolver().query(uri, PROJECTION,
+                                        BrowserContract.Bookmarks.PARENT + " == ?",
+                                        new String[] {Long.toString(id)}, null);
+            if (c != null) {
+                while (c.moveToNext()) {
+                    long id_next = c.getLong(BOOKMARK_INDEX_ID);
+                    boolean isFolder = c.getInt(BOOKMARK_INDEX_IS_FOLDER) != 0;
+                    if (id == id_next) {
+                        continue;
+                    }
+                    if (isFolder) {
+                        loadFolderAndDelete(id_next, context);
+                    } else {
+                        uri = ContentUris.withAppendedId(
+                                    BrowserContract.Bookmarks.CONTENT_URI,
+                                    id_next);
+                        context.getContentResolver().delete(uri, null, null);
+                    }
+                }
+            }
+            uri = ContentUris.withAppendedId(BrowserContract.Bookmarks.CONTENT_URI, id);
+            context.getContentResolver().delete(uri, null, null);
+        } catch (IllegalStateException e) {
+            Log.e(LOGTAG, "Bookmark item delete error", e);
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+        }
     }
 }

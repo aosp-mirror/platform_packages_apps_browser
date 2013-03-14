@@ -537,7 +537,8 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         long id = cursor.getLong(BookmarksLoader.COLUMN_INDEX_ID);
         String title = cursor.getString(BookmarksLoader.COLUMN_INDEX_TITLE);
         Context context = getActivity();
-        BookmarkUtils.displayRemoveBookmarkDialog(id, title, context, null);
+        boolean isFolder = cursor.getInt(BookmarksLoader.COLUMN_INDEX_IS_FOLDER) != 0;
+        BookmarkUtils.displayRemoveBookmarkDialog(id, title, context, null, isFolder);
     }
 
     private String getUrl(BrowserBookmarksAdapter adapter, int position) {

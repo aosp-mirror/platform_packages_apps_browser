@@ -289,7 +289,7 @@ public class AddBookmarkPage extends Activity
             createHandler();
             Message msg = Message.obtain(mHandler, BOOKMARK_DELETED);
             BookmarkUtils.displayRemoveBookmarkDialog(id,
-                    mTitle.getText().toString(), this, msg);
+                    mTitle.getText().toString(), this, msg, mEditingFolder);
         }
     }
 
