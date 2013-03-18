@@ -31,6 +31,7 @@
     <string name="username" msgid="5057566336518215922">"Nume"</string>
     <string name="password" msgid="1177138552305184404">"Parolă"</string>
     <string name="action" msgid="183105774472071343">"Conectaţi-vă"</string>
+    <string name="bookmarks_add_page" msgid="3093456701072617702">"Salvați marcajul"</string>
     <string name="bookmarks_search" msgid="5229596268214362873">"Browser"</string>
     <string name="cancel" msgid="3017274947407233702">"Anulaţi"</string>
     <string name="ok" msgid="1509280796718850364">"OK"</string>
@@ -62,7 +63,7 @@
     <string name="containing_folder" msgid="6771180232953030479">"Adăugaţi la"</string>
     <string name="new_folder" msgid="7743540149088867917">"Dosar nou"</string>
     <string name="edit_folder" msgid="621817453133656156">"Editaţi dosarul"</string>
-    <string name="delete_folder" msgid="2046483129024501116">"Ştergeţi dosarul"</string>
+    <string name="delete_folder" msgid="2046483129024501116">"Ștergeţi dosarul"</string>
     <string name="no_subfolders" msgid="3303645239686962674">"Nu există subdosare."</string>
     <string name="add_to_bookmarks_menu_option" msgid="4449323955122214389">"Marcaje"</string>
     <string name="add_to_homescreen_menu_option" msgid="1461447829242963790">"Ecran de pornire"</string>
@@ -75,7 +76,7 @@
     <string name="edit_bookmark" msgid="5024089053490231905">"Modificaţi marcajul"</string>
     <string name="create_shortcut_bookmark" msgid="1995095662095484289">"Adăugaţi o comandă rapidă pe ecranul de pornire"</string>
     <string name="open_bookmark" msgid="8473581305759935790">"Deschideţi"</string>
-    <string name="remove_bookmark" msgid="8407495852801410891">"Ştergeţi marcajul"</string>
+    <string name="remove_bookmark" msgid="8407495852801410891">"Ștergeţi marcajul"</string>
     <string name="remove_from_bookmarks" msgid="4374080666576982775">"Eliminaţi din marcaje"</string>
     <string name="remove_history_item" msgid="5021424935726728618">"Eliminaţi din istoric"</string>
     <string name="set_as_homepage" msgid="4752937379414905560">"Setaţi ca pagină de pornire"</string>
@@ -90,7 +91,7 @@
     <string name="bookmark_thumbnail_view" msgid="3164068314718522138">"Miniaturi"</string>
     <string name="bookmark_list_view" msgid="7848510619500937839">"Listă"</string>
     <string name="current_page" msgid="7510129573681663135">"din "</string>
-    <string name="delete_bookmark_warning" msgid="7825328496411904321">"Ştergeţi marcajul „<xliff:g id="BOOKMARK">%s</xliff:g>”?"</string>
+    <string name="delete_bookmark_warning" msgid="7825328496411904321">"Ștergeţi marcajul „<xliff:g id="BOOKMARK">%s</xliff:g>”?"</string>
     <string name="open_all_in_new_window" msgid="455786763426575293">"Deschideţi-le pe toate în file noi"</string>
     <string name="goto_dot" msgid="3895839050522602723">"Accesaţi"</string>
     <string name="select_dot" msgid="6299170761900561967">"Selectaţi text"</string>
@@ -122,7 +123,7 @@
     <string name="contextmenu_send_mail" msgid="1014513374828775660">"Trimiteţi un e-mail"</string>
     <string name="contextmenu_map" msgid="7471390435434034912">"Hartă"</string>
     <string name="choosertitle_sharevia" msgid="4600490613341909086">"Distribuiţi prin"</string>
-    <string name="clear" msgid="7070043081700011461">"Ştergeţi"</string>
+    <string name="clear" msgid="7070043081700011461">"Ștergeţi"</string>
     <string name="replace" msgid="4843033491070384047">"Înlocuiţi"</string>
     <string name="browser_bookmarks_page_bookmarks_text" msgid="6787605028726162673">"Marcaje"</string>
     <string name="menu_preferences" msgid="6709237687234102240">"Setări"</string>
@@ -183,34 +184,34 @@
     <string name="autofill_profile_editor_save_profile" msgid="3230301454458581157">"Salvaţi"</string>
     <string name="autofill_profile_successful_save" msgid="5691459703493331983">"Textul pentru completare automată a fost salvat."</string>
     <string name="autofill_profile_successful_delete" msgid="1790262652460723127">"Textul pentru completarea automată a fost şters."</string>
-    <string name="autofill_profile_editor_delete_profile" msgid="3098369314558164153">"Ştergeţi"</string>
+    <string name="autofill_profile_editor_delete_profile" msgid="3098369314558164153">"Ștergeţi"</string>
     <string name="autofill_setup_dialog_message" msgid="7123905786076456503">"Browserul poate completa automat formulare web ca acesta. Doriţi să configuraţi textul pentru completarea automată?"</string>
     <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"Puteţi configura oricând textul dvs. pentru completarea automată din ecranul Browser &gt; Setări &gt; General."</string>
     <string name="disable_autofill" msgid="8305901059849400354">"Dezactivaţi completarea automată"</string>
     <string name="pref_privacy_security_title" msgid="3480313968942160914">"Confidenţialitate şi securitate"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Goliţi memoria cache"</string>
-    <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Ştergeţi conţinutul memoriei cache şi bazele de date"</string>
-    <string name="pref_privacy_clear_cache_dlg" msgid="4344512581716422465">"Ştergeţi conţinutul stocat în memoria cache la nivel local şi bazele de date?"</string>
+    <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"Ștergeţi conţinutul memoriei cache şi bazele de date"</string>
+    <string name="pref_privacy_clear_cache_dlg" msgid="4344512581716422465">"Ștergeţi conţinutul stocat în memoria cache la nivel local şi bazele de date?"</string>
     <string name="pref_privacy_cookies_title" msgid="6763274282214830526">"Cookie-uri"</string>
-    <string name="pref_privacy_clear_cookies" msgid="3095583579133780331">"Ştergeţi toate datele despre cookie-uri"</string>
-    <string name="pref_privacy_clear_cookies_summary" msgid="6962742063990677520">"Ştergeţi toate cookie-urile din browser"</string>
-    <string name="pref_privacy_clear_cookies_dlg" msgid="1493252163164621278">"Ştergeţi toate cookie-urile?"</string>
-    <string name="pref_privacy_clear_history" msgid="8723795508825198477">"Ştergeţi istoricul"</string>
-    <string name="pref_privacy_clear_history_summary" msgid="6868501330708940734">"Ştergeţi istoricul de navigare din browser"</string>
-    <string name="pref_privacy_clear_history_dlg" msgid="6934317391642846227">"Ştergeţi istoricul de navigare din browser?"</string>
+    <string name="pref_privacy_clear_cookies" msgid="3095583579133780331">"Ștergeţi toate datele despre cookie-uri"</string>
+    <string name="pref_privacy_clear_cookies_summary" msgid="6962742063990677520">"Ștergeţi toate cookie-urile din browser"</string>
+    <string name="pref_privacy_clear_cookies_dlg" msgid="1493252163164621278">"Ștergeţi toate cookie-urile?"</string>
+    <string name="pref_privacy_clear_history" msgid="8723795508825198477">"Ștergeţi istoricul"</string>
+    <string name="pref_privacy_clear_history_summary" msgid="6868501330708940734">"Ștergeţi istoricul de navigare din browser"</string>
+    <string name="pref_privacy_clear_history_dlg" msgid="6934317391642846227">"Ștergeţi istoricul de navigare din browser?"</string>
     <string name="pref_privacy_formdata_title" msgid="6549813837982050424">"Date din formular"</string>
-    <string name="pref_privacy_clear_form_data" msgid="4232668196344383987">"Ştergeţi datele din formular"</string>
-    <string name="pref_privacy_clear_form_data_summary" msgid="7702091143640546200">"Ştergeţi toate datele salvate în formular"</string>
-    <string name="pref_privacy_clear_form_data_dlg" msgid="8205626042241338983">"Ştergeţi toate datele salvate în formular?"</string>
-    <string name="pref_privacy_clear_passwords" msgid="4750234112289277480">"Ştergeţi parolele"</string>
-    <string name="pref_privacy_clear_passwords_summary" msgid="8856782718942903335">"Ştergeţi toate parolele salvate"</string>
-    <string name="pref_privacy_clear_passwords_dlg" msgid="5836576259947160045">"Ştergeţi toate parolele salvate?"</string>
+    <string name="pref_privacy_clear_form_data" msgid="4232668196344383987">"Ștergeţi datele din formular"</string>
+    <string name="pref_privacy_clear_form_data_summary" msgid="7702091143640546200">"Ștergeţi toate datele salvate în formular"</string>
+    <string name="pref_privacy_clear_form_data_dlg" msgid="8205626042241338983">"Ștergeţi toate datele salvate în formular?"</string>
+    <string name="pref_privacy_clear_passwords" msgid="4750234112289277480">"Ștergeţi parolele"</string>
+    <string name="pref_privacy_clear_passwords_summary" msgid="8856782718942903335">"Ștergeţi toate parolele salvate"</string>
+    <string name="pref_privacy_clear_passwords_dlg" msgid="5836576259947160045">"Ștergeţi toate parolele salvate?"</string>
     <string name="pref_privacy_location_title" msgid="7458378016606081067">"Locaţie"</string>
     <string name="pref_privacy_enable_geolocation" msgid="1395040170290765686">"Activaţi locaţia"</string>
     <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"Permiteţi site-urilor să solicite accesul la locaţia dvs."</string>
     <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"Opriţi accesul la locaţie"</string>
     <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"Opriţi accesul tuturor site-urilor web la locaţia dvs."</string>
-    <string name="pref_privacy_clear_geolocation_access_dlg" msgid="3190928760598034346">"Ştergeţi accesul la locaţie al site-ului web?"</string>
+    <string name="pref_privacy_clear_geolocation_access_dlg" msgid="3190928760598034346">"Ștergeţi accesul la locaţie al site-ului web?"</string>
     <string name="pref_security_passwords_title" msgid="5734190542383756711">"Parole"</string>
     <string name="pref_security_remember_passwords" msgid="6492957683454529549">"Activaţi reţinerea parolelor"</string>
     <string name="pref_security_remember_passwords_summary" msgid="256388703356349137">"Salvaţi numele de utilizatori şi parolele pentru site-urile web"</string>
@@ -298,7 +299,7 @@
     <string name="browserFrameFormResubmitMessage" msgid="5244059279866705254">"Pagina pe care încercaţi să o afişaţi conţine date deja trimise („POSTDATA”). În caz că retransmiteţi datele, orice acţiune efectuată prin formularul de pe pagină (cum ar fi o căutare sau o achiziţie online), se va repeta."</string>
     <string name="loadSuspendedTitle" msgid="6453376579109644551">"Nicio conexiune"</string>
     <string name="loadSuspended" msgid="3843343290039218668">"Pagina nu poate fi încărcată de browser, deoarece nu există nicio conexiune la internet."</string>
-    <string name="clear_history" msgid="5998307092715979619">"Ştergeţi istoricul"</string>
+    <string name="clear_history" msgid="5998307092715979619">"Ștergeţi istoricul"</string>
     <string name="browser_history" msgid="2979476257919939232">"Pagini accesate recent"</string>
     <string name="empty_history" msgid="7013369425484218985">"Nu există un istoric al browserului."</string>
     <string name="go_home" msgid="109129207276086793">"Pagina de pornire"</string>
@@ -327,8 +328,8 @@
     <string name="search_the_web" msgid="6046130189241962337">"Căutaţi pe web"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Spaţiul de stocare pentru browser este insuficient"</string>
     <string name="webstorage_outofspace_notification_text" msgid="47273584426988640">"Atingeţi pentru a elibera spaţiu."</string>
-    <string name="webstorage_clear_data_title" msgid="689484577124333977">"Ştergeţi datele stocate"</string>
-    <string name="webstorage_clear_data_dialog_message" msgid="6200681632891775881">"Ştergeţi toate datele stocate de acest site?"</string>
+    <string name="webstorage_clear_data_title" msgid="689484577124333977">"Ștergeţi datele stocate"</string>
+    <string name="webstorage_clear_data_dialog_message" msgid="6200681632891775881">"Ștergeţi toate datele stocate de acest site?"</string>
     <string name="webstorage_clear_data_dialog_ok_button" msgid="6682570951259237542">"OK"</string>
     <string name="webstorage_clear_data_dialog_cancel_button" msgid="2028867751958942762">"Anulaţi"</string>
     <string name="webstorage_origin_summary_mb_stored" msgid="1985885826292236210">"MO stocaţi în telefonul dvs."</string>
@@ -342,11 +343,11 @@
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Opriţi accesul la locaţie"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"În prezent, site-ul poate accesa locaţia dvs."</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="7941769772784366199">"În prezent, site-ul nu vă poate accesa locaţia"</string>
-    <string name="geolocation_settings_page_dialog_message" msgid="8772923416296868537">"Ştergeţi accesul la locaţie al acestui site web?"</string>
+    <string name="geolocation_settings_page_dialog_message" msgid="8772923416296868537">"Ștergeţi accesul la locaţie al acestui site web?"</string>
     <string name="geolocation_settings_page_dialog_ok_button" msgid="2113465477131017852">"OK"</string>
     <string name="geolocation_settings_page_dialog_cancel_button" msgid="7941036504673409747">"Anulaţi"</string>
-    <string name="website_settings_clear_all" msgid="8739804325997655980">"Ştergeţi toate datele"</string>
-    <string name="website_settings_clear_all_dialog_message" msgid="1551164275687475061">"Ştergeţi toate datele site-ului web şi permisiunile de locaţie?"</string>
+    <string name="website_settings_clear_all" msgid="8739804325997655980">"Ștergeţi toate datele"</string>
+    <string name="website_settings_clear_all_dialog_message" msgid="1551164275687475061">"Ștergeţi toate datele site-ului web şi permisiunile de locaţie?"</string>
     <string name="website_settings_clear_all_dialog_ok_button" msgid="7858504776529106243">"OK"</string>
     <string name="website_settings_clear_all_dialog_cancel_button" msgid="1896757051856611674">"Anulaţi"</string>
     <string name="progress_dialog_setting_wallpaper" msgid="2031391201442335889">"Se setează imaginea de fundal..."</string>
@@ -356,12 +357,12 @@
     <string name="rlz_access_point" msgid="7165847807377650632">"Y1"</string>
     <string name="account_chooser_dialog_title" msgid="3314204833188808194">"Alegeţi un cont"</string>
     <string name="import_bookmarks_dialog_title" msgid="3325557652271172128">"Sincronizaţi cu un Cont Google"</string>
-    <string name="import_bookmarks_dialog_description" msgid="2362897194870789609">"Marcajele de pe acest dispozitiv nu sunt asociate încă unui Cont Google. Salvaţi marcajele prin adăugarea lor într-un cont. Ştergeţi marcajele dacă nu doriţi sincronizarea acestora."</string>
+    <string name="import_bookmarks_dialog_description" msgid="2362897194870789609">"Marcajele de pe acest dispozitiv nu sunt asociate încă unui Cont Google. Salvaţi marcajele prin adăugarea lor într-un cont. Ștergeţi marcajele dacă nu doriţi sincronizarea acestora."</string>
     <string name="import_bookmarks_dialog_select_add_account" msgid="7643058662272484895">"Adăugaţi marcajele curente de pe acest dispozitiv şi începeţi sincronizarea cu Contul Google"</string>
-    <string name="import_bookmarks_dialog_delete_select_account" msgid="4333848003180415516">"Ştergeţi marcajele curente de pe acest dispozitiv şi începeţi sincronizarea cu Contul Google"</string>
-    <string name="import_bookmarks_dialog_confirm_delete" msgid="2204771572755630570">"Ştergeţi marcajele curente de pe acest dispozitiv şi începeţi sincronizarea marcajelor cu <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>?"</string>
+    <string name="import_bookmarks_dialog_delete_select_account" msgid="4333848003180415516">"Ștergeţi marcajele curente de pe acest dispozitiv şi începeţi sincronizarea cu Contul Google"</string>
+    <string name="import_bookmarks_dialog_confirm_delete" msgid="2204771572755630570">"Ștergeţi marcajele curente de pe acest dispozitiv şi începeţi sincronizarea marcajelor cu <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>?"</string>
     <string name="import_bookmarks_dialog_confirm_add" msgid="8942794112340838111">"Adăugaţi marcajele curente de pe acest dispozitiv şi începeţi sincronizarea acestora cu <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>?"</string>
-    <string name="import_bookmarks_dialog_remove" msgid="5984607822851800902">"Ştergeţi marcajele"</string>
+    <string name="import_bookmarks_dialog_remove" msgid="5984607822851800902">"Ștergeţi marcajele"</string>
     <string name="import_bookmarks_wizard_next" msgid="7578143961884352676">"Înainte"</string>
     <string name="import_bookmarks_wizard_previous" msgid="8551440353688257031">"Înapoi"</string>
     <string name="import_bookmarks_wizard_cancel" msgid="4936061122806506634">"Anulaţi"</string>
@@ -376,7 +377,7 @@
     <string name="ua_switcher_desktop" msgid="220097077327558435">"Solicitaţi versiunea de desktop a site-ului"</string>
     <string name="permission_preload_label" msgid="4856971662337877316">"Se preîncarcă rezultatele"</string>
     <string name="empty_snapshots_folder" msgid="7675378008107026013">"Nu există pagini salvate."</string>
-    <string name="remove_snapshot" msgid="1624447424544976849">"Ştergeţi pagina salvată"</string>
+    <string name="remove_snapshot" msgid="1624447424544976849">"Ștergeţi pagina salvată"</string>
     <string name="snapshot_go_live" msgid="1209542802541168497">"Afişaţi pagina live"</string>
     <string name="accessibility_button_back" msgid="6194680634245279407">"Înapoi"</string>
     <string name="accessibility_button_forward" msgid="1236827218480658168">"Înainte"</string>
@@ -389,7 +390,7 @@
     <string name="accessibility_button_closetab" msgid="6954807842756927737">"Închideţi fila"</string>
     <string name="accessibility_button_newtab" msgid="4116986240706315748">"Deschideţi filă nouă"</string>
     <string name="accessibility_button_newincognitotab" msgid="5254901889040012964">"Deschideţi filă incognito nouă"</string>
-    <string name="accessibility_button_clear" msgid="6943152307986161598">"Ştergeţi textul introdus"</string>
+    <string name="accessibility_button_clear" msgid="6943152307986161598">"Ștergeţi textul introdus"</string>
     <string name="accessibility_button_uaswitch" msgid="6286804719724282339">"Comutaţi valoarea user agent"</string>
     <string name="accessibility_button_go" msgid="1182818872083055958">"Salt la"</string>
     <string name="accessibility_button_navscreen" msgid="9142904748728713075">"Manager pagini"</string>

@@ -31,10 +31,11 @@
     <string name="username" msgid="5057566336518215922">"姓名"</string>
     <string name="password" msgid="1177138552305184404">"密码"</string>
     <string name="action" msgid="183105774472071343">"登录"</string>
+    <string name="bookmarks_add_page" msgid="3093456701072617702">"保存书签"</string>
     <string name="bookmarks_search" msgid="5229596268214362873">"浏览器"</string>
     <string name="cancel" msgid="3017274947407233702">"取消"</string>
     <string name="ok" msgid="1509280796718850364">"确定"</string>
-    <string name="title_bar_loading" msgid="7438217780834640678">"正在载入..."</string>
+    <string name="title_bar_loading" msgid="7438217780834640678">"正在加载..."</string>
     <string name="page_info" msgid="4048529256302257195">"网页信息"</string>
     <string name="page_info_view" msgid="5303490449842635158">"查看网页信息"</string>
     <string name="page_info_address" msgid="2222306609532903254">"网址："</string>
@@ -128,7 +129,7 @@
     <string name="menu_preferences" msgid="6709237687234102240">"设置"</string>
     <string name="pref_content_title" msgid="3834107397725342174">"网页内容"</string>
     <string name="pref_allow_apptabs" msgid="1325989799080202871">"允许一个应用使用多个标签页"</string>
-    <string name="pref_content_load_images" msgid="2125616852957377561">"载入图片"</string>
+    <string name="pref_content_load_images" msgid="2125616852957377561">"加载图片"</string>
     <string name="pref_content_load_images_summary" msgid="5055874125248398584">"显示网页上的图片"</string>
     <string name="pref_content_block_popups" msgid="4158524847764470895">"阻止弹出式窗口"</string>
     <string name="pref_content_javascript" msgid="4570972030299516843">"启用 JavaScript"</string>

@@ -31,6 +31,7 @@
     <string name="username" msgid="5057566336518215922">"이름"</string>
     <string name="password" msgid="1177138552305184404">"비밀번호"</string>
     <string name="action" msgid="183105774472071343">"로그인"</string>
+    <string name="bookmarks_add_page" msgid="3093456701072617702">"북마크 저장"</string>
     <string name="bookmarks_search" msgid="5229596268214362873">"브라우저"</string>
     <string name="cancel" msgid="3017274947407233702">"취소"</string>
     <string name="ok" msgid="1509280796718850364">"확인"</string>

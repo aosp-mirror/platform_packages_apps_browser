@@ -31,6 +31,7 @@
     <string name="username" msgid="5057566336518215922">"名前"</string>
     <string name="password" msgid="1177138552305184404">"パスワード"</string>
     <string name="action" msgid="183105774472071343">"ログイン"</string>
+    <string name="bookmarks_add_page" msgid="3093456701072617702">"ブックマークを保存"</string>
     <string name="bookmarks_search" msgid="5229596268214362873">"ブラウザ"</string>
     <string name="cancel" msgid="3017274947407233702">"キャンセル"</string>
     <string name="ok" msgid="1509280796718850364">"OK"</string>
