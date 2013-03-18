@@ -27,10 +27,11 @@
     <string name="tab_snapshots" msgid="1449241204980265186">"Opgeslagen pagina\'s"</string>
     <string name="added_to_bookmarks" msgid="4028710765672851635">"Toegevoegd aan bladwijzers."</string>
     <string name="removed_from_bookmarks" msgid="546648923924996722">"Verwijderd uit bladwijzers."</string>
-    <string name="sign_in_to" msgid="5939425800148759165">"Aanmelden bij <xliff:g id="HOSTNAME">%s1</xliff:g> \'<xliff:g id="REALM">%s2</xliff:g>\'"</string>
+    <string name="sign_in_to" msgid="5939425800148759165">"Inloggen bij <xliff:g id="HOSTNAME">%s1</xliff:g> \'<xliff:g id="REALM">%s2</xliff:g>\'"</string>
     <string name="username" msgid="5057566336518215922">"Naam"</string>
     <string name="password" msgid="1177138552305184404">"Wachtwoord"</string>
-    <string name="action" msgid="183105774472071343">"Aanmelden"</string>
+    <string name="action" msgid="183105774472071343">"Inloggen"</string>
+    <string name="bookmarks_add_page" msgid="3093456701072617702">"Bladwijzer opslaan"</string>
     <string name="bookmarks_search" msgid="5229596268214362873">"Browser"</string>
     <string name="cancel" msgid="3017274947407233702">"Annuleren"</string>
     <string name="ok" msgid="1509280796718850364">"OK"</string>
@@ -162,10 +163,10 @@
     <string name="pref_autofill_profile_editor_summary" msgid="4864447251676856190">"Tekst instellen die automatisch in webformulieren kan worden ingevuld"</string>
     <string name="pref_autologin_title" msgid="4421187193809267096">"Automatische Google-aanmelding"</string>
     <string name="pref_autologin_progress" msgid="8333244467048833461">"Aanmelden bij Google-sites met <xliff:g id="ID_1">%s</xliff:g>"</string>
-    <string name="autologin_bar_text" msgid="3684581827167173371">"Aanmelden als"</string>
-    <string name="autologin_bar_login_text" msgid="3336615320510851879">"Aanmelden"</string>
+    <string name="autologin_bar_text" msgid="3684581827167173371">"Inloggen als"</string>
+    <string name="autologin_bar_login_text" msgid="3336615320510851879">"Inloggen"</string>
     <string name="autologin_bar_hide_text" msgid="3629355974385859580">"Verbergen"</string>
-    <string name="autologin_bar_error" msgid="7470001207395920811">"Kan niet aanmelden."</string>
+    <string name="autologin_bar_error" msgid="7470001207395920811">"Kan niet inloggen."</string>
     <string name="autofill_profile_editor_heading" msgid="4798644544927738078">"Typ de tekst die u automatisch in webformulieren wilt laten invullen."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Volledige naam:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"E-mail:"</string>

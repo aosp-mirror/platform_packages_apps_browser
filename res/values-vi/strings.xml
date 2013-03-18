@@ -31,6 +31,7 @@
     <string name="username" msgid="5057566336518215922">"Tên"</string>
     <string name="password" msgid="1177138552305184404">"Mật khẩu"</string>
     <string name="action" msgid="183105774472071343">"Đăng nhập"</string>
+    <string name="bookmarks_add_page" msgid="3093456701072617702">"Lưu dấu trang"</string>
     <string name="bookmarks_search" msgid="5229596268214362873">"Trình duyệt"</string>
     <string name="cancel" msgid="3017274947407233702">"Hủy"</string>
     <string name="ok" msgid="1509280796718850364">"OK"</string>
