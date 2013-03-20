@@ -177,7 +177,7 @@
     <string name="autofill_profile_editor_address_line_2_hint" msgid="8529642768127569254">"公寓、套房、单元、楼栋、楼层等等。"</string>
     <string name="autofill_profile_editor_city" msgid="7306716145784997135">"城市/乡镇："</string>
     <string name="autofill_profile_editor_state" msgid="2150403366835080407">"州或省/直辖市/自治区："</string>
-    <string name="autofill_profile_editor_zip_code" msgid="283668573295656671">"邮政编码："</string>
+    <string name="autofill_profile_editor_zip_code" msgid="283668573295656671">"邮编："</string>
     <string name="autofill_profile_editor_country" msgid="7234470301239156656">"国家/地区："</string>
     <string name="autofill_profile_editor_phone_number" msgid="4938852821413729276">"电话："</string>
     <string name="autofill_profile_editor_phone_number_invalid" msgid="6795411298467068957">"电话号码无效。"</string>
