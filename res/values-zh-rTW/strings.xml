@@ -17,7 +17,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="application_name" msgid="1935869255545976415">"瀏覽器"</string>
-    <string name="choose_upload" msgid="3649366287575002063">"選擇要上載的檔案"</string>
+    <string name="choose_upload" msgid="3649366287575002063">"選擇要上傳的檔案"</string>
     <string name="uploads_disabled" msgid="463761197575372994">"檔案上傳功能已停用。"</string>
     <string name="new_tab" msgid="7971857320679510529">"新分頁"</string>
     <string name="new_incognito_tab" msgid="3606197964239039478">"新無痕式分頁"</string>
@@ -307,7 +307,7 @@
     <string name="add_bookmark_short" msgid="3783984330998103735">"新增"</string>
     <string name="search_hint" msgid="4647356319916631820">"搜尋或輸入網址"</string>
     <string name="search_button_text" msgid="5235226933877634410">"前往"</string>
-    <string name="search_settings_description" msgid="1422401062529014107">"書籤與網頁記錄"</string>
+    <string name="search_settings_description" msgid="1422401062529014107">"書籤與網頁紀錄"</string>
     <string name="popup_window_attempt" msgid="31565781154067629">"允許這個網站開啟彈出式視窗？"</string>
     <string name="allow" msgid="1157313689171991335">"允許"</string>
     <string name="block" msgid="9172175889884707800">"封鎖"</string>
