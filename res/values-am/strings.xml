@@ -253,7 +253,7 @@
     <string name="pref_extras_reset_default_title" msgid="3579760449455761762">"ነባሪዎችን ዳግም አስጀምር"</string>
     <string name="pref_extras_reset_default" msgid="8904000515846202110">"ወደ ነባሪ ዳግም አስጀምር"</string>
     <string name="pref_extras_reset_default_summary" msgid="4247870778270414501">"ነባሪ ቅንብሮችን እነበረበት መልስ"</string>
-    <string name="pref_extras_reset_default_dlg" msgid="7922814420184322450">"ቅንጅቶችን ወደ ነባሪ ዋጋዎች ይገልበጥ?"</string>
+    <string name="pref_extras_reset_default_dlg" msgid="7922814420184322450">"ቅንብሮችን ወደ ነባሪ ዋጋዎች ይገልበጥ?"</string>
     <string name="pref_development_title" msgid="3263854204533056480">"አርም"</string>
     <string name="pref_default_text_encoding" msgid="5742965543955558478">"ፅሁፍ በኮድ መክተት"</string>
   <string-array name="pref_default_text_encoding_choices">
