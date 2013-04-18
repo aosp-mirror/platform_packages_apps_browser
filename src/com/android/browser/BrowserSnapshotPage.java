@@ -104,6 +104,7 @@ public class BrowserSnapshotPage extends Fragment implements
         super.onDestroyView();
         getLoaderManager().destroyLoader(LOADER_SNAPSHOTS);
         if (mAdapter != null) {
+            mAdapter.recycle();
             mAdapter.changeCursor(null);
             mAdapter = null;
         }
@@ -212,6 +213,7 @@ public class BrowserSnapshotPage extends Fragment implements
         private long mAnimateId;
         private AnimatorSet mAnimation;
         private View mAnimationTarget;
+        private static Bitmap mThumbBitmap;
 
         public SnapshotAdapter(Context context, Cursor c) {
             super(context, R.layout.snapshot_item, c, 0);
@@ -273,9 +275,9 @@ public class BrowserSnapshotPage extends Fragment implements
             if (thumbBlob == null) {
                 thumbnail.setImageResource(R.drawable.browser_thumbnail);
             } else {
-                Bitmap thumbBitmap = BitmapFactory.decodeByteArray(
+                mThumbBitmap = BitmapFactory.decodeByteArray(
                         thumbBlob, 0, thumbBlob.length);
-                thumbnail.setImageBitmap(thumbBitmap);
+                thumbnail.setImageBitmap(mThumbBitmap);
             }
             TextView title = (TextView) view.findViewById(R.id.title);
             title.setText(cursor.getString(SNAPSHOT_TITLE));
@@ -293,6 +295,13 @@ public class BrowserSnapshotPage extends Fragment implements
         @Override
         public Cursor getItem(int position) {
             return (Cursor) super.getItem(position);
+        }
+
+        public void recycle() {
+            if (mThumbBitmap != null && !mThumbBitmap.isRecycled()) {
+                mThumbBitmap.recycle();
+                mThumbBitmap = null;
+            }
         }
     }
 
