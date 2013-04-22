@@ -355,7 +355,7 @@
     <string name="empty_bookmarks_folder" msgid="6239830231917618556">"No hi ha cap adreça d\'interès."</string>
     <string name="other_bookmarks" msgid="8021889794475657319">"Altres marcadors"</string>
     <string name="rlz_access_point" msgid="7165847807377650632">"Y1"</string>
-    <string name="account_chooser_dialog_title" msgid="3314204833188808194">"Tria d\'un compte"</string>
+    <string name="account_chooser_dialog_title" msgid="3314204833188808194">"Selecciona un compte"</string>
     <string name="import_bookmarks_dialog_title" msgid="3325557652271172128">"Sincronitza amb el Compte de Google"</string>
     <string name="import_bookmarks_dialog_description" msgid="2362897194870789609">"Els marcadors d\'aquest dispositiu encara no estan associats a cap Compte de Google. Afegeix aquests marcadors a un compte per desar-los. Suprimeix-los si no vols sincronitzar-los."</string>
     <string name="import_bookmarks_dialog_select_add_account" msgid="7643058662272484895">"Afegeix els marcadors que hi ha actualment en aquest dispositiu i comença a sincronitzar amb un Compte de Google"</string>

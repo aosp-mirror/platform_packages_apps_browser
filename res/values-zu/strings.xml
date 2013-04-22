@@ -100,7 +100,7 @@
     <string name="shortcut_bookmark" msgid="3974876480401135895">"Ibhukimakhi"</string>
     <string name="shortcut_bookmark_title" msgid="7570786275916681296">"Khetha ibhukumaka"</string>
     <string name="history" msgid="2451240511251410032">"Umlando"</string>
-    <string name="menu_view_download" msgid="2124570321712995120">"Okulayishiwe"</string>
+    <string name="menu_view_download" msgid="2124570321712995120">"Okulandiwe"</string>
     <string name="copy_page_url" msgid="1188679152608889555">"Kopisha i-url yekhasi"</string>
     <string name="share_page" msgid="593756995297268343">"Yabelana ngekhasi"</string>
     <string name="menu_save_snapshot" msgid="6935080344031126139">"Gcina ukufunda ungaxhumekile kwi-inthanethi"</string>
@@ -180,13 +180,13 @@
     <string name="autofill_profile_editor_zip_code" msgid="283668573295656671">"Ikhodi ye-Zip:"</string>
     <string name="autofill_profile_editor_country" msgid="7234470301239156656">"Izwe:"</string>
     <string name="autofill_profile_editor_phone_number" msgid="4938852821413729276">"Ifoni:"</string>
-    <string name="autofill_profile_editor_phone_number_invalid" msgid="6795411298467068957">"Inombolo yocingo engalungile"</string>
+    <string name="autofill_profile_editor_phone_number_invalid" msgid="6795411298467068957">"Inombolo yefoni engalungile"</string>
     <string name="autofill_profile_editor_save_profile" msgid="3230301454458581157">"Londoloza"</string>
     <string name="autofill_profile_successful_save" msgid="5691459703493331983">"Ukuzifakekela kombhalo kulondoloziwe."</string>
     <string name="autofill_profile_successful_delete" msgid="1790262652460723127">"Ukuzifakekela kwamagama kususiwe."</string>
     <string name="autofill_profile_editor_delete_profile" msgid="3098369314558164153">"Susa"</string>
     <string name="autofill_setup_dialog_message" msgid="7123905786076456503">"Isiphequluli singaqedela amafomu ewebhu afana laleli. Ufuna ukusetha umbhalo wakho wokuqedela ngokuzenzakalela?"</string>
-    <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"Ungakwazi njalo ukuthi usethe ukuzifakekela kombhalo usuka Esipheqululini &gt; Izisetho &gt; Iskrini esijwayelekile."</string>
+    <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"Ungakwazi njalo ukuthi usethe ukuzifakekela kombhalo usuka Esipheqululini; Izilungiselelosetho; Iskrini esijwayelekile."</string>
     <string name="disable_autofill" msgid="8305901059849400354">"Khubaza ukufaka-okuzenzakalelayo"</string>
     <string name="pref_privacy_security_title" msgid="3480313968942160914">"Ubumfihlo nokuvikela"</string>
     <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"Sula inqolobane"</string>
@@ -253,7 +253,7 @@
     <string name="pref_extras_reset_default_title" msgid="3579760449455761762">"Setha kabusha okumisiwe"</string>
     <string name="pref_extras_reset_default" msgid="8904000515846202110">"Setha kabusha kube okumisiwe"</string>
     <string name="pref_extras_reset_default_summary" msgid="4247870778270414501">"Buyisela esimweni izilungiselelo ezizenzakalelayo"</string>
-    <string name="pref_extras_reset_default_dlg" msgid="7922814420184322450">"Buyisela izisetho kokumisiwe?"</string>
+    <string name="pref_extras_reset_default_dlg" msgid="7922814420184322450">"Buyela kuzilungiselelo zokumisiwe?"</string>
     <string name="pref_development_title" msgid="3263854204533056480">"Lungisa amaphutha"</string>
     <string name="pref_default_text_encoding" msgid="5742965543955558478">"Umbhalo wekhodi wokubhaliwe"</string>
   <string-array name="pref_default_text_encoding_choices">
@@ -343,7 +343,7 @@
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Sula ukufinyelela indawo"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Le sayithi okwamanje ingafinyelela kundawo yakho"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="7941769772784366199">"Le sayithi ayikwazi okwamanje ukufinyelela kundawo yakho"</string>
-    <string name="geolocation_settings_page_dialog_message" msgid="8772923416296868537">"Susa izisetho zendawo zalewebusayithi?"</string>
+    <string name="geolocation_settings_page_dialog_message" msgid="8772923416296868537">"Susa ukufinyelela kwendawo kule webusayithi?"</string>
     <string name="geolocation_settings_page_dialog_ok_button" msgid="2113465477131017852">"KULUNGILE"</string>
     <string name="geolocation_settings_page_dialog_cancel_button" msgid="7941036504673409747">"Khansela"</string>
     <string name="website_settings_clear_all" msgid="8739804325997655980">"Sula konke"</string>

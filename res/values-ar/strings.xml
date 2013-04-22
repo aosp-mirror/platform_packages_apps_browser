@@ -374,7 +374,7 @@
     <string name="instant_search_label" msgid="8769284297650716935">"Google مع البحث الفوري (ميزات اختبارية)"</string>
     <string name="preview" msgid="6450823514561689038">"معاينة"</string>
     <string name="local_bookmarks" msgid="533816851415228520">"محلية"</string>
-    <string name="ua_switcher_desktop" msgid="220097077327558435">"طلب موقع ويب الكمبيوتر"</string>
+    <string name="ua_switcher_desktop" msgid="220097077327558435">"طلب موقع سطح المكتب"</string>
     <string name="permission_preload_label" msgid="4856971662337877316">"تحميل النتائج مسبقًا"</string>
     <string name="empty_snapshots_folder" msgid="7675378008107026013">"ليست هناك أية صفحات محفوظة."</string>
     <string name="remove_snapshot" msgid="1624447424544976849">"حذف الصفحة المحفوظة"</string>
