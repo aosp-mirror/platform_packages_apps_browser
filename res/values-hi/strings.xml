@@ -107,7 +107,7 @@
     <string name="saving_snapshot" msgid="1693789062351182809">"सहेजा जा रहा है…"</string>
     <string name="snapshot_failed" msgid="4584580873565876033">"ऑफ़लाइन पढ़ने के लिए सहेजा नहीं जा सका."</string>
     <string name="contextheader_folder_bookmarkcount" msgid="353987136645619089">"<xliff:g id="BOOKMARK_COUNT">%d</xliff:g> बुकमार्क"</string>
-    <string name="contextheader_folder_empty" msgid="974171637803391651">"रिक्त फ़ोल्डर"</string>
+    <string name="contextheader_folder_empty" msgid="974171637803391651">"खाली फ़ोल्डर"</string>
     <string name="contextmenu_openlink" msgid="7237961252214188935">"खोलें"</string>
     <string name="contextmenu_openlink_newwindow" msgid="1205313604181761403">"नए टैब में खोलें"</string>
     <string name="contextmenu_openlink_newwindow_background" msgid="4690381019116746687">"नए पृष्ठभूमि टैब में खोलें"</string>

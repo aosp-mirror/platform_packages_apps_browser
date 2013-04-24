@@ -61,7 +61,7 @@
     <string name="location" msgid="3411848697912600125">"آدرس"</string>
     <string name="account" msgid="5179824606448077042">"حساب"</string>
     <string name="containing_folder" msgid="6771180232953030479">"افزودن به"</string>
-    <string name="new_folder" msgid="7743540149088867917">"پوشه جدید"</string>
+    <string name="new_folder" msgid="7743540149088867917">"پوشهٔ جدید"</string>
     <string name="edit_folder" msgid="621817453133656156">"ویرایشگر پوشه"</string>
     <string name="delete_folder" msgid="2046483129024501116">"حذف پوشه"</string>
     <string name="no_subfolders" msgid="3303645239686962674">"پوشه فرعی وجود ندارد."</string>

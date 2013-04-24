@@ -66,7 +66,7 @@
     <string name="delete_folder" msgid="2046483129024501116">"Eliminar carpeta"</string>
     <string name="no_subfolders" msgid="3303645239686962674">"No hay subcarpetas."</string>
     <string name="add_to_bookmarks_menu_option" msgid="4449323955122214389">"Marcadores"</string>
-    <string name="add_to_homescreen_menu_option" msgid="1461447829242963790">"Escritorio"</string>
+    <string name="add_to_homescreen_menu_option" msgid="1461447829242963790">"Pantalla de inicio"</string>
     <string name="add_to_other_folder_menu_option" msgid="5947586525822134105">"Otra carpeta"</string>
     <string name="name" msgid="5462672162695365387">"Nombre"</string>
     <string name="http" msgid="2163722670597250102">"http://"</string>
