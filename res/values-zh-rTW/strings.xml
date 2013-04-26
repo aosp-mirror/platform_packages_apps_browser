@@ -78,7 +78,7 @@
     <string name="open_bookmark" msgid="8473581305759935790">"開啟"</string>
     <string name="remove_bookmark" msgid="8407495852801410891">"刪除書籤"</string>
     <string name="remove_from_bookmarks" msgid="4374080666576982775">"從書籤中移除"</string>
-    <string name="remove_history_item" msgid="5021424935726728618">"從記錄中移除"</string>
+    <string name="remove_history_item" msgid="5021424935726728618">"從紀錄中移除"</string>
     <string name="set_as_homepage" msgid="4752937379414905560">"設為首頁"</string>
     <string name="bookmark_saved" msgid="2766434679871317557">"已儲存至書籤。"</string>
     <string name="bookmark_not_saved" msgid="1077732557310662080">"無法儲存書籤。"</string>
@@ -196,9 +196,9 @@
     <string name="pref_privacy_clear_cookies" msgid="3095583579133780331">"清除所有 Cookie"</string>
     <string name="pref_privacy_clear_cookies_summary" msgid="6962742063990677520">"清除瀏覽器中所有 Cookie"</string>
     <string name="pref_privacy_clear_cookies_dlg" msgid="1493252163164621278">"刪除所有 Cookie？"</string>
-    <string name="pref_privacy_clear_history" msgid="8723795508825198477">"清除記錄"</string>
-    <string name="pref_privacy_clear_history_summary" msgid="6868501330708940734">"清除瀏覽記錄"</string>
-    <string name="pref_privacy_clear_history_dlg" msgid="6934317391642846227">"刪除瀏覽器的瀏覽記錄？"</string>
+    <string name="pref_privacy_clear_history" msgid="8723795508825198477">"清除紀錄"</string>
+    <string name="pref_privacy_clear_history_summary" msgid="6868501330708940734">"清除瀏覽紀錄"</string>
+    <string name="pref_privacy_clear_history_dlg" msgid="6934317391642846227">"刪除瀏覽器的瀏覽紀錄？"</string>
     <string name="pref_privacy_formdata_title" msgid="6549813837982050424">"表單資料"</string>
     <string name="pref_privacy_clear_form_data" msgid="4232668196344383987">"清除表單資料"</string>
     <string name="pref_privacy_clear_form_data_summary" msgid="7702091143640546200">"清除所有已儲存的表單資料"</string>
@@ -299,7 +299,7 @@
     <string name="browserFrameFormResubmitMessage" msgid="5244059279866705254">"您要瀏覽的網頁包含已提交的資料 (「POSTDATA」)。如果您重新傳送資料，系統將重複執行該網頁表單上的作業 (例如搜尋或線上購物)。"</string>
     <string name="loadSuspendedTitle" msgid="6453376579109644551">"無網路連線"</string>
     <string name="loadSuspended" msgid="3843343290039218668">"沒有網際網路連線，因此瀏覽器無法載入這個網頁。"</string>
-    <string name="clear_history" msgid="5998307092715979619">"清除記錄"</string>
+    <string name="clear_history" msgid="5998307092715979619">"清除紀錄"</string>
     <string name="browser_history" msgid="2979476257919939232">"最近瀏覽的頁面"</string>
     <string name="empty_history" msgid="7013369425484218985">"沒有瀏覽器記錄。"</string>
     <string name="go_home" msgid="109129207276086793">"首頁"</string>
