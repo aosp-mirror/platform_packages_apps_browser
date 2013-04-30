@@ -23,7 +23,7 @@
     <string name="new_incognito_tab" msgid="3606197964239039478">"新無痕式分頁"</string>
     <string name="tab_bookmarks" msgid="2305793036003473653">"書籤"</string>
     <string name="tab_most_visited" msgid="1077402532455000703">"最常造訪"</string>
-    <string name="tab_history" msgid="1979267558744613746">"記錄"</string>
+    <string name="tab_history" msgid="1979267558744613746">"紀錄"</string>
     <string name="tab_snapshots" msgid="1449241204980265186">"已儲存的網頁"</string>
     <string name="added_to_bookmarks" msgid="4028710765672851635">"已加入書籤。"</string>
     <string name="removed_from_bookmarks" msgid="546648923924996722">"已從書籤中移除。"</string>
@@ -99,7 +99,7 @@
     <string name="bookmarks" msgid="1961279134885867815">"書籤"</string>
     <string name="shortcut_bookmark" msgid="3974876480401135895">"書籤"</string>
     <string name="shortcut_bookmark_title" msgid="7570786275916681296">"選擇書籤"</string>
-    <string name="history" msgid="2451240511251410032">"記錄"</string>
+    <string name="history" msgid="2451240511251410032">"紀錄"</string>
     <string name="menu_view_download" msgid="2124570321712995120">"下載"</string>
     <string name="copy_page_url" msgid="1188679152608889555">"複製網頁網址"</string>
     <string name="share_page" msgid="593756995297268343">"分享網頁"</string>
@@ -301,7 +301,7 @@
     <string name="loadSuspended" msgid="3843343290039218668">"沒有網際網路連線，因此瀏覽器無法載入這個網頁。"</string>
     <string name="clear_history" msgid="5998307092715979619">"清除紀錄"</string>
     <string name="browser_history" msgid="2979476257919939232">"最近瀏覽的頁面"</string>
-    <string name="empty_history" msgid="7013369425484218985">"沒有瀏覽器記錄。"</string>
+    <string name="empty_history" msgid="7013369425484218985">"沒有瀏覽器紀錄。"</string>
     <string name="go_home" msgid="109129207276086793">"首頁"</string>
     <string name="add_new_bookmark" msgid="3158497555612337238">"新增書籤"</string>
     <string name="add_bookmark_short" msgid="3783984330998103735">"新增"</string>
