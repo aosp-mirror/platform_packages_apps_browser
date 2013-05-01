@@ -42,7 +42,7 @@
     <string name="ssl_warnings_header" msgid="79744901983636370">"ለእዚህ ድረ ገፅ የደህንነት ምስክሩ ላይ ችግሮች አሉ።"</string>
     <string name="ssl_continue" msgid="8031515015829358457">"ቀጥል"</string>
     <string name="security_warning" msgid="6607795404322797541">"የደህንነት ቅንብሮች"</string>
-    <string name="view_certificate" msgid="1472768887529093862">"ምስክሮች ዕይ"</string>
+    <string name="view_certificate" msgid="1472768887529093862">"ምስክሮች ይመልከቱ"</string>
     <string name="ssl_go_back" msgid="4598951822061593819">"ወደ ኋላተመለስ"</string>
     <string name="ssl_untrusted" msgid="7754507359360636447">"ይህ ምስክር ከታማኝ ቦታ አይደለም።"</string>
     <string name="ssl_mismatch" msgid="3809794439740523641">"የጣቢያው ስም ከምስክር ወረቀቱ ስም ጋር አይዛመድም።"</string>
