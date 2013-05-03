@@ -387,7 +387,7 @@
     <string name="accessibility_button_search" msgid="5357014102136055376">"Søk"</string>
     <string name="accessibility_button_voice" msgid="152016375096083337">"Start talesøk"</string>
     <string name="accessibility_button_bookmarks" msgid="7435055677299151649">"Bokmerker"</string>
-    <string name="accessibility_button_closetab" msgid="6954807842756927737">"Lukk fane"</string>
+    <string name="accessibility_button_closetab" msgid="6954807842756927737">"Lukk fanen"</string>
     <string name="accessibility_button_newtab" msgid="4116986240706315748">"Åpne ny fane"</string>
     <string name="accessibility_button_newincognitotab" msgid="5254901889040012964">"Åpne ny inkognitofane"</string>
     <string name="accessibility_button_clear" msgid="6943152307986161598">"Tøm inndata"</string>
