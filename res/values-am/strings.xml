@@ -280,7 +280,7 @@
     <string name="pref_data_preload_title" msgid="4479320472980292873">"የቀድሞ ስቀል ውጤት ይፈልጉ"</string>
   <string-array name="pref_data_preload_choices">
     <item msgid="5180466923190095508">"ፈፅሞ"</item>
-    <item msgid="1791664748778640002">"በWi-ፍ ላይ ብቻ"</item>
+    <item msgid="1791664748778640002">"በWi-Fi ላይ ብቻ"</item>
     <item msgid="3944061253437827617">"ሁልጊዜ"</item>
   </string-array>
     <string name="pref_data_preload_summary" msgid="3809168910751382727">"አሳሹ አስተማማኝ የፍለጋ ውጤቶችን በዳራ ውስጥ ቀድሞ እንዲሰቅል ይፈቅዳል።"</string>
@@ -288,7 +288,7 @@
     <string name="pref_link_prefetch_title" msgid="4123685219009241072">"የድረ-ገጽ ቅድመ-መጫን"</string>
   <string-array name="pref_link_prefetch_choices">
     <item msgid="4889781230398008031">"በፍጹም"</item>
-    <item msgid="1908465963242077428">"በገመድ አልባ ላይ ብቻ"</item>
+    <item msgid="1908465963242077428">"በWi-Fi ላይ ብቻ"</item>
     <item msgid="7647277566998527142">"ዘወትር"</item>
   </string-array>
     <string name="pref_link_prefetch_summary" msgid="6558181497993206817">"አሳሽ የተገናኙ ድረ-ገጾች በጀርባ ውስጥ ቅድሚያ እንዲጭን ይፍቀዱለት"</string>

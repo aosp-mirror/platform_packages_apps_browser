@@ -324,7 +324,7 @@
     <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="8412543086906716875">"Ukulondolozwa kwe-USB simatasa. Ukuvumela ukulanda, khetha \"Vala isitoreji se-USB\' kwisaziso."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"Ikhadi le-SD limatasa. Ukuvumela ukulanda, khetha \"Vala ukulondoloza nge-USB\" kwisaziso."</string>
     <string name="cannot_download" msgid="8150552478556798780">"Ingalayisha kuphela ama-URL e-\"http\" noma ama-\"https\"."</string>
-    <string name="download_pending" msgid="2599683668575349559">"Iqalisa ukulayisha..."</string>
+    <string name="download_pending" msgid="2599683668575349559">"Iqalisa ukulanda..."</string>
     <string name="search_the_web" msgid="6046130189241962337">"Sesha iwebhu"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Ukulondoloza isiphequluli kugcwele"</string>
     <string name="webstorage_outofspace_notification_text" msgid="47273584426988640">"Thinta ukuvula iskhala."</string>
