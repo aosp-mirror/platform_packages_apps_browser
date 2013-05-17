@@ -280,7 +280,7 @@
     <string name="pref_data_preload_title" msgid="4479320472980292873">"การโหลดผลการค้นหาล่วงหน้า"</string>
   <string-array name="pref_data_preload_choices">
     <item msgid="5180466923190095508">"ไม่เลย"</item>
-    <item msgid="1791664748778640002">"Wi-Fi เท่านั้น"</item>
+    <item msgid="1791664748778640002">"WiFi เท่านั้น"</item>
     <item msgid="3944061253437827617">"ทุกครั้ง"</item>
   </string-array>
     <string name="pref_data_preload_summary" msgid="3809168910751382727">"อนุญาตให้เบราว์เซอร์โหลดผลการค้นหาที่เชื่อถือได้สูงก่อนล่วงหน้าในเบื้องหลัง"</string>

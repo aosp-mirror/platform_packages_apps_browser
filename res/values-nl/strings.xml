@@ -280,7 +280,7 @@
     <string name="pref_data_preload_title" msgid="4479320472980292873">"Zoekresultaten vooraf laden"</string>
   <string-array name="pref_data_preload_choices">
     <item msgid="5180466923190095508">"Nooit"</item>
-    <item msgid="1791664748778640002">"Alleen voor Wi-Fi"</item>
+    <item msgid="1791664748778640002">"Alleen voor wifi"</item>
     <item msgid="3944061253437827617">"Altijd"</item>
   </string-array>
     <string name="pref_data_preload_summary" msgid="3809168910751382727">"Browser toestaan resultaten met hoog betrouwbaarheidsniveau vooraf te laden"</string>
