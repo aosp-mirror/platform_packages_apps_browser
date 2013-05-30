@@ -350,7 +350,7 @@
     <string name="website_settings_clear_all_dialog_message" msgid="1551164275687475061">"Excluir todos os dados de sites e permissões de localização?"</string>
     <string name="website_settings_clear_all_dialog_ok_button" msgid="7858504776529106243">"OK"</string>
     <string name="website_settings_clear_all_dialog_cancel_button" msgid="1896757051856611674">"Cancelar"</string>
-    <string name="progress_dialog_setting_wallpaper" msgid="2031391201442335889">"Definindo papel de parede..."</string>
+    <string name="progress_dialog_setting_wallpaper" msgid="2031391201442335889">"Definindo plano de fundo..."</string>
     <string name="defaultBookmarksUpButton" msgid="2303951020715704735">"Favoritos"</string>
     <string name="empty_bookmarks_folder" msgid="6239830231917618556">"Não há favoritos."</string>
     <string name="other_bookmarks" msgid="8021889794475657319">"Outros favoritos"</string>
