@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bdde9125_a187b80a",
+        "filename": "src/com/android/browser/BookmarkUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000660
+      },
+      "writtenOn": "2013-05-31T16:07:41Z",
+      "side": 1,
+      "message": "Minor nitpick: usually, android.* imports and sorted alphabetically.",
+      "revId": "b61c9df826a4bf7e7b3128708437408dced4e5fd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
