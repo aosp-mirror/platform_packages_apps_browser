@@ -280,7 +280,7 @@
     <string name="pref_data_preload_title" msgid="4479320472980292873">"搜索结果预加载"</string>
   <string-array name="pref_data_preload_choices">
     <item msgid="5180466923190095508">"永不"</item>
-    <item msgid="1791664748778640002">"仅限 Wi-Fi"</item>
+    <item msgid="1791664748778640002">"仅限 WLAN"</item>
     <item msgid="3944061253437827617">"始终"</item>
   </string-array>
     <string name="pref_data_preload_summary" msgid="3809168910751382727">"允许浏览器在后台预加载相关度高的搜索结果"</string>
@@ -288,7 +288,7 @@
     <string name="pref_link_prefetch_title" msgid="4123685219009241072">"网页预加载"</string>
   <string-array name="pref_link_prefetch_choices">
     <item msgid="4889781230398008031">"永不"</item>
-    <item msgid="1908465963242077428">"仅限 Wi-Fi"</item>
+    <item msgid="1908465963242077428">"仅限 WLAN"</item>
     <item msgid="7647277566998527142">"始终"</item>
   </string-array>
     <string name="pref_link_prefetch_summary" msgid="6558181497993206817">"允许浏览器在后台预加载链接的网页"</string>
