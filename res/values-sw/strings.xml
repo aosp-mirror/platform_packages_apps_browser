@@ -249,7 +249,7 @@
     <string name="pref_content_load_page_summary" msgid="9168803276420332955">"Onyesha muhtasari wa kurasa mpya zilizofunguliwa"</string>
     <string name="pref_extras_title" msgid="7075456173747370647">"Mahiri"</string>
     <string name="pref_extras_website_settings" msgid="67866640052455549">"Mipangilio ya tovuti"</string>
-    <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"Mipangilio mahiri kwa wavuti mahsusi"</string>
+    <string name="pref_extras_website_settings_summary" msgid="1656771443223494406">"Mipangilio ya kina ya wavuti mahsusi"</string>
     <string name="pref_extras_reset_default_title" msgid="3579760449455761762">"Weka chaguo-msingi upya"</string>
     <string name="pref_extras_reset_default" msgid="8904000515846202110">"Rudisha kwenye chaguo-msingi"</string>
     <string name="pref_extras_reset_default_summary" msgid="4247870778270414501">"Rejesha mipangilio chaguo-msingi"</string>
@@ -338,8 +338,8 @@
     <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"Shiriki mahali"</string>
     <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"Kataa"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"Kumbuka mapendeleo"</string>
-    <string name="geolocation_permissions_prompt_toast_allowed" msgid="7201417941112726112">"Tovuti hii inaweza kufikia eneo lako. Badilisha hii kwa skrini ya Settings &gt; Advanced &amp;gt Website."</string>
-    <string name="geolocation_permissions_prompt_toast_disallowed" msgid="156443445797377409">"Tovuti hii haiwezi kufikia eneo lako. Badilisha hii kwenye skrini ya Mipangilio &gt; Advanced &gt; Website."</string>
+    <string name="geolocation_permissions_prompt_toast_allowed" msgid="7201417941112726112">"Tovuti hii haiwezi kufikia mahali ulipo. Badilisha hili kwenye Skrini &gt; Ya Kina &gt; ya Wavuti katika Mipangilio."</string>
+    <string name="geolocation_permissions_prompt_toast_disallowed" msgid="156443445797377409">"Tovuti hii haiwezi kufikia mahali ulipo. Badilisha hili kwenye Skrini &gt; Ya Kina &gt; ya Wavuti katika Mipangilio."</string>
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"Futa ufikiaji mahali"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"Tovuti hii kwa sasa inaweza kufikia mahali ulipo"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="7941769772784366199">"Tovuti hii kwa sasa haiwezi kufikia mahali ulipo"</string>
@@ -385,7 +385,7 @@
     <string name="accessibility_button_stop" msgid="6793644120043222148">"Komesha upakiaji ukurasa"</string>
     <string name="accessibility_button_addbookmark" msgid="4787844912630006181">"Alamisha ukurasa"</string>
     <string name="accessibility_button_search" msgid="5357014102136055376">"Tafuta"</string>
-    <string name="accessibility_button_voice" msgid="152016375096083337">"Anzisha utafutaji wa sauti"</string>
+    <string name="accessibility_button_voice" msgid="152016375096083337">"Anza kutafuta kwa kutamka"</string>
     <string name="accessibility_button_bookmarks" msgid="7435055677299151649">"Alamisho"</string>
     <string name="accessibility_button_closetab" msgid="6954807842756927737">"Funga kichupo"</string>
     <string name="accessibility_button_newtab" msgid="4116986240706315748">"Fungua kichupo kipya"</string>
