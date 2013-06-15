@@ -255,7 +255,7 @@
     <string name="pref_extras_reset_default_summary" msgid="4247870778270414501">"Rétablir les paramètres par défaut"</string>
     <string name="pref_extras_reset_default_dlg" msgid="7922814420184322450">"Rétablir les valeurs par défaut ?"</string>
     <string name="pref_development_title" msgid="3263854204533056480">"Débogage"</string>
-    <string name="pref_default_text_encoding" msgid="5742965543955558478">"Codage du texte"</string>
+    <string name="pref_default_text_encoding" msgid="5742965543955558478">"Encodage du texte"</string>
   <string-array name="pref_default_text_encoding_choices">
     <item msgid="7275223955790513818">"Latin-1 (ISO-8859-1)"</item>
     <item msgid="2456597866837587140">"Unicode (UTF-8)"</item>
@@ -266,7 +266,7 @@
     <item msgid="7356792686950371843">"Japonais (EUC-JP)"</item>
     <item msgid="2193955365569270096">"Coréen (EUC-KR)"</item>
   </string-array>
-    <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Codage du texte"</string>
+    <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Encodage du texte"</string>
     <string name="pref_accessibility_title" msgid="5127836981587423215">"Accessibilité"</string>
     <string name="pref_font_size_category" msgid="6683754355084218254">"Taille de la police"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"Labs"</string>
