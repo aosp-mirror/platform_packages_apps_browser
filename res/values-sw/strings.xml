@@ -142,8 +142,8 @@
   </string-array>
     <string name="pref_content_open_in_background_summary" msgid="955411158407739504">"Fungua vichupo vipya nyuma ya hiki cha sasa"</string>
     <string name="pref_content_homepage" msgid="3324574611613105696">"Weka ukurasa wa kwanza"</string>
-    <string name="pref_content_search_engine" msgid="1620101310821644144">"Weka injini tafuti"</string>
-    <string name="pref_content_search_engine_summary" msgid="304003941861818133">"Chagua injini tafuti"</string>
+    <string name="pref_content_search_engine" msgid="1620101310821644144">"Weka mtambo wa kutafuta"</string>
+    <string name="pref_content_search_engine_summary" msgid="304003941861818133">"Chagua mtambo wa kutafuta"</string>
     <string name="pref_set_homepage_to" msgid="7838684355145561242">"Weka kwa"</string>
   <string-array name="pref_homepage_choices">
     <item msgid="844041670142910837">"Ukurasa uliopo"</item>
