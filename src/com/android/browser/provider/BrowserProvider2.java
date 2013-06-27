@@ -63,8 +63,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 public class BrowserProvider2 extends SQLiteContentProvider {
 
@@ -1207,16 +1209,63 @@ public class BrowserProvider2 extends SQLiteContentProvider {
 
     int deleteBookmarks(String selection, String[] selectionArgs,
             boolean callerIsSyncAdapter) {
-        //TODO cascade deletes down from folders
         final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
         if (callerIsSyncAdapter) {
             return db.delete(TABLE_BOOKMARKS, selection, selectionArgs);
         }
+
+        selectionArgs = appendBookmarksIfFolder(selection, selectionArgs);
+        selection = getCascadeSelection(selection, selectionArgs.length);
+
         ContentValues values = new ContentValues();
         values.put(Bookmarks.DATE_MODIFIED, System.currentTimeMillis());
         values.put(Bookmarks.IS_DELETED, 1);
         return updateBookmarksInTransaction(values, selection, selectionArgs,
                 callerIsSyncAdapter);
+    }
+
+    private String[] appendBookmarksIfFolder(String selection, String[] selectionArgs) {
+        final SQLiteDatabase db = mOpenHelper.getReadableDatabase();
+        final String[] bookmarksProjection = new String[] {
+                Bookmarks._ID, // 0
+                Bookmarks.IS_FOLDER // 1
+        };
+        List<String> newSelectionArgs = new ArrayList<String>();
+
+        Cursor cursor = null;
+        try {
+            cursor = db.query(TABLE_BOOKMARKS, bookmarksProjection,
+                    selection, selectionArgs, null, null, null);
+            if (cursor != null) {
+                while (cursor.moveToNext()) {
+                    String id = Long.toString(cursor.getLong(0));
+                    newSelectionArgs.add(id);
+                    if (cursor.getInt(1) != 0) {
+                        // collect bookmarks in this folder
+                        String[] bookmarks = appendBookmarksIfFolder(
+                                Bookmarks.PARENT + "=?", new String[] { id });
+                        for (String bookmark : bookmarks) {
+                            newSelectionArgs.add(bookmark);
+                        }
+                    }
+                }
+            }
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+
+        return newSelectionArgs.toArray(new String[newSelectionArgs.size()]);
+    }
+
+    private String getCascadeSelection(String selection, int num) {
+        StringBuilder newSelection = new StringBuilder(selection);
+        for (int i = 0; i < num - 1; i++) {
+            newSelection.append(" OR ");
+            newSelection.append(TABLE_BOOKMARKS + "._id=?");
+        }
+        return newSelection.toString();
     }
 
     @Override
