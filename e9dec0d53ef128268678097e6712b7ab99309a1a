@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ea891da9_65dd4260",
+        "filename": "src/com/android/browser/provider/BrowserProvider2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1227,
+      "author": {
+        "id": 1010103
+      },
+      "writtenOn": "2013-06-27T17:41:00Z",
+      "side": 1,
+      "message": "Instead of returning a modified selectionArgs but not selection please switch this to follow the existing pattern of returning an Object[] that has both the updated selectionArgs and selection. Less risk of bugs from the two being out of sync.",
+      "revId": "e9dec0d53ef128268678097e6712b7ab99309a1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ea891da9_25d33a58",
+        "filename": "src/com/android/browser/provider/BrowserProvider2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1265,
+      "author": {
+        "id": 1010103
+      },
+      "writtenOn": "2013-06-27T17:41:00Z",
+      "side": 1,
+      "message": "instead of \"WHERE _id \u003d 1 OR _id \u003d 2 OR _id \u003d 3\" etc... it is simpler and potentially more efficient to do \"WHERE _id IN (1, 2, 3)\"",
+      "revId": "e9dec0d53ef128268678097e6712b7ab99309a1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
