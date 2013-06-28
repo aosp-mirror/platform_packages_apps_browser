@@ -26,6 +26,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.FileUtils;
 import android.provider.BrowserContract;
 import android.text.TextUtils;
@@ -134,8 +135,18 @@ public class SnapshotProvider extends ContentProvider {
 
     @Override
     public boolean onCreate() {
-        migrateToDataFolder();
-        mOpenHelper = new SnapshotDatabaseHelper(getContext());
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... params) {
+                migrateToDataFolder();
+                return null;
+            }
+            @Override
+            protected void onPostExecute(Void result) {
+                mOpenHelper = new SnapshotDatabaseHelper(getContext());
+            }
+        }.execute();
+
         return true;
     }
 
