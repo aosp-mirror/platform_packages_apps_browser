@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0a2cb179_8f5336eb",
+        "filename": "src/com/android/browser/provider/BrowserProvider2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1254,
+      "author": {
+        "id": 1010671
+      },
+      "writtenOn": "2013-07-01T16:25:24Z",
+      "side": 1,
+      "message": "Have this actually use selectionArgs. If you do it this way there\u0027s no chance of hitting any statement caches.",
+      "revId": "7c6393bf095a0d50b450fe3260807b89997e53e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
