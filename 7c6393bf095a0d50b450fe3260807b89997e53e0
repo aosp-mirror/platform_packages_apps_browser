@@ -16,6 +16,24 @@
       "revId": "7c6393bf095a0d50b450fe3260807b89997e53e0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c7fa942f_e103e086",
+        "filename": "src/com/android/browser/provider/BrowserProvider2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1254,
+      "author": {
+        "id": 1017042
+      },
+      "writtenOn": "2013-07-02T10:40:26Z",
+      "side": 1,
+      "message": "Thanks, I\u0027ve updated the patch to use \"_id IN (?, ?, ?)\" type of selection statement.",
+      "parentUuid": "0a2cb179_8f5336eb",
+      "revId": "7c6393bf095a0d50b450fe3260807b89997e53e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
