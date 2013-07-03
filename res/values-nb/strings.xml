@@ -111,8 +111,8 @@
     <string name="contextmenu_openlink" msgid="7237961252214188935">"Åpne"</string>
     <string name="contextmenu_openlink_newwindow" msgid="1205313604181761403">"Åpne i ny fane"</string>
     <string name="contextmenu_openlink_newwindow_background" msgid="4690381019116746687">"Åpne i ny bakgrunnsfane"</string>
-    <string name="contextmenu_savelink" msgid="5508554930832538184">"Lagre kobling"</string>
-    <string name="contextmenu_sharelink" msgid="5392275392280130331">"Del kobling"</string>
+    <string name="contextmenu_savelink" msgid="5508554930832538184">"Lagre denne linken"</string>
+    <string name="contextmenu_sharelink" msgid="5392275392280130331">"Del denne linken"</string>
     <string name="contextmenu_copy" msgid="398860586635404030">"Kopier"</string>
     <string name="contextmenu_copylink" msgid="5153657160294534270">"Kopier koblingsadresse"</string>
     <string name="contextmenu_download_image" msgid="4243829645180686912">"Lagre bilde"</string>
