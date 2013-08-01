@@ -366,7 +366,7 @@
     <string name="import_bookmarks_wizard_next" msgid="7578143961884352676">"Ifuatayo"</string>
     <string name="import_bookmarks_wizard_previous" msgid="8551440353688257031">"Iliyotangulia"</string>
     <string name="import_bookmarks_wizard_cancel" msgid="4936061122806506634">"Ghairi"</string>
-    <string name="import_bookmarks_wizard_done" msgid="1446247092194489191">"Kwisha"</string>
+    <string name="import_bookmarks_wizard_done" msgid="1446247092194489191">"Nimemaliza"</string>
     <string name="import_bookmarks_dialog_add" msgid="1743359725294101189">"Ongeza alamisho kwenye akaunti ya Google"</string>
     <string name="import_bookmarks_dialog_import" msgid="6933613853573899218">"Ongeza alamamisho zako za Android kwa alamisho za <xliff:g id="GOOGLE_ACCOUNT">%s</xliff:g>"</string>
     <string name="menu_share_url" msgid="5851814357333739700">"Shiriki"</string>
