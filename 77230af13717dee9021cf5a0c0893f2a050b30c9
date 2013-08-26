@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ed1bfc25_963b8ce2",
+        "filename": "src/com/android/browser/Controller.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 758,
+      "author": {
+        "id": 1010103
+      },
+      "writtenOn": "2013-08-26T23:32:42Z",
+      "side": 1,
+      "message": "This should not be destroyed",
+      "revId": "77230af13717dee9021cf5a0c0893f2a050b30c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed1bfc25_362b9893",
+        "filename": "src/com/android/browser/PhoneUi.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 1010103
+      },
+      "writtenOn": "2013-08-26T23:32:42Z",
+      "side": 1,
+      "message": "This is unnecessary, bitmap.recycle() doesn\u0027t do anything.",
+      "revId": "77230af13717dee9021cf5a0c0893f2a050b30c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed1bfc25_763510e7",
+        "filename": "src/com/android/browser/Tab.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1318,
+      "author": {
+        "id": 1010103
+      },
+      "writtenOn": "2013-08-26T23:32:42Z",
+      "side": 1,
+      "message": "Also unnecessary",
+      "revId": "77230af13717dee9021cf5a0c0893f2a050b30c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
