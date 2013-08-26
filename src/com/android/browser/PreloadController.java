@@ -246,11 +246,6 @@ public class PreloadController implements WebViewController {
     }
 
     @Override
-    public void setupAutoFill(Message message) {
-        if (LOGD_ENABLED) Log.d(LOGTAG, "setupAutoFill()");
-    }
-
-    @Override
     public void bookmarkedStatusHasChanged(Tab tab) {
         if (LOGD_ENABLED) Log.d(LOGTAG, "bookmarkedStatusHasChanged()");
     }

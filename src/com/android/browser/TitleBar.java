@@ -53,7 +53,6 @@ public class TitleBar extends RelativeLayout {
     private AutologinBar mAutoLogin;
     private NavigationBarBase mNavBar;
     private boolean mUseQuickControls;
-    private SnapshotBar mSnapshotBar;
 
     //state
     private boolean mShowing;
@@ -91,16 +90,6 @@ public class TitleBar extends RelativeLayout {
         mAutoLogin.setTitleBar(this);
     }
 
-    private void inflateSnapshotBar() {
-        if (mSnapshotBar != null) {
-            return;
-        }
-
-        ViewStub stub = (ViewStub) findViewById(R.id.snapshotbar_stub);
-        mSnapshotBar = (SnapshotBar) stub.inflate();
-        mSnapshotBar.setTitleBar(this);
-    }
-
     @Override
     protected void onConfigurationChanged(Configuration config) {
         super.onConfigurationChanged(config);
@@ -119,14 +108,10 @@ public class TitleBar extends RelativeLayout {
     }
 
     private void setFixedTitleBar() {
-        boolean isFixed = !mUseQuickControls
-                && !mContext.getResources().getBoolean(R.bool.hide_title);
-        isFixed |= mAccessibilityManager.isEnabled();
-        isFixed |= !BrowserWebView.isClassic();
         // If getParent() returns null, we are initializing
         ViewGroup parent = (ViewGroup)getParent();
-        if (mIsFixedTitleBar == isFixed && parent != null) return;
-        mIsFixedTitleBar = isFixed;
+        if (mIsFixedTitleBar && parent != null) return;
+        mIsFixedTitleBar = true;
         setSkipTitleBarAnimations(true);
         show();
         setSkipTitleBarAnimations(false);
@@ -365,9 +350,7 @@ public class TitleBar extends RelativeLayout {
     }
 
     public boolean wantsToBeVisible() {
-        return inAutoLogin()
-            || (mSnapshotBar != null && mSnapshotBar.getVisibility() == View.VISIBLE
-                    && mSnapshotBar.isAnimating());
+        return inAutoLogin();
     }
 
     private boolean inAutoLogin() {
@@ -419,20 +402,7 @@ public class TitleBar extends RelativeLayout {
     }
 
     public void onTabDataChanged(Tab tab) {
-        if (mSnapshotBar != null) {
-            mSnapshotBar.onTabDataChanged(tab);
-        }
-
-        if (tab.isSnapshot()) {
-            inflateSnapshotBar();
-            mSnapshotBar.setVisibility(VISIBLE);
-            mNavBar.setVisibility(GONE);
-        } else {
-            if (mSnapshotBar != null) {
-                mSnapshotBar.setVisibility(GONE);
-            }
-            mNavBar.setVisibility(VISIBLE);
-        }
+        mNavBar.setVisibility(VISIBLE);
     }
 
     public void onScrollChanged() {

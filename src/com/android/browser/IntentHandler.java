@@ -172,25 +172,6 @@ public class IntentHandler {
                     }
                 }
             } else {
-                if (BrowserWebView.isClassic() && !urlData.isEmpty()
-                        && urlData.mUrl.startsWith("about:debug")) {
-                    if ("about:debug.dom".equals(urlData.mUrl)) {
-                        current.getWebViewClassic().dumpDomTree(false);
-                    } else if ("about:debug.dom.file".equals(urlData.mUrl)) {
-                        current.getWebViewClassic().dumpDomTree(true);
-                    } else if ("about:debug.render".equals(urlData.mUrl)) {
-                        current.getWebViewClassic().dumpRenderTree(false);
-                    } else if ("about:debug.render.file".equals(urlData.mUrl)) {
-                        current.getWebViewClassic().dumpRenderTree(true);
-                    } else if ("about:debug.display".equals(urlData.mUrl)) {
-                        current.getWebViewClassic().dumpDisplayTree();
-                    } else if ("about:debug.nav".equals(urlData.mUrl)) {
-                        current.getWebView().debugDump();
-                    } else {
-                        mSettings.toggleDebugSettings();
-                    }
-                    return;
-                }
                 // Get rid of the subwindow if it exists
                 mController.dismissSubWindow(current);
                 // If the current Tab is being used as an application tab,

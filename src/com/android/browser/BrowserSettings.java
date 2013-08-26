@@ -38,8 +38,6 @@ import android.webkit.WebSettings.LayoutAlgorithm;
 import android.webkit.WebSettings.PluginState;
 import android.webkit.WebSettings.TextSize;
 import android.webkit.WebSettings.ZoomDensity;
-import android.webkit.WebSettingsClassic;
-import android.webkit.WebSettingsClassic.AutoFillProfile;
 import android.webkit.WebStorage;
 import android.webkit.WebView;
 import android.webkit.WebViewDatabase;
@@ -111,7 +109,6 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     private LinkedList<WeakReference<WebSettings>> mManagedSettings;
     private Controller mController;
     private WebStorageSizeManager mWebStorageSizeManager;
-    private AutofillHandler mAutofillHandler;
     private WeakHashMap<WebSettings, String> mCustomUserAgents;
     private static boolean sInitialized = false;
     private boolean mNeedsSharedSync = true;
@@ -140,10 +137,8 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     private BrowserSettings(Context context) {
         mContext = context.getApplicationContext();
         mPrefs = PreferenceManager.getDefaultSharedPreferences(mContext);
-        mAutofillHandler = new AutofillHandler(mContext);
         mManagedSettings = new LinkedList<WeakReference<WebSettings>>();
         mCustomUserAgents = new WeakHashMap<WebSettings, String>();
-        mAutofillHandler.asyncLoadFromDb();
         BackgroundHandler.execute(mSetup);
     }
 
@@ -277,31 +272,6 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         } else {
             settings.setUserAgentString(USER_AGENTS[getUserAgent()]);
         }
-
-        if (!(settings instanceof WebSettingsClassic)) return;
-
-        WebSettingsClassic settingsClassic = (WebSettingsClassic) settings;
-        settingsClassic.setHardwareAccelSkiaEnabled(isSkiaHardwareAccelerated());
-        settingsClassic.setShowVisualIndicator(enableVisualIndicator());
-        settingsClassic.setForceUserScalable(forceEnableUserScalable());
-        settingsClassic.setDoubleTapZoom(getDoubleTapZoom());
-        settingsClassic.setAutoFillEnabled(isAutofillEnabled());
-        settingsClassic.setAutoFillProfile(getAutoFillProfile());
-
-        boolean useInverted = useInvertedRendering();
-        settingsClassic.setProperty(WebViewProperties.gfxInvertedScreen,
-                useInverted ? "true" : "false");
-        if (useInverted) {
-          settingsClassic.setProperty(WebViewProperties.gfxInvertedScreenContrast,
-                    Float.toString(getInvertedContrast()));
-        }
-
-        if (isDebugEnabled()) {
-          settingsClassic.setProperty(WebViewProperties.gfxEnableCpuUploadPath,
-                    enableCpuUploadPath() ? "true" : "false");
-        }
-
-        settingsClassic.setLinkPrefetchEnabled(mLinkPrefetchAllowed);
     }
 
     /**
@@ -335,19 +305,6 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         // origin policy for file access
         settings.setAllowUniversalAccessFromFileURLs(false);
         settings.setAllowFileAccessFromFileURLs(false);
-
-        if (!(settings instanceof WebSettingsClassic)) return;
-
-        WebSettingsClassic settingsClassic = (WebSettingsClassic) settings;
-        settingsClassic.setPageCacheCapacity(getPageCacheCapacity());
-        // WebView should be preserving the memory as much as possible.
-        // However, apps like browser wish to turn on the performance mode which
-        // would require more memory.
-        // TODO: We need to dynamically allocate/deallocate temporary memory for
-        // apps which are trying to use minimal memory. Currently, double
-        // buffering is always turned on, which is unnecessary.
-        settingsClassic.setProperty(WebViewProperties.gfxUseMinimalMemory, "false");
-        settingsClassic.setWorkersEnabled(true);  // This only affects V8.
     }
 
     private void syncSharedSettings() {
@@ -521,19 +478,6 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
 
     private void resetCachedValues() {
         updateSearchEngine(false);
-    }
-
-    public AutoFillProfile getAutoFillProfile() {
-        return mAutofillHandler.getAutoFillProfile();
-    }
-
-    public void setAutoFillProfile(AutoFillProfile profile, Message msg) {
-        mAutofillHandler.setAutoFillProfile(profile, msg);
-        // Auto-fill will reuse the same profile ID when making edits to the profile,
-        // so we need to force a settings sync (otherwise the SharedPreferences
-        // manager will optimise out the call to onSharedPreferenceChanged(), as
-        // it thinks nothing has changed).
-        syncManagedSettings();
     }
 
     public void toggleDebugSettings() {

@@ -91,8 +91,6 @@ public interface UiController {
 
     boolean onOptionsItemSelected(MenuItem item);
 
-    SnapshotTab createNewSnapshotTab(long snapshotId, boolean setActive);
-
     void loadUrl(Tab tab, String url);
 
     void setBlockEvents(boolean block);

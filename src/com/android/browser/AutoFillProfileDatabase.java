@@ -22,7 +22,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 import android.util.Log;
-import android.webkit.WebSettingsClassic.AutoFillProfile;
 
 public class AutoFillProfileDatabase {
 
@@ -93,34 +92,6 @@ public class AutoFillProfileDatabase {
 
     private SQLiteDatabase getDatabase(boolean writable) {
         return writable ? mOpenHelper.getWritableDatabase() : mOpenHelper.getReadableDatabase();
-    }
-
-    public void addOrUpdateProfile(final int id, AutoFillProfile profile) {
-        final String sql = "INSERT OR REPLACE INTO " + PROFILES_TABLE_NAME + " ("
-                + Profiles._ID + ","
-                + Profiles.FULL_NAME + ","
-                + Profiles.EMAIL_ADDRESS + ","
-                + Profiles.COMPANY_NAME + ","
-                + Profiles.ADDRESS_LINE_1 + ","
-                + Profiles.ADDRESS_LINE_2 + ","
-                + Profiles.CITY + ","
-                + Profiles.STATE + ","
-                + Profiles.ZIP_CODE + ","
-                + Profiles.COUNTRY + ","
-                + Profiles.PHONE_NUMBER
-                + ") VALUES (?,?,?,?,?,?,?,?,?,?,?);";
-        final Object[] params = { id,
-                profile.getFullName(),
-                profile.getEmailAddress(),
-                profile.getCompanyName(),
-                profile.getAddressLine1(),
-                profile.getAddressLine2(),
-                profile.getCity(),
-                profile.getState(),
-                profile.getZipCode(),
-                profile.getCountry(),
-                profile.getPhoneNumber() };
-        getDatabase(true).execSQL(sql, params);
     }
 
     public Cursor getProfile(int id) {

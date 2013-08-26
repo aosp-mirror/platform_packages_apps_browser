@@ -78,7 +78,6 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebIconDatabase;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClassic;
 import android.widget.Toast;
 
 import com.android.browser.IntentHandler.UrlData;
@@ -131,7 +130,6 @@ public class Controller
     final static int COMBO_VIEW = 1;
     final static int PREFERENCES_PAGE = 3;
     final static int FILE_SELECTED = 4;
-    final static int AUTOFILL_SETUP = 5;
     final static int VOICE_RESULT = 6;
 
     private final static int WAKELOCK_TIMEOUT = 5 * 60 * 1000; // 5 minutes
@@ -260,7 +258,6 @@ public class Controller
 
     @Override
     public void start(final Intent intent) {
-        if (BrowserWebView.isClassic()) WebViewClassic.setShouldMonitorWebCoreThread();
         // mCrashRecoverHandler has any previously saved state.
         mCrashRecoveryHandler.startRecovery(intent);
     }
@@ -356,9 +353,6 @@ public class Controller
         }
         // Read JavaScript flags if it exists.
         String jsFlags = getSettings().getJsEngineFlags();
-        if (jsFlags.trim().length() != 0 && BrowserWebView.isClassic()) {
-            WebViewClassic.fromWebView(getCurrentWebView()).setJsFlags(jsFlags);
-        }
         if (intent != null
                 && BrowserActivity.ACTION_SHOW_BOOKMARKS.equals(intent.getAction())) {
             bookmarksOrHistoryPicker(ComboViews.Bookmarks);
@@ -1166,15 +1160,6 @@ public class Controller
                 if (null == mUploadHandler) break;
                 mUploadHandler.onResult(resultCode, intent);
                 break;
-            case AUTOFILL_SETUP:
-                // Determine whether a profile was actually set up or not
-                // and if so, send the message back to the WebTextView to
-                // fill the form with the new profile.
-                if (getSettings().getAutoFillProfile() != null) {
-                    mAutoFillSetupMessage.sendToTarget();
-                    mAutoFillSetupMessage = null;
-                }
-                break;
             case COMBO_VIEW:
                 if (intent == null || resultCode != Activity.RESULT_OK) {
                     break;
@@ -1196,12 +1181,8 @@ public class Controller
                     long id = intent.getLongExtra(
                             ComboViewActivity.EXTRA_OPEN_SNAPSHOT, -1);
                     if (id >= 0) {
-                        if (BrowserWebView.isClassic()) {
-                            createNewSnapshotTab(id, true);
-                        } else {
-                            Toast.makeText(mActivity, "Snapshot Tab requires WebViewClassic",
-                                Toast.LENGTH_LONG).show();
-                        }
+                        Toast.makeText(mActivity, "Snapshot Tab no longer supported",
+                            Toast.LENGTH_LONG).show();
                     }
                 }
                 break;
@@ -1323,15 +1304,6 @@ public class Controller
         menu.setGroupVisible(R.id.ANCHOR_MENU,
                 type == WebView.HitTestResult.SRC_ANCHOR_TYPE
                 || type == WebView.HitTestResult.SRC_IMAGE_ANCHOR_TYPE);
-        boolean hitText = type == WebView.HitTestResult.SRC_ANCHOR_TYPE
-                || type == WebView.HitTestResult.PHONE_TYPE
-                || type == WebView.HitTestResult.EMAIL_TYPE
-                || type == WebView.HitTestResult.GEO_TYPE;
-        menu.setGroupVisible(R.id.SELECT_TEXT_MENU, hitText);
-        if (hitText) {
-            menu.findItem(R.id.select_text_menu_id)
-                    .setOnMenuItemClickListener(new SelectText(webview));
-        }
         // Setup custom handling depending on the type
         switch (type) {
             case WebView.HitTestResult.PHONE_TYPE:
@@ -1648,12 +1620,6 @@ public class Controller
                 findOnPage();
                 break;
 
-            case R.id.save_snapshot_menu_id:
-                final Tab source = getTabControl().getCurrentTab();
-                if (source == null) break;
-                new SaveSnapshotTask(source).execute();
-                break;
-
             case R.id.page_info_menu_id:
                 showPageInfo();
                 break;
@@ -1717,69 +1683,6 @@ public class Controller
                 return false;
         }
         return true;
-    }
-
-    private class SaveSnapshotTask extends AsyncTask<Void, Void, Long>
-            implements OnCancelListener {
-
-        private Tab mTab;
-        private Dialog mProgressDialog;
-        private ContentValues mValues;
-
-        private SaveSnapshotTask(Tab tab) {
-            mTab = tab;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            CharSequence message = mActivity.getText(R.string.saving_snapshot);
-            mProgressDialog = ProgressDialog.show(mActivity, null, message,
-                    true, true, this);
-            mValues = mTab.createSnapshotValues();
-        }
-
-        @Override
-        protected Long doInBackground(Void... params) {
-            if (!mTab.saveViewState(mValues)) {
-                return null;
-            }
-            if (isCancelled()) {
-                String path = mValues.getAsString(Snapshots.VIEWSTATE_PATH);
-                File file = mActivity.getFileStreamPath(path);
-                if (!file.delete()) {
-                    file.deleteOnExit();
-                }
-                return null;
-            }
-            final ContentResolver cr = mActivity.getContentResolver();
-            Uri result = cr.insert(Snapshots.CONTENT_URI, mValues);
-            if (result == null) {
-                return null;
-            }
-            long id = ContentUris.parseId(result);
-            return id;
-        }
-
-        @Override
-        protected void onPostExecute(Long id) {
-            if (isCancelled()) {
-                return;
-            }
-            mProgressDialog.dismiss();
-            if (id == null) {
-                Toast.makeText(mActivity, R.string.snapshot_failed,
-                        Toast.LENGTH_SHORT).show();
-                return;
-            }
-            Bundle b = new Bundle();
-            b.putLong(BrowserSnapshotPage.EXTRA_ANIMATE_ID, id);
-            mUi.showComboView(ComboViews.Snapshots, b);
-        }
-
-        @Override
-        public void onCancel(DialogInterface dialog) {
-            cancel(true);
-        }
     }
 
     @Override
@@ -2250,25 +2153,6 @@ public class Controller
         }
     }
 
-    private static class SelectText implements OnMenuItemClickListener {
-        private WebViewClassic mWebView;
-
-        @Override
-        public boolean onMenuItemClick(MenuItem item) {
-            if (mWebView != null) {
-                return mWebView.selectText();
-            }
-            return false;
-        }
-
-        public SelectText(WebView webView) {
-          if (BrowserWebView.isClassic()) {
-              mWebView = WebViewClassic.fromWebView(webView);
-          }
-        }
-
-    }
-
     /********************** TODO: UI stuff *****************************/
 
     // these methods have been copied, they still need to be cleaned up
@@ -2453,21 +2337,6 @@ public class Controller
             } else {
                 mUi.showMaxTabsWarning();
             }
-        }
-        return tab;
-    }
-
-    @Override
-    public SnapshotTab createNewSnapshotTab(long snapshotId, boolean setActive) {
-        SnapshotTab tab = null;
-        if (mTabControl.canCreateNewTab()) {
-            tab = mTabControl.createSnapshotTab(snapshotId);
-            addTab(tab);
-            if (setActive) {
-                setActiveTab(tab);
-            }
-        } else {
-            mUi.showMaxTabsWarning();
         }
         return tab;
     }
@@ -2744,19 +2613,7 @@ public class Controller
                     return true;
                 }
                 break;
-            case KeyEvent.KEYCODE_A:
-                if (ctrl && BrowserWebView.isClassic()) {
-                    WebViewClassic.fromWebView(webView).selectAll();
-                    return true;
-                }
-                break;
 //          case KeyEvent.KEYCODE_B:    // menu
-            case KeyEvent.KEYCODE_C:
-                if (ctrl && BrowserWebView.isClassic()) {
-                    WebViewClassic.fromWebView(webView).copySelection();
-                    return true;
-                }
-                break;
 //          case KeyEvent.KEYCODE_D:    // menu
 //          case KeyEvent.KEYCODE_E:    // in Chrome: puts '?' in URL bar
 //          case KeyEvent.KEYCODE_F:    // menu
@@ -2832,18 +2689,6 @@ public class Controller
 
     public boolean isMenuDown() {
         return mMenuIsDown;
-    }
-
-    @Override
-    public void setupAutoFill(Message message) {
-        // Open the settings activity at the AutoFill profile fragment so that
-        // the user can create a new profile. When they return, we will dispatch
-        // the message so that we can autofill the form using their new profile.
-        Intent intent = new Intent(mActivity, BrowserPreferencesPage.class);
-        intent.putExtra(PreferenceActivity.EXTRA_SHOW_FRAGMENT,
-                AutoFillSettingsFragment.class.getName());
-        mAutoFillSetupMessage = message;
-        mActivity.startActivityForResult(intent, AUTOFILL_SETUP);
     }
 
     @Override
