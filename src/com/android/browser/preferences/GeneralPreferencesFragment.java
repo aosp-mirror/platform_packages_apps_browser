@@ -198,17 +198,4 @@ public class GeneralPreferencesFragment extends PreferenceFragment
         }
         return null;
     }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        refreshUi();
-    }
-
-    void refreshUi() {
-        PreferenceScreen autoFillSettings =
-                (PreferenceScreen)findPreference(PreferenceKeys.PREF_AUTOFILL_PROFILE);
-        autoFillSettings.setDependency(PreferenceKeys.PREF_AUTOFILL_ENABLED);
-    }
 }

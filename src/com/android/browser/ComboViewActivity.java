@@ -71,14 +71,6 @@ public class ComboViewActivity extends Activity implements CombinedBookmarksCall
         mTabsAdapter = new TabsAdapter(this, mViewPager);
         mTabsAdapter.addTab(bar.newTab().setText(R.string.tab_bookmarks),
                 BrowserBookmarksPage.class, args);
-        if (BrowserWebView.isClassic()) {
-            // TODO: history page should be able to work in Classic mode, but there's some
-            // provider name conflict. (Snapshot would never work in that mode though).
-            mTabsAdapter.addTab(bar.newTab().setText(R.string.tab_history),
-                    BrowserHistoryPage.class, args);
-            mTabsAdapter.addTab(bar.newTab().setText(R.string.tab_snapshots),
-                    BrowserSnapshotPage.class, args);
-        }
 
         if (savedInstanceState != null) {
             bar.setSelectedNavigationItem(

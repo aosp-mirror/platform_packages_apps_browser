@@ -20,12 +20,10 @@ import android.graphics.Bitmap;
 import android.net.http.SslError;
 import android.os.Message;
 import android.view.KeyEvent;
-import android.webkit.ClientCertRequestHandler;
 import android.webkit.HttpAuthHandler;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.webkit.WebViewClientClassicExt;
 
 /**
  *
@@ -34,7 +32,7 @@ import android.webkit.WebViewClientClassicExt;
  * Wraps around existing client so that specific methods can be overridden if needed.
  *
  */
-abstract class TestWebViewClient extends WebViewClientClassicExt {
+abstract class TestWebViewClient extends WebViewClient {
 
   private WebViewClient mWrappedClient;
 
@@ -100,17 +98,6 @@ abstract class TestWebViewClient extends WebViewClientClassicExt {
   public void onReceivedSslError(WebView view, SslErrorHandler handler,
           SslError error) {
       mWrappedClient.onReceivedSslError(view, handler, error);
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public void onReceivedClientCertRequest(WebView view, ClientCertRequestHandler handler,
-          String host_and_port) {
-    if (mWrappedClient instanceof WebViewClientClassicExt) {
-      ((WebViewClientClassicExt) mWrappedClient).onReceivedClientCertRequest(view, handler, host_and_port);
-    } else {
-      super.onReceivedClientCertRequest(view, handler, host_and_port);
-    }
   }
 
   /** {@inheritDoc} */

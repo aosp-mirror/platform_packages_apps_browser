@@ -216,12 +216,6 @@ class TabControl {
         return createNewTab(false);
     }
 
-    SnapshotTab createSnapshotTab(long snapshotId) {
-        SnapshotTab t = new SnapshotTab(mController, snapshotId);
-        mTabs.add(t);
-        return t;
-    }
-
     /**
      * Remove the parent child relationships from all tabs.
      */
@@ -670,7 +664,7 @@ class TabControl {
         // Display the new current tab
         mCurrentTab = mTabs.indexOf(newTab);
         WebView mainView = newTab.getWebView();
-        boolean needRestore = !newTab.isSnapshot() && (mainView == null);
+        boolean needRestore = mainView == null;
         if (needRestore) {
             // Same work as in createNewTab() except don't do new Tab()
             mainView = createNewWebView();

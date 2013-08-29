@@ -29,11 +29,6 @@
             android:defaultValue="true"
         />
 
-        <PreferenceScreen
-            android:fragment="com.android.browser.AutoFillSettingsFragment"
-            android:key="autofill_profile"
-            android:title="@string/pref_autofill_profile_editor"
-            android:summary="@string/pref_autofill_profile_editor_summary" />
     </PreferenceCategory>
 
 </PreferenceScreen>

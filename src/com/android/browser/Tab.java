@@ -47,7 +47,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewStub;
 import android.webkit.BrowserDownloadListener;
-import android.webkit.ClientCertRequestHandler;
 import android.webkit.ConsoleMessage;
 import android.webkit.GeolocationPermissions;
 import android.webkit.HttpAuthHandler;
@@ -62,9 +61,7 @@ import android.webkit.WebResourceResponse;
 import android.webkit.WebStorage;
 import android.webkit.WebView;
 import android.webkit.WebView.PictureListener;
-import android.webkit.WebViewClassic;
 import android.webkit.WebViewClient;
-import android.webkit.WebViewClientClassicExt;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
@@ -324,7 +321,7 @@ class Tab implements PictureListener {
     // WebViewClient implementation for the main WebView
     // -------------------------------------------------------------------------
 
-    private final WebViewClientClassicExt mWebViewClient = new WebViewClientClassicExt() {
+    private final WebViewClient mWebViewClient = new WebViewClient() {
         private Message mDontResend;
         private Message mResend;
 
@@ -560,56 +557,7 @@ class Tab implements PictureListener {
             }
         }
 
-        /**
-         * Called when an SSL error occurred while loading a resource, but the
-         * WebView but chose to proceed anyway based on a decision retained
-         * from a previous response to onReceivedSslError(). We update our
-         * security state to reflect this.
-         */
-        @Override
-        public void onProceededAfterSslError(WebView view, SslError error) {
-            handleProceededAfterSslError(error);
-        }
-
-        /**
-         * Displays client certificate request to the user.
-         */
-        @Override
-        public void onReceivedClientCertRequest(final WebView view,
-                final ClientCertRequestHandler handler, final String host_and_port) {
-            if (!mInForeground) {
-                handler.ignore();
-                return;
-            }
-            int colon = host_and_port.lastIndexOf(':');
-            String host;
-            int port;
-            if (colon == -1) {
-                host = host_and_port;
-                port = -1;
-            } else {
-                String portString = host_and_port.substring(colon + 1);
-                try {
-                    port = Integer.parseInt(portString);
-                    host = host_and_port.substring(0, colon);
-                } catch  (NumberFormatException e) {
-                    host = host_and_port;
-                    port = -1;
-                }
-            }
-            KeyChain.choosePrivateKeyAlias(
-                    mWebViewController.getActivity(), new KeyChainAliasCallback() {
-                @Override public void alias(String alias) {
-                    if (alias == null) {
-                        handler.cancel();
-                        return;
-                    }
-                    new KeyChainLookup(mContext, handler, alias).execute();
-                }
-            }, null, null, host, port, null);
-        }
-
-        /**
+       /**
          * Handles an HTTP authentication request.
          *
          * @param handler The authentication handler
@@ -1007,39 +955,6 @@ class Tab implements PictureListener {
             mWebViewController.getVisitedHistory(callback);
         }
 
-        @Override
-        public void setupAutoFill(Message message) {
-            // Prompt the user to set up their profile.
-            final Message msg = message;
-            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-            LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(
-                    Context.LAYOUT_INFLATER_SERVICE);
-            final View layout = inflater.inflate(R.layout.setup_autofill_dialog, null);
-
-            builder.setView(layout)
-                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        CheckBox disableAutoFill = (CheckBox) layout.findViewById(
-                                R.id.setup_autofill_dialog_disable_autofill);
-
-                        if (disableAutoFill.isChecked()) {
-                            // Disable autofill and show a toast with how to turn it on again.
-                            mSettings.setAutofillEnabled(false);
-                            Toast.makeText(mContext,
-                                    R.string.autofill_setup_dialog_negative_toast,
-                                    Toast.LENGTH_LONG).show();
-                        } else {
-                            // Take user to the AutoFill profile editor. When they return,
-                            // we will send the message that we pass here which will trigger
-                            // the form to get filled out with their new profile.
-                            mWebViewController.setupAutoFill(msg);
-                        }
-                    }
-                })
-                .setNegativeButton(R.string.cancel, null)
-                .show();
-        }
     };
 
     // -------------------------------------------------------------------------
@@ -1048,12 +963,12 @@ class Tab implements PictureListener {
 
     // Subclass of WebViewClient used in subwindows to notify the main
     // WebViewClient of certain WebView activities.
-    private static class SubWindowClient extends WebViewClientClassicExt {
+    private static class SubWindowClient extends WebViewClient {
         // The main WebViewClient.
-        private final WebViewClientClassicExt mClient;
+        private final WebViewClient mClient;
         private final WebViewController mController;
 
-        SubWindowClient(WebViewClientClassicExt client, WebViewController controller) {
+        SubWindowClient(WebViewClient client, WebViewController controller) {
             mClient = client;
             mController = controller;
         }
@@ -1077,11 +992,6 @@ class Tab implements PictureListener {
         public void onReceivedSslError(WebView view, SslErrorHandler handler,
                 SslError error) {
             mClient.onReceivedSslError(view, handler, error);
-        }
-        @Override
-        public void onReceivedClientCertRequest(WebView view,
-                ClientCertRequestHandler handler, String host_and_port) {
-            mClient.onReceivedClientCertRequest(view, handler, host_and_port);
         }
         @Override
         public void onReceivedHttpAuthRequest(WebView view,
@@ -1293,9 +1203,6 @@ class Tab implements PictureListener {
             // does a redirect after a period of time. The user could have
             // switched to another tab while waiting for the download to start.
             mMainView.setDownloadListener(mDownloadListener);
-            if (BrowserWebView.isClassic()) {
-                getWebViewClassic().setWebBackForwardListClient(mWebBackForwardListClient);
-            }
             TabControl tc = mWebViewController.getTabControl();
             if (tc != null && tc.getOnThumbnailUpdatedListener() != null) {
                 mMainView.setPictureListener(this);
@@ -1529,18 +1436,6 @@ class Tab implements PictureListener {
      */
     WebView getWebView() {
         return mMainView;
-    }
-
-    /**
-     * Return the underlying WebViewClassic implementation. As with getWebView,
-     * this maybe null for background tabs.
-     * @return The main WebView of this tab.
-     */
-    WebViewClassic getWebViewClassic() {
-        if (!BrowserWebView.isClassic()) {
-            return null;
-        }
-        return WebViewClassic.fromWebView(mMainView);
     }
 
     void setViewContainer(View container) {
@@ -1824,63 +1719,14 @@ class Tab implements PictureListener {
      * Must be called on the UI thread
      */
     public ContentValues createSnapshotValues() {
-        WebViewClassic web = getWebViewClassic();
-        if (web == null) return null;
-        ContentValues values = new ContentValues();
-        values.put(Snapshots.TITLE, mCurrentState.mTitle);
-        values.put(Snapshots.URL, mCurrentState.mUrl);
-        values.put(Snapshots.BACKGROUND, web.getPageBackgroundColor());
-        values.put(Snapshots.DATE_CREATED, System.currentTimeMillis());
-        values.put(Snapshots.FAVICON, compressBitmap(getFavicon()));
-        Bitmap screenshot = Controller.createScreenshot(mMainView,
-                Controller.getDesiredThumbnailWidth(mContext),
-                Controller.getDesiredThumbnailHeight(mContext));
-        values.put(Snapshots.THUMBNAIL, compressBitmap(screenshot));
-        return values;
+        return null;
     }
 
     /**
      * Probably want to call this on a background thread
      */
     public boolean saveViewState(ContentValues values) {
-        WebViewClassic web = getWebViewClassic();
-        if (web == null) return false;
-        String path = UUID.randomUUID().toString();
-        SaveCallback callback = new SaveCallback();
-        OutputStream outs = null;
-        try {
-            outs = mContext.openFileOutput(path, Context.MODE_PRIVATE);
-            GZIPOutputStream stream = new GZIPOutputStream(outs);
-            synchronized (callback) {
-                web.saveViewState(stream, callback);
-                callback.wait();
-            }
-            stream.flush();
-            stream.close();
-        } catch (Exception e) {
-            Log.w(LOGTAG, "Failed to save view state", e);
-            if (outs != null) {
-                try {
-                    outs.close();
-                } catch (IOException ignore) {}
-            }
-            File file = mContext.getFileStreamPath(path);
-            if (file.exists() && !file.delete()) {
-                file.deleteOnExit();
-            }
-            return false;
-        }
-        File savedFile = mContext.getFileStreamPath(path);
-        if (!callback.mResult) {
-            if (!savedFile.delete()) {
-                savedFile.deleteOnExit();
-            }
-            return false;
-        }
-        long size = savedFile.length();
-        values.put(Snapshots.VIEWSTATE_PATH, path);
-        values.put(Snapshots.VIEWSTATE_SIZE, size);
-        return true;
+        return false;
     }
 
     public byte[] compressBitmap(Bitmap bitmap) {

@@ -32,7 +32,6 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.WebView;
-import android.webkit.WebViewClassic;
 
 import java.util.List;
 
@@ -117,9 +116,6 @@ public class XLargeUi extends BaseUi {
 
     void stopWebViewScrolling() {
         BrowserWebView web = (BrowserWebView) mUiController.getCurrentWebView();
-        if (web != null && BrowserWebView.isClassic()) {
-            WebViewClassic.fromWebView(web).stopScroll();
-        }
     }
 
     @Override

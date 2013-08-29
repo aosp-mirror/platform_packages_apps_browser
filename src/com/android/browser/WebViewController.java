@@ -111,8 +111,6 @@ public interface WebViewController {
 
     void closeTab(Tab tab);
 
-    void setupAutoFill(Message message);
-
     void bookmarkedStatusHasChanged(Tab tab);
 
     void showAutoLogin(Tab tab);
