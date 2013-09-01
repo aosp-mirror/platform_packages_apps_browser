@@ -357,18 +357,17 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
 
     public LayoutAlgorithm getLayoutAlgorithm() {
         LayoutAlgorithm layoutAlgorithm = LayoutAlgorithm.NORMAL;
+        final LayoutAlgorithm autosize = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT ?
+                LayoutAlgorithm.TEXT_AUTOSIZING : LayoutAlgorithm.NARROW_COLUMNS;
+
         if (autofitPages()) {
-            layoutAlgorithm = LayoutAlgorithm.NARROW_COLUMNS;
+            layoutAlgorithm = autosize;
         }
         if (isDebugEnabled()) {
-            if (isSmallScreen()) {
-                layoutAlgorithm = LayoutAlgorithm.SINGLE_COLUMN;
+            if (isNormalLayout()) {
+                layoutAlgorithm = LayoutAlgorithm.NORMAL;
             } else {
-                if (isNormalLayout()) {
-                    layoutAlgorithm = LayoutAlgorithm.NORMAL;
-                } else {
-                    layoutAlgorithm = LayoutAlgorithm.NARROW_COLUMNS;
-                }
+                layoutAlgorithm = autosize;
             }
         }
         return layoutAlgorithm;
@@ -722,13 +721,6 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
             return false;
         }
         return mPrefs.getBoolean(PREF_JAVASCRIPT_CONSOLE, true);
-    }
-
-    public boolean isSmallScreen() {
-        if (!isDebugEnabled()) {
-            return false;
-        }
-        return mPrefs.getBoolean(PREF_SMALL_SCREEN, false);
     }
 
     public boolean isWideViewport() {
