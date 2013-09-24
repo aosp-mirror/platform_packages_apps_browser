@@ -176,7 +176,8 @@ public class NavScreen extends RelativeLayout
 
                 @Override
                 public void onLayout(int l, int t, int r, int b) {
-                    mUi.hideNavScreen(tix, true);
+                    final int pos = mUi.mTabControl.getTabPosition(tab);
+                    mUi.hideNavScreen(pos, true);
                     switchToTab(tab);
                 }
             });
