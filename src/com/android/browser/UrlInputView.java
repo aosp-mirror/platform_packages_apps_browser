@@ -50,22 +50,22 @@ import java.util.List;
  * handling suggestions
  */
 public class UrlInputView extends AutoCompleteTextView
-        implements OnEditorActionListener,
-        CompletionListener, OnItemClickListener, TextWatcher {
-
+implements OnEditorActionListener,
+CompletionListener, OnItemClickListener, TextWatcher {
+    
     static final String TYPED = "browser-type";
     static final String SUGGESTED = "browser-suggest";
-
+    
     static final int POST_DELAY = 100;
-
+    
     static interface StateListener {
         static final int STATE_NORMAL = 0;
         static final int STATE_HIGHLIGHTED = 1;
         static final int STATE_EDITED = 2;
-
+        
         public void onStateChanged(int state);
     }
-
+    
     private UrlInputListener   mListener;
     private InputMethodManager mInputManager;
     private SuggestionsAdapter mAdapter;
@@ -73,32 +73,23 @@ public class UrlInputView extends AutoCompleteTextView
     private boolean mLandscape;
     private boolean mIncognitoMode;
     private boolean mNeedsUpdate;
-
+    
     private int mState;
     private StateListener mStateListener;
-    private Rect mPopupPadding;
-
+    
     public UrlInputView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        TypedArray a = context.obtainStyledAttributes(
-                attrs, com.android.internal.R.styleable.PopupWindow,
-                R.attr.autoCompleteTextViewStyle, 0);
-
-        Drawable popupbg = a.getDrawable(R.styleable.PopupWindow_popupBackground);
-        a.recycle();
-        mPopupPadding = new Rect();
-        popupbg.getPadding(mPopupPadding);
         init(context);
     }
-
+    
     public UrlInputView(Context context, AttributeSet attrs) {
         this(context, attrs, R.attr.autoCompleteTextViewStyle);
     }
-
+    
     public UrlInputView(Context context) {
         this(context, null);
     }
-
+    
     private void init(Context ctx) {
         mInputManager = (InputMethodManager) ctx.getSystemService(Context.INPUT_METHOD_SERVICE);
         setOnEditorActionListener(this);
@@ -110,10 +101,10 @@ public class UrlInputView extends AutoCompleteTextView
         setOnItemClickListener(this);
         mNeedsUpdate = false;
         addTextChangedListener(this);
-
+        setDropDownAnchor(com.android.browser.R.id.taburlbar);
         mState = StateListener.STATE_NORMAL;
     }
-
+    
     protected void onFocusChanged(boolean focused, int direction, Rect prevRect) {
         super.onFocusChanged(focused, direction, prevRect);
         int state = -1;
@@ -134,13 +125,13 @@ public class UrlInputView extends AutoCompleteTextView
             }
         });
     }
-
+    
     @Override
     public boolean onTouchEvent(MotionEvent evt) {
         boolean hasSelection = hasSelection();
         boolean res = super.onTouchEvent(evt);
         if ((MotionEvent.ACTION_DOWN == evt.getActionMasked())
-              && hasSelection) {
+            && hasSelection) {
             postDelayed(new Runnable() {
                 public void run() {
                     changeState(StateListener.STATE_EDITED);
@@ -148,108 +139,89 @@ public class UrlInputView extends AutoCompleteTextView
         }
         return res;
     }
-
+    
     /**
      * check if focus change requires a title bar update
      */
     boolean needsUpdate() {
         return mNeedsUpdate;
     }
-
+    
     /**
      * clear the focus change needs title bar update flag
      */
     void clearNeedsUpdate() {
         mNeedsUpdate = false;
     }
-
+    
     void setController(UiController controller) {
         UrlSelectionActionMode urlSelectionMode
-                = new UrlSelectionActionMode(controller);
+        = new UrlSelectionActionMode(controller);
         setCustomSelectionActionModeCallback(urlSelectionMode);
     }
-
+    
     void setContainer(View container) {
         mContainer = container;
     }
-
+    
     public void setUrlInputListener(UrlInputListener listener) {
         mListener = listener;
     }
-
+    
     public void setStateListener(StateListener listener) {
         mStateListener = listener;
         // update listener
         changeState(mState);
     }
-
+    
     private void changeState(int newState) {
         mState = newState;
         if (mStateListener != null) {
             mStateListener.onStateChanged(mState);
         }
     }
-
+    
     int getState() {
         return mState;
     }
-
+    
     @Override
     protected void onConfigurationChanged(Configuration config) {
         super.onConfigurationChanged(config);
         mLandscape = (config.orientation &
-                Configuration.ORIENTATION_LANDSCAPE) != 0;
+                      Configuration.ORIENTATION_LANDSCAPE) != 0;
         mAdapter.setLandscapeMode(mLandscape);
         if (isPopupShowing() && (getVisibility() == View.VISIBLE)) {
-            setupDropDown();
+            showDropDown();
             performFiltering(getText(), 0);
         }
     }
-
-    @Override
-    public void showDropDown() {
-        setupDropDown();
-        super.showDropDown();
-    }
-
+    
     @Override
     public void dismissDropDown() {
         super.dismissDropDown();
         mAdapter.clearCache();
     }
-
-    private void setupDropDown() {
-        int width = mContainer != null ? mContainer.getWidth() : getWidth();
-        width += mPopupPadding.left + mPopupPadding.right;
-        if (width != getDropDownWidth()) {
-            setDropDownWidth(width);
-        }
-        int left = getLeft();
-        left += mPopupPadding.left;
-        if (left != -getDropDownHorizontalOffset()) {
-            setDropDownHorizontalOffset(-left);
-        }
-    }
-
+    
     @Override
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
         finishInput(getText().toString(), null, TYPED);
         return true;
     }
-
+    
     void forceFilter() {
         showDropDown();
     }
-
+    
     void hideIME() {
         mInputManager.hideSoftInputFromWindow(getWindowToken(), 0);
     }
-
+    
     void showIME() {
         mInputManager.focusIn(this);
         mInputManager.showSoftInput(this, 0);
     }
-
+    
     private void finishInput(String url, String extra, String source) {
         mNeedsUpdate = true;
         dismissDropDown();
@@ -261,10 +233,10 @@ public class UrlInputView extends AutoCompleteTextView
                 // To prevent logging, intercept this request
                 // TODO: This is a quick hack, refactor this
                 SearchEngine searchEngine = BrowserSettings.getInstance()
-                        .getSearchEngine();
+                .getSearchEngine();
                 if (searchEngine == null) return;
                 SearchEngineInfo engineInfo = SearchEngines
-                        .getSearchEngineInfo(mContext, searchEngine.getName());
+                .getSearchEngineInfo(mContext, searchEngine.getName());
                 if (engineInfo == null) return;
                 url = engineInfo.getSearchUriForQuery(url);
                 // mLister.onAction can take it from here without logging
@@ -272,52 +244,52 @@ public class UrlInputView extends AutoCompleteTextView
             mListener.onAction(url, extra, source);
         }
     }
-
+    
     boolean isSearch(String inUrl) {
         String url = UrlUtils.fixUrl(inUrl).trim();
         if (TextUtils.isEmpty(url)) return false;
-
+        
         if (Patterns.WEB_URL.matcher(url).matches()
-                || UrlUtils.ACCEPTED_URI_SCHEMA.matcher(url).matches()) {
+            || UrlUtils.ACCEPTED_URI_SCHEMA.matcher(url).matches()) {
             return false;
         }
         return true;
     }
-
+    
     // Completion Listener
-
+    
     @Override
     public void onSearch(String search) {
         mListener.onCopySuggestion(search);
     }
-
+    
     @Override
     public void onSelect(String url, int type, String extra) {
         finishInput(url, extra, SUGGESTED);
     }
-
+    
     @Override
     public void onItemClick(
-            AdapterView<?> parent, View view, int position, long id) {
+                            AdapterView<?> parent, View view, int position, long id) {
         SuggestItem item = mAdapter.getItem(position);
         onSelect(SuggestionsAdapter.getSuggestionUrl(item), item.type, item.extra);
     }
-
+    
     interface UrlInputListener {
-
+        
         public void onDismiss();
-
+        
         public void onAction(String text, String extra, String source);
-
+        
         public void onCopySuggestion(String text);
-
+        
     }
-
+    
     public void setIncognitoMode(boolean incognito) {
         mIncognitoMode = incognito;
         mAdapter.setIncognitoMode(mIncognitoMode);
     }
-
+    
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent evt) {
         if (keyCode == KeyEvent.KEYCODE_ESCAPE && !isInTouchMode()) {
@@ -326,11 +298,11 @@ public class UrlInputView extends AutoCompleteTextView
         }
         return super.onKeyDown(keyCode, evt);
     }
-
+    
     public SuggestionsAdapter getAdapter() {
         return mAdapter;
     }
-
+    
     /*
      * no-op to prevent scrolling of webview when embedded titlebar
      * gets edited
@@ -339,18 +311,18 @@ public class UrlInputView extends AutoCompleteTextView
     public boolean requestRectangleOnScreen(Rect rect, boolean immediate) {
         return false;
     }
-
+    
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-
+    
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
         if (StateListener.STATE_HIGHLIGHTED == mState) {
             changeState(StateListener.STATE_EDITED);
         }
     }
-
+    
     @Override
     public void afterTextChanged(Editable s) { }
-
+    
 }
