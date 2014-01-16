@@ -109,7 +109,7 @@ public class IntentHandler {
 
             // If url is to view private data files, don't allow.
             Uri uri = intent.getData();
-            if (uri != null && uri.getScheme().startsWith("file") &&
+            if (uri != null && uri.getScheme().toLowerCase().startsWith("file") &&
                 uri.getPath().startsWith(mActivity.getDatabasePath("foo").getParent())) {
                 return;
             }
