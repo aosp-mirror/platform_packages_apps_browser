@@ -631,7 +631,7 @@ class Tab implements PictureListener {
                 File file = new File(uri.getPath());
                 try {
                     if (file.getCanonicalPath().startsWith(
-                            mContext.getDatabasePath("foo").getParent())) {
+                            mContext.getApplicationContext().getApplicationInfo().dataDir)) {
                         return new WebResourceResponse("text/html","UTF-8",
                                 new ByteArrayInputStream(RESTRICTED.getBytes("UTF-8")));
                     }
