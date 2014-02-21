@@ -658,6 +658,8 @@ public class BrowserHistoryPage extends Fragment
             if (data != null) {
                 item.setFavicon(BitmapFactory.decodeByteArray(data, 0,
                         data.length));
+            } else {
+                item.setFavicon(null);
             }
             item.setIsBookmark(cursor.getInt(HistoryQuery.INDEX_IS_BOOKMARK) == 1);
             return item;
