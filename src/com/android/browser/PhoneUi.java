@@ -25,6 +25,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
+import android.os.Build;
 import android.os.Message;
 import android.util.Log;
 import android.util.TypedValue;
@@ -189,7 +190,8 @@ public class PhoneUi extends BaseUi {
         }
         MenuItem incognito = menu.findItem(R.id.incognito_menu_id);
         if (incognito != null) {
-            incognito.setVisible(showingNavScreen() || mUseQuickControls);
+            incognito.setVisible(!(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+                    && (showingNavScreen() || mUseQuickControls));
         }
         MenuItem closeOthers = menu.findItem(R.id.close_other_tabs_id);
         if (closeOthers != null) {
