@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fca73d88_aaf4ab9f",
+        "filename": "src/com/android/browser/UrlInputView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1042407
+      },
+      "writtenOn": "2014-03-06T01:31:27Z",
+      "side": 0,
+      "message": "I think the bug is caused by this part of the code.\nSo the width of the popup should be mPopupPadding.left + mPopupPadding.right + popup\u0027s own width\nBut the problem is that we don\u0027t make sure the width exceeds the width of browser viewport.",
+      "range": {
+        "startLine": 222,
+        "startChar": 7,
+        "endLine": 226,
+        "endChar": 9
+      },
+      "revId": "c34de1799596e1659c5edea61f89e807c8119705",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}

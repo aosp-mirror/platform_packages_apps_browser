@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fca73d88_6abb13ef",
+        "filename": "src/com/android/browser/UrlInputView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1042407
+      },
+      "writtenOn": "2014-03-06T01:31:27Z",
+      "side": 1,
+      "message": "Will the popup go down and back up again instead of just changing its size?",
+      "range": {
+        "startLine": 195,
+        "startChar": 12,
+        "endLine": 196,
+        "endChar": 27
+      },
+      "revId": "36b87b1acb4212147a9d5a2b159a174413050863",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
