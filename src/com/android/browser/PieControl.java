@@ -19,6 +19,7 @@ package com.android.browser;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -182,8 +183,13 @@ public class PieControl implements PieMenu.PieController, OnClickListener {
         mUrl.addItem(makeFiller());
         mUrl.addItem(makeFiller());
         mPie.addItem(mShowTabs);
-        mShowTabs.addItem(mClose);
-        mShowTabs.addItem(mIncognito);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            mShowTabs.addItem(makeFiller());
+            mShowTabs.addItem(mClose);
+        } else {
+            mShowTabs.addItem(mClose);
+            mShowTabs.addItem(mIncognito);
+        }
         mShowTabs.addItem(mNewTab);
         mShowTabs.addItem(makeFiller());
         mPie.addItem(mBookmarks);
