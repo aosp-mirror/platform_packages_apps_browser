@@ -22,6 +22,24 @@
       "revId": "36b87b1acb4212147a9d5a2b159a174413050863",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9c348108_7bff3fd1",
+        "filename": "src/com/android/browser/UrlInputView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1031585
+      },
+      "writtenOn": "2014-03-07T00:41:27Z",
+      "side": 1,
+      "message": "This is intended to circumvent the problem previously mentioned.",
+      "parentUuid": "fca73d88_6abb13ef",
+      "revId": "36b87b1acb4212147a9d5a2b159a174413050863",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

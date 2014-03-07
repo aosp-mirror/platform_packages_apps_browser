@@ -22,6 +22,24 @@
       "revId": "c34de1799596e1659c5edea61f89e807c8119705",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dca43989_600a4bb8",
+        "filename": "src/com/android/browser/UrlInputView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1031585
+      },
+      "writtenOn": "2014-03-07T00:41:27Z",
+      "side": 0,
+      "message": "The value of the width calculated here is always correct. The problem is setDropDownWidth()\u0027s behaviour. Though a correct value is passed it doesn\u0027t resize the width of the popup.",
+      "parentUuid": "fca73d88_aaf4ab9f",
+      "revId": "c34de1799596e1659c5edea61f89e807c8119705",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
