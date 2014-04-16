@@ -47,6 +47,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewStub;
 import android.webkit.BrowserDownloadListener;
+import android.webkit.ClientCertRequest;
 import android.webkit.ConsoleMessage;
 import android.webkit.GeolocationPermissions;
 import android.webkit.HttpAuthHandler;
@@ -75,6 +76,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.ByteBuffer;
+import java.security.Principal;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.UUID;
@@ -560,6 +562,29 @@ class Tab implements PictureListener {
             }
         }
 
+        /**
+         * Displays client certificate request to the user.
+         */
+        @Override
+        public void onReceivedClientCertRequest(final WebView view,
+                final ClientCertRequest request) {
+            if (!mInForeground) {
+                request.ignore();
+                return;
+            }
+            KeyChain.choosePrivateKeyAlias(
+                    mWebViewController.getActivity(), new KeyChainAliasCallback() {
+                @Override public void alias(String alias) {
+                    if (alias == null) {
+                        request.cancel();
+                        return;
+                    }
+                    new KeyChainLookup(mContext, request, alias).execute();
+                }
+            }, request.getKeyTypes(), request.getPrincipals(), request.getHost(),
+                request.getPort(), null);
+        }
+
        /**
          * Handles an HTTP authentication request.
          *
@@ -1013,6 +1038,10 @@ class Tab implements PictureListener {
         public void onReceivedSslError(WebView view, SslErrorHandler handler,
                 SslError error) {
             mClient.onReceivedSslError(view, handler, error);
+        }
+        @Override
+        public void onReceivedClientCertRequest(WebView view, ClientCertRequest request) {
+            mClient.onReceivedClientCertRequest(view, request);
         }
         @Override
         public void onReceivedHttpAuthRequest(WebView view,
