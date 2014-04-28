@@ -42,6 +42,7 @@ import android.net.Uri;
 import android.net.http.SslError;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
@@ -1499,6 +1500,10 @@ public class Controller
 
         final MenuItem forward = menu.findItem(R.id.forward_menu_id);
         forward.setEnabled(canGoForward);
+
+        MenuItem incognito = menu.findItem(R.id.incognito_menu_id);
+        incognito.setEnabled(!(mActivity.getApplicationInfo().targetSdkVersion
+                 >= Build.VERSION_CODES.KITKAT));
 
         final MenuItem source = menu.findItem(isInLoad() ? R.id.stop_menu_id
                 : R.id.reload_menu_id);
