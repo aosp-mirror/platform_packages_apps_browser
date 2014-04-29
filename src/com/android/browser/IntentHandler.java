@@ -107,6 +107,13 @@ public class IntentHandler {
                 urlData = new UrlData(mSettings.getHomePage());
             }
 
+            // If url is to view private data files, don't allow.
+            Uri uri = intent.getData();
+            if (uri != null && uri.getScheme().toLowerCase().startsWith("file") &&
+                uri.getPath().startsWith(mActivity.getDatabasePath("foo").getParent())) {
+                return;
+            }
+
             if (intent.getBooleanExtra(Browser.EXTRA_CREATE_NEW_TAB, false)
                   || urlData.isPreloaded()) {
                 Tab t = mController.openTab(urlData);
