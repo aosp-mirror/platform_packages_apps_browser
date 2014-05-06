@@ -62,6 +62,30 @@
       "revId": "eb2e41743d8d0e0a14b99f0ff1119f978ed7ef30",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6a346007_54520525",
+        "filename": "src/com/android/browser/Controller.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1505,
+      "author": {
+        "id": 1010103
+      },
+      "writtenOn": "2014-05-06T17:14:19Z",
+      "side": 1,
+      "message": "Build.VERSION.SDK_INT is correct, targetSdkVersion is not.",
+      "parentUuid": "eaaa1052_ce17b760",
+      "range": {
+        "startLine": 1505,
+        "startChar": 0,
+        "endLine": 1505,
+        "endChar": 85
+      },
+      "revId": "eb2e41743d8d0e0a14b99f0ff1119f978ed7ef30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
