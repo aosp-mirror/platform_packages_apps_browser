@@ -86,6 +86,30 @@
       "revId": "eb2e41743d8d0e0a14b99f0ff1119f978ed7ef30",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6a346007_5477a5b0",
+        "filename": "src/com/android/browser/Controller.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1505,
+      "author": {
+        "id": 1010103
+      },
+      "writtenOn": "2014-05-06T17:16:06Z",
+      "side": 1,
+      "message": "But given that Browser isn\u0027t unbundled this should really just be deleted entirely. Incognito will never be enabled.",
+      "parentUuid": "6a346007_54520525",
+      "range": {
+        "startLine": 1505,
+        "startChar": 0,
+        "endLine": 1505,
+        "endChar": 85
+      },
+      "revId": "eb2e41743d8d0e0a14b99f0ff1119f978ed7ef30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
