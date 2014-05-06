@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eaaa1052_ce17b760",
+        "filename": "src/com/android/browser/Controller.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1505,
+      "author": {
+        "id": 1010670
+      },
+      "writtenOn": "2014-05-06T05:17:23Z",
+      "side": 1,
+      "message": "this seems wrong. Use mActivity.getApplicationInfo().targetSdkVersion instead of Build.VERSION.SDK_INT",
+      "range": {
+        "startLine": 1505,
+        "startChar": 0,
+        "endLine": 1505,
+        "endChar": 85
+      },
+      "revId": "eb2e41743d8d0e0a14b99f0ff1119f978ed7ef30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
