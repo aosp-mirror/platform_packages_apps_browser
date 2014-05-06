@@ -2,6 +2,46 @@
   "comments": [
     {
       "key": {
+        "uuid": "eaaa1052_8e21bfbe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1010670
+      },
+      "writtenOn": "2014-05-06T05:24:53Z",
+      "side": 1,
+      "message": "change the title to \"Fix Incognito mode crash in AOSP browser\"",
+      "range": {
+        "startLine": 7,
+        "startChar": 4,
+        "endLine": 7,
+        "endChar": 13
+      },
+      "revId": "eb2e41743d8d0e0a14b99f0ff1119f978ed7ef30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2ab988aa_0dc635de",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1010670
+      },
+      "writtenOn": "2014-05-06T05:24:53Z",
+      "side": 1,
+      "message": "capitalize.",
+      "revId": "eb2e41743d8d0e0a14b99f0ff1119f978ed7ef30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eaaa1052_ce17b760",
         "filename": "src/com/android/browser/Controller.java",
         "patchSetId": 1
