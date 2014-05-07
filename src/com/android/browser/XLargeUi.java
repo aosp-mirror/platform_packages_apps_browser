@@ -24,6 +24,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.PaintDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -123,6 +124,10 @@ public class XLargeUi extends BaseUi {
         MenuItem bm = menu.findItem(R.id.bookmarks_menu_id);
         if (bm != null) {
             bm.setVisible(false);
+        }
+        MenuItem incognito = menu.findItem(R.id.incognito_menu_id);
+        if (incognito != null) {
+            incognito.setVisible(Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT);
         }
         return true;
     }
