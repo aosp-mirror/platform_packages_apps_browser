@@ -160,6 +160,11 @@ public class UrlHandler {
       // security (only access to BROWSABLE activities).
       intent.addCategory(Intent.CATEGORY_BROWSABLE);
       intent.setComponent(null);
+      Intent selector = intent.getSelector();
+      if (selector != null) {
+          selector.addCategory(Intent.CATEGORY_BROWSABLE);
+          selector.setComponent(null);
+      }
       // Re-use the existing tab if the intent comes back to us
       if (tab != null) {
           if (tab.getAppId() == null) {
