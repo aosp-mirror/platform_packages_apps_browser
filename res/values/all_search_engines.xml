@@ -738,7 +738,7 @@ http://www.opensearch.org/Specifications/OpenSearch/1.1/Draft_4#OpenSearch_1.1_p
     <item>http://search.naver.com/favicon.ico</item>
     <item>http://search.naver.com/search.naver?ie={inputEncoding}&amp;query={searchTerms}</item>
     <item>UTF-8</item>
-    <item>http://ac.search.naver.com/autocompl?m=s&amp;ie={inputEncoding}&amp;oe=utf-8&amp;q={searchTerms}</item>
+    <item>http://ac.search.naver.com/nx/ac?of=os&amp;ie={inputEncoding}&amp;oe=utf-8&amp;q={searchTerms}</item>
   </string-array>
   <string-array name="bing_en_ZA" translatable="false">
     <item>Bing</item>
