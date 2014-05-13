@@ -35,10 +35,6 @@
             android:showAsAction="never"
             android:alphabeticShortcut="n" />
         <item
-            android:id="@+id/incognito_menu_id"
-            android:title="@string/new_incognito_tab"
-            android:icon="@drawable/ic_new_incognito_holo_dark" />
-        <item
             android:id="@+id/bookmarks_menu_id"
             android:title="@string/bookmarks"
             android:icon="@drawable/ic_bookmarks_holo_dark"
