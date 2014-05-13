@@ -1554,10 +1554,6 @@ public class Controller
                 openTabToHomePage();
                 break;
 
-            case R.id.incognito_menu_id:
-                openIncognitoTab();
-                break;
-
             case R.id.close_other_tabs_id:
                 closeOtherTabs();
                 break;
