@@ -50,7 +50,9 @@ import android.webkit.BrowserDownloadListener;
 import android.webkit.ClientCertRequest;
 import android.webkit.ConsoleMessage;
 import android.webkit.GeolocationPermissions;
+import android.webkit.GeolocationPermissions.Callback;
 import android.webkit.HttpAuthHandler;
+import android.webkit.PermissionRequest;
 import android.webkit.SslErrorHandler;
 import android.webkit.URLUtil;
 import android.webkit.ValueCallback;
@@ -135,6 +137,8 @@ class Tab implements PictureListener {
 
     // The Geolocation permissions prompt
     private GeolocationPermissionsPrompt mGeolocationPermissionsPrompt;
+    // The permissions prompt
+    private PermissionsPrompt mPermissionsPrompt;
     // Main WebView wrapper
     private View mContainer;
     // Main WebView
@@ -912,6 +916,19 @@ class Tab implements PictureListener {
             }
         }
 
+        @Override
+        public void onPermissionRequest(PermissionRequest request) {
+            if (!mInForeground) return;
+            getPermissionsPrompt().show(request);
+        }
+
+        @Override
+        public void onPermissionRequestCanceled(PermissionRequest request) {
+            if (mInForeground && mPermissionsPrompt != null) {
+                mPermissionsPrompt.hide();
+            }
+        }
+
         /* Adds a JavaScript error message to the system log and if the JS
          * console is enabled in the about:debug options, to that console
          * also.
@@ -1232,6 +1249,10 @@ class Tab implements PictureListener {
             mGeolocationPermissionsPrompt.hide();
         }
 
+        if (mPermissionsPrompt != null) {
+            mPermissionsPrompt.hide();
+        }
+
         mWebViewController.onSetWebView(this, w);
 
         if (mMainView != null) {
@@ -1536,6 +1557,18 @@ class Tab implements PictureListener {
                     .inflate();
         }
         return mGeolocationPermissionsPrompt;
+    }
+
+    /**
+     * @return The permissions prompt for this tab.
+     */
+    PermissionsPrompt getPermissionsPrompt() {
+        if (mPermissionsPrompt == null) {
+            ViewStub stub = (ViewStub) mContainer
+                    .findViewById(R.id.permissions_prompt);
+            mPermissionsPrompt = (PermissionsPrompt) stub.inflate();
+        }
+        return mPermissionsPrompt;
     }
 
     /**

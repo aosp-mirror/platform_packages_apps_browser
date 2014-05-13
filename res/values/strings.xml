@@ -854,6 +854,13 @@
 
     <!-- Geolocation -->
     <!-- Permissions prompt -->
+    <string name="permissions_prompt_message"><xliff:g id="website origin" example="maps.google.com">%s</xliff:g> wants to use your <xliff:g id="resources" example="camera, microphone">%s</xliff:g>.</string>
+    <string name="permissions_prompt_allow">Allow</string>
+    <string name="permissions_prompt_deny">Deny</string>
+    <string name="permissions_prompt_remember">Remember preference</string>
+    <string name="resource_geolocation">location</string>
+    <string name="resource_video_capture">camera</string>
+    <string name="resource_audio_capture">microphone</string>
     <string name="geolocation_permissions_prompt_message"><xliff:g id="website origin" example="maps.google.com">%s</xliff:g> wants to know your location</string>
     <string name="geolocation_permissions_prompt_share">Share location</string>
     <string name="geolocation_permissions_prompt_dont_share">Decline</string>
