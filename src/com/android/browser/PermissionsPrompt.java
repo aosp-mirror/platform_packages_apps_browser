@@ -58,9 +58,6 @@ public class PermissionsPrompt extends RelativeLayout {
         mAllowButton = (Button) findViewById(R.id.allow_button);
         mDenyButton = (Button) findViewById(R.id.deny_button);
         mRemember = (CheckBox) findViewById(R.id.remember);
-        // TODO: Retain permission.
-        // Hide the Remember checkBox as this feature is missing.
-        mRemember.setVisibility(View.INVISIBLE);
 
         mAllowButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,9 +85,9 @@ public class PermissionsPrompt extends RelativeLayout {
         Vector<String> strings = new Vector<String>();
         if ((resources & PermissionRequest.RESOURCE_GEOLOCATION) != 0)
             strings.add(getResources().getString(R.string.resource_geolocation));
-        else if ((resources & PermissionRequest.RESOURCE_VIDEO_CAPTURE) != 0)
+        if ((resources & PermissionRequest.RESOURCE_VIDEO_CAPTURE) != 0)
             strings.add(getResources().getString(R.string.resource_video_capture));
-        else if ((resources & PermissionRequest.RESOURCE_AUDIO_CAPTURE) != 0)
+        if ((resources & PermissionRequest.RESOURCE_AUDIO_CAPTURE) != 0)
             strings.add(getResources().getString(R.string.resource_audio_capture));
         if (strings.isEmpty()) return;
 
