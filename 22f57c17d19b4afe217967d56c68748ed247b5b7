@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0a1cc41d_f6fda04e",
+        "filename": "src/com/android/browser/BrowserPreferencesPage.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1010082
+      },
+      "writtenOn": "2014-05-14T11:01:19Z",
+      "side": 1,
+      "message": "shouldn\u0027t we actually be checking fragmentName here?",
+      "range": {
+        "startLine": 103,
+        "startChar": 15,
+        "endLine": 103,
+        "endChar": 19
+      },
+      "revId": "22f57c17d19b4afe217967d56c68748ed247b5b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
