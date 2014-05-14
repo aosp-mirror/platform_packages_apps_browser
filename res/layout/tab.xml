@@ -31,6 +31,12 @@
         android:layout_height="0dip"
         android:layout_weight="1" />
 
+    <!-- Permissions prompt -->
+    <ViewStub android:id="@+id/permissions_prompt"
+        android:layout="@layout/permissions_prompt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <!-- Geolocation permissions prompt -->
     <ViewStub android:id="@+id/geolocation_permissions_prompt"
         android:layout="@layout/geolocation_permissions_prompt"
