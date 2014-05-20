@@ -334,6 +334,20 @@
     <string name="webstorage_clear_data_dialog_cancel_button" msgid="2028867751958942762">"Prekliči"</string>
     <string name="webstorage_origin_summary_mb_stored" msgid="1985885826292236210">"MB shranjeno v telefonu"</string>
     <string name="loading_video" msgid="7886324933131962321">"Nalaganje videoposnetka ..."</string>
+    <!-- no translation found for permissions_prompt_message (4061614352929148904) -->
+    <skip />
+    <!-- no translation found for permissions_prompt_allow (7826482218781108525) -->
+    <skip />
+    <!-- no translation found for permissions_prompt_deny (1036811343275340593) -->
+    <skip />
+    <!-- no translation found for permissions_prompt_remember (126175387645941449) -->
+    <skip />
+    <!-- no translation found for resource_geolocation (5385961664128182967) -->
+    <skip />
+    <!-- no translation found for resource_video_capture (5290734653269134167) -->
+    <skip />
+    <!-- no translation found for resource_audio_capture (7598142903570606603) -->
+    <skip />
     <string name="geolocation_permissions_prompt_message" msgid="356796102004052471">"<xliff:g id="WEBSITE_ORIGIN">%s</xliff:g> želi izvedeti vašo lokacijo"</string>
     <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"Skupna raba lokacije"</string>
     <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"Zavrni"</string>
