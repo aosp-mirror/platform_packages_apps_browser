@@ -28,6 +28,7 @@ import android.webkit.HttpAuthHandler;
 import android.webkit.SslErrorHandler;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
+import android.webkit.WebChromeClient.FileChooserParams;
 import android.webkit.WebView;
 
 import java.util.List;
@@ -93,7 +94,7 @@ public interface WebViewController {
 
     void onUpdatedSecurityState(Tab tab);
 
-    void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType, String capture);
+    void showFileChooser(ValueCallback<Uri[]> callback, FileChooserParams params);
 
     void endActionMode();
 

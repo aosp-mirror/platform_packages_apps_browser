@@ -57,6 +57,7 @@ import android.webkit.URLUtil;
 import android.webkit.ValueCallback;
 import android.webkit.WebBackForwardList;
 import android.webkit.WebChromeClient;
+import android.webkit.WebChromeClient.FileChooserParams;
 import android.webkit.WebHistoryItem;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebStorage;
@@ -1000,11 +1001,13 @@ class Tab implements PictureListener {
         }
 
         @Override
-        public void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType, String capture) {
+        public boolean showFileChooser(WebView webView, ValueCallback<Uri[]> callback,
+            FileChooserParams params) {
             if (mInForeground) {
-                mWebViewController.openFileChooser(uploadMsg, acceptType, capture);
+                mWebViewController.showFileChooser(callback, params);
+                return true;
             } else {
-                uploadMsg.onReceiveValue(null);
+                return false;
             }
         }
 

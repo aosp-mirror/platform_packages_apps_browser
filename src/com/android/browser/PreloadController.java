@@ -29,6 +29,7 @@ import android.webkit.HttpAuthHandler;
 import android.webkit.SslErrorHandler;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient.CustomViewCallback;
+import android.webkit.WebChromeClient.FileChooserParams;
 import android.webkit.WebView;
 
 public class PreloadController implements WebViewController {
@@ -203,8 +204,8 @@ public class PreloadController implements WebViewController {
     }
 
     @Override
-    public void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType, String capture) {
-        if (LOGD_ENABLED) Log.d(LOGTAG, "openFileChooser()");
+    public void showFileChooser(ValueCallback<Uri[]> callback, FileChooserParams params) {
+        if (LOGD_ENABLED) Log.d(LOGTAG, "showFileChooser()");
     }
 
     @Override
