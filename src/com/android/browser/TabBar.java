@@ -398,7 +398,9 @@ public class TabBar extends LinearLayout implements OnClickListener {
             // TODO: We should change the matrix/shader only when needed
             final Matrix matrix = mSelected ? mActiveMatrix : mInactiveMatrix;
             matrix.setTranslate(-left, 0.0f);
-            (mSelected ? mActiveShader : mInactiveShader).setLocalMatrix(matrix);
+            final Shader shader = mSelected ? mActiveShader : mInactiveShader;
+            shader.setLocalMatrix(matrix);
+            paint.setShader(shader);
             canvas.drawPath(clipPath, paint);
             if (isFocused()) {
                 canvas.drawPath(mFocusPath, mFocusPaint);
