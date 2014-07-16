@@ -81,14 +81,16 @@ public class PermissionsPrompt extends RelativeLayout {
     }
 
     public void setMessage() {
-        long resources = mRequest.getResources();
+        String[] resources = mRequest.getResources();
         Vector<String> strings = new Vector<String>();
-        if ((resources & PermissionRequest.RESOURCE_GEOLOCATION) != 0)
-            strings.add(getResources().getString(R.string.resource_geolocation));
-        if ((resources & PermissionRequest.RESOURCE_VIDEO_CAPTURE) != 0)
-            strings.add(getResources().getString(R.string.resource_video_capture));
-        if ((resources & PermissionRequest.RESOURCE_AUDIO_CAPTURE) != 0)
-            strings.add(getResources().getString(R.string.resource_audio_capture));
+        for (String resource : resources) {
+            if (resource.equals(PermissionRequest.RESOURCE_VIDEO_CAPTURE))
+                strings.add(getResources().getString(R.string.resource_video_capture));
+            else if (resource.equals(PermissionRequest.RESOURCE_AUDIO_CAPTURE))
+                strings.add(getResources().getString(R.string.resource_audio_capture));
+            else if (resource.equals(PermissionRequest.RESOURCE_PROTECTED_MEDIA_ID))
+                strings.add(getResources().getString(R.string.resource_protected_media_id));
+        }
         if (strings.isEmpty()) return;
 
         Enumeration<String> e = strings.elements();
