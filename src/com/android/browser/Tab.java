@@ -1001,7 +1001,7 @@ class Tab implements PictureListener {
         }
 
         @Override
-        public boolean showFileChooser(WebView webView, ValueCallback<Uri[]> callback,
+        public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> callback,
             FileChooserParams params) {
             if (mInForeground) {
                 mWebViewController.showFileChooser(callback, params);
