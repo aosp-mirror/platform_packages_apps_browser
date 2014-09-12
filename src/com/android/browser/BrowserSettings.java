@@ -311,6 +311,9 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         mNeedsSharedSync = false;
         CookieManager.getInstance().setAcceptCookie(acceptCookies());
         if (mController != null) {
+            for (Tab tab : mController.getTabs()) {
+                tab.setAcceptThirdPartyCookies(acceptCookies());
+            }
             mController.setShouldShowErrorConsole(enableJavascriptConsole());
         }
     }
