@@ -48,6 +48,7 @@ import android.view.View;
 import android.view.ViewStub;
 import android.webkit.ClientCertRequest;
 import android.webkit.ConsoleMessage;
+import android.webkit.CookieManager;
 import android.webkit.GeolocationPermissions;
 import android.webkit.GeolocationPermissions.Callback;
 import android.webkit.HttpAuthHandler;
@@ -1974,5 +1975,13 @@ class Tab implements PictureListener {
             // sub-resource.
             setSecurityState(SecurityState.SECURITY_STATE_MIXED);
         }
+    }
+
+    public void setAcceptThirdPartyCookies(boolean accept) {
+        CookieManager cookieManager = CookieManager.getInstance();
+        if (mMainView != null)
+            cookieManager.setAcceptThirdPartyCookies(mMainView, accept);
+        if (mSubView != null)
+            cookieManager.setAcceptThirdPartyCookies(mSubView, accept);
     }
 }
