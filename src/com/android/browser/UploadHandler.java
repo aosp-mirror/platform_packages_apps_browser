@@ -125,18 +125,6 @@ public class UploadHandler {
     }
 
     private Intent[] createCaptureIntent() {
-        try {
-            File mediaPath = new File(mController.getActivity().getFilesDir(), "captured_media");
-            if (!mediaPath.exists() && !mediaPath.mkdir()) {
-                throw new RuntimeException("Folder cannot be created.");
-            }
-            File mediaFile = File.createTempFile(
-                    String.valueOf(System.currentTimeMillis()), null, mediaPath);
-            mCapturedMedia = FileProvider.getUriForFile(mController.getActivity(),
-                    "com.android.browser-classic.file", mediaFile);
-        } catch (java.io.IOException e) {
-            throw new RuntimeException(e);
-        }
         String mimeType = "*/*";
         String[] acceptTypes = mParams.getAcceptTypes();
         if ( acceptTypes != null && acceptTypes.length > 0) {
@@ -145,7 +133,7 @@ public class UploadHandler {
         Intent[] intents;
         if (mimeType.equals(IMAGE_MIME_TYPE)) {
             intents = new Intent[1];
-            intents[0] = createCameraIntent();
+            intents[0] = createCameraIntent(createTempFileContentUri(".jpg"));
         } else if (mimeType.equals(VIDEO_MIME_TYPE)) {
             intents = new Intent[1];
             intents[0] = createCamcorderIntent();
@@ -154,15 +142,31 @@ public class UploadHandler {
             intents[0] = createSoundRecorderIntent();
         } else {
             intents = new Intent[3];
-            intents[0] = createCameraIntent();
+            intents[0] = createCameraIntent(createTempFileContentUri(".jpg"));
             intents[1] = createCamcorderIntent();
             intents[2] = createSoundRecorderIntent();
         }
         return intents;
     }
 
-    private Intent createCameraIntent() {
-        if (mCapturedMedia == null) throw new IllegalArgumentException();
+    private Uri createTempFileContentUri(String suffix) {
+        try {
+            File mediaPath = new File(mController.getActivity().getFilesDir(), "captured_media");
+            if (!mediaPath.exists() && !mediaPath.mkdir()) {
+                throw new RuntimeException("Folder cannot be created.");
+            }
+            File mediaFile = File.createTempFile(
+                    String.valueOf(System.currentTimeMillis()), suffix, mediaPath);
+            return FileProvider.getUriForFile(mController.getActivity(),
+                    "com.android.browser-classic.file", mediaFile);
+        } catch (java.io.IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private Intent createCameraIntent(Uri contentUri) {
+        if (contentUri == null) throw new IllegalArgumentException();
+        mCapturedMedia = contentUri;
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION |
                   Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
@@ -171,12 +175,7 @@ public class UploadHandler {
     }
 
     private Intent createCamcorderIntent() {
-        if (mCapturedMedia == null) throw new IllegalArgumentException();
-        Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-        intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION |
-                  Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, mCapturedMedia);
-        return intent;
+        return new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
     }
 
     private Intent createSoundRecorderIntent() {
