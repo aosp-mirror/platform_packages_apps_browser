@@ -18,6 +18,7 @@ package com.android.browser;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
+import android.content.ClipData;
 import android.content.Intent;
 import android.net.Uri;
 import android.provider.MediaStore;
@@ -35,6 +36,8 @@ public class UploadHandler {
     private final static String IMAGE_MIME_TYPE = "image/*";
     private final static String VIDEO_MIME_TYPE = "video/*";
     private final static String AUDIO_MIME_TYPE = "audio/*";
+
+    private final static String FILE_PROVIDER_AUTHORITY = "com.android.browser-classic.file";
 
     /*
      * The Object used to inform the WebView of the file to upload.
@@ -158,7 +161,7 @@ public class UploadHandler {
             File mediaFile = File.createTempFile(
                     String.valueOf(System.currentTimeMillis()), suffix, mediaPath);
             return FileProvider.getUriForFile(mController.getActivity(),
-                    "com.android.browser-classic.file", mediaFile);
+                    FILE_PROVIDER_AUTHORITY, mediaFile);
         } catch (java.io.IOException e) {
             throw new RuntimeException(e);
         }
@@ -171,6 +174,8 @@ public class UploadHandler {
         intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION |
                   Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, mCapturedMedia);
+        intent.setClipData(ClipData.newUri(mController.getActivity().getContentResolver(),
+                FILE_PROVIDER_AUTHORITY, mCapturedMedia));
         return intent;
     }
 
