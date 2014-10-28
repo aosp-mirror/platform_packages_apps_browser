@@ -138,7 +138,13 @@ public class UrlHandler {
 
       // check whether the intent can be resolved. If not, we will see
       // whether we can download it from the Market.
-      if (mActivity.getPackageManager().resolveActivity(intent, 0) == null) {
+      ResolveInfo r = null;
+      try {
+        r = mActivity.getPackageManager().resolveActivity(intent, 0);
+      } catch (Exception e) {
+        return false;
+      }
+      if (r == null) {
           String packagename = intent.getPackage();
           if (packagename != null) {
               intent = new Intent(Intent.ACTION_VIEW, Uri
