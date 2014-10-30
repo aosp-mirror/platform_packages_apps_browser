@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b5aec691_9bf06fa6",
+        "filename": "src/com/android/browser/DownloadTouchIcon.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1029226
+      },
+      "writtenOn": "2014-10-30T18:53:32Z",
+      "side": 0,
+      "message": "I guess that HttpURLConnection takes care of setting the proxy, and following redirects?",
+      "range": {
+        "startLine": 118,
+        "startChar": 36,
+        "endLine": 118,
+        "endChar": 41
+      },
+      "revId": "fe4083510dc773911651456f150bf5432f81a6c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
