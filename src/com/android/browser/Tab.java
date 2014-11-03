@@ -824,8 +824,7 @@ class Tab implements PictureListener {
             }
             // Have only one async task at a time.
             if (mTouchIconLoader == null) {
-                mTouchIconLoader = new DownloadTouchIcon(Tab.this,
-                        mContext, cr, view);
+                mTouchIconLoader = new DownloadTouchIcon(Tab.this, cr, view);
                 mTouchIconLoader.execute(url);
             }
         }

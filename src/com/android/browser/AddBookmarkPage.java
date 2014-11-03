@@ -770,7 +770,7 @@ public class AddBookmarkPage extends Activity
                 Bookmarks.addBookmark(AddBookmarkPage.this, false, url,
                         title, thumbnail, mCurrentFolder);
                 if (touchIconUrl != null) {
-                    new DownloadTouchIcon(mContext, cr, url).execute(mTouchIconUrl);
+                    new DownloadTouchIcon(cr, url).execute(mTouchIconUrl);
                 }
                 mMessage.arg1 = 1;
             } catch (IllegalStateException e) {
@@ -937,7 +937,7 @@ public class AddBookmarkPage extends Activity
                     Message msg = Message.obtain(mHandler,
                             TOUCH_ICON_DOWNLOADED);
                     msg.setData(bundle);
-                    DownloadTouchIcon icon = new DownloadTouchIcon(this, msg,
+                    DownloadTouchIcon icon = new DownloadTouchIcon(msg,
                             mMap.getString(USER_AGENT));
                     icon.execute(mTouchIconUrl);
                 } else {
