@@ -22,6 +22,30 @@
       "revId": "fe4083510dc773911651456f150bf5432f81a6c0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f5975e5c_68cf3736",
+        "filename": "src/com/android/browser/DownloadTouchIcon.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2014-11-03T13:30:40Z",
+      "side": 0,
+      "message": "in its default configuration, it obeys system proxy settings and follows redirects.",
+      "parentUuid": "b5aec691_9bf06fa6",
+      "range": {
+        "startLine": 118,
+        "startChar": 36,
+        "endLine": 118,
+        "endChar": 41
+      },
+      "revId": "fe4083510dc773911651456f150bf5432f81a6c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
