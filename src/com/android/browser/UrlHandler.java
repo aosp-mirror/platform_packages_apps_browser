@@ -144,14 +144,19 @@ public class UrlHandler {
               intent = new Intent(Intent.ACTION_VIEW, Uri
                       .parse("market://search?q=pname:" + packagename));
               intent.addCategory(Intent.CATEGORY_BROWSABLE);
-              mActivity.startActivity(intent);
-              // before leaving BrowserActivity, close the empty child tab.
-              // If a new tab is created through JavaScript open to load this
-              // url, we would like to close it as we will load this url in a
-              // different Activity.
-              mController.closeEmptyTab();
-              return true;
-          } else {
+              try {
+                  mActivity.startActivity(intent);
+                  // before leaving BrowserActivity, close the empty child tab.
+                  // If a new tab is created through JavaScript open to load this
+                  // url, we would like to close it as we will load this url in a
+                  // different Activity.
+                  mController.closeEmptyTab();
+                  return true;
+              } catch (ActivityNotFoundException e) {
+                  Log.w("Browser", "No activity found to handle " + url);
+                  return false;
+              }
+            } else {
               return false;
           }
       }
