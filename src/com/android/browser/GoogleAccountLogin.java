@@ -27,18 +27,22 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.SharedPreferences.Editor;
 import android.net.Uri;
-import android.net.http.AndroidHttpClient;
 import android.os.Bundle;
 import android.util.Log;
 import android.webkit.CookieSyncManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.util.EntityUtils;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.Proxy;
+import java.net.URL;
+import java.nio.charset.Charset;
+import java.nio.charset.IllegalCharsetNameException;
+import java.nio.charset.UnsupportedCharsetException;
+import libcore.io.Streams;
+import libcore.net.http.ResponseUtils;
 
 public class GoogleAccountLogin implements Runnable,
         AccountManagerCallback<Bundle>, OnCancelListener {
@@ -104,25 +108,27 @@ public class GoogleAccountLogin implements Runnable,
     // Runnable
     @Override
     public void run() {
-        String url = ISSUE_AUTH_TOKEN_URL.buildUpon()
+        String urlString = ISSUE_AUTH_TOKEN_URL.buildUpon()
                 .appendQueryParameter("SID", mSid)
                 .appendQueryParameter("LSID", mLsid)
                 .build().toString();
-        // Intentionally not using Proxy.
-        AndroidHttpClient client = AndroidHttpClient.newInstance(mUserAgent);
-        HttpPost request = new HttpPost(url);
 
-        String result = null;
+        HttpURLConnection connection = null;
+        String authToken = null;
         try {
-            HttpResponse response = client.execute(request);
-            int status = response.getStatusLine().getStatusCode();
-            if (status != HttpStatus.SC_OK) {
+            URL url = new URL(urlString);
+            // Intentionally not using Proxy.
+            connection = (HttpURLConnection) url.openConnection(Proxy.NO_PROXY);
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("User-Agent", mUserAgent);
+
+            int status = connection.getResponseCode();
+            if (status != HttpURLConnection.HTTP_OK) {
                 Log.d(LOGTAG, "LOGIN_FAIL: Bad status from auth url "
-                      + status + ": "
-                      + response.getStatusLine().getReasonPhrase());
+                      + status + ": " + connection.getResponseMessage());
                 // Invalidate the tokens once just in case the 403 was for other
                 // reasons.
-                if (status == HttpStatus.SC_FORBIDDEN && !mTokensInvalidated) {
+                if (status == HttpURLConnection.HTTP_FORBIDDEN && !mTokensInvalidated) {
                     Log.d(LOGTAG, "LOGIN_FAIL: Invalidating tokens...");
                     // Need to regenerate the auth tokens and try again.
                     invalidateTokens();
@@ -134,24 +140,24 @@ public class GoogleAccountLogin implements Runnable,
                 done();
                 return;
             }
-            HttpEntity entity = response.getEntity();
-            if (entity == null) {
-                Log.d(LOGTAG, "LOGIN_FAIL: Null entity in response");
-                done();
-                return;
-            }
-            result = EntityUtils.toString(entity, "UTF-8");
+
+            final Charset responseCharset = ResponseUtils.responseCharset(
+                    connection.getContentType());
+            byte[] responseBytes = Streams.readFully(connection.getInputStream());
+            authToken = new String(responseBytes, responseCharset);
         } catch (Exception e) {
             Log.d(LOGTAG, "LOGIN_FAIL: Exception acquiring uber token " + e);
-            request.abort();
             done();
             return;
         } finally {
-            client.close();
+            if (connection != null) {
+                connection.disconnect();
+            }
         }
+
         final String newUrl = TOKEN_AUTH_URL.buildUpon()
                 .appendQueryParameter("source", "android-browser")
-                .appendQueryParameter("auth", result)
+                .appendQueryParameter("auth", authToken)
                 .appendQueryParameter("continue",
                         BrowserSettings.getFactoryResetHomeUrl(mActivity))
                 .build().toString();
