@@ -52,6 +52,8 @@ import android.webkit.CookieManager;
 import android.webkit.GeolocationPermissions;
 import android.webkit.GeolocationPermissions.Callback;
 import android.webkit.HttpAuthHandler;
+import android.webkit.JsPromptResult;
+import android.webkit.JsResult;
 import android.webkit.PermissionRequest;
 import android.webkit.SslErrorHandler;
 import android.webkit.URLUtil;
@@ -786,6 +788,27 @@ class Tab implements PictureListener {
                 }
                 mWebViewController.closeTab(Tab.this);
             }
+        }
+
+        @Override
+        public boolean onJsAlert(WebView view, String url, String message,
+                JsResult result) {
+            mWebViewController.getTabControl().setActiveTab(Tab.this);
+            return false;
+        }
+
+        @Override
+        public boolean onJsConfirm(WebView view, String url, String message,
+                JsResult result) {
+            mWebViewController.getTabControl().setActiveTab(Tab.this);
+            return false;
+        }
+
+        @Override
+        public boolean onJsPrompt(WebView view, String url, String message,
+                String defaultValue, JsPromptResult result) {
+            mWebViewController.getTabControl().setActiveTab(Tab.this);
+            return false;
         }
 
         @Override
