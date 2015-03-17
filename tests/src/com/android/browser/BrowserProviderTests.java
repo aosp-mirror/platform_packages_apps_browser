@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-package com.android.browser;
+package com.android.bookmarkprovider;
 
-import com.android.browser.provider.BrowserProvider;
-import com.android.browser.provider.BrowserProvider2;
-import com.android.browser.tests.utils.ProviderTestCase3;
+import com.android.bookmarkprovider.BrowserProvider;
+import com.android.bookmarkprovider.BrowserProvider2;
+import com.android.bookmarkprovider.tests.utils.ProviderTestCase3;
 
-import android.app.SearchManager;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.BrowserContract;
+import android.provider.BrowserContract.Bookmarks;
 import android.test.suitebuilder.annotation.MediumTest;
 
 import java.util.ArrayList;
@@ -58,7 +58,7 @@ public class BrowserProviderTests extends ProviderTestCase3<BrowserProvider2> {
     }
 
     public void testHasDefaultBookmarks() {
-        Cursor c = getBookmarksSuggest("");
+        Cursor c = getBookmarksByPrefix("");
         try {
             assertTrue("No default bookmarks", c.getCount() > 0);
         } finally {
@@ -82,11 +82,6 @@ public class BrowserProviderTests extends ProviderTestCase3<BrowserProvider2> {
         assertInsertQuery("http://www.example.com/", "nfgjra dfger", "nfgjra dfger");
     }
 
-// Not implemented in BrowserProvider
-//    public void testFullSecondTitleWord() {
-//        assertInsertQuery("http://www.example.com/rasdfe", "nfgjra sdfywe", "sdfywe");
-//    }
-
     public void testFullTitleJapanese() {
         String title = "\u30ae\u30e3\u30e9\u30ea\u30fc\u30fcGoogle\u691c\u7d22";
         assertInsertQuery("http://www.example.com/sdaga", title, title);
@@ -95,13 +90,6 @@ public class BrowserProviderTests extends ProviderTestCase3<BrowserProvider2> {
     public void testPartialTitleJapanese() {
         String title = "\u30ae\u30e3\u30e9\u30ea\u30fc\u30fcGoogle\u691c\u7d22";
         String query = "\u30ae\u30e3\u30e9\u30ea\u30fc";
-        assertInsertQuery("http://www.example.com/sdaga", title, query);
-    }
-
-    // Test for http://b/issue?id=2152749
-    public void testSoundmarkTitleJapanese() {
-        String title = "\u30ae\u30e3\u30e9\u30ea\u30fc\u30fcGoogle\u691c\u7d22";
-        String query = "\u30ad\u30e3\u30e9\u30ea\u30fc";
         assertInsertQuery("http://www.example.com/sdaga", title, query);
     }
 
@@ -115,29 +103,28 @@ public class BrowserProviderTests extends ProviderTestCase3<BrowserProvider2> {
     }
 
     private void assertQueryReturns(String url, String title, String query) {
-        Cursor c = getBookmarksSuggest(query);
+        Cursor c = getBookmarksByPrefix(query);
         try {
             assertTrue(title + " not matched by " + query, c.getCount() > 0);
             assertTrue("More than one result for " + query, c.getCount() == 1);
             while (c.moveToNext()) {
-                String text1 = getCol(c, SearchManager.SUGGEST_COLUMN_TEXT_1);
-                assertNotNull(text1);
-                assertEquals("Bad title", title, text1);
-                String text2 = getCol(c, SearchManager.SUGGEST_COLUMN_TEXT_2);
-                assertNotNull(text2);
-                String data = getCol(c, SearchManager.SUGGEST_COLUMN_INTENT_DATA);
-                assertNotNull(data);
-                assertEquals("Bad URL", url, data);
+                String gotUrl = getCol(c, Bookmarks.URL);
+                assertNotNull(gotUrl);
+                assertEquals("Bad URL", url, gotUrl);
+
+                String gotTitle = getCol(c, Bookmarks.TITLE);
+                assertNotNull(gotTitle);
+                assertEquals("Bad title", title, gotTitle);
             }
         } finally {
             c.close();
         }
     }
 
-    private Cursor getBookmarksSuggest(String query) {
-        Uri suggestUri = Uri.parse("content://browser/bookmarks/search_suggest_query");
-        String[] selectionArgs = { query };
-        Cursor c = getMockContentResolver().query(suggestUri, null, "url LIKE ?",
+    private Cursor getBookmarksByPrefix(String query) {
+        Uri suggestUri = Uri.parse("content://browser/bookmarks");
+        String[] selectionArgs = { query + "%" };
+        Cursor c = getMockContentResolver().query(suggestUri, null, "title LIKE ?",
                 selectionArgs, null);
         assertNotNull(c);
         return c;

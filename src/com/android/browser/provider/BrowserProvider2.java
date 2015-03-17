@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010 he Android Open Source Project
+ * Copyright (C) 2010 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License
  */
 
-package com.android.browser.provider;
+package com.android.bookmarkprovider;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -28,7 +28,6 @@ import android.content.UriMatcher;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.database.AbstractCursor;
-import android.database.ContentObserver;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.MatrixCursor;
@@ -37,9 +36,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.provider.BaseColumns;
-import android.provider.Browser;
 import android.provider.Browser.BookmarkColumns;
-import android.provider.BrowserContract;
+import android.provider.Browser;
 import android.provider.BrowserContract.Accounts;
 import android.provider.BrowserContract.Bookmarks;
 import android.provider.BrowserContract.ChromeSyncColumns;
@@ -49,15 +47,14 @@ import android.provider.BrowserContract.Images;
 import android.provider.BrowserContract.Searches;
 import android.provider.BrowserContract.Settings;
 import android.provider.BrowserContract.SyncState;
+import android.provider.BrowserContract;
 import android.provider.ContactsContract.RawContacts;
 import android.provider.SyncStateContract;
 import android.text.TextUtils;
+import android.util.Log;
 
-import com.android.browser.R;
-import com.android.browser.UrlUtils;
-import com.android.browser.widget.BookmarkThumbnailWidgetProvider;
+import com.android.bookmarkprovider.R;
 import com.android.common.content.SyncStateContentProviderHelper;
-import com.google.common.annotations.VisibleForTesting;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -67,8 +64,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class BrowserProvider2 extends SQLiteContentProvider {
+
+    private static final String TAG = "BrowserProvider2";
 
     public static final String PARAM_GROUP_BY = "groupBy";
     public static final String PARAM_ALLOW_EMPTY_ACCOUNTS = "allowEmptyAccounts";
@@ -144,6 +145,10 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             "url_key NOT IN (SELECT url FROM bookmarks " +
             "WHERE url IS NOT NULL AND deleted == 0) AND url_key NOT IN " +
             "(SELECT url FROM history WHERE url IS NOT NULL)";
+
+    // WHERE clause to find a deleted bookmark
+    private static final String DELETED_BOOKMARK_BY_ID =
+            Bookmarks._ID + "=? AND " + Bookmarks.IS_DELETED + "=1";
 
     static final int THUMBNAILS = 10;
     static final int THUMBNAILS_ID = 11;
@@ -386,10 +391,6 @@ public class BrowserProvider2 extends SQLiteContentProvider {
 
     DatabaseHelper mOpenHelper;
     SyncStateContentProviderHelper mSyncHelper = new SyncStateContentProviderHelper();
-    // This is so provider tests can intercept widget updating
-    ContentObserver mWidgetObserver = null;
-    boolean mUpdateWidgets = false;
-    boolean mSyncToNetwork = true;
 
     final class DatabaseHelper extends SQLiteOpenHelper {
         static final String DATABASE_NAME = "browser2.db";
@@ -803,29 +804,6 @@ public class BrowserProvider2 extends SQLiteContentProvider {
         return uri.getBooleanQueryParameter(BrowserContract.CALLER_IS_SYNCADAPTER, false);
     }
 
-    @VisibleForTesting
-    public void setWidgetObserver(ContentObserver obs) {
-        mWidgetObserver = obs;
-    }
-
-    void refreshWidgets() {
-        mUpdateWidgets = true;
-    }
-
-    @Override
-    protected void onEndTransaction(boolean callerIsSyncAdapter) {
-        super.onEndTransaction(callerIsSyncAdapter);
-        if (mUpdateWidgets) {
-            if (mWidgetObserver == null) {
-                BookmarkThumbnailWidgetProvider.refreshWidgets(getContext());
-            } else {
-                mWidgetObserver.dispatchChange(false);
-            }
-            mUpdateWidgets = false;
-        }
-        mSyncToNetwork = true;
-    }
-
     @Override
     public String getType(Uri uri) {
         final int match = URI_MATCHER.match(uri);
@@ -1153,8 +1131,8 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             }
             selection = DatabaseUtils.concatenateWhere(selection,
                     Bookmarks.IS_DELETED + "=0 AND " + Bookmarks.IS_FOLDER + "=0");
-
         }
+
         Cursor c = mOpenHelper.getReadableDatabase().query(TABLE_BOOKMARKS_JOIN_HISTORY,
                 SUGGEST_PROJECTION, selection, selectionArgs, null, null,
                 null, null);
@@ -1292,9 +1270,6 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 selectionArgs = (String[]) withAccount[1];
                 deleted = deleteBookmarks(selection, selectionArgs, callerIsSyncAdapter);
                 pruneImages();
-                if (deleted > 0) {
-                    refreshWidgets();
-                }
                 break;
             }
 
@@ -1436,6 +1411,24 @@ public class BrowserProvider2 extends SQLiteContentProvider {
         }
         switch (match) {
             case BOOKMARKS: {
+                // If the bookmark to insert specifies an _id matching a deleted bookmark, then
+                // un-delete and update the old one instead of inserting the new one. This avoids a
+                // problem where some CTS tests clear bookmarks for testing and later restore them
+                // with their original _id's, causing UNIQUE conflicts between the deleted and
+                // restored rows.
+                if (values.containsKey(Bookmarks._ID)) {
+                    id = values.getAsLong(Bookmarks._ID).longValue();
+                    String[] idArgs = new String[] { "" + id };
+                    values.put(Bookmarks.IS_DELETED, 0);
+
+                    if (1 ==
+                        db.update(TABLE_BOOKMARKS, values, DELETED_BOOKMARK_BY_ID, idArgs)) {
+
+                        Log.d(TAG, "Deleted bookmark with _id " + id + " exists - restoring");
+                        break;
+                    }
+                }
+
                 // Mark rows dirty if they're not coming from a sync adapter
                 if (!callerIsSyncAdapter) {
                     long now = System.currentTimeMillis();
@@ -1486,7 +1479,6 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 }
 
                 id = db.insertOrThrow(TABLE_BOOKMARKS, Bookmarks.DIRTY, values);
-                refreshWidgets();
                 break;
             }
 
@@ -1705,9 +1697,6 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 selectionArgs = (String[]) withAccount[1];
                 modified = updateBookmarksInTransaction(values, selection, selectionArgs,
                         callerIsSyncAdapter);
-                if (modified > 0) {
-                    refreshWidgets();
-                }
                 break;
             }
 
@@ -1759,7 +1748,6 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 if (getUrlCount(db, TABLE_BOOKMARKS, url) > 0) {
                     postNotifyUri(Bookmarks.CONTENT_URI);
                     updatedLegacy = values.containsKey(Images.FAVICON);
-                    refreshWidgets();
                 }
                 if (getUrlCount(db, TABLE_HISTORY, url) > 0) {
                     postNotifyUri(History.CONTENT_URI);
@@ -1768,10 +1756,6 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 if (pruneImages() > 0 || updatedLegacy) {
                     postNotifyUri(LEGACY_AUTHORITY_URI);
                 }
-                // Even though we may be calling notifyUri on Bookmarks, don't
-                // sync to network as images aren't synced. Otherwise this
-                // unnecessarily triggers a bookmark sync.
-                mSyncToNetwork = false;
                 return count;
             }
 
@@ -2129,19 +2113,6 @@ public class BrowserProvider2 extends SQLiteContentProvider {
         return false;
     }
 
-    @Override
-    protected boolean syncToNetwork(Uri uri) {
-        if (BrowserContract.AUTHORITY.equals(uri.getAuthority())
-                && uri.getPathSegments().contains("bookmarks")) {
-            return mSyncToNetwork;
-        }
-        if (LEGACY_AUTHORITY.equals(uri.getAuthority())) {
-            // Allow for 3rd party sync adapters
-            return true;
-        }
-        return false;
-    }
-
     static class SuggestionsCursor extends AbstractCursor {
         private static final int ID_INDEX = 0;
         private static final int URL_INDEX = 1;
@@ -2179,6 +2150,32 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             return COLUMNS;
         }
 
+        // Regular expression to strip http:// and optionally
+        // the trailing slash
+        private static final Pattern STRIP_URL_PATTERN =
+                Pattern.compile("^http://(.*?)/?$");
+
+        /**
+         * Strips the provided url of preceding "http://" and any trailing "/". Does not
+         * strip "https://". If the provided string cannot be stripped, the original string
+         * is returned.
+         *
+         * TODO: Put this in TextUtils to be used by other packages doing something similar.
+         *
+         * @param url a url to strip, like "http://www.google.com/"
+         * @return a stripped url like "www.google.com", or the original string if it could
+         *         not be stripped
+         */
+        private static String stripUrl(String url) {
+            if (url == null) return null;
+            Matcher m = STRIP_URL_PATTERN.matcher(url);
+            if (m.matches()) {
+                return m.group(1);
+            } else {
+                return url;
+            }
+        }
+
         @Override
         public String getString(int columnIndex) {
             switch (columnIndex) {
@@ -2190,7 +2187,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 return mSource.getString(URL_INDEX);
             case SUGGEST_COLUMN_TEXT_2_TEXT_ID:
             case SUGGEST_COLUMN_TEXT_2_URL_ID:
-                return UrlUtils.stripUrl(mSource.getString(URL_INDEX));
+                return stripUrl(mSource.getString(URL_INDEX));
             case SUGGEST_COLUMN_TEXT_1_ID:
                 return mSource.getString(TITLE_INDEX);
             case SUGGEST_COLUMN_ICON_1_ID:

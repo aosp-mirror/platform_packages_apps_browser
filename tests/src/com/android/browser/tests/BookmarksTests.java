@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package com.android.browser.tests;
+package com.android.bookmarkprovider.tests;
 
-import com.android.browser.Bookmarks;
-import com.android.browser.tests.utils.BP2TestCaseHelper;
+import com.android.bookmarkprovider.tests.utils.BP2TestCaseHelper;
 
 import android.content.ContentResolver;
 import android.database.Cursor;
+import android.provider.BrowserContract.Combined;
 import android.test.suitebuilder.annotation.SmallTest;
 
 /**
@@ -29,6 +29,28 @@ import android.test.suitebuilder.annotation.SmallTest;
  */
 @SmallTest
 public class BookmarksTests extends BP2TestCaseHelper {
+    private static final String QUERY_BOOKMARKS_WHERE =
+            Combined.URL + " == ? OR " +
+            Combined.URL + " == ?";
+
+    private static Cursor queryCombinedForUrl(ContentResolver cr,
+            String originalUrl, String url) {
+        if (cr == null || url == null) {
+            return null;
+        }
+
+        // If originalUrl is null, just set it to url.
+        if (originalUrl == null) {
+            originalUrl = url;
+        }
+
+        // Look for both the original url and the actual url. This takes in to
+        // account redirects.
+
+        final String[] selArgs = new String[] { originalUrl, url };
+        final String[] projection = new String[] { Combined.URL };
+        return cr.query(Combined.CONTENT_URI, projection, QUERY_BOOKMARKS_WHERE, selArgs, null);
+    }
 
     public void testQueryCombinedForUrl() {
         // First, add some bookmarks
@@ -44,7 +66,7 @@ public class BookmarksTests extends BP2TestCaseHelper {
         try {
             // First, search for a match
             String url = "http://google.com/search?q=test";
-            c = Bookmarks.queryCombinedForUrl(cr, null, url);
+            c = queryCombinedForUrl(cr, null, url);
             assertEquals(1, c.getCount());
             assertTrue(c.moveToFirst());
             assertEquals(url, c.getString(0));
@@ -52,7 +74,7 @@ public class BookmarksTests extends BP2TestCaseHelper {
 
             // Next, search for no match
             url = "http://google.com/search";
-            c = Bookmarks.queryCombinedForUrl(cr, null, url);
+            c = queryCombinedForUrl(cr, null, url);
             assertEquals(0, c.getCount());
             assertFalse(c.moveToFirst());
             c.close();
@@ -60,5 +82,4 @@ public class BookmarksTests extends BP2TestCaseHelper {
             if (c != null) c.close();
         }
     }
-
 }

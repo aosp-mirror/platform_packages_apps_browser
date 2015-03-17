@@ -14,7 +14,7 @@
  * limitations under the License
  */
 
-package com.android.browser.provider;
+package com.android.bookmarkprovider;
 
 import android.content.ContentProvider;
 import android.content.ContentProviderOperation;

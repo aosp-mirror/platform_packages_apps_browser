@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.browser.provider;
+package com.android.bookmarkprovider;
 
 import android.app.SearchManager;
 import android.app.backup.BackupManager;
@@ -42,9 +42,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
 
-import com.android.browser.BrowserSettings;
-import com.android.browser.R;
-import com.android.browser.search.SearchEngine;
+import com.android.bookmarkprovider.R;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -167,8 +165,6 @@ public class BrowserProvider extends ContentProvider {
     // Regular expression which matches http://, followed by some stuff, followed by
     // optionally a trailing slash, all matched as separate groups.
     private static final Pattern STRIP_URL_PATTERN = Pattern.compile("^(http://)(.*?)(/$)?");
-
-    private BrowserSettings mSettings;
 
     private int mMaxSuggestionShortSize;
     private int mMaxSuggestionLongSize;
@@ -419,7 +415,6 @@ public class BrowserProvider extends ContentProvider {
                 ed.apply();
             }
         }
-        mSettings = BrowserSettings.getInstance();
         return true;
     }
 
@@ -813,15 +808,6 @@ public class BrowserProvider extends ContentProvider {
         if (bookmarksOnly || Patterns.WEB_URL.matcher(selectionArgs[0]).matches()) {
             return new MySuggestionCursor(c, null, "");
         } else {
-            // get search suggestions if there is still space in the list
-            if (myArgs != null && myArgs.length > 1
-                    && c.getCount() < (MAX_SUGGEST_SHORT_SMALL - 1)) {
-                SearchEngine searchEngine = mSettings.getSearchEngine();
-                if (searchEngine != null && searchEngine.supportsSuggestions()) {
-                    Cursor sc = searchEngine.getSuggestions(getContext(), selectionArgs[0]);
-                    return new MySuggestionCursor(c, sc, selectionArgs[0]);
-                }
-            }
             return new MySuggestionCursor(c, null, selectionArgs[0]);
         }
     }
