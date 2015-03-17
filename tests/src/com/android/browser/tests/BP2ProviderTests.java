@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.android.browser.tests;
+package com.android.bookmarkprovider.tests;
 
-import com.android.browser.tests.utils.BP2TestCaseHelper;
+import com.android.bookmarkprovider.tests.utils.BP2TestCaseHelper;
 
 import android.content.ContentUris;
 import android.content.ContentValues;

@@ -14,26 +14,19 @@
  * limitations under the License.
  */
 
-package com.android.browser.tests;
+package com.android.bookmarkprovider.tests;
 
-import com.android.browser.provider.BrowserProvider;
-import com.android.browser.tests.utils.BP2TestCaseHelper;
+import com.android.bookmarkprovider.BrowserProvider;
+import com.android.bookmarkprovider.tests.utils.BP2TestCaseHelper;
 
-import android.content.ContentUris;
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.Bitmap.Config;
-import android.net.Uri;
 import android.provider.Browser;
 import android.provider.Browser.BookmarkColumns;
-import android.provider.BrowserContract;
 import android.provider.BrowserContract.Bookmarks;
 import android.provider.BrowserContract.History;
-import android.provider.BrowserContract.Images;
 import android.test.suitebuilder.annotation.SmallTest;
 
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 @SmallTest
@@ -45,7 +38,7 @@ public class BP1to2UpgradeTests extends BP2TestCaseHelper {
     protected void setUp() throws Exception {
         super.setUp();
         mBp1 = new BrowserProvider();
-        mBp1.attachInfo(getMockContext(), null);
+        mBp1.attachInfoForTesting(getMockContext(), null);
     }
 
     /**
