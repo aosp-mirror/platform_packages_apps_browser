@@ -16,7 +16,7 @@
 
 <!-- package name must be unique so suffix with "tests" so package loader doesn't ignore us -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.android.browser.tests">
+    package="com.android.bookmarkprovider.tests">
 
     <!-- We add an application tag here just so that we can indicate that
          this package needs to link against the android.test library,
@@ -27,16 +27,11 @@
 
     <!--
     This declares that this app uses the instrumentation test runner targeting
-    the package of com.android.email.  To run the tests use the command:
-    "adb shell am instrument -w com.android.browser.tests/android.test.InstrumentationTestRunner"
+    the package of com.android.email. To run the tests use the command:
+    "adb shell am instrument -w com.android.bookmarkprovider.tests/android.test.InstrumentationTestRunner"
     -->
     <instrumentation android:name="android.test.InstrumentationTestRunner"
-                     android:targetPackage="com.android.browser"
-                     android:label="Tests for Browser."/>
-
-    <instrumentation android:name="com.android.browser.BrowserLaunchPerformance"
-        android:targetPackage="com.android.browser"
-        android:label="Browser Launch Performance">
-    </instrumentation>
+                     android:targetPackage="com.android.bookmarkprovider"
+                     android:label="Tests for BookmarkProvider."/>
 
 </manifest>

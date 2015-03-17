@@ -23,12 +23,13 @@ LOCAL_JAVA_LIBRARIES := android.test.runner
 # Include all test java files.
 LOCAL_SRC_FILES := $(call all-java-files-under, src)
 
-# Notice that we don't have to include the src files of Browser because, by
-# running the tests using an instrumentation targeting Browser, we
-# automatically get all of its classes loaded into our environment.
+# Notice that we don't have to include the src files of BookmarkProvider
+# because, by running the tests using an instrumentation targeting
+# BookmarkProvider, we automatically get all of its classes loaded into our
+# environment.
 
-LOCAL_PACKAGE_NAME := BrowserTests
+LOCAL_PACKAGE_NAME := BookmarkProviderTests
 
-LOCAL_INSTRUMENTATION_FOR := Browser
+LOCAL_INSTRUMENTATION_FOR := BookmarkProvider
 
 include $(BUILD_PACKAGE)
