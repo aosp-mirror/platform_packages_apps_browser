@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c61ac4b3_c30c89f1",
+        "filename": "tests/src/com/android/browser/BrowserProviderTests.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1060353
+      },
+      "writtenOn": "2015-03-17T01:18:38Z",
+      "side": 0,
+      "message": "This test has been broken for years - see internal bug 3299735.",
+      "revId": "0de964c432318947188f61a7b80963c70a787d9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
