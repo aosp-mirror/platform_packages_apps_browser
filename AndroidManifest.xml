@@ -109,7 +109,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:scheme="http" />
                 <data android:scheme="https" />
-                <data android:scheme="file" />
                 <data android:mimeType="application/x-webarchive-xml"/>
             </intent-filter>
             <!-- Accept inbound NFC URLs at a low priority -->

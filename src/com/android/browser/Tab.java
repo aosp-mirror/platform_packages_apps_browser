@@ -43,7 +43,6 @@ import android.security.KeyChainAliasCallback;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewStub;
 import android.webkit.ClientCertRequest;
@@ -67,26 +66,19 @@ import android.webkit.WebStorage;
 import android.webkit.WebView;
 import android.webkit.WebView.PictureListener;
 import android.webkit.WebViewClient;
-import android.widget.CheckBox;
-import android.widget.Toast;
 
 import com.android.browser.TabControl.OnThumbnailUpdatedListener;
 import com.android.browser.homepages.HomeProvider;
-import com.android.browser.provider.SnapshotProvider.Snapshots;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.ByteBuffer;
 import java.security.Principal;
 import java.util.LinkedList;
 import java.util.Map;
-import java.util.UUID;
 import java.util.Vector;
 import java.util.regex.Pattern;
-import java.util.zip.GZIPOutputStream;
 
 /**
  * Class for maintaining Tabs with a main WebView and a subwindow.
@@ -104,8 +96,6 @@ class Tab implements PictureListener {
     private static final int MSG_CAPTURE = 42;
     private static final int CAPTURE_DELAY = 100;
     private static final int INITIAL_PROGRESS = 5;
-
-    private static final String RESTRICTED = "<html><body>not allowed</body></html>";
 
     private static Bitmap sDefaultFavicon;
 
@@ -609,27 +599,7 @@ class Tab implements PictureListener {
         @Override
         public WebResourceResponse shouldInterceptRequest(WebView view,
                 String url) {
-            Uri uri = Uri.parse(url);
-            if (uri.getScheme().toLowerCase().equals("file")) {
-                File file = new File(uri.getPath());
-                try {
-                    if (file.getCanonicalPath().startsWith(
-                            mContext.getApplicationContext().getApplicationInfo().dataDir)) {
-                        return new WebResourceResponse("text/html","UTF-8",
-                                new ByteArrayInputStream(RESTRICTED.getBytes("UTF-8")));
-                    }
-                } catch (Exception ex) {
-                    Log.e(LOGTAG, "Bad canonical path" + ex.toString());
-                    try {
-                        return new WebResourceResponse("text/html","UTF-8",
-                                new ByteArrayInputStream(RESTRICTED.getBytes("UTF-8")));
-                    } catch (java.io.UnsupportedEncodingException e) {
-                    }
-                }
-            }
-            WebResourceResponse res = HomeProvider.shouldInterceptRequest(
-                    mContext, url);
-            return res;
+            return HomeProvider.shouldInterceptRequest(mContext, url);
         }
 
         @Override
