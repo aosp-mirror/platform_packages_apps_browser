@@ -37,6 +37,7 @@ import com.android.common.Search;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -61,6 +62,53 @@ public class IntentHandler {
         mController = controller;
         mTabControl = mController.getTabControl();
         mSettings = controller.getSettings();
+    }
+
+    private boolean isJavascriptSchemeOrInvalidUrl(String url) {
+        String urlScheme = getSanitizedUrlScheme(url);
+        return isInvalidScheme(urlScheme);
+    }
+
+    private boolean isInvalidScheme(String scheme) {
+        return scheme != null && (
+                scheme.toLowerCase(Locale.US).equals("javascript")
+                        || scheme.toLowerCase(Locale.US).equals("jar"));
+    }
+
+    /**
+     * Parses the scheme out of the URL if possible, trimming and getting rid of unsafe characters.
+     * This is useful for determining if a URL has a sneaky, unsafe scheme, e.g. "java  script" or
+     * "j$a$r". See: http://crbug.com/248398
+     * @return The sanitized URL scheme or null if no scheme is specified.
+     */
+    private String getSanitizedUrlScheme(String url) {
+        if (url == null) {
+            return null;
+        }
+
+        int colonIdx = url.indexOf(":");
+        if (colonIdx < 0) {
+            // No scheme specified for the url
+            return null;
+        }
+
+        String scheme = url.substring(0, colonIdx).toLowerCase(Locale.US).trim();
+
+        // Check for the presence of and get rid of all non-alphanumeric characters in the scheme,
+        // except dash, plus and period. Those are the only valid scheme chars:
+        // https://tools.ietf.org/html/rfc3986#section-3.1
+        boolean nonAlphaNum = false;
+        for (char ch : scheme.toCharArray()) {
+            if (!Character.isLetterOrDigit(ch) && ch != '-' && ch != '+' && ch != '.') {
+                nonAlphaNum = true;
+                break;
+            }
+        }
+
+        if (nonAlphaNum) {
+            scheme = scheme.replaceAll("[^a-z1-9.+-]", "");
+        }
+        return scheme;
     }
 
     void onNewIntent(Intent intent) {
@@ -107,6 +155,10 @@ public class IntentHandler {
                 urlData = new UrlData(mSettings.getHomePage());
             }
 
+            if (isJavascriptSchemeOrInvalidUrl(urlData.mUrl)) {
+                return;
+            }
+
             // If url is to view private data files, don't allow.
             Uri uri = intent.getData();
             if (uri != null && uri.getScheme().toLowerCase().startsWith("file") &&
@@ -119,21 +171,10 @@ public class IntentHandler {
                 Tab t = mController.openTab(urlData);
                 return;
             }
-            /*
-             * TODO: Don't allow javascript URIs
-             * 0) If this is a javascript: URI, *always* open a new tab
-             * 1) If the URL is already opened, switch to that tab
-             * 2-phone) Reuse tab with same appId
-             * 2-tablet) Open new tab
-             */
+
             final String appId = intent
                     .getStringExtra(Browser.EXTRA_APPLICATION_ID);
-            if (!TextUtils.isEmpty(urlData.mUrl) &&
-                    urlData.mUrl.startsWith("javascript:")) {
-                // Always open javascript: URIs in new tabs
-                mController.openTab(urlData);
-                return;
-            }
+
             if (Intent.ACTION_VIEW.equals(action)
                     && (appId != null)
                     && appId.startsWith(mActivity.getPackageName())) {
