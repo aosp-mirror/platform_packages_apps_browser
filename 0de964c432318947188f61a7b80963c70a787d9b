@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "630f4a79_a3f6badb",
+        "filename": "AndroidManifest.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1010674
+      },
+      "writtenOn": "2015-03-30T22:57:09Z",
+      "side": 0,
+      "message": "removing this line here is not enough. One can still send an explicit intent. You still need to parse the scheme on receiving an intent and drop it, if its scheme is a file.",
+      "range": {
+        "startLine": 112,
+        "startChar": 22,
+        "endLine": 112,
+        "endChar": 29
+      },
+      "revId": "0de964c432318947188f61a7b80963c70a787d9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "630f4a79_c302d637",
+        "filename": "AndroidManifest.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1010674
+      },
+      "writtenOn": "2015-03-30T22:57:09Z",
+      "side": 0,
+      "message": "please remove x-webarchive-xml mimeType (I don\u0027t think any code exists to handle that anymore - but please point it out if there is). Once you remove the file type it does not make much sense keeping it around.",
+      "range": {
+        "startLine": 113,
+        "startChar": 30,
+        "endLine": 113,
+        "endChar": 38
+      },
+      "revId": "0de964c432318947188f61a7b80963c70a787d9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
