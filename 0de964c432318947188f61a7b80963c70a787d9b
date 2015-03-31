@@ -45,6 +45,30 @@
       "revId": "0de964c432318947188f61a7b80963c70a787d9b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c3f1d6a3_517d1630",
+        "filename": "AndroidManifest.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2015-03-31T14:06:55Z",
+      "side": 0,
+      "message": "If we don\u0027t support x-webarchive-xml any more then we should just remove this entire intent filter. Removing the mimeType field will actually make this filter *more* general (since it would no longer be required to match a specific mime type). Does CTS/CDD talk about this filetype anywhere?",
+      "parentUuid": "630f4a79_c302d637",
+      "range": {
+        "startLine": 113,
+        "startChar": 30,
+        "endLine": 113,
+        "endChar": 38
+      },
+      "revId": "0de964c432318947188f61a7b80963c70a787d9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
