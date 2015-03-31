@@ -69,6 +69,30 @@
       "revId": "0de964c432318947188f61a7b80963c70a787d9b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a315c284_33520bf1",
+        "filename": "AndroidManifest.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1060353
+      },
+      "writtenOn": "2015-03-31T20:27:49Z",
+      "side": 0,
+      "message": "CDD doesn\u0027t mention it. CTS has webarchive tests for WebView but not Browser. But don\u0027t we still want to accept http(s) intents?",
+      "parentUuid": "c3f1d6a3_517d1630",
+      "range": {
+        "startLine": 113,
+        "startChar": 30,
+        "endLine": 113,
+        "endChar": 38
+      },
+      "revId": "0de964c432318947188f61a7b80963c70a787d9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
