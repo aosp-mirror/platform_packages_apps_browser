@@ -93,6 +93,30 @@
       "revId": "0de964c432318947188f61a7b80963c70a787d9b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "63e4aaf7_bb7e072a",
+        "filename": "AndroidManifest.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1010670
+      },
+      "writtenOn": "2015-03-31T20:39:05Z",
+      "side": 0,
+      "message": "Sorry I was commenting on this morning but other stuff get in between. So yeah, CDD does not refer to intents specifically, but rather asks partners to follow browser patterns. So it has some impact on CDD indirectly.\nCTS is for webview APIs. note that this is a browser feature.\n\nIf you remove this. then the remaining conditions are already covered by another intent filter, (see intent filters in this file). so as Torne said, just remove the whole thing, if it does not have a use.",
+      "parentUuid": "a315c284_33520bf1",
+      "range": {
+        "startLine": 113,
+        "startChar": 30,
+        "endLine": 113,
+        "endChar": 38
+      },
+      "revId": "0de964c432318947188f61a7b80963c70a787d9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
