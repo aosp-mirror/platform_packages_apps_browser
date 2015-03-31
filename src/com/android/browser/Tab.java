@@ -74,7 +74,6 @@ import com.android.browser.TabControl.OnThumbnailUpdatedListener;
 import com.android.browser.homepages.HomeProvider;
 import com.android.browser.provider.SnapshotProvider.Snapshots;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -104,8 +103,6 @@ class Tab implements PictureListener {
     private static final int MSG_CAPTURE = 42;
     private static final int CAPTURE_DELAY = 100;
     private static final int INITIAL_PROGRESS = 5;
-
-    private static final String RESTRICTED = "<html><body>not allowed</body></html>";
 
     private static Bitmap sDefaultFavicon;
 
@@ -609,27 +606,7 @@ class Tab implements PictureListener {
         @Override
         public WebResourceResponse shouldInterceptRequest(WebView view,
                 String url) {
-            Uri uri = Uri.parse(url);
-            if (uri.getScheme().toLowerCase().equals("file")) {
-                File file = new File(uri.getPath());
-                try {
-                    if (file.getCanonicalPath().startsWith(
-                            mContext.getApplicationContext().getApplicationInfo().dataDir)) {
-                        return new WebResourceResponse("text/html","UTF-8",
-                                new ByteArrayInputStream(RESTRICTED.getBytes("UTF-8")));
-                    }
-                } catch (Exception ex) {
-                    Log.e(LOGTAG, "Bad canonical path" + ex.toString());
-                    try {
-                        return new WebResourceResponse("text/html","UTF-8",
-                                new ByteArrayInputStream(RESTRICTED.getBytes("UTF-8")));
-                    } catch (java.io.UnsupportedEncodingException e) {
-                    }
-                }
-            }
-            WebResourceResponse res = HomeProvider.shouldInterceptRequest(
-                    mContext, url);
-            return res;
+            return HomeProvider.shouldInterceptRequest(mContext, url);
         }
 
         @Override
