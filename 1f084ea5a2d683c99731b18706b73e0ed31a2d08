@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e3bdfae6_6562adbf",
+        "filename": "src/com/android/browser/IntentHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 1010674
+      },
+      "writtenOn": "2015-04-02T19:21:00Z",
+      "side": 1,
+      "message": "nit: remove empty line (and others below, that really don\u0027t function as a separator between logically different sections), i.e. there is for example no reason to leave an empty line after closing an if bracket.",
+      "range": {
+        "startLine": 327,
+        "startChar": 0,
+        "endLine": 327,
+        "endChar": 0
+      },
+      "revId": "1f084ea5a2d683c99731b18706b73e0ed31a2d08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "23c4727c_228954bb",
+        "filename": "src/com/android/browser/Tab.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1010674
+      },
+      "writtenOn": "2015-04-02T19:21:00Z",
+      "side": 1,
+      "message": "remove if not used anymore",
+      "range": {
+        "startLine": 78,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 20
+      },
+      "revId": "1f084ea5a2d683c99731b18706b73e0ed31a2d08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
