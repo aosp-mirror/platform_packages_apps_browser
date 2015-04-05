@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2337126d_211fee8b",
+        "filename": "src/com/android/browser/IntentHandler.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2015-04-05T10:25:59Z",
+      "side": 1,
+      "message": "This won\u0027t allow files on secondary external storage devices (e.g. the real sd card on a device that has both an emulated sd card and an sd card slot). Maybe not a big issue?",
+      "revId": "ca7ecd85ac925ef44dbef327310f2baad13322f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2312b2d8_8f4b9937",
+        "filename": "src/com/android/browser/IntentHandler.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2015-04-05T10:25:59Z",
+      "side": 1,
+      "message": "You aren\u0027t canonicalising the path here; have you tested what happens with a URL like file:///sdcard/../data/data/\u003cwhatever\u003e ?",
+      "revId": "ca7ecd85ac925ef44dbef327310f2baad13322f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
