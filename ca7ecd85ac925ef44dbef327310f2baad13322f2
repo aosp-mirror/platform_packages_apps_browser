@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c34716eb_389399d9",
+        "filename": "src/com/android/browser/IntentHandler.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1060353
+      },
+      "writtenOn": "2015-04-06T17:14:35Z",
+      "side": 1,
+      "message": "I\u0027m just copying Chrome. See ChromeNetworkDelegate::OnCanAccessFile.",
+      "parentUuid": "2337126d_211fee8b",
+      "revId": "ca7ecd85ac925ef44dbef327310f2baad13322f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2312b2d8_8f4b9937",
         "filename": "src/com/android/browser/IntentHandler.java",
         "patchSetId": 3
