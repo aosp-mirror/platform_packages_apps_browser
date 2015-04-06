@@ -29,7 +29,6 @@ import android.os.Bundle;
 import android.provider.Browser;
 import android.provider.MediaStore;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.Patterns;
 
 import com.android.browser.UI.ComboViews;
@@ -38,7 +37,6 @@ import com.android.common.Search;
 
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -46,27 +44,12 @@ import java.util.Map;
  */
 public class IntentHandler {
 
-    private static final String TAG = "IntentHandler";
-
     // "source" parameter for Google search suggested by the browser
     final static String GOOGLE_SEARCH_SOURCE_SUGGEST = "browser-suggest";
     // "source" parameter for Google search from unknown source
     final static String GOOGLE_SEARCH_SOURCE_UNKNOWN = "unknown";
 
     /* package */ static final UrlData EMPTY_URL_DATA = new UrlData(null);
-
-    private static final String[] SCHEME_WHITELIST = {
-        "http",
-        "https",
-        "about",
-    };
-
-    // "file" is handled separately from other schemes and limited to certain directories -
-    // directories which do not support sym/hardlinks, to prevent trickery
-    private static final String[] FILE_WHITELIST = {
-        "/sdcard",
-        "/mnt/sdcard"
-    };
 
     private Activity mActivity;
     private Controller mController;
@@ -81,12 +64,6 @@ public class IntentHandler {
     }
 
     void onNewIntent(Intent intent) {
-        Uri uri = intent.getData();
-        if (uri != null && isForbiddenUri(uri)) {
-            Log.e(TAG, "Aborting intent with forbidden uri, \"" + uri + "\"");
-            return;
-        }
-
         Tab current = mTabControl.getCurrentTab();
         // When a tab is closed on exit, the current tab index is set to -1.
         // Reset before proceed as Browser requires the current tab to be set.
@@ -130,18 +107,33 @@ public class IntentHandler {
                 urlData = new UrlData(mSettings.getHomePage());
             }
 
+            // If url is to view private data files, don't allow.
+            Uri uri = intent.getData();
+            if (uri != null && uri.getScheme().toLowerCase().startsWith("file") &&
+                uri.getPath().startsWith(mActivity.getDatabasePath("foo").getParent())) {
+                return;
+            }
+
             if (intent.getBooleanExtra(Browser.EXTRA_CREATE_NEW_TAB, false)
                   || urlData.isPreloaded()) {
                 Tab t = mController.openTab(urlData);
                 return;
             }
             /*
-             * If the URL is already opened, switch to that tab
-             * phone: Reuse tab with same appId
-             * tablet: Open new tab
+             * TODO: Don't allow javascript URIs
+             * 0) If this is a javascript: URI, *always* open a new tab
+             * 1) If the URL is already opened, switch to that tab
+             * 2-phone) Reuse tab with same appId
+             * 2-tablet) Open new tab
              */
             final String appId = intent
                     .getStringExtra(Browser.EXTRA_APPLICATION_ID);
+            if (!TextUtils.isEmpty(urlData.mUrl) &&
+                    urlData.mUrl.startsWith("javascript:")) {
+                // Always open javascript: URIs in new tabs
+                mController.openTab(urlData);
+                return;
+            }
             if (Intent.ACTION_VIEW.equals(action)
                     && (appId != null)
                     && appId.startsWith(mActivity.getPackageName())) {
@@ -322,41 +314,8 @@ public class IntentHandler {
         return true;
     }
 
-    private static boolean isForbiddenUri(Uri uri) {
-        String scheme = uri.getScheme();
-        // Allow URIs with no scheme
-        if (scheme == null) {
-            return false;
-        }
-        scheme = scheme.toLowerCase(Locale.US);
-        if ("file".equals(scheme)) {
-            String path = uri.getPath();
-            // Deny file URIs with invalid paths
-            if (path == null) {
-                return true;
-            }
-
-            // Allow file URIs in certain directories
-            for (String allowed : FILE_WHITELIST) {
-                if (path.startsWith(allowed)) {
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        // Allow certain schemes other than file
-        for (String allowed : SCHEME_WHITELIST) {
-            if (allowed.equals(scheme)) {
-                return false;
-            }
-        }
-        // Deny all other schemes
-        return true;
-    }
-
     /**
-     * A UrlData class to abstract how the content will be sent to WebView.
+     * A UrlData class to abstract how the content will be set to WebView.
      * This base class uses loadUrl to show the content.
      */
     static class UrlData {
