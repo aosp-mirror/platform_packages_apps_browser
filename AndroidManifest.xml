@@ -55,7 +55,8 @@
                    android:icon="@mipmap/ic_launcher_browser"
                    android:backupAgent=".BrowserBackupAgent"
                    android:hardwareAccelerated="true"
-                   android:taskAffinity="android.task.browser" >
+                   android:taskAffinity="android.task.browser"
+                   android:usesCleartextTraffic="true" >
 
         <provider android:name=".provider.BrowserProvider2"
                   android:authorities="com.android.browser;browser"
