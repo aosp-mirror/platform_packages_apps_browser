@@ -16,6 +16,24 @@
       "revId": "dc9c958256a66c333c1048ad21f1de8c1c0cdad3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "832a7e12_03aaf8f9",
+        "filename": "AndroidManifest.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1060353
+      },
+      "writtenOn": "2015-04-07T18:06:07Z",
+      "side": 0,
+      "message": "If we wanted to keep this, we would go back to the change with the file whitelist which I reverted.",
+      "parentUuid": "2337126d_24293c80",
+      "revId": "dc9c958256a66c333c1048ad21f1de8c1c0cdad3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

@@ -16,6 +16,24 @@
       "revId": "d001de09e1ced4446286e33e868b105b46c1700e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "832a7e12_08369718",
+        "filename": "src/com/android/browser/IntentHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1060353
+      },
+      "writtenOn": "2015-04-07T18:06:07Z",
+      "side": 1,
+      "message": "Yes, the null case is for search. It will also pass \"www.google.com\", which defaults to http, and then Google switches you to https. You\u0027d have to send that intent directly to Browser as none of Browser\u0027s VIEW filters will take an intent with an empty scheme.\n\nscheme will be the prefix before the \u0027:\u0027. See parseScheme() in Uri.java. WebView will strip leading whitespace and control characters, then take the scheme to be the prefix before the \u0027:\u0027. See DoExtractScheme() in url_parse.cc. So WebView is strictly more permissive than this check.\n\nIf scheme contains any sneaky characters, it will not be found in the whitelist and will be rejected. Chrome essentially blacklists \"javascript\" and must sanitize the scheme before comparing to \"javascript\". With a whitelist, we don\u0027t have to sanitize anything.",
+      "parentUuid": "634caa14_7bea7f1f",
+      "revId": "d001de09e1ced4446286e33e868b105b46c1700e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
