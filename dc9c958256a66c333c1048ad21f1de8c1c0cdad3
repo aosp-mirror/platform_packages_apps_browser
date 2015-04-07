@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2337126d_24293c80",
+        "filename": "AndroidManifest.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2015-04-07T12:57:12Z",
+      "side": 0,
+      "message": "The WebView.saveWebArchive method appears to still be implemented, which creates these I think? (it\u0027s not clear what the status of that code is).\n\nChrome doesn\u0027t support viewing webarchives, though, and nobody seems to have been upset by this lack. So I guess removing it from browser as well is not that big a deal. Trying to keep it would make it very difficult to handle file:// URLs safely.",
+      "revId": "dc9c958256a66c333c1048ad21f1de8c1c0cdad3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}

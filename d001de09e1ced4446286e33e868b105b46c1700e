@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "634caa14_7bea7f1f",
+        "filename": "src/com/android/browser/IntentHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2015-04-07T12:57:12Z",
+      "side": 1,
+      "message": "It\u0027s not entirely clear what this case is for. There is an intent filter that explicitly matches the empty scheme for WEB_SEARCH, but I have no idea how that works. Is this just for that, or is it also supposed to handle a \"URI\" that looks like \"www.google.com\"?\n\nIs it possible we could accidentally conclude that a URI has no scheme when it actually does? e.g. if the scheme starts with some control character or similar? I guess the important thing to check here is that Uri.getScheme() parses the URI in the same way that the WebView implementation will...",
+      "revId": "d001de09e1ced4446286e33e868b105b46c1700e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
