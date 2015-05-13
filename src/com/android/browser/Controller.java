@@ -151,6 +151,13 @@ public class Controller
     // "no-crash-recovery" parameter in intent to suppress crash recovery
     final static String NO_CRASH_RECOVERY = "no-crash-recovery";
 
+    // Only view images using these schemes
+    private static final String[] IMAGE_VIEWABLE_SCHEMES = {
+        "http",
+        "https",
+        "file"
+    };
+
     // A bitmap that is re-used in createScreenshot as scratch space
     private static Bitmap sThumbnailBitmap;
 
@@ -1409,7 +1416,12 @@ public class Controller
                         .setOnMenuItemClickListener(new OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
-                        openTab(extra, mTabControl.getCurrentTab(), true, true);
+                        if (isImageViewableUri(Uri.parse(extra))) {
+                            openTab(extra, mTabControl.getCurrentTab(), true, true);
+                        } else {
+                            Log.e(LOGTAG, "Refusing to view image with invalid URI, \"" +
+                                    extra + "\"");
+                        }
                         return false;
                     }
                 });
@@ -1427,6 +1439,16 @@ public class Controller
         }
         //update the ui
         mUi.onContextMenuCreated(menu);
+    }
+
+    private static boolean isImageViewableUri(Uri uri) {
+        String scheme = uri.getScheme();
+        for (String allowed : IMAGE_VIEWABLE_SCHEMES) {
+            if (allowed.equals(scheme)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
