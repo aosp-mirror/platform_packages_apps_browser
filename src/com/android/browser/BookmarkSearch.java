@@ -32,6 +32,10 @@ public class BookmarkSearch extends Activity {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
         if (intent != null) {
+            // Create a new instance of intent to avoid modifying the
+            // ActivityThread.ActivityClientRecord#intent directly.
+            // Modifying directly may be a potential risk when relaunching this activity.
+            intent = new Intent(intent);
             String action = intent.getAction();
             if (Intent.ACTION_VIEW.equals(action)) {
                 intent.setClass(this, BrowserActivity.class);
