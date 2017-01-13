@@ -55,7 +55,7 @@
     <string name="stop" msgid="5687251076030630074">"Zastaviť"</string>
     <string name="reload" msgid="8585220783228408062">"Obnoviť"</string>
     <string name="back" msgid="8414603107175713668">"Späť"</string>
-    <string name="forward" msgid="4288210890526641577">"Poslať ďalej"</string>
+    <string name="forward" msgid="4288210890526641577">"Dopredu"</string>
     <string name="save" msgid="5922311934992468496">"OK"</string>
     <string name="do_not_save" msgid="6777633870113477714">"Zrušiť"</string>
     <string name="location" msgid="3411848697912600125">"Adresa"</string>
@@ -394,7 +394,7 @@
     <string name="remove_snapshot" msgid="1624447424544976849">"Odstrániť uloženú stránku"</string>
     <string name="snapshot_go_live" msgid="1209542802541168497">"Prejsť online"</string>
     <string name="accessibility_button_back" msgid="6194680634245279407">"Späť"</string>
-    <string name="accessibility_button_forward" msgid="1236827218480658168">"Ďalej"</string>
+    <string name="accessibility_button_forward" msgid="1236827218480658168">"Dopredu"</string>
     <string name="accessibility_button_refresh" msgid="1023441396241841313">"Obnoviť stránku"</string>
     <string name="accessibility_button_stop" msgid="6793644120043222148">"Zastavenie načítavania stránky."</string>
     <string name="accessibility_button_addbookmark" msgid="4787844912630006181">"Uložiť stránku ako záložku"</string>
